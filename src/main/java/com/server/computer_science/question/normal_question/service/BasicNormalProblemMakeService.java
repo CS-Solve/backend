@@ -22,6 +22,7 @@ public class BasicNormalProblemMakeService implements NormalProblemMakeService{
     @Transactional
     public ResponseNormalQuestionDto makeNormalQuestion(RequestNormalQuestionDto requestNormalQuestionDto) {
         NormalQuestion normalQuestion = NormalQuestion.makeWithDto(requestNormalQuestionDto);
+        normalQuestionRepository.save(normalQuestion);
         normalQuestionChoiceRepository.saveAll(requestNormalQuestionDto.getNormalQuestionChoices()
                 .stream()
                 .map(nqc -> NormalQuestionChoice.makeWithDto(nqc,normalQuestion))

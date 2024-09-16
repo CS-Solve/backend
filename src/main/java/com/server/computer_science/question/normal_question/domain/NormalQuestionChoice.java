@@ -21,15 +21,18 @@ public class NormalQuestionChoice {
     private boolean answerStatus;
 
     @ManyToOne
+    @JoinColumn(name = "normal_question_id")
     private NormalQuestion normalQuestion;
 
     public static NormalQuestionChoice makeWithDto(RequestNormalQuestionChoiceDto dto,NormalQuestion normalQuestion) {
-        return NormalQuestionChoice.builder()
+        NormalQuestionChoice normalQuestionChoice=  NormalQuestionChoice.builder()
                 .text(dto.getText())
                 .selectedCount(0)
                 .answerStatus(dto.isAnswerStatus())
                 .normalQuestion(normalQuestion)
                 .build();
+        normalQuestion.getNormalQuestionChoices().add(normalQuestionChoice);
+        return normalQuestionChoice;
     }
     @Builder
     public NormalQuestionChoice(String text, int selectedCount, boolean answerStatus, NormalQuestion normalQuestion) {
@@ -37,6 +40,5 @@ public class NormalQuestionChoice {
         this.selectedCount = selectedCount;
         this.answerStatus = answerStatus;
         this.normalQuestion = normalQuestion;
-        normalQuestion.getNormalQuestionChoices().add(this);
     }
 }

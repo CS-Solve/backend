@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,7 @@ public class NormalQuestion {
     private ProblemCategory problemCategory;
     private ProblemLevel problemLevel;
 
-    @OneToMany(mappedBy = "normalEvent",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "normalQuestion",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NormalQuestionChoice> normalQuestionChoices;
 
     public static NormalQuestion makeWithDto(RequestNormalQuestionDto dto){
@@ -39,5 +40,6 @@ public class NormalQuestion {
         this.question = question;
         this.problemCategory = problemCategory;
         this.problemLevel = problemLevel;
+        this.normalQuestionChoices = new ArrayList<>();
     }
 }
