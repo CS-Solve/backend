@@ -9,13 +9,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class NormalProblemMakeController {
     private final NormalProblemMakeService normalProblemMakeService;
 
     @PostMapping(value = "/question/normal")
-    public ResponseNormalQuestionDto makeNormalQuestion(@RequestBody RequestNormalQuestionDto requestNormalQuestionDto){
+    public List<ResponseNormalQuestionDto> makeNormalQuestion(@RequestBody List<RequestNormalQuestionDto> requestNormalQuestionDto){
         return normalProblemMakeService.makeNormalQuestion(requestNormalQuestionDto);
     }
 

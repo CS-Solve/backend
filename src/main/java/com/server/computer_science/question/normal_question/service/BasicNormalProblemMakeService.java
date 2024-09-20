@@ -20,7 +20,14 @@ public class BasicNormalProblemMakeService implements NormalProblemMakeService{
     private final NormalQuestionChoiceRepository normalQuestionChoiceRepository;
     @Override
     @Transactional
-    public ResponseNormalQuestionDto makeNormalQuestion(RequestNormalQuestionDto requestNormalQuestionDto) {
+    public List<ResponseNormalQuestionDto> makeNormalQuestion(List<RequestNormalQuestionDto> requestNormalQuestionDtos) {
+        return requestNormalQuestionDtos
+                .stream()
+                .map(this::makeNormalQuiz)
+                .collect(Collectors.toList());
+    }
+
+    private ResponseNormalQuestionDto makeNormalQuiz(RequestNormalQuestionDto requestNormalQuestionDto) {
         NormalQuestion normalQuestion = NormalQuestion.makeWithDto(requestNormalQuestionDto);
         normalQuestionRepository.save(normalQuestion);
         normalQuestionChoiceRepository.saveAll(requestNormalQuestionDto.getNormalQuestionChoices()
