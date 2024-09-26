@@ -1,6 +1,6 @@
 package com.server.computer_science.question.common;
 
-public enum ProblemLevel {
+public enum QuestionLevel {
 
     LOW,MEDIUM,HIGH
 }

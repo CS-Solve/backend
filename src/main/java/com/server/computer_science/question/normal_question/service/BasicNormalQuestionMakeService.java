@@ -2,7 +2,7 @@ package com.server.computer_science.question.normal_question.service;
 
 import com.server.computer_science.question.normal_question.domain.NormalQuestion;
 import com.server.computer_science.question.normal_question.domain.NormalQuestionChoice;
-import com.server.computer_science.question.normal_question.dto.request.RequestNormalQuestionDto;
+import com.server.computer_science.question.normal_question.dto.request.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.repository.NormalQuestionChoiceRepository;
 import com.server.computer_science.question.normal_question.repository.NormalQuestionRepository;
@@ -15,19 +15,19 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class BasicNormalProblemMakeService implements NormalProblemMakeService{
+public class BasicNormalQuestionMakeService implements NormalQuestionMakeService {
     private final NormalQuestionRepository normalQuestionRepository;
     private final NormalQuestionChoiceRepository normalQuestionChoiceRepository;
     @Override
     @Transactional
-    public List<ResponseNormalQuestionDto> makeNormalQuestion(List<RequestNormalQuestionDto> requestNormalQuestionDtos) {
+    public List<ResponseNormalQuestionDto> makeNormalQuestion(List<RequestMakeNormalQuestionDto> requestNormalQuestionDtos) {
         return requestNormalQuestionDtos
                 .stream()
                 .map(this::makeNormalQuiz)
                 .collect(Collectors.toList());
     }
 
-    private ResponseNormalQuestionDto makeNormalQuiz(RequestNormalQuestionDto requestNormalQuestionDto) {
+    private ResponseNormalQuestionDto makeNormalQuiz(RequestMakeNormalQuestionDto requestNormalQuestionDto) {
         NormalQuestion normalQuestion = NormalQuestion.makeWithDto(requestNormalQuestionDto);
         normalQuestionRepository.save(normalQuestion);
         normalQuestionChoiceRepository.saveAll(requestNormalQuestionDto.getNormalQuestionChoices()

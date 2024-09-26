@@ -1,18 +1,16 @@
 package com.server.computer_science.question.normal_question.domain;
 
 
-import com.server.computer_science.question.common.ProblemCategory;
-import com.server.computer_science.question.common.ProblemLevel;
-import com.server.computer_science.question.normal_question.dto.request.RequestNormalQuestionDto;
+import com.server.computer_science.question.common.QuestionCategory;
+import com.server.computer_science.question.common.QuestionLevel;
+import com.server.computer_science.question.normal_question.dto.request.RequestMakeNormalQuestionDto;
 import lombok.Builder;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -21,25 +19,29 @@ public class NormalQuestion {
     @Id @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
     private String question;
-    private ProblemCategory problemCategory;
-    private ProblemLevel problemLevel;
+    private QuestionCategory questionCategory;
+    private QuestionLevel questionLevel;
 
     @OneToMany(mappedBy = "normalQuestion",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NormalQuestionChoice> normalQuestionChoices;
 
-    public static NormalQuestion makeWithDto(RequestNormalQuestionDto dto){
+    public static NormalQuestion makeWithDto(RequestMakeNormalQuestionDto dto){
         return NormalQuestion.builder()
-                .problemCategory(dto.getProblemCategory())
+                .questionCategory(dto.getQuestionCategory())
                 .question(dto.getQuestion())
-                .problemLevel(dto.getProblemLevel())
+                .questionLevel(dto.getQuestionLevel())
                 .build();
     }
 
     @Builder
-    public NormalQuestion(String question, ProblemCategory problemCategory, ProblemLevel problemLevel) {
+    public NormalQuestion(String question, QuestionCategory questionCategory, QuestionLevel questionLevel) {
         this.question = question;
-        this.problemCategory = problemCategory;
-        this.problemLevel = problemLevel;
+        this.questionCategory = questionCategory;
+        this.questionLevel = questionLevel;
         this.normalQuestionChoices = new ArrayList<>();
+    }
+
+    public boolean isFit(QuestionCategory questionCategory, QuestionLevel questionLevel){
+        return this.questionCategory.equals(questionCategory) && this.questionLevel.equals(questionLevel);
     }
 }
