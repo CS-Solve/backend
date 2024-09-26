@@ -9,12 +9,14 @@ import com.server.computer_science.question.normal_question.dto.response.Respons
 import com.server.computer_science.question.normal_question.repository.NormalQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BasicNormalQuestionGetService implements NormalQuestionGetService {
     private final NormalQuestionRepository normalQuestionRepository;
 
