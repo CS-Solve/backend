@@ -13,10 +13,7 @@ import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,7 +57,7 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
     }
 
     private Map<Pair<QuestionCategory,QuestionLevel>,Integer> initateCountMap() {
-        Map<Pair<QuestionCategory,QuestionLevel>,Integer> counts = new HashMap<>();
+        Map<Pair<QuestionCategory,QuestionLevel>,Integer> counts = new LinkedHashMap<>();
         for(QuestionCategory questionCategory : QuestionCategory.values()){
             for(QuestionLevel questionLevel : QuestionLevel.values()){
                 counts.put(Pair.of(questionCategory,questionLevel),0);
