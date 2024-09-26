@@ -1,8 +1,7 @@
 package com.server.computer_science.question.normal_question.domain;
 
 
-import com.server.computer_science.question.normal_question.dto.request.RequestNormalQuestionChoiceDto;
-import com.server.computer_science.question.normal_question.dto.request.RequestNormalQuestionDto;
+import com.server.computer_science.question.normal_question.dto.request.RequestMakeNormalQuestionChoiceDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +23,7 @@ public class NormalQuestionChoice {
     @JoinColumn(name = "normal_question_id")
     private NormalQuestion normalQuestion;
 
-    public static NormalQuestionChoice makeWithDto(RequestNormalQuestionChoiceDto dto,NormalQuestion normalQuestion) {
+    public static NormalQuestionChoice makeWithDto(RequestMakeNormalQuestionChoiceDto dto, NormalQuestion normalQuestion) {
         NormalQuestionChoice normalQuestionChoice=  NormalQuestionChoice.builder()
                 .text(dto.getText())
                 .selectedCount(0)

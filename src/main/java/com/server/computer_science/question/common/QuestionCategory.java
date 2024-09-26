@@ -1,6 +1,6 @@
 package com.server.computer_science.question.common;
 
-public enum ProblemCategory {
+public enum QuestionCategory {
     DATABASE,
     NETWORK,
     OPERATING_SYSTEM,

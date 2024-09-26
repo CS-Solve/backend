@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Getter
-public class RequestNormalQuestionChoiceDto {
+public class RequestMakeNormalQuestionChoiceDto {
     private String text;
     private boolean answerStatus;
 }
