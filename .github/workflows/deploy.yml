@@ -54,3 +54,32 @@ jobs:
       run: |
         chmod +x ./gradlew
         ./gradlew clean build 
+
+      # 도커로 빌드한다.
+    - name: Docker build
+      run: |
+        cd /home/runner/work/backend/backend
+        docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+        docker build --no-cache --platform linux/amd64/v8 -t app .
+
+        docker tag app ${{secrets.DOCKER_USERNAME}}/cs-api:latest
+        docker push ${{secrets.DOCKER_USERNAME}}/cs-api:latest
+
+    - name: deploy in cloud
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{secrets.USERNAME}}
+        password: ${{secrets.KEY}}
+        script: |
+          docker pull ${{ secrets.DOCKER_USERNAME }}/cs-api:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/cs-api:latest cs-api:latest
+          docker stop $(docker ps -a -q)
+
+          docker run -i -d  -p 8080:8080 cs-api:latest
+        
+
+          docker rm $(docker ps --filter 'status=exited' -a -q)
+          # 실행 중이지 않으 모든 컨테인 삭제
+          docker image prune -a -f
+          # 사용하지않은 모든 이미지 삭제
