@@ -3,6 +3,7 @@ package com.server.computer_science.question.normal_question.controller;
 import com.server.computer_science.question.common.QuestionCategory;
 import com.server.computer_science.question.common.QuestionLevel;
 import com.server.computer_science.question.normal_question.dto.request.RequestGetNormalQuestionsDto;
+import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionClassDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.service.NormalQuestionGetService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -21,16 +22,6 @@ public class NormalProblemGetController {
     private final NormalQuestionGetService normalQuestionGetService;
 
     @GetMapping(value = "/question/normal")
-//    @ApiImplicitParams(
-//            value = {
-//                    @ApiImplicitParam(
-//                            name ="categories", allowMultiple = true
-//                    ),
-//                    @ApiImplicitParam(
-//                            name ="levels", allowMultiple = true
-//                    )
-//            }
-//    )
     public List<ResponseNormalQuestionDto> getNormalQuestions(
             @Parameter(name = "categories", in = ParameterIn.QUERY,
                     description = "중복 가능",
@@ -49,6 +40,10 @@ public class NormalProblemGetController {
             @RequestParam(required = false) List<QuestionLevel> levels
     ){
         return normalQuestionGetService.getNormalQuestions(RequestGetNormalQuestionsDto.of(categories, levels));
+    }
 
+    @GetMapping(value ="/question/class")
+    public List<ResponseNormalQuestionClassDto> getNormalQuestionClasses(){
+        return normalQuestionGetService.getNormalQuestionByClass();
     }
 }
