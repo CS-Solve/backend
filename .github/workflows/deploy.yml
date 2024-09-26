@@ -70,7 +70,7 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{secrets.USERNAME}}
-        password: ${{secrets.KEY}}
+        key: ${{secrets.KEY}}
         script: |
           docker pull ${{ secrets.DOCKER_USERNAME }}/cs-api:latest
           docker tag ${{ secrets.DOCKER_USERNAME }}/cs-api:latest cs-api:latest
