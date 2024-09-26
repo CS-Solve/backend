@@ -22,46 +22,65 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set up JDK 17
+    - name: Set up JDK 11
       uses: actions/setup-java@v4
       with:
-        java-version: '17'
+        java-version: '11'
         distribution: 'temurin'
 
-    # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
-    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
-
-    - name: Build with Gradle Wrapper
-      run: ./gradlew build
-
-    # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
-    # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
-    #
-    # - name: Setup Gradle
-    #   uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
-    #   with:
-    #     gradle-version: '8.9'
-    #
-    # - name: Build with Gradle 8.9
-    #   run: gradle build
-
-  dependency-submission:
-
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
+    - name: 💾 Cache Gradle & Spring
+      uses: actions/cache@v3
       with:
-        java-version: '17'
-        distribution: 'temurin'
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
 
-    # Generates and submits a dependency graph, enabling Dependabot Alerts for all project dependencies.
-    # See: https://github.com/gradle/actions/blob/main/dependency-submission/README.md
-    - name: Generate and submit dependency graph
-      uses: gradle/actions/dependency-submission@af1da67850ed9a4cedd57bfd976089dd991e2582 # v4.0.0
+    - name: Set YML
+      run: |
+        ls -l
+        mkdir -p src/main/resources
+        echo "${{ secrets.APPLICATION_DEPLOY}}" > src/main/resources/application-deploy.yml
+        echo "${{ secrets.APPLICATION_LOCAL }}" > src/main/resources/application-local.yml
+        
+        # Gradle wrapper 파일 실행 권한주기
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+        # 애플리케이션을 Build 한다.
+    - name: 🔧 Build Spring server
+      run: |
+        chmod +x ./gradlew
+        ./gradlew clean build 
+
+      # 도커로 빌드한다.
+    - name: Docker build
+      run: |
+        cd /home/runner/work/backend/backend
+        docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+        docker build --no-cache --platform linux/amd64/v8 -t app .
+
+        docker tag app ${{secrets.DOCKER_USERNAME}}/cs-api:latest
+        docker push ${{secrets.DOCKER_USERNAME}}/cs-api:latest
+
+    - name: deploy in cloud
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{secrets.USERNAME}}
+        key: ${{secrets.KEY}}
+        port: ${{secrets.PORT}}
+        script: |
+          docker pull ${{ secrets.DOCKER_USERNAME }}/cs-api:latest
+          docker tag ${{ secrets.DOCKER_USERNAME }}/cs-api:latest cs-api:latest
+          docker stop $(docker ps -a -q)
+
+          docker run -i -d  -p 8080:8080 cs-api:latest
+        
+
+          docker rm $(docker ps --filter 'status=exited' -a -q)
+          # 실행 중이지 않으 모든 컨테인 삭제
+          docker image prune -a -f
+          # 사용하지않은 모든 이미지 삭제
