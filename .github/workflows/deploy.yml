@@ -42,8 +42,8 @@ jobs:
       run: |
         ls -l
         mkdir -p src/main/resources
-        echo "${{ secrets.APPLICATION_DEPLOY}}" | base64 --decode > src/main/resources/application-deploy.yml
-        echo "${{ secrets.APPLICATION_LOCAL }}" | base64 --decode > src/main/resources/application-local.yml
+        echo "${{ secrets.APPLICATION_DEPLOY}}" > src/main/resources/application-deploy.yml
+        echo "${{ secrets.APPLICATION_LOCAL }}" > src/main/resources/application-local.yml
         
         # Gradle wrapper 파일 실행 권한주기
     - name: Grant execute permission for gradlew
@@ -53,4 +53,4 @@ jobs:
     - name: 🔧 Build Spring server
       run: |
         chmod +x ./gradlew
-        ./gradlew clean order:build 
+        ./gradlew clean build 
