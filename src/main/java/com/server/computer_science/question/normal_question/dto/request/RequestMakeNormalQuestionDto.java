@@ -19,4 +19,5 @@ public class RequestMakeNormalQuestionDto {
     private QuestionCategory questionCategory;
     private QuestionLevel questionLevel;
     private List<RequestMakeNormalQuestionChoiceDto> normalQuestionChoices;
+    private String description;
 }

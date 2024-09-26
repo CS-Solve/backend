@@ -21,6 +21,7 @@ public class NormalQuestion {
     private String question;
     private QuestionCategory questionCategory;
     private QuestionLevel questionLevel;
+    private String description;
 
     @OneToMany(mappedBy = "normalQuestion",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NormalQuestionChoice> normalQuestionChoices;
@@ -30,15 +31,17 @@ public class NormalQuestion {
                 .questionCategory(dto.getQuestionCategory())
                 .question(dto.getQuestion())
                 .questionLevel(dto.getQuestionLevel())
+                .description(dto.getDescription())
                 .build();
     }
 
     @Builder
-    public NormalQuestion(String question, QuestionCategory questionCategory, QuestionLevel questionLevel) {
+    public NormalQuestion(String question, QuestionCategory questionCategory, QuestionLevel questionLevel,String description) {
         this.question = question;
         this.questionCategory = questionCategory;
         this.questionLevel = questionLevel;
         this.normalQuestionChoices = new ArrayList<>();
+        this.description = description;
     }
 
     public boolean isFit(QuestionCategory questionCategory, QuestionLevel questionLevel){
