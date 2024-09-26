@@ -18,13 +18,24 @@ import java.util.stream.Collectors;
 public class BasicNormalQuestionMakeService implements NormalQuestionMakeService {
     private final NormalQuestionRepository normalQuestionRepository;
     private final NormalQuestionChoiceRepository normalQuestionChoiceRepository;
+    private final DuplicateQuestionDetector duplicateQuestionDetector;
     @Override
     @Transactional
     public List<ResponseNormalQuestionDto> makeNormalQuestion(List<RequestMakeNormalQuestionDto> requestNormalQuestionDtos) {
+        List<NormalQuestion> normalQuestions = normalQuestionRepository.findAll();
         return requestNormalQuestionDtos
                 .stream()
+                .filter(normalQuestionDto -> checkAllQuestions(normalQuestionDto, normalQuestions))
                 .map(this::makeNormalQuiz)
                 .collect(Collectors.toList());
+    }
+
+    private boolean checkAllQuestions(RequestMakeNormalQuestionDto normalQuestionDto, List<NormalQuestion> normalQuestions) {
+        for(NormalQuestion normalQuestion: normalQuestions){
+            if(duplicateQuestionDetector.isQuestionDuplicate(normalQuestion.getQuestion(), normalQuestionDto.getQuestion()))
+                return false;
+        }
+        return true;
     }
 
     private ResponseNormalQuestionDto makeNormalQuiz(RequestMakeNormalQuestionDto requestNormalQuestionDto) {
