@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" th:href="@{/css/globals.css}" />
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
     <link rel="stylesheet" th:href="@{/css/normal-question/styleguide.css}" />
     <link rel="stylesheet" th:href="@{/css/normal-question/normal-question-style.css}" />
     <script th:src="@{/js/solveQuestion.js}"></script>
@@ -17,7 +17,7 @@
         <div class="left-box">
             <!-- 질문 리스트 반복 렌더링 -->
             <div class="question-box" th:each="question, iterStat : ${questions}">
-                <div class="each-question">
+                <div class="each-question" th:data-description="${question.description}">
                     <div class="question-meta-data">
                         <div class="quiz-number">
                             <div class="text-wrapper-2" th:text="${iterStat.index + 1} + '번'"></div>
@@ -41,7 +41,7 @@
             </div>
         </div>
 
-        <!-- 오른쪽 박스가 big-box의 자식으로 들어가야 합니다. -->
+        <!-- 오른쪽 박스 -->
         <div class="right-box">
             <div class="answer-box">
                 <!-- 채점 버튼 -->
@@ -55,7 +55,11 @@
             <!-- 해설 보기 -->
             <div class="description-box">
                 <div class="frame-3">
-                    <div class="text-wrapper-10">해설 보기 ▼</div>
+                    <div class="text-wrapper-10" id="toggleDescription" style="display: none;">해설 보기 ▼</div>
+                </div>
+                <!-- 해설 내용 -->
+                <div class="description-content" id="descriptionContent" style="display: none;">
+                    <p id="descriptionText">해설 내용이 여기에 표시됩니다.</p>
                 </div>
             </div>
         </div>

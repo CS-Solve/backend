@@ -1,8 +1,17 @@
 document.addEventListener('DOMContentLoaded', function() {
     let selectedChoice = null; // 선택된 선택지 저장 변수
+    const choices = document.querySelectorAll('.choice-item'); // 모든 선택지 가져오기
+    const checkAnswerButton = document.getElementById('checkButton'); // 채점 버튼
+    const answerBox = document.getElementById('answerBox'); // 정답/오답 표시 박스
+    const answerText = document.getElementById('answerText'); // 정답/오답 텍스트
+    const descriptionBox = document.querySelector('.description-box'); // 해설 보기 버튼 박스
+    const toggleButton = document.getElementById("toggleDescription"); // 해설 보기 버튼
+    const descriptionContent = document.getElementById("descriptionContent"); // 해설 내용 표시 박스
+    const descriptionText = document.getElementById("descriptionText"); // 해설 텍스트
 
-    // 모든 선택지 가져오기
-    const choices = document.querySelectorAll('.choice-item');
+    // 기본적으로 해설 버튼을 숨겨둠
+    descriptionBox.style.display = "none";
+    toggleButton.style.display = "none";
 
     // 선택지 클릭 시 선택 처리
     choices.forEach(choice => {
@@ -19,11 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // 채점 버튼 클릭 시 마지막 선택지의 정답 여부 확인
-    const checkAnswerButton = document.getElementById('checkButton');
     checkAnswerButton.addEventListener('click', function() {
-        const answerBox = document.getElementById('answerBox');
-        const answerText = document.getElementById('answerText');
-
         if (selectedChoice) {
             const isCorrect = selectedChoice.getAttribute('data-answer-status') === 'true'; // 정답 여부 확인
 
@@ -39,12 +44,31 @@ document.addEventListener('DOMContentLoaded', function() {
                 answerBox.classList.remove('correct-answer');
                 answerText.textContent = '오답입니다!';
             }
+
+            // 정답 확인 후 해설 보기 버튼 보이기
+            toggleButton.style.display = "block";
+            descriptionBox.style.display = "block"; // 해설 보기 버튼 보이기
+
+            // 선택된 질문의 설명을 가져와서 descriptionBox에 표시
+            const description = selectedChoice.closest('.each-question').getAttribute('data-description');
+            descriptionText.textContent = description; // descriptionText에 해설 표시
         } else {
-            // 선택지가 선택되지 않았을 경우 경고 표시 (선택지가 없으면 처리)
+            // 선택지가 선택되지 않았을 경우 경고 표시
             answerBox.style.display = 'flex';
             answerText.textContent = '선택지를 먼저 선택하세요!';
             answerBox.classList.add('wrong-answer');
             answerBox.classList.remove('correct-answer');
+        }
+    });
+
+    // 해설 보기 버튼 클릭 시 해설 내용을 토글로 보이거나 숨기기
+    toggleButton.addEventListener("click", function() {
+        if (descriptionContent.style.display === "none") {
+            descriptionContent.style.display = "block"; // 해설을 보이게 함
+            toggleButton.textContent = "해설 숨기기 ▲"; // 버튼 텍스트 변경
+        } else {
+            descriptionContent.style.display = "none"; // 해설을 숨김
+            toggleButton.textContent = "해설 보기 ▼"; // 버튼 텍스트 변경
         }
     });
 });

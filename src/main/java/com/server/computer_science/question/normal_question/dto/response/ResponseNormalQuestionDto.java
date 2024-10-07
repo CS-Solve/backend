@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @Getter
 public class ResponseNormalQuestionDto {
     private String question;
+    private String description;
     private QuestionCategory questionCategory;
     private QuestionLevel questionLevel;
     private List<ResponseNormalQuestionChoiceDto> normalQuestionChoices;
@@ -31,13 +32,15 @@ public class ResponseNormalQuestionDto {
                 )
                 .questionCategory(question.getQuestionCategory())
                 .questionLevel(question.getQuestionLevel())
+                .description(question.getDescription())
                 .build();
     }
     @Builder
-    public ResponseNormalQuestionDto(String question, QuestionCategory questionCategory, QuestionLevel questionLevel, List<ResponseNormalQuestionChoiceDto> normalQuestionChoices) {
+    public ResponseNormalQuestionDto(String question, QuestionCategory questionCategory, QuestionLevel questionLevel, List<ResponseNormalQuestionChoiceDto> normalQuestionChoices, String description) {
         this.question = question;
         this.questionCategory = questionCategory;
         this.questionLevel = questionLevel;
         this.normalQuestionChoices = normalQuestionChoices;
+        this.description = description;
     }
 }
