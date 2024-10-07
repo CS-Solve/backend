@@ -10,15 +10,14 @@
 <body>
 <div class="screen">
     <div class="div">
-
-        <form th:action="@{/start}" method="post">
+        <form th:action="@{/question/normal}" method="get">
             <div class="view">
                 <div class="part">
                     <div class="text-wrapper">분야</div>
                     <div class="view-2">
                         <div class="div-2" th:each="category, iterStat : ${categories}">
                             <div class="view-3">
-                                <input type="checkbox" th:id="${'category-' + iterStat.index}" th:value="${category}" name="selectedCategories" class="checkbox" />
+                                <input type="checkbox" th:id="${'category-' + iterStat.index}" th:value="${category}" name="categories" class="checkbox" />
                                 <label th:for="${'category-' + iterStat.index}" class="text-wrapper-2" th:text="${category}"></label>
                             </div>
                         </div>
@@ -29,7 +28,7 @@
                     <div class="text-wrapper">난이도</div>
                     <div class="view-5">
                         <div class="view-6" th:each="difficulty : ${levels}">
-                            <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="selectedDifficulties" class="checkbox" />
+                            <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="levels" class="checkbox" />
                             <label th:for="${'difficulty-' + difficultyStat.index}" class="text-wrapper-2" th:text="${difficulty}"></label>
                         </div>
                     </div>
