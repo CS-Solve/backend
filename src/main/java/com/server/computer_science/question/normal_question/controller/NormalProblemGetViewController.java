@@ -3,6 +3,7 @@ package com.server.computer_science.question.normal_question.controller;
 import com.server.computer_science.question.common.QuestionCategory;
 import com.server.computer_science.question.common.QuestionLevel;
 import com.server.computer_science.question.normal_question.dto.request.RequestGetNormalQuestionsDto;
+import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.service.NormalQuestionGetService;
 import com.server.computer_science.question.normal_question.service.QuestionSelectorService;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +36,8 @@ public class NormalProblemGetViewController {
                                      @RequestParam(required = false) List<String> categories,
                                      Model model) {
         model.addAttribute("questions", normalQuestionGetService.getNormalQuestions(RequestGetNormalQuestionsDto.fromString(categories, levels)));
-
+        List<ResponseNormalQuestionDto> normalQuestions = normalQuestionGetService.getNormalQuestions(RequestGetNormalQuestionsDto.fromString(categories, levels));
+        
         return "normal-question"; // 문제를 보여줄 페이지의 이름
     }
 

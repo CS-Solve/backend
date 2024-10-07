@@ -42,6 +42,17 @@
     overflow-y: scroll;
 }
 
+/* 질문 리스트의 각 박스 크기 균일화 (너비 고정, 높이 자동 증가) */
+.question-wrapper {
+    display: block; /* 박스가 내용에 따라 자유롭게 확장 */
+    width: 100%; /* 너비 고정 */
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-bottom: 20px; /* 질문 사이 간격 */
+    min-height: 200px; /* 최소 높이 설정 */
+}
 .quiz .DB-wrapper {
     display: flex;
     height: 50px;
@@ -93,9 +104,9 @@
     align-items: flex-start;
     gap: 18px;
     position: relative;
-    align-self: stretch;
-    width: 100%;
-    flex: 0 0 auto;
+    width: 100%; /* 너비는 고정 */
+    flex-grow: 1; /* 높이를 유동적으로 확장할 수 있도록 설정 */
+    flex-shrink: 0; /* 자식 요소가 너무 작아지는 것을 방지 */
 }
 
 .quiz .div-2 {
@@ -109,7 +120,7 @@
 .quiz .quiz-number {
     display: flex;
     width: 61px;
-    height: 38px;
+    height: 24px;
     align-items: center;
     justify-content: center;
     gap: 10px;
@@ -122,7 +133,7 @@
 .quiz .text-wrapper-2 {
     position: relative;
     width: fit-content;
-    margin-top: -9px;
+    margin-top: -5px;
     margin-bottom: -7px;
     font-family: "NanumSquare Neo OTF-dEb", Helvetica;
     font-weight: 400;
@@ -199,19 +210,19 @@
     color: #166aff;
 }
 
-.quiz .view-wrapper {
+.view-wrapper {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 18px;
-    padding: 20px 22px;
-    position: relative;
-    align-self: stretch;
     width: 100%;
-    flex: 0 0 auto;
     background-color: #ffffff;
+    box-sizing: border-box;
     border-radius: 23px;
+    padding: 20px 22px;
     box-shadow: var(--drop-shadow-300);
+    position: relative;
+    height: auto; /* 높이를 자동으로 조정 */
+    flex-grow: 1; /* 자식 요소에 맞춰 부모 요소가 확장되도록 설정 */
 }
 
 .quiz .div-wrapper-2 {
