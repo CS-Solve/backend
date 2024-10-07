@@ -4,6 +4,7 @@ import com.server.computer_science.question.normal_question.domain.NormalQuestio
 import com.server.computer_science.question.normal_question.domain.NormalQuestionChoice;
 import com.server.computer_science.question.normal_question.dto.request.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.normal_question.exception.DuplicateQuestionException;
 import com.server.computer_science.question.normal_question.repository.NormalQuestionChoiceRepository;
 import com.server.computer_science.question.normal_question.repository.NormalQuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,22 +16,31 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BasicNormalQuestionMakeService implements NormalQuestionMakeService {
     private final NormalQuestionRepository normalQuestionRepository;
     private final NormalQuestionChoiceRepository normalQuestionChoiceRepository;
     private final DuplicateQuestionDetector duplicateQuestionDetector;
     @Override
-    @Transactional
-    public List<ResponseNormalQuestionDto> makeNormalQuestion(List<RequestMakeNormalQuestionDto> requestNormalQuestionDtos) {
+    public List<ResponseNormalQuestionDto> makeNormalQuestions(List<RequestMakeNormalQuestionDto> requestNormalQuestionDtos) {
         List<NormalQuestion> normalQuestions = normalQuestionRepository.findAll();
         return requestNormalQuestionDtos
                 .stream()
-                .filter(normalQuestionDto -> checkAllQuestions(normalQuestionDto, normalQuestions))
+                .filter(normalQuestionDto -> checkWithAllQuestionsFromDB(normalQuestionDto, normalQuestions))
                 .map(this::makeNormalQuiz)
                 .collect(Collectors.toList());
     }
 
-    private boolean checkAllQuestions(RequestMakeNormalQuestionDto normalQuestionDto, List<NormalQuestion> normalQuestions) {
+    @Override
+    public ResponseNormalQuestionDto makeNormalQuestion(RequestMakeNormalQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException {
+        List<NormalQuestion> normalQuestions = normalQuestionRepository.findAll();
+        if(checkWithAllQuestionsFromDB(requestNormalQuestionDto, normalQuestions)){
+            throw new DuplicateQuestionException();
+        }
+        return makeNormalQuiz(requestNormalQuestionDto);
+    }
+
+    private boolean checkWithAllQuestionsFromDB(RequestMakeNormalQuestionDto normalQuestionDto, List<NormalQuestion> normalQuestions) {
         for(NormalQuestion normalQuestion: normalQuestions){
             if(duplicateQuestionDetector.isQuestionDuplicate(normalQuestion.getQuestion(), normalQuestionDto.getQuestion()))
                 return false;
