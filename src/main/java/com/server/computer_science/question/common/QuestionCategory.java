@@ -8,5 +8,6 @@ public enum QuestionCategory {
     DATA_STRUCTURE,
     ALGORITHM,
     OOP,
-    DESIGN_PATTERN
+    DESIGN_PATTERN,
+    JAVA
 }
