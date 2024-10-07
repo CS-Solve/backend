@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/globals.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styleguide.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="screen">
+    <div class="div">
+        <form th:action="@{/start}" method="post">
+            <div class="view">
+                <div class="part">
+                    <div class="text-wrapper">분야</div>
+                    <div class="view-2">
+                        <div class="div-2" th:each="category, iterStat : ${categories}">
+                            <div class="view-3">
+                                <input type="checkbox" th:id="${'category-' + iterStat.index}" th:value="${category}" name="selectedCategories" class="checkbox" />
+                                <label th:for="${'category-' + iterStat.index}" class="text-wrapper-2" th:text="${category}"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img class="line" th:src="@{/img/line-4.svg}" />
+                <div class="part-2">
+                    <div class="text-wrapper">난이도</div>
+                    <div class="view-5">
+                        <div class="view-6" th:each="difficulty : ${difficulties}">
+                            <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="selectedDifficulties" class="checkbox" />
+                            <label th:for="${'difficulty-' + difficultyStat.index}" class="text-wrapper-2" th:text="${difficulty}"></label>
+                        </div>
+                    </div>
+                </div>
+                <p class="p">
+                    <span class="span">&lt;문제 선택&gt;<br /></span>
+                    <span class="text-wrapper-3">원하는 분야와 난이도를 선택하세요. (복수 선택 가능)</span>
+                </p>
+            </div>
+            <div class="text-wrapper-4">CS 풀이</div>
+            <div class="div-wrapper">
+                <button type="submit" class="text-wrapper-5">시작하기</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,234 @@
+.screen {
+  background-color: #eeeeee;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.screen .div {
+  background-color: #eeeeee;
+  width: 1920px;
+  height: 1080px;
+  position: relative;
+}
+
+.screen .view {
+  position: absolute;
+  width: 891px;
+  height: 359px;
+  top: 360px;
+  left: 514px;
+  background-color: #ffffff;
+  border-radius: 49px;
+  overflow: hidden;
+  box-shadow: var(--m3-elevation-dark-3);
+}
+
+.screen .part {
+  display: flex;
+  width: 326px;
+  gap: 16px;
+  top: 131px;
+  left: 62px;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+}
+
+.screen .text-wrapper {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "NanumSquare Neo OTF-cBd", Helvetica;
+  color: #404040;
+  font-size: 25px;
+  line-height: 37.5px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+.screen .view-2 {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.screen .div-2 {
+  display: flex;
+  flex-direction: column;
+  width: 147px;
+  align-items: flex-start;
+  gap: 8px;
+  position: relative;
+}
+
+.screen .view-3 {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.screen .checkbox {
+  position: relative;
+  width: 35px;
+  height: 35px;
+}
+
+.screen .text-wrapper-2 {
+  position: relative;
+  width: fit-content;
+  font-family: "NanumSquare Neo OTF-cBd", Helvetica;
+  color: #404040;
+  font-size: 20px;
+  line-height: 30px;
+  white-space: nowrap;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+.screen .box {
+  position: relative;
+  width: 23px;
+  height: 23px;
+  top: 6px;
+  left: 6px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #acacac;
+}
+
+.screen .view-4 {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.screen .line {
+  position: absolute;
+  width: 2px;
+  height: 236px;
+  top: 123px;
+  left: 446px;
+}
+
+.screen .part-2 {
+  display: inline-flex;
+  gap: 38px;
+  top: 135px;
+  left: 545px;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+}
+
+.screen .view-5 {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
+  position: relative;
+  align-self: stretch;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+.screen .view-6 {
+  display: flex;
+  width: 71px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+}
+
+.screen .view-7 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.screen .p {
+  position: absolute;
+  top: 30px;
+  left: 222px;
+  font-family: "NanumSquare Neo OTF-Regular", Helvetica;
+  color: #000000;
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+.screen .span {
+  font-family: "NanumSquare Neo OTF-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: 36px;
+}
+
+.screen .text-wrapper-3 {
+  font-size: 20px;
+  line-height: 30px;
+}
+
+.screen .text-wrapper-4 {
+  position: absolute;
+  top: 189px;
+  left: 774px;
+  font-family: "Markazi Text-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 70px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 105px;
+  white-space: nowrap;
+}
+
+.screen .div-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 27px;
+  position: absolute;
+  top: 810px;
+  left: 885px;
+  background-color: #ffac70;
+  border-radius: 6px;
+}
+
+.screen .text-wrapper-5 {
+  position: relative;
+  width: fit-content;
+  margin-top: -1px;
+  font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+  color: #000000;
+  font-size: 25px;
+  line-height: 37.5px;
+  white-space: nowrap;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+  border: none;
+  background-color: transparent;
+}
