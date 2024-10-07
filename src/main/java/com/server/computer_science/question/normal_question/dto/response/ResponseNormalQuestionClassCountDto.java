@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Getter
-public class ResponseNormalQuestionClassDto {
+public class ResponseNormalQuestionClassCountDto {
     private QuestionCategory questionCategory;
     private QuestionLevel questionLevel;
     private int count;
-    public static ResponseNormalQuestionClassDto of(QuestionCategory questionCategory,QuestionLevel questionLevel,int count){
-        return ResponseNormalQuestionClassDto.builder()
+    public static ResponseNormalQuestionClassCountDto of(QuestionCategory questionCategory, QuestionLevel questionLevel, int count){
+        return ResponseNormalQuestionClassCountDto.builder()
                 .questionLevel(questionLevel)
                 .questionCategory(questionCategory)
                 .count(count)
@@ -22,7 +22,7 @@ public class ResponseNormalQuestionClassDto {
     }
 
     @Builder
-    public ResponseNormalQuestionClassDto(QuestionCategory questionCategory, QuestionLevel questionLevel, int count) {
+    public ResponseNormalQuestionClassCountDto(QuestionCategory questionCategory, QuestionLevel questionLevel, int count) {
         this.questionCategory = questionCategory;
         this.questionLevel = questionLevel;
         this.count = count;
