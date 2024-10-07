@@ -22,8 +22,7 @@ public class BasicNormalQuestionMakeService implements NormalQuestionMakeService
     private final NormalQuestionChoiceRepository normalQuestionChoiceRepository;
     private final DuplicateQuestionDetector duplicateQuestionDetector;
     @Override
-    @Transactional
-    public List<ResponseNormalQuestionDto> makeNormalQuestion(List<RequestMakeNormalQuestionDto> requestNormalQuestionDtos) {
+    public List<ResponseNormalQuestionDto> makeNormalQuestions(List<RequestMakeNormalQuestionDto> requestNormalQuestionDtos) {
         List<NormalQuestion> normalQuestions = normalQuestionRepository.findAll();
         return requestNormalQuestionDtos
                 .stream()
