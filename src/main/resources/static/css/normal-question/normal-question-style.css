@@ -4,13 +4,15 @@
     flex-direction: row;
     justify-content: center;
     width: 100%;
+    height: 80%;
 }
 
-.quiz .div {
+.quiz .big-box {
     background-color: #eeeeee;
     width: 1920px;
     height: 1080px;
     position: relative;
+    border: #404040;
 }
 
 .quiz .text-wrapper {
@@ -27,11 +29,11 @@
     white-space: nowrap;
 }
 
-.quiz .list {
+.quiz .left-box {
     display: flex;
     flex-direction: column;
-    width: 788px;
-    height: 893px;
+    width: 40%;
+    height: 80%;
     align-items: center;
     gap: 28px;
     padding: 0px 10px;
@@ -40,6 +42,30 @@
     left: 172px;
     overflow: hidden;
     overflow-y: scroll;
+}
+.quiz .right-box {
+    display: flex;
+    flex-direction: column;
+    width: 30%; /* 오른쪽 박스의 너비 */
+    height: 80%;
+    gap: 21px;
+    padding: 26px 30px;
+    position: absolute;
+    top: 160px;
+    left: 50%; /* left-box 위치 + 너비 + 간격 */
+    background-color: #e6efff;
+    border-radius: 10px;
+    box-shadow: var(--m3-elevation-dark-3);
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.quiz .right-box .child-element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 100%; /* 자식 요소가 부모 요소의 너비를 넘지 않도록 설정 */
+    max-height: 100%; /* 자식 요소가 부모 요소의 높이를 넘지 않도록 설정 */
+    overflow: auto; /* 넘치는 내용은 스크롤로 표시 */
 }
 
 /* 질문 리스트의 각 박스 크기 균일화 (너비 고정, 높이 자동 증가) */
@@ -228,6 +254,7 @@
     margin-right: 20px; /* right-box와 20px 간격 유지 */
 }
 
+
 .quiz .div-wrapper-2 {
     background-color: #f7777799;
     position: relative;
@@ -384,21 +411,7 @@
     color: #000000;
 }
 
-.quiz .right-box {
-    display: flex;
-    flex-direction: column;
-    width: 768px;
-    height: 892px;
-    align-items: flex-start;
-    gap: 21px;
-    padding: 26px 30px;
-    position: absolute;
-    top: 160px;
-    left: 991px;
-    background-color: #e6efff;
-    border-radius: 10px;
-    box-shadow: var(--m3-elevation-dark-3);
-}
+
 
 .quiz .answer-box {
     display: flex;
