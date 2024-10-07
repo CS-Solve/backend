@@ -8,7 +8,7 @@
     position: relative;
     border: #404040;
     width: 100%;
-    height: 80%;
+    height: 100%;
 }
 
 /*.quiz .big-box {*/
@@ -174,15 +174,15 @@
     white-space: nowrap;
 }
 
-.quiz .div-wrapper {
-    background-color: #ffd85099;
+/* 공통 스타일 */
+.quiz .level-show-box {
     position: relative;
     width: 24px;
     height: 24px;
     border-radius: 12px;
 }
 
-.quiz .text-wrapper-3 {
+.quiz .level-show-text {
     position: absolute;
     width: 24px;
     height: 24px;
