@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("/api")
 @Api(tags ={"단답형 문제 조회"})
 @RestController
 @RequiredArgsConstructor

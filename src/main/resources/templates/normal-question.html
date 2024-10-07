@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" th:href="@{/css/global.css}" />
+    <link rel="stylesheet" th:href="@{/css/normal-question/styleguide.css}" />
+    <link rel="stylesheet" th:href="@{/css/normal-question/normal-question-style.css}" />
+    <script th:src="@{/js/solveQuestion.js}"></script>
+</head>
+<body>
+<div class="quiz">
+    <!-- 상단 제목 -->
+    <div class="text-wrapper">CS Solver</div>
+
+    <!-- 왼쪽 질문 리스트 박스 -->
+    <div class="left-box">
+        <!-- 질문 리스트 반복 렌더링 -->
+        <div class="question-box" th:each="question, iterStat : ${questions}">
+            <div class="each-question" th:data-description="${question.description}">
+                <div class="question-meta-data">
+                    <div class="quiz-number">
+                        <div class="text-wrapper-2" th:text="${iterStat.index + 1} + '번'"></div>
+                    </div>
+                    <div class="level-show-box" id="levelBox" th:data-level="${question.questionLevel.korean}">
+                        <div class="level-show-text" th:text="${question.questionLevel.korean}"></div>
+                    </div>
+                </div>
+                <div class="question-choices">
+                    <p class="p" th:text="${question.question}"></p>
+                    <div class="text-wrapper-6">
+                        <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
+                        <div th:each="choice, choiceStat : ${question.normalQuestionChoices}"
+                             class="choice-item"
+                             th:data-answer-status="${choice.answerStatus}"
+                             th:text="${choiceStat.index + 1} + '. ' + ${choice.text}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오른쪽 박스 -->
+    <div class="right-box">
+        <div class="answer-box">
+            <!-- 채점 버튼 -->
+            <div class="correct-check-box">
+                <button class="check-button" id="checkButton">채점</button>
+            </div>
+            <div class="answer-status-box" id="answerBox" style="display: none;">
+                <div class="answer-status-text" id="answerText"></div>
+            </div>
+        </div>
+        <!-- 해설 보기 -->
+        <div class="description-box">
+            <div class="frame-3">
+                <div class="text-wrapper-10" id="toggleDescription" style="display: none;">해설 보기 ▼</div>
+            </div>
+            <!-- 해설 내용 -->
+            <div class="description-content" id="descriptionContent" style="display: none;">
+                <p id="descriptionText">해설 내용이 여기에 표시됩니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 메인화면 버튼 -->
+    <div class="mainPageFrame">
+        <img class="back-to" src="/img/back-to.svg" />
+        <div class="text-wrapper-8">메인화면</div>
+    </div>
+</div>
+</body>
+</html>
