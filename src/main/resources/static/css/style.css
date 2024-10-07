@@ -24,6 +24,7 @@
   border-radius: 49px;
   overflow: hidden;
   box-shadow: var(--m3-elevation-dark-3);
+  padding-bottom: 60px; /* 하단 여백 더 증가 */
 }
 
 .screen .part {
@@ -162,7 +163,7 @@
 
 .screen .p {
   position: absolute;
-  top: 30px;
+  top: 10px;
   left: 222px;
   font-family: "NanumSquare Neo OTF-Regular", Helvetica;
   color: #000000;
@@ -173,6 +174,17 @@
   letter-spacing: 0;
 }
 
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo-image {
+  width: 100px;
+  height: 130px;
+}
 .screen .span {
   font-family: "NanumSquare Neo OTF-Regular", Helvetica;
   font-weight: 400;
@@ -190,7 +202,7 @@
 .screen .text-wrapper-4 {
   position: absolute;
   top: 189px;
-  left: 774px;
+  left: 700px;
   font-family: "Markazi Text-Bold", Helvetica;
   font-weight: 700;
   color: #000000;
