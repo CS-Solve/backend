@@ -1,0 +1,13 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="200" fill="#f0f0f0"/>
+    <!-- 컴퓨터 모니터 -->
+    <rect x="30" y="30" width="140" height="100" rx="5" fill="#4a90e2"/>
+    <rect x="35" y="35" width="130" height="90" rx="3" fill="#ffffff"/>
+    <!-- 코드 라인 -->
+    <path d="M45 50 h70 M45 65 h110 M45 80 h90 M45 95 h100" stroke="#333" stroke-width="2"/>
+    <!-- 컴퓨터 받침대 -->
+    <path d="M85 130 h30 l10 20 h-50 l10 -20" fill="#4a90e2"/>
+    <!-- 돋보기 (Solver 표현) -->
+    <circle cx="150" cy="140" r="25" fill="none" stroke="#ff6b6b" stroke-width="4"/>
+    <path d="M168 158 l12 12" stroke="#ff6b6b" stroke-width="4" stroke-linecap="round"/>
+</svg>

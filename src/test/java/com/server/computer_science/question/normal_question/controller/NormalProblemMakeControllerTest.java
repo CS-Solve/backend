@@ -103,7 +103,7 @@ class NormalProblemMakeControllerTest {
                         ,resource(
                                 ResourceSnippetParameters.builder()
                                         .tag(tag)
-                                        .description("단답형 문제 생성 - 실패")
+
                                         .build()
                         )
                 ));
