@@ -26,13 +26,13 @@ public class NormalProblemMakeController {
     private final NormalQuestionMakeService normalQuestionMakeService;
 
     @ApiOperation("단답형 문제 리스트로 생성 API")
-    @PostMapping(value = "/question/normal")
+    @PostMapping(value = "/question/normal-multi")
     public ResponseEntity<List<ResponseNormalQuestionDto>> makeNormalQuestion(@RequestBody List<RequestMakeNormalQuestionDto> requestMakeNormalQuestionDtos){
         return ResponseEntity.ok(normalQuestionMakeService.makeNormalQuestion(requestMakeNormalQuestionDtos));
     }
 
     @ApiOperation("단답형 문제 단일 생성 API")
-    @PostMapping(value = "/question/normal")
+    @PostMapping(value = "/question/normal-single")
     public ResponseEntity<ResponseNormalQuestionDto> makeNormalQuestion(@RequestBody RequestMakeNormalQuestionDto requestMakeNormalQuestionDtos) throws DuplicateQuestionException {
         return ResponseEntity.ok(normalQuestionMakeService.makeNormalQuestion(requestMakeNormalQuestionDtos));
     }

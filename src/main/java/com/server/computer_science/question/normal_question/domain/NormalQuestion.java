@@ -48,7 +48,7 @@ public class NormalQuestion {
         return this.questionCategory.equals(questionCategory) && this.questionLevel.equals(questionLevel);
     }
 
-    public static NormalQuestion makeNormalQuestionForTest(){
+    public static NormalQuestion makeForTest(){
         return NormalQuestion.builder()
                 .question("testQuest")
                 .questionCategory(QuestionCategory.ALGORITHM)
