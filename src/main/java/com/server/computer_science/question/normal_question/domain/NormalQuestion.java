@@ -47,4 +47,13 @@ public class NormalQuestion {
     public boolean isFit(QuestionCategory questionCategory, QuestionLevel questionLevel){
         return this.questionCategory.equals(questionCategory) && this.questionLevel.equals(questionLevel);
     }
+
+    public static NormalQuestion makeNormalQuestionForTest(){
+        return NormalQuestion.builder()
+                .question("testQuest")
+                .questionCategory(QuestionCategory.ALGORITHM)
+                .questionLevel(QuestionLevel.LOW)
+                .description("testDescription")
+                .build();
+    }
 }
