@@ -30,19 +30,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // 채점 버튼 클릭 시 마지막 선택지의 정답 여부 확인
     checkAnswerButton.addEventListener('click', function() {
         if (selectedChoice) {
-            const isCorrect = selectedChoice.getAttribute('data-answer-status') === 'true'; // 정답 여부 확인
+            const isCorrect = selectedChoice.getAttribute('data-answer-status') === 'true';
+            const selectText = selectedChoice.getAttribute('data-choice-text');// 정답 여부 확인
 
             // 정답 여부에 따라 결과 표시
             if (isCorrect) {
                 answerBox.style.display = 'flex'; // 정답/오답 박스 표시
                 answerBox.classList.add('correct-answer');
                 answerBox.classList.remove('wrong-answer');
-                answerText.textContent = '정답입니다!';
+                answerText.textContent = '정답입니다!'+' ('+selectText+")";
             } else {
                 answerBox.style.display = 'flex'; // 정답/오답 박스 표시
                 answerBox.classList.add('wrong-answer');
                 answerBox.classList.remove('correct-answer');
-                answerText.textContent = '오답입니다!';
+                answerText.textContent = '오답입니다!'+' ('+selectText+")";
             }
 
             // 정답 확인 후 해설 보기 버튼 보이기
