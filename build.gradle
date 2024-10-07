@@ -2,7 +2,66 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.10'
 	id 'io.spring.dependency-management' version '1.1.6'
+	//gradle7부터는 jvm.convert를 사용해야한다
+	//rest docs 결과물 생성 플러그인
+	id "org.asciidoctor.jvm.convert" version "3.3.2"
+	//0.17.0부터는 Java 17이 요구된다.
+	// restdocs to OpenApi3 플러그인
+	id 'com.epages.restdocs-api-spec' version '0.16.0'
 }
+
+/**
+ * compileJava->test->asciidoctor->bootJar순으로 실행된다.
+ */
+
+configurations {
+	asciidoctorExt
+}
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
+
+asciidoctor {
+	dependsOn test
+	inputs.dir snippetsDir
+}
+/**
+ * 기존에 존재하는 Rest docs를 삭제하여 준다
+ */
+asciidoctor.doFirst {
+	delete file('src/main/resources/static/docs')
+}
+
+
+bootJar {
+	dependsOn asciidoctor
+	copy {
+		from "${asciidoctor.outputDir}"
+		/**
+		 * build/docs/asciidoc 하위에 생기는 html파일을
+		 * 아래의 위치로 옮겨준다.
+		 */
+		into 'BOOT-INF/classes/static/docs'
+	}
+}
+
+task copyDocument(type: Copy) {
+	dependsOn asciidoctor
+	from file("build/docs/asciidoc")
+	into file("src/main/resources/static/docs")
+}
+
+// 4
+openapi3 {
+	servers = [
+			{ url = 'http://localhost:8080' },
+	]
+	title = 'Post Service API'
+	description = 'Post Service API description'
+	version = '3.0.0'
+	format = 'yaml'
+}
+
 
 group = 'com.study.computer-science'
 version = '0.0.1-SNAPSHOT'
@@ -33,6 +92,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.16.2' //restdocs->openApi
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'io.findify:s3mock_2.13:0.2.6'
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
