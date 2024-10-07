@@ -24,3 +24,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const backButton = document.querySelector('.mainPageFrame');
+
+    backButton.style.cursor = 'pointer'; // 마우스를 올리면 클릭할 수 있다는 느낌을 주기 위해 포인터 추가
+
+    backButton.addEventListener('click', function() {
+        window.location.href = '/'; // 메인화면으로 이동
+    });
+});

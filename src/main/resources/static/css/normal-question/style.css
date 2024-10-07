@@ -353,7 +353,7 @@
     color: #000000;
 }
 
-.quiz .frame {
+.quiz .mainPageFrame {
     display: inline-flex;
     align-items: center;
     gap: 4px;
