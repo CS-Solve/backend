@@ -3,17 +3,18 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    /*width: 1920px;*/
+    /*height: 1080px;*/
+    position: relative;
+    border: #404040;
     width: 100%;
     height: 80%;
 }
 
-.quiz .big-box {
-    background-color: #eeeeee;
-    width: 1920px;
-    height: 1080px;
-    position: relative;
-    border: #404040;
-}
+/*.quiz .big-box {*/
+/*    background-color: #eeeeee;*/
+/*    */
+/*}*/
 
 .quiz .text-wrapper {
     position: absolute;
