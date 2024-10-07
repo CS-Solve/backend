@@ -27,7 +27,7 @@
                 <div class="part-2">
                     <div class="text-wrapper">난이도</div>
                     <div class="view-5">
-                        <div class="view-6" th:each="difficulty : ${difficulties}">
+                        <div class="view-6" th:each="difficulty : ${levels}">
                             <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="selectedDifficulties" class="checkbox" />
                             <label th:for="${'difficulty-' + difficultyStat.index}" class="text-wrapper-2" th:text="${difficulty}"></label>
                         </div>
