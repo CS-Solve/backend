@@ -1,0 +1,426 @@
+.quiz {
+    background-color: #eeeeee;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+.quiz .div {
+    background-color: #eeeeee;
+    width: 1920px;
+    height: 1080px;
+    position: relative;
+}
+
+.quiz .text-wrapper {
+    position: absolute;
+    top: 53px;
+    left: 172px;
+    font-family: "Markazi Text-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 70px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 105px;
+    white-space: nowrap;
+}
+
+.quiz .list {
+    display: flex;
+    flex-direction: column;
+    width: 788px;
+    height: 893px;
+    align-items: center;
+    gap: 28px;
+    padding: 0px 10px;
+    position: absolute;
+    top: 160px;
+    left: 172px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.quiz .DB-wrapper {
+    display: flex;
+    height: 50px;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 21px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    background-color: #c1d7ff;
+    border-radius: 10px;
+    box-shadow: var(--m3-elevation-dark-3);
+}
+
+.quiz .DB {
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    margin-top: -1px;
+    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 30px;
+    white-space: nowrap;
+}
+
+.quiz .element {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 20px 25px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    background-color: #ffffff;
+    border-radius: 23px;
+    border: 6px solid;
+    border-color: #5b96ff;
+    box-shadow: var(--drop-shadow-300);
+}
+
+.quiz .view {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.quiz .div-2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.quiz .quiz-number {
+    display: flex;
+    width: 61px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 9px;
+    position: relative;
+    background-color: #d9d9d9;
+    border-radius: 12px;
+}
+
+.quiz .text-wrapper-2 {
+    position: relative;
+    width: fit-content;
+    margin-top: -9px;
+    margin-bottom: -7px;
+    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 17px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 34px;
+    white-space: nowrap;
+}
+
+.quiz .div-wrapper {
+    background-color: #ffd85099;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+}
+
+.quiz .text-wrapper-3 {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: -1px;
+    left: 0;
+    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 0.72px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #000000;
+}
+
+.quiz .div-3 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13px;
+    align-self: stretch;
+    width: 100%;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.quiz .p {
+    margin-top: -1px;
+    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+    color: #000000;
+    font-size: 20px;
+    line-height: 30px;
+    position: relative;
+    align-self: stretch;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.quiz .div-4 {
+    font-family: "NanumSquare Neo OTF-Regular", Helvetica;
+    color: transparent;
+    font-size: 17px;
+    line-height: 32.6px;
+    position: relative;
+    align-self: stretch;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.quiz .span {
+    color: #000000;
+}
+
+.quiz .text-wrapper-4 {
+    color: #166aff;
+}
+
+.quiz .view-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+    padding: 20px 22px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    background-color: #ffffff;
+    border-radius: 23px;
+    box-shadow: var(--drop-shadow-300);
+}
+
+.quiz .div-wrapper-2 {
+    background-color: #f7777799;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+}
+
+.quiz .text-wrapper-5 {
+    position: absolute;
+    height: 24px;
+    top: -1px;
+    left: 6px;
+    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 0.72px;
+    line-height: 24px;
+    white-space: nowrap;
+    font-weight: 400;
+    color: #000000;
+}
+
+.quiz .text-wrapper-6 {
+    font-family: "NanumSquare Neo OTF-bRg", Helvetica;
+    color: #000000;
+    font-size: 17px;
+    line-height: 32.6px;
+    position: relative;
+    align-self: stretch;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.quiz .div-wrapper-3 {
+    background-color: #aff77799;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+}
+
+.quiz .image {
+    position: absolute;
+    width: 48px;
+    height: 83px;
+    top: 167px;
+    left: 41px;
+}
+
+.quiz .view-2 {
+    position: absolute;
+    width: 364px;
+    height: 59px;
+    top: 74px;
+    left: 1395px;
+}
+
+.quiz .overlap-group {
+    position: absolute;
+    width: 364px;
+    height: 20px;
+    top: 39px;
+    left: 0;
+    background-image: url(./img/line-2-stroke.svg);
+    background-size: 100% 100%;
+}
+
+.quiz .line-stroke {
+    position: absolute;
+    width: 85px;
+    height: 20px;
+    top: 0;
+    left: 0;
+}
+
+.quiz .text-wrapper-7 {
+    position: absolute;
+    top: -1px;
+    left: 0;
+    font-family: "NanumSquare Neo OTF-bRg", Helvetica;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 30px;
+    white-space: nowrap;
+    font-weight: 400;
+    color: #000000;
+}
+
+.quiz .frame {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    position: absolute;
+    top: 21px;
+    left: 22px;
+}
+
+.quiz .back-to {
+    position: relative;
+    width: 41px;
+    height: 41px;
+}
+
+.quiz .text-wrapper-8 {
+    position: relative;
+    width: fit-content;
+    font-family: "NanumSquare Neo OTF-cBd", Helvetica;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 30px;
+    white-space: nowrap;
+    font-weight: 400;
+    color: #000000;
+}
+
+.quiz .view-3 {
+    display: flex;
+    flex-direction: column;
+    width: 768px;
+    height: 892px;
+    align-items: flex-start;
+    gap: 21px;
+    padding: 26px 30px;
+    position: absolute;
+    top: 160px;
+    left: 991px;
+    background-color: #e6efff;
+    border-radius: 10px;
+    box-shadow: var(--m3-elevation-dark-3);
+}
+
+.quiz .view-4 {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.quiz .frame-2 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0px 15px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: #d9d9d9;
+    border-radius: 8px;
+}
+
+.quiz .text-wrapper-9 {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 40px;
+    white-space: nowrap;
+    font-weight: 400;
+    color: #000000;
+}
+
+.quiz .view-5 {
+    position: relative;
+    width: 625px;
+    height: 63px;
+    background-color: #e6efff;
+}
+
+.quiz .view-6 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.quiz .frame-3 {
+    display: flex;
+    height: 38px;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.quiz .text-wrapper-10 {
+    position: relative;
+    width: fit-content;
+    margin-top: -2px;
+    font-family: "NanumSquare Neo OTF-cBd", Helvetica;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 40px;
+    white-space: nowrap;
+    font-weight: 400;
+    color: #000000;
+}
