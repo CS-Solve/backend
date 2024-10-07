@@ -14,7 +14,7 @@
   position: relative;
 }
 
-.screen .view {
+.screen .main-box {
   position: absolute;
   width: 891px;
   height: 359px;
@@ -51,7 +51,7 @@
   letter-spacing: 0;
 }
 
-.screen .view-2 {
+.screen .category-box {
   display: flex;
   flex-wrap: wrap;
   gap: 16px;
@@ -61,13 +61,13 @@
   flex: 0 0 auto;
 }
 
-.screen .div-2 {
+.screen .categories {
   display: flex;
   width: calc(50% - 8px);
   position: relative;
 }
 
-.screen .right-box {
+.screen .each-category {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -107,7 +107,7 @@
   border-color: #acacac;
 }
 
-.screen .answer-box {
+.screen .view-4 {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -123,7 +123,7 @@
   left: 446px;
 }
 
-.screen .part-2 {
+.screen .level-box {
   display: inline-flex;
   gap: 38px;
   top: 135px;
@@ -133,7 +133,7 @@
   position: absolute;
 }
 
-.screen .answer-show-box {
+.screen .levels {
   display: flex;
   align-items: flex-start;
   gap: 30px;
@@ -199,7 +199,7 @@
   line-height: 30px;
 }
 
-.screen .text-wrapper-4 {
+.screen .main-logo-box {
   position: absolute;
   top: 189px;
   left: 700px;
@@ -213,7 +213,7 @@
   white-space: nowrap;
 }
 
-.screen .div-wrapper {
+.screen .start-box {
   display: inline-flex;
   align-items: center;
   justify-content: center;

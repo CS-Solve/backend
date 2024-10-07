@@ -1,26 +1,50 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const checkButton = document.getElementById('checkButton');
-    const answerBox = document.getElementById('answerBox');
-    const answerText = document.getElementById('answerText');
+    let selectedChoice = null; // 선택된 선택지 저장 변수
 
-    // 가상의 데이터 예시 (정답 상태를 설정)
-    const questionData = {
-        answerStatus: true // true면 정답, false면 오답
-    };
+    // 모든 선택지 가져오기
+    const choices = document.querySelectorAll('.choice-item');
 
-    checkButton.addEventListener('click', function() {
-        answerBox.style.display = 'flex'; // 정답 또는 오답 박스를 표시
+    // 선택지 클릭 시 선택 처리
+    choices.forEach(choice => {
+        choice.addEventListener('click', function() {
+            // 기존 선택지 해제 (선택된 스타일 제거)
+            if (selectedChoice) {
+                selectedChoice.classList.remove('selected-choice');
+            }
 
-        if (questionData.answerStatus) {
-            // 정답일 때
-            answerBox.classList.add('correct-answer');
-            answerBox.classList.remove('wrong-answer');
-            answerText.textContent = '정답입니다!';
+            // 새로 선택된 선택지 설정
+            selectedChoice = choice;
+            choice.classList.add('selected-choice'); // 선택된 스타일 추가
+        });
+    });
+
+    // 채점 버튼 클릭 시 마지막 선택지의 정답 여부 확인
+    const checkAnswerButton = document.getElementById('checkButton');
+    checkAnswerButton.addEventListener('click', function() {
+        const answerBox = document.getElementById('answerBox');
+        const answerText = document.getElementById('answerText');
+
+        if (selectedChoice) {
+            const isCorrect = selectedChoice.getAttribute('data-answer-status') === 'true'; // 정답 여부 확인
+
+            // 정답 여부에 따라 결과 표시
+            if (isCorrect) {
+                answerBox.style.display = 'flex'; // 정답/오답 박스 표시
+                answerBox.classList.add('correct-answer');
+                answerBox.classList.remove('wrong-answer');
+                answerText.textContent = '정답입니다!';
+            } else {
+                answerBox.style.display = 'flex'; // 정답/오답 박스 표시
+                answerBox.classList.add('wrong-answer');
+                answerBox.classList.remove('correct-answer');
+                answerText.textContent = '오답입니다!';
+            }
         } else {
-            // 오답일 때
+            // 선택지가 선택되지 않았을 경우 경고 표시 (선택지가 없으면 처리)
+            answerBox.style.display = 'flex';
+            answerText.textContent = '선택지를 먼저 선택하세요!';
             answerBox.classList.add('wrong-answer');
             answerBox.classList.remove('correct-answer');
-            answerText.textContent = '오답입니다!';
         }
     });
 });

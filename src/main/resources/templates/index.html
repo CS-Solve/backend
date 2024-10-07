@@ -11,12 +11,12 @@
 <div class="screen">
     <div class="div">
         <form th:action="@{/question/normal}" method="get">
-            <div class="view">
+            <div class="main-box">
                 <div class="part">
                     <div class="text-wrapper">분야</div>
-                    <div class="view-2">
-                        <div class="div-2" th:each="category, iterStat : ${categories}">
-                            <div class="view-3">
+                    <div class="category-box">
+                        <div class="categories" th:each="category, iterStat : ${categories}">
+                            <div class="each-category">
                                 <input type="checkbox" th:id="${'category-' + iterStat.index}" th:value="${category}" name="categories" class="checkbox" />
                                 <label th:for="${'category-' + iterStat.index}" class="text-wrapper-2" th:text="${category}"></label>
                             </div>
@@ -24,9 +24,9 @@
                     </div>
                 </div>
                 <img class="line" th:src="@{/img/line-4.svg}" />
-                <div class="part-2">
+                <div class="level-box">
                     <div class="text-wrapper">난이도</div>
-                    <div class="view-5">
+                    <div class="levels">
                         <div class="view-6" th:each="difficulty : ${levels}">
                             <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="levels" class="checkbox" />
                             <label th:for="${'difficulty-' + difficultyStat.index}" class="text-wrapper-2" th:text="${difficulty}"></label>
@@ -41,11 +41,11 @@
             <div class="logo-container">
 
             </div>
-            <div class="text-wrapper-4">
+            <div class="main-logo-box">
                 <img src="/img/mainLogo.svg" alt="CS Solver Logo" class="logo-image">
                 CS Solver
             </div>
-            <div class="div-wrapper">
+            <div class="start-box">
                 <button type="submit" class="text-wrapper-5">시작하기</button>
             </div>
         </form>

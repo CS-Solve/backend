@@ -98,18 +98,20 @@
     box-shadow: var(--drop-shadow-300);
 }
 
-.quiz .view {
+.quiz .each-question {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 18px;
     position: relative;
-    width: 100%; /* 너비는 고정 */
-    flex-grow: 1; /* 높이를 유동적으로 확장할 수 있도록 설정 */
-    flex-shrink: 0; /* 자식 요소가 너무 작아지는 것을 방지 */
+    width: 100%; /* 가로 너비를 부모(question-box)에 맞춰 고정 */
+    max-width: 100%; /* 최대 너비를 부모에 맞게 설정 */
+    flex-grow: 1; /* 높이는 내용에 따라 유동적으로 조정 */
+    padding-right: 20px; /* 오른쪽 박스와의 간격 (예시로 20px 적용) */
+    box-sizing: border-box; /* 패딩이 포함된 크기 계산 */
 }
 
-.quiz .div-2 {
+.quiz .question-meta-data {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -168,7 +170,7 @@
     color: #000000;
 }
 
-.quiz .div-3 {
+.quiz .question-choices {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -210,19 +212,20 @@
     color: #166aff;
 }
 
-.view-wrapper {
+/* 질문을 담는 박스 (question-box) 설정 */
+.question-box {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
+    width: calc(100% - 20px); /* 가로 너비 고정, 오른쪽에 일정 거리 유지 (20px) */
     background-color: #ffffff;
     box-sizing: border-box;
     border-radius: 23px;
     padding: 20px 22px;
     box-shadow: var(--drop-shadow-300);
     position: relative;
-    height: auto; /* 높이를 자동으로 조정 */
-    flex-grow: 1; /* 자식 요소에 맞춰 부모 요소가 확장되도록 설정 */
+    height: auto; /* 높이는 내용에 따라 자동으로 늘어남 */
+    margin-right: 20px; /* right-box와 20px 간격 유지 */
 }
 
 .quiz .div-wrapper-2 {
@@ -406,6 +409,16 @@
     min-height: 150px;
     width: 100%;
     flex: 0 0 auto;
+}
+
+.selected-choice {
+    background-color: #d1e7dd; /* 선택된 상태일 때 배경 색상 */
+    border: 2px solid #63a572; /* 선택된 상태일 때 테두리 색상 */
+    color: #000; /* 선택된 상태의 텍스트 색상 */
+    font-weight: bold; /* 선택된 상태에서 텍스트를 굵게 표시 */
+    padding: 10px;
+    border-radius: 5px; /* 둥근 테두리 */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* 선택 시 부드럽게 전환 */
 }
 
 .quiz .correct-check-box {

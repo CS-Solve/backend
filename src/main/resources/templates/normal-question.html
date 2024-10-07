@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="/css/global.css" />
-    <link rel="stylesheet" href="/css/normal-question/styleguide.css" />
-    <link rel="stylesheet" href="/css/normal-question/style.css" />
+    <link rel="stylesheet" th:href="@{/css/globals.css}" />
+    <link rel="stylesheet" th:href="@{/css/normal-question/styleguide.css}" />
+    <link rel="stylesheet" th:href="@{/css/normal-question/normal-question-style.css}" />
     <script th:src="@{/js/solveQuestion.js}"></script>
 </head>
 <body>
@@ -13,10 +13,10 @@
         <div class="text-wrapper">CS Solver</div>
         <div class="list">
             <!-- 질문 리스트 반복 렌더링 -->
-            <div class="view-wrapper" th:each="question, iterStat : ${questions}">
+            <div class="question-box" th:each="question, iterStat : ${questions}">
 <!--                <div class="DB-wrapper"><div class="DB" th:text="${question.questionCategory.korean}"></div></div>-->
-                <div class="view">
-                    <div class="div-2">
+                <div class="each-question">
+                    <div class="question-meta-data">
                         <div class="quiz-number">
                             <div class="text-wrapper-2" th:text="${iterStat.index + 1} + '번'"></div>
                         </div>
@@ -24,11 +24,15 @@
                             <div class="text-wrapper-3" th:text="${question.questionLevel.korean}"></div>
                         </div>
                     </div>
-                    <div class="div-3">
+                    <div class="question-choices">
                         <p class="p" th:text="${question.question}"></p>
                         <div class="text-wrapper-6">
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
-                            <div th:each="choice, choiceStat : ${question.normalQuestionChoices}" th:text="${choiceStat.index + 1} + '. ' + ${choice.text}">
+                            <div th:each="choice, choiceStat : ${question.normalQuestionChoices}"
+                                 class="choice-item"
+                                 th:data-answer-status="${choice.answerStatus}"
+                                 th:text="${choiceStat.index + 1} + '. ' + ${choice.text}">
+                            </div>
                             </div>
                         </div>
                     </div>
