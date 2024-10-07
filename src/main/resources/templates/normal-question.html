@@ -2,9 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="/css/globals.css" />
+    <link rel="stylesheet" href="/css/global.css" />
     <link rel="stylesheet" href="/css/normal-question/styleguide.css" />
     <link rel="stylesheet" href="/css/normal-question/style.css" />
+    <script th:src="@{/js/solveQuestion.js}"></script>
 </head>
 <body>
 <div class="quiz">
@@ -48,9 +49,13 @@
                 <!-- 채점 버튼 -->
                 <div class="correct-check-box">
                     <button class="check-button" id="checkButton">채점</button>
+
+                </div>
+                <div class="answer-status-box" id="answerBox" style="display: none;">
+                    <div class="answer-status-text" id="answerText"></div>
                 </div>
                 <!-- 정답 여부가 나타나는 박스 -->
-                <div class="answer-show-box" id="answerResult"></div>
+<!--                <div class="answer-show-box" id="answerResult"></div>-->
             </div>
             <div class="description-box">
                 <div class="frame-3">

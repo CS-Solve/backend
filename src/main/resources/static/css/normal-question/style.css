@@ -232,7 +232,45 @@
     height: 24px;
     border-radius: 12px;
 }
+.quiz .answer-status-box {
+    display: flex;
+    width: 625px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+    position: relative;
+    border-radius: 8px;
+    border: 13px solid; /* 테두리 설정 */
+    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+    font-size: 22px;
+    letter-spacing: 0;
+    line-height: 33px;
+    white-space: nowrap;
+}
+/* 정답 스타일 */
+.quiz .correct-answer {
+    border-color: #b9ebc4; /* 초록색 테두리 */
+    color: #63a572; /* 초록색 텍스트 */
+}
 
+/* 오답 스타일 */
+.quiz .wrong-answer {
+    border-color: #ff6b6b; /* 빨간색 테두리 */
+    color: #ff6b6b; /* 빨간색 텍스트 */
+}
+.quiz .answer-status-check {
+    position: relative;
+    width: fit-content;
+    margin-top: -13px;
+    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+    font-weight: 400;
+    color: #63a572;
+    font-size: 22px;
+    letter-spacing: 0;
+    line-height: 33px;
+    white-space: nowrap;
+}
 .quiz .text-wrapper-5 {
     position: absolute;
     height: 24px;
@@ -365,6 +403,7 @@
     gap: 11px;
     position: relative;
     align-self: stretch;
+    min-height: 150px;
     width: 100%;
     flex: 0 0 auto;
 }
@@ -374,11 +413,12 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 0px 15px;
+    padding: 10px 15px;
+
     position: relative;
     flex: 0 0 auto;
     background-color: #d9d9d9;
-    border-radius: 8px;
+    border-radius: 15px;
 }
 
 .quiz .check-button {
