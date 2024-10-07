@@ -9,10 +9,10 @@
 </head>
 <body>
 <div class="screen">
-    <div class="div">
+    <div class="big-box">
         <form th:action="@{/question/normal}" method="get">
             <div class="main-box">
-                <div class="part">
+                <div class="category-big-box">
                     <div class="text-wrapper">분야</div>
                     <div class="category-box">
                         <div class="categories" th:each="category, iterStat : ${categories}">
@@ -23,18 +23,18 @@
                         </div>
                     </div>
                 </div>
-                <img class="line" th:src="@{/img/line-4.svg}" />
+                <img class="line-4" th:src="@{/img/line-4.svg}" />
                 <div class="level-box">
                     <div class="text-wrapper">난이도</div>
                     <div class="levels">
-                        <div class="view-6" th:each="difficulty : ${levels}">
+                        <div class="each-level" th:each="difficulty : ${levels}">
                             <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="levels" class="checkbox" />
-                            <label th:for="${'difficulty-' + difficultyStat.index}" class="text-wrapper-2" th:text="${difficulty}"></label>
+                            <label th:for="${'difficulty-' + difficultyStat.index}" class="check-box-text" th:text="${difficulty}"></label>
                         </div>
                     </div>
                 </div>
-                <p class="p">
-                    <span class="span">&lt;문제 선택&gt;<br /></span>
+                <p class="question-title-box">
+                    <span class="question-title">&lt;문제 선택&gt;<br /></span>
                     <span class="text-wrapper-3">원하는 분야와 난이도를 선택하세요. (복수 선택 가능)</span>
                 </p>
             </div>
