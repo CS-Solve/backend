@@ -51,7 +51,7 @@ public class NormalQuestion {
     public static NormalQuestion makeForTest(){
         return NormalQuestion.builder()
                 .question("testQuest")
-                .questionCategory(QuestionCategory.ALGORITHM)
+                .questionCategory(QuestionCategory.COMPUTER_ARCHITECTURE)
                 .questionLevel(QuestionLevel.LOW)
                 .description("testDescription")
                 .build();
