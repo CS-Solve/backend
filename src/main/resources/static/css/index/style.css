@@ -208,20 +208,33 @@
   font-size: 20px;
   line-height: 30px;
 }
-
+/**
+메인 로고
+ */
 .screen .main-logo-box {
   position: absolute;
-  top: 0%; /* big-box의 상단에서 5% 떨어진 위치 */
-  left: 50%; /* 수평 중앙으로 이동 */
-  transform: translateX(-50%); /* 중앙 정렬 */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
   font-family: "Markazi Text-Bold", Helvetica;
   font-weight: 700;
   color: #000000;
-  font-size: 70px;
+  font-size: 60px;
   text-align: center;
   letter-spacing: 0;
-  line-height: 105px;
   white-space: nowrap;
+}
+
+.screen .main-logo-box .logo-image {
+  height: 1%; /* 텍스트 크기와 동일하게 설정 */
+  width: auto; /* 비율 유지 */
+  margin-right: 10px; /* 로고와 텍스트 사이 간격 */
+}
+
+.screen .main-logo-box span {
+  line-height: 1; /* 텍스트의 줄 높이를 조정 */
 }
 
 /**
@@ -235,6 +248,8 @@
   position: absolute;
   top: 85%;
   left: 50%;
+  width: 10%;
+  height: 8%;
   transform: translateX(-50%);
   background-color: #ffac70;
   border: none;

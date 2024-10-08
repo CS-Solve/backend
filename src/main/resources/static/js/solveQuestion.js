@@ -28,6 +28,26 @@ document.addEventListener('DOMContentLoaded', function() {
         link.href = `#question-${index + 1}`;
         link.textContent = `문제 ${index + 1}`;
         link.dataset.questionIndex = index;
+
+        // 호버 효과 추가
+        link.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#e0e0e0';
+            this.style.fontWeight = 'bold';
+            const questionBox = document.querySelectorAll('.question-box')[index];
+            if (questionBox) {
+                questionBox.style.backgroundColor = '#f0f0f0';
+            }
+        });
+
+        link.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = '';
+            this.style.fontWeight = 'normal';
+            const questionBox = document.querySelectorAll('.question-box')[index];
+            if (questionBox) {
+                questionBox.style.backgroundColor = '';
+            }
+        });
+
         questionList.appendChild(link);
     });
 
@@ -113,8 +133,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (isCorrect) {
             link.style.color = 'green';
+            link.style.borderLeft = '3px solid green';
         } else {
             link.style.color = 'red';
+            link.style.borderLeft = '3px solid red';
         }
 
         correctQuestionsElement.textContent = correctQuestions;
