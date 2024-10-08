@@ -80,9 +80,9 @@
     margin-bottom: 20px; /* 질문 사이 간격 */
     min-height: 200px; /* 최소 높이 설정 */
 }
-.quiz .DB-wrapper {
+.quiz .category-box {
     display: flex;
-    height: 50px;
+    height: 20%;
     align-items: flex-start;
     gap: 10px;
     padding: 9px 21px;
@@ -93,8 +93,12 @@
     border-radius: 10px;
     box-shadow: var(--m3-elevation-dark-3);
 }
+.quiz .category-text{
+    font-weight: 700;
+    font-size:24px;
+}
 
-.quiz .DB {
+.quiz .category {
     position: relative;
     flex: 1;
     align-self: stretch;
@@ -241,6 +245,21 @@
 
 /* 질문을 담는 박스 (question-box) 설정 */
 .question-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: calc(100% - 20px); /* 가로 너비 고정, 오른쪽에 일정 거리 유지 (20px) */
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border-radius: 23px;
+    padding: 20px 22px;
+    box-shadow: var(--drop-shadow-300);
+    position: relative;
+    height: auto; /* 높이는 내용에 따라 자동으로 늘어남 */
+    margin-right: 20px; /* right-box와 20px 간격 유지 */
+}
+
+.all-question-box {
     display: flex;
     flex-direction: column;
     align-items: flex-start;

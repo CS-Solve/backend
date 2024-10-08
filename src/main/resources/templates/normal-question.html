@@ -15,24 +15,28 @@
     <!-- 왼쪽 질문 리스트 박스 -->
     <div class="left-box">
         <!-- 질문 리스트 반복 렌더링 -->
-        <div class="question-box" th:each="question, iterStat : ${questions}">
-            <div class="each-question" th:data-description="${question.description}">
-                <div class="question-meta-data">
-                    <div class="quiz-number">
-                        <div class="text-wrapper-2" th:text="${iterStat.index + 1} + '번'"></div>
+        <div class="all-question-box" th:each="category, iterStat : ${questions}">
+            <div class="category-box"><div class="category-text" th:text ="${category.questionCategory.korean}">문제 분야</div></div>
+            <div class="question-box" th:each="question, iterStat : ${category.responseNormalQuestionDtoList}">
+                <div class="each-question" th:data-description="${question.description}">
+                    <div class="question-meta-data">
+                        <div class="quiz-number">
+                            <div class="text-wrapper-2" th:text="${iterStat.index + 1} + '번'"></div>
+                        </div>
+                        <div class="level-show-box" id="levelBox" th:data-level="${question.questionLevel.korean}">
+                            <div class="level-show-text" th:text="${question.questionLevel.korean}"></div>
+                        </div>
                     </div>
-                    <div class="level-show-box" id="levelBox" th:data-level="${question.questionLevel.korean}">
-                        <div class="level-show-text" th:text="${question.questionLevel.korean}"></div>
-                    </div>
-                </div>
-                <div class="question-choices">
-                    <p class="p" th:text="${question.question}"></p>
-                    <div class="text-wrapper-6">
-                        <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
-                        <div th:each="choice, choiceStat : ${question.normalQuestionChoices}"
-                             class="choice-item"
-                             th:data-answer-status="${choice.answerStatus}"
-                             th:text="${choiceStat.index + 1} + '. ' + ${choice.text}">
+                    <div class="question-choices">
+                        <p class="p" th:text="${question.question}"></p>
+                        <div class="text-wrapper-6">
+                            <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
+                            <div th:each="choice, choiceStat : ${question.normalQuestionChoices}"
+                                 class="choice-item"
+                                 th:data-answer-status="${choice.answerStatus}"
+                                 th:data-choice-text="${choice.text}"
+                                 th:text="${choiceStat.index + 1} + '. ' + ${choice.text}">
+                            </div>
                         </div>
                     </div>
                 </div>
