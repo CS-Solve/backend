@@ -19,7 +19,9 @@ public class NormalQuestion {
     @Id @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
     private String question;
+    @Enumerated(value = EnumType.STRING)
     private QuestionCategory questionCategory;
+    @Enumerated(value = EnumType.STRING)
     private QuestionLevel questionLevel;
     private String description;
 

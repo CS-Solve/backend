@@ -48,15 +48,15 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
     }
 
     private Map<QuestionCategory, List<NormalQuestion>> makeCategoryMap(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
-        Map<QuestionCategory, List<NormalQuestion>> categoryMap = normalQuestionRepository
+        System.out.println(requestGetNormalQuestionsDto.getQuestionCategories());
+        return normalQuestionRepository
                 .findNormalQuestionsFetchChoices(requestGetNormalQuestionsDto.getQuestionCategories(), requestGetNormalQuestionsDto.getQuestionLevels())
                 .stream()
                 .collect(Collectors.groupingBy(NormalQuestion::getQuestionCategory));
-        // 요청된 모든 카테고리에 대해 문제가 없어도 빈 리스트 보장
-        requestGetNormalQuestionsDto.getQuestionCategories().forEach(category ->
-                categoryMap.putIfAbsent(category, new ArrayList<>())
-        );
-        return categoryMap;
+//        // 요청된 모든 카테고리에 대해 문제가 없어도 빈 리스트 보장
+//        requestGetNormalQuestionsDto.getQuestionCategories().forEach(category ->
+//                categoryMap.putIfAbsent(category, new ArrayList<>())
+//        );
     }
 
     /**
