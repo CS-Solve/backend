@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/normal-question/styleguide.css}" />
     <link rel="stylesheet" th:href="@{/css/normal-question/normal-question-style.css}" />
     <script th:src="@{/js/solveQuestion.js}"></script>
-    <script th:src="@{/js/normalQuestionUI.js}"></script>
+    <script th:src="@{/js/showQuestionUi.js}"></script>
 </head>
 <body>
 <div class="quiz">
@@ -22,6 +22,7 @@
         </div>
     </div>
     <!-- 왼쪽 질문 리스트 박스 -->
+    <input type="hidden" id="multipleChoice" th:value="${multipleChoice}" />
     <div class="left-box">
         <!-- 질문 리스트 반복 렌더링 -->
         <div class="all-question-box" th:each="category, iterStat : ${questions}">
@@ -36,9 +37,9 @@
                             <div class="level-show-text" th:text="${question.questionLevel.korean}"></div>
                         </div>
                     </div>
-                    <div class="question-choices">
-                        <p class="p" th:text="${question.question}"></p>
-                        <div class="text-wrapper-6">
+                    <div class="questions">
+                        <p class="question-item" th:text="${question.question}"></p>
+                        <div class="choice-list" th:if="${multipleChoice}">
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
                             <div th:each="choice, choiceStat : ${question.normalQuestionChoices}"
                                  class="choice-item"
@@ -53,13 +54,12 @@
         </div>
     </div>
 
+
     <!-- 오른쪽 박스 -->
     <div class="right-box">
         <div class="answer-box">
             <!-- 채점 버튼 -->
-            <div class="correct-check-box">
-                <button class="check-button" id="checkButton">채점</button>
-            </div>
+            <button class="check-button" id="checkButton">채점</button>
             <div class="answer-status-box" id="answerBox" style="display: none;">
                 <div class="answer-status-text" id="answerText"></div>
             </div>
@@ -67,7 +67,7 @@
         <!-- 해설 보기 -->
         <div class="description-box">
             <div class="frame-3">
-                <div class="text-wrapper-10" id="toggleDescription" style="display: none;">해설 보기 ▼</div>
+                <div class="text-wrapper-10" id="toggleDescription" >해설 보기 ▼</div>
             </div>
             <!-- 해설 내용 -->
             <div class="description-content" id="descriptionContent" style="display: none;">
