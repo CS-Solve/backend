@@ -572,7 +572,7 @@ Side bar
 
 /* 사이드바 스타일 */
 .left-sidebar {
-    width: 15%;
+    width: 8%;
     height: 80%;
     position: fixed;
     top: 10%;
