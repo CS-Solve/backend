@@ -19,6 +19,7 @@ bin/
 
 /src/main/resources/application-local.yml
 /src/main/resources/application-deploy.yml
+/pinpoint-agent-2.2.3-NCP/pinpoint.license
 
 ### IntelliJ IDEA ###
 .idea
