@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/normal-question/styleguide.css}" />
     <link rel="stylesheet" th:href="@{/css/normal-question/normal-question-style.css}" />
     <script th:src="@{/js/solveQuestion.js}"></script>
-    <script th:src="@{/js/normalQuestionUI.js}"></script>
+    <script th:src="@{/js/showQuestionUi.js}"></script>
 </head>
 <body>
 <div class="quiz">
@@ -38,7 +38,7 @@
                     </div>
                     <div class="question-choices">
                         <p class="p" th:text="${question.question}"></p>
-                        <div class="text-wrapper-6">
+                        <div class="choice-list" th:if="${multipleChoice}">
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
                             <div th:each="choice, choiceStat : ${question.normalQuestionChoices}"
                                  class="choice-item"

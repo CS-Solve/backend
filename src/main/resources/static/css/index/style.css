@@ -240,17 +240,17 @@
 /**
 메인페이지 - 시작버튼
  */
-.screen .start-box {
+/* 공통 스타일 - start-left-box, start-right-box에 적용 */
+.screen .start-left-box,
+.screen .start-right-box {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 10px 20px;
   position: absolute;
   top: 85%;
-  left: 50%;
   width: 10%;
   height: 8%;
-  transform: translateX(-50%);
   background-color: #ffac70;
   border: none;
   border-radius: 5px;
@@ -258,17 +258,33 @@
   transition: all 0.3s ease;
 }
 
-.screen .start-box:hover {
+/* 각 박스의 위치 조정 */
+.screen .start-left-box {
+  left: 40%;  /* 왼쪽 위치 */
+  transform: translateX(-50%);
+}
+
+.screen .start-right-box {
+  right: 40%; /* 오른쪽 위치 */
+  transform: translateX(50%);
+}
+
+/* hover 효과 */
+.screen .start-left-box:hover,
+.screen .start-right-box:hover {
   background-color: #ff9b50;
   box-shadow: 0 0 10px rgba(255, 172, 112, 0.5);
 }
 
-.screen .start-box:active {
+/* active 효과 */
+.screen .start-left-box:active,
+.screen .start-right-box:active {
   background-color: #ff8a30;
-  transform: translateX(-50%) scale(0.98);
+  transform: scale(0.98);
 }
 
-.screen .start-box .start-button-text {
+/* 텍스트 스타일 */
+.screen .start-button-text {
   font-family: "NanumSquare Neo OTF-dEb", Helvetica;
   color: white;
   font-size: 25px;

@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/globals.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/index/styleguide.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/index/style.css}" />
+    <script th:src="@{/js/questionChoice.js}"></script>
 </head>
 <body>
 <div class="screen">
@@ -33,10 +34,15 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- 문제 유형을 Boolean으로 설정 -->
+                <input type="hidden" name="multipleChoice" id="questionType" value="" />
+
                 <p class="question-title-box">
                     <span class="question-title">&lt;문제 선택&gt;<br /></span>
                     <span class="text-wrapper-3">원하는 분야와 난이도를 선택하세요. (복수 선택 가능)</span>
                 </p>
+
             </div>
             <div class="logo-container">
 
@@ -45,8 +51,11 @@
                 <img src="/img/mainLogo.svg" alt="CS Solver Logo" class="logo-image">
                 <span>컴퓨터 사이언스</span>
             </div>
-            <button type="submit" class="start-box">
-                <span class="start-button-text">시작하기</span>
+            <button type="submit" class="start-left-box" onclick="makeMultipleChoice(true)">
+                <span class="start-button-text">객관식 시작하기</span>
+            </button>
+            <button type="submit" class="start-right-box" onclick="makeMultipleChoice(false)">
+                <span class="start-button-text">주관식 시작하기</span>
             </button>
         </form>
     </div>

@@ -34,8 +34,10 @@ public class NormalProblemGetViewController {
     @GetMapping("/question/normal")
     public String getNormalQuestions(@RequestParam(required = false) List<String> levels,
                                      @RequestParam(required = false) List<String> categories,
+                                     @RequestParam(required = false) Boolean MultipleChoice,
                                      Model model) {
         model.addAttribute("questions", normalQuestionGetService.getClassifiedNormalQuestions(RequestGetNormalQuestionsDto.fromString(categories, levels)));
+        model.addAttribute("multipleChoice",MultipleChoice);
         return "normal-question"; // 문제를 보여줄 페이지의 이름
     }
 
