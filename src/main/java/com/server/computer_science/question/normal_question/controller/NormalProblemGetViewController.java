@@ -36,8 +36,6 @@ public class NormalProblemGetViewController {
                                      @RequestParam(required = false) List<String> categories,
                                      Model model) {
         model.addAttribute("questions", normalQuestionGetService.getClassifiedNormalQuestions(RequestGetNormalQuestionsDto.fromString(categories, levels)));
-        List<ResponseNormalQuestionDto> normalQuestions = normalQuestionGetService.getNormalQuestions(RequestGetNormalQuestionsDto.fromString(categories, levels));
-
         return "normal-question"; // 문제를 보여줄 페이지의 이름
     }
 

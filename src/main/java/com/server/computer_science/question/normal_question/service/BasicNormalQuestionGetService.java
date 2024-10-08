@@ -29,8 +29,9 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
      */
     @Override
     public List<ResponseNormalQuestionDto> getNormalQuestions(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
-        return normalQuestionRepository.findAll().stream()
-                .filter(normalQuestion -> isQuestionFit(requestGetNormalQuestionsDto,normalQuestion))
+        return normalQuestionRepository
+                .findNormalQuestionsFetchChoices(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels())
+                .stream()
                 .map(ResponseNormalQuestionDto::of)
                 .collect(Collectors.toList());
     }
@@ -47,15 +48,15 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
     }
 
     private Map<QuestionCategory, List<NormalQuestion>> makeCategoryMap(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
-        Map<QuestionCategory, List<NormalQuestion>> categoryMap = normalQuestionRepository
-                .findNormalQuestions(requestGetNormalQuestionsDto.getQuestionCategories(), requestGetNormalQuestionsDto.getQuestionLevels())
+        System.out.println(requestGetNormalQuestionsDto.getQuestionCategories());
+        return normalQuestionRepository
+                .findNormalQuestionsFetchChoices(requestGetNormalQuestionsDto.getQuestionCategories(), requestGetNormalQuestionsDto.getQuestionLevels())
                 .stream()
                 .collect(Collectors.groupingBy(NormalQuestion::getQuestionCategory));
-        // 요청된 모든 카테고리에 대해 문제가 없어도 빈 리스트 보장
-        requestGetNormalQuestionsDto.getQuestionCategories().forEach(category ->
-                categoryMap.putIfAbsent(category, new ArrayList<>())
-        );
-        return categoryMap;
+//        // 요청된 모든 카테고리에 대해 문제가 없어도 빈 리스트 보장
+//        requestGetNormalQuestionsDto.getQuestionCategories().forEach(category ->
+//                categoryMap.putIfAbsent(category, new ArrayList<>())
+//        );
     }
 
     /**
@@ -84,8 +85,6 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
                 .collect(Collectors.toList());
     }
 
-
-
     private Map<Pair<QuestionCategory,QuestionLevel>,Integer> initateCountMap() {
         Map<Pair<QuestionCategory,QuestionLevel>,Integer> counts = new LinkedHashMap<>();
         for(QuestionCategory questionCategory : QuestionCategory.values()){
@@ -96,14 +95,4 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
         return counts;
     }
 
-    private boolean isQuestionFit(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto,NormalQuestion normalQuestion) {
-        for (QuestionCategory questionCategory : requestGetNormalQuestionsDto.getQuestionCategories()) {
-            for (QuestionLevel questionLevel : requestGetNormalQuestionsDto.getQuestionLevels()) {
-                if (normalQuestion.isFit(questionCategory, questionLevel)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 }

@@ -12,7 +12,10 @@ import java.util.List;
 
 @Repository
 public interface NormalQuestionRepository extends JpaRepository<NormalQuestion,Long> {
-    @Query("SELECT nq FROM NormalQuestion nq WHERE nq.questionCategory IN :questionCategories AND nq.questionLevel IN :questionLevels")
-    List<NormalQuestion> findNormalQuestions(@Param("questionCategories") List<QuestionCategory> questionCategories,
-                                             @Param("questionLevels") List<QuestionLevel> questionLevels);
+    @Query("SELECT DISTINCT nq FROM NormalQuestion nq " +
+            "LEFT JOIN FETCH nq.normalQuestionChoices " +
+            "WHERE nq.questionCategory IN :questionCategories " +
+            "AND nq.questionLevel IN :questionLevels")
+    List<NormalQuestion> findNormalQuestionsFetchChoices(@Param("questionCategories") List<QuestionCategory> questionCategories,
+                                                         @Param("questionLevels") List<QuestionLevel> questionLevels);
 }

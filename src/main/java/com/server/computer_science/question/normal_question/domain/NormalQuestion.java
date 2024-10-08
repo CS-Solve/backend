@@ -19,7 +19,9 @@ public class NormalQuestion {
     @Id @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
     private String question;
+    @Enumerated(value = EnumType.STRING)
     private QuestionCategory questionCategory;
+    @Enumerated(value = EnumType.STRING)
     private QuestionLevel questionLevel;
     private String description;
 
@@ -51,7 +53,7 @@ public class NormalQuestion {
     public static NormalQuestion makeForTest(){
         return NormalQuestion.builder()
                 .question("testQuest")
-                .questionCategory(QuestionCategory.ALGORITHM)
+                .questionCategory(QuestionCategory.COMPUTER_ARCHITECTURE)
                 .questionLevel(QuestionLevel.LOW)
                 .description("testDescription")
                 .build();

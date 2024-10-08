@@ -9,7 +9,9 @@ public enum QuestionCategory {
     ALGORITHM("알고리즘",false),
     OOP("객체 지향",false),
     DESIGN_PATTERN("디자인 패턴",false),
-    JAVA("Java",false);
+    JAVA("Java",true);
+
+
     private final String korean;
     private final boolean canBeShow;
 
