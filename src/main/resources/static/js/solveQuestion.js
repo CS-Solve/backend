@@ -1,60 +1,92 @@
 document.addEventListener('DOMContentLoaded', function() {
-    let selectedChoice = null; // 선택된 선택지 저장 변수
-    const choices = document.querySelectorAll('.choice-item'); // 모든 선택지 가져오기
-    const checkAnswerButton = document.getElementById('checkButton'); // 채점 버튼
-    const answerBox = document.getElementById('answerBox'); // 정답/오답 표시 박스
-    const answerText = document.getElementById('answerText'); // 정답/오답 텍스트
-    const descriptionBox = document.querySelector('.description-box'); // 해설 보기 버튼 박스
-    const toggleButton = document.getElementById("toggleDescription"); // 해설 보기 버튼
-    const descriptionContent = document.getElementById("descriptionContent"); // 해설 내용 표시 박스
-    const descriptionText = document.getElementById("descriptionText"); // 해설 텍스트
+    let selectedChoice = null;
+    const choices = document.querySelectorAll('.choice-item');
+    const checkAnswerButton = document.getElementById('checkButton');
+    const answerBox = document.getElementById('answerBox');
+    const answerText = document.getElementById('answerText');
+    const descriptionBox = document.querySelector('.description-box');
+    const toggleButton = document.getElementById("toggleDescription");
+    const descriptionContent = document.getElementById("descriptionContent");
+    const descriptionText = document.getElementById("descriptionText");
 
-    // 기본적으로 해설 버튼을 숨겨둠
-    descriptionBox.style.display = "none";
-    toggleButton.style.display = "none";
+    // 사이드바 관련 요소
+    const totalQuestionsElement = document.getElementById('totalQuestions');
+    const correctQuestionsElement = document.getElementById('correctQuestions');
+    const incorrectQuestionsElement = document.getElementById('incorrectQuestions');
+    const questionList = document.getElementById('questionList');
 
-    // 선택지 클릭 시 선택 처리
-    choices.forEach(choice => {
-        choice.addEventListener('click', function() {
-            // 기존 선택지 해제 (선택된 스타일 제거)
+    let totalQuestions = document.querySelectorAll('.question-box').length;
+    let correctQuestions = 0;
+    let incorrectQuestions = 0;
+
+    // 총 문제 수 업데이트
+    totalQuestionsElement.textContent = totalQuestions;
+
+    // 문제 리스트 생성
+    document.querySelectorAll('.question-box').forEach((box, index) => {
+        const link = document.createElement('a');
+        link.href = `#question-${index + 1}`;
+        link.textContent = `문제 ${index + 1}`;
+        link.dataset.questionIndex = index;
+        questionList.appendChild(link);
+    });
+
+    // 이벤트 위임을 사용하여 문제 클릭 처리
+    questionList.addEventListener(
+        'click', function(e) {
+        if (e.target.tagName === 'A') {
+            e.preventDefault();
+            const index = e.target.dataset.questionIndex;
+            const questionBox = document.querySelectorAll('.question-box')[index];
+            if (questionBox) {
+                questionBox.scrollIntoView({ behavior: 'smooth' ,block: 'start'});
+            }
+        }
+    });
+
+    // 선택지 클릭 이벤트 (이벤트 위임 사용)
+    document.querySelector('.left-box').addEventListener('click', function(e) {
+        if (e.target.classList.contains('choice-item')) {
             if (selectedChoice) {
                 selectedChoice.classList.remove('selected-choice');
             }
-
-            // 새로 선택된 선택지 설정
-            selectedChoice = choice;
-            choice.classList.add('selected-choice'); // 선택된 스타일 추가
-        });
+            selectedChoice = e.target;
+            selectedChoice.classList.add('selected-choice');
+        }
     });
 
-    // 채점 버튼 클릭 시 마지막 선택지의 정답 여부 확인
+    // 채점 버튼 클릭 이벤트
     checkAnswerButton.addEventListener('click', function() {
         if (selectedChoice) {
             const isCorrect = selectedChoice.getAttribute('data-answer-status') === 'true';
-            const selectText = selectedChoice.getAttribute('data-choice-text');// 정답 여부 확인
+            const selectText = selectedChoice.getAttribute('data-choice-text');
 
             // 정답 여부에 따라 결과 표시
             if (isCorrect) {
-                answerBox.style.display = 'flex'; // 정답/오답 박스 표시
+                answerBox.style.display = 'flex';
                 answerBox.classList.add('correct-answer');
                 answerBox.classList.remove('wrong-answer');
-                answerText.textContent = '정답입니다!'+' ('+selectText+")";
+                answerText.textContent = '정답입니다! (' + selectText + ")";
+                correctQuestions++;
             } else {
-                answerBox.style.display = 'flex'; // 정답/오답 박스 표시
+                answerBox.style.display = 'flex';
                 answerBox.classList.add('wrong-answer');
                 answerBox.classList.remove('correct-answer');
-                answerText.textContent = '오답입니다!'+' ('+selectText+")";
+                answerText.textContent = '오답입니다! (' + selectText + ")";
+                incorrectQuestions++;
             }
 
-            // 정답 확인 후 해설 보기 버튼 보이기
+            // 사이드바 업데이트
+            updateSidebar(selectedChoice, isCorrect);
+
+            // 해설 보기 버튼 표시
             toggleButton.style.display = "block";
-            descriptionBox.style.display = "block"; // 해설 보기 버튼 보이기
+            descriptionBox.style.display = "block";
 
             // 선택된 질문의 설명을 가져와서 descriptionBox에 표시
             const description = selectedChoice.closest('.each-question').getAttribute('data-description');
-            descriptionText.textContent = description; // descriptionText에 해설 표시
+            descriptionText.textContent = description;
         } else {
-            // 선택지가 선택되지 않았을 경우 경고 표시
             answerBox.style.display = 'flex';
             answerText.textContent = '선택지를 먼저 선택하세요!';
             answerBox.classList.add('wrong-answer');
@@ -62,44 +94,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 해설 보기 버튼 클릭 시 해설 내용을 토글로 보이거나 숨기기
+    // 해설 보기 버튼 클릭 이벤트
     toggleButton.addEventListener("click", function() {
         if (descriptionContent.style.display === "none") {
-            descriptionContent.style.display = "block"; // 해설을 보이게 함
-            toggleButton.textContent = "해설 숨기기 ▲"; // 버튼 텍스트 변경
+            descriptionContent.style.display = "block";
+            toggleButton.textContent = "해설 숨기기 ▲";
         } else {
-            descriptionContent.style.display = "none"; // 해설을 숨김
-            toggleButton.textContent = "해설 보기 ▼"; // 버튼 텍스트 변경
+            descriptionContent.style.display = "none";
+            toggleButton.textContent = "해설 보기 ▼";
         }
     });
-});
 
-document.addEventListener('DOMContentLoaded', function() {
-    const backButton = document.querySelector('.mainPageFrame');
+    // 사이드바 업데이트 함수
+    function updateSidebar(selectedChoice, isCorrect) {
+        const questionBox = selectedChoice.closest('.question-box');
+        const questionIndex = Array.from(document.querySelectorAll('.question-box')).indexOf(questionBox);
+        const link = questionList.children[questionIndex];
 
-    backButton.style.cursor = 'pointer'; // 마우스를 올리면 클릭할 수 있다는 느낌을 주기 위해 포인터 추가
-
-    backButton.addEventListener('click', function() {
-        window.location.href = '/'; // 메인화면으로 이동
-    });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    // 모든 level-show-box 요소 가져오기
-    const levelBoxes = document.querySelectorAll('.level-show-box');
-
-    // 각 level-show-box에 대해 반복
-    levelBoxes.forEach(function(levelBox) {
-        // 각 level-show-box의 data-level 속성에서 난이도 값 가져오기
-        const level = levelBox.getAttribute('data-level');
-
-        // 난이도에 따라 배경색 설정
-        if (level === '상') {
-            levelBox.style.backgroundColor = '#ff6b6b'; // 빨강 (상)
-        } else if (level === '중') {
-            levelBox.style.backgroundColor = '#ffd85099'; // 노랑 (중)
-        } else if (level === '하') {
-            levelBox.style.backgroundColor = '#6bafff'; // 파랑 (하)
+        if (isCorrect) {
+            link.style.color = 'green';
+        } else {
+            link.style.color = 'red';
         }
-    });
+
+        correctQuestionsElement.textContent = correctQuestions;
+        incorrectQuestionsElement.textContent = incorrectQuestions;
+    }
 });

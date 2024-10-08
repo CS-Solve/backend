@@ -16,10 +16,10 @@
 /*    */
 /*}*/
 
-.quiz .text-wrapper {
+.quiz .logo-box {
     position: absolute;
     top: 53px;
-    left: 172px;
+    left: 10%;
     font-family: "Markazi Text-Bold", Helvetica;
     font-weight: 700;
     color: #000000;
@@ -40,7 +40,7 @@
     padding: 0px 10px;
     position: absolute;
     top: 160px;
-    left: 172px;
+    left: 10%;
     overflow: hidden;
     overflow-y: scroll;
 }
@@ -525,4 +525,36 @@
     white-space: nowrap;
     font-weight: 400;
     color: #000000;
+}
+/**
+Side bar
+ */
+
+/* 사이드바 스타일 */
+.left-sidebar {
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    top: 15%;
+    left: 0;
+    background-color: #eeeeee;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+}
+
+#questionList {
+    margin-top: 20px;
+}
+
+#questionList a {
+    display: block;
+    padding: 5px 0;
+    color: #333;
+    text-decoration: none;
+    word-wrap: break-word;
 }
