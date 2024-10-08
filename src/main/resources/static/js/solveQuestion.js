@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let correctQuestions = 0;
     let incorrectQuestions = 0;
 
+    // 각 문제에 대한 채점 여부 저장
+    const questionResults = new Array(totalQuestions).fill(null); // null은 아직 채점되지 않음, true/false로 맞음/틀림 저장
+
     // 총 문제 수 업데이트
     totalQuestionsElement.textContent = totalQuestions;
 
@@ -54,15 +57,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // 이벤트 위임을 사용하여 문제 클릭 처리
     questionList.addEventListener(
         'click', function(e) {
-        if (e.target.tagName === 'A') {
-            e.preventDefault();
-            const index = e.target.dataset.questionIndex;
-            const questionBox = document.querySelectorAll('.question-box')[index];
-            if (questionBox) {
-                questionBox.scrollIntoView({ behavior: 'smooth' ,block: 'start'});
+            if (e.target.tagName === 'A') {
+                e.preventDefault();
+                const index = e.target.dataset.questionIndex;
+                const questionBox = document.querySelectorAll('.question-box')[index];
+                if (questionBox) {
+                    questionBox.scrollIntoView({ behavior: 'smooth' ,block: 'start'});
+                }
             }
-        }
-    });
+        });
 
     // 선택지 클릭 이벤트 (이벤트 위임 사용)
     document.querySelector('.left-box').addEventListener('click', function(e) {
@@ -78,6 +81,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 채점 버튼 클릭 이벤트
     checkAnswerButton.addEventListener('click', function() {
         if (selectedChoice) {
+            const questionBox = selectedChoice.closest('.question-box');
+            const questionIndex = Array.from(document.querySelectorAll('.question-box')).indexOf(questionBox);
+
+
             const isCorrect = selectedChoice.getAttribute('data-answer-status') === 'true';
             const selectText = selectedChoice.getAttribute('data-choice-text');
 
@@ -87,13 +94,27 @@ document.addEventListener('DOMContentLoaded', function() {
                 answerBox.classList.add('correct-answer');
                 answerBox.classList.remove('wrong-answer');
                 answerText.textContent = '정답입니다! (' + selectText + ")";
-                correctQuestions++;
+                if(questionResults[questionIndex]===null){
+                    correctQuestions++;
+                }
+                if(questionResults[questionIndex]===false){
+                    correctQuestions++;
+                    incorrectQuestions--;
+                }
+                questionResults[questionIndex] = true; // 이 문제는 맞았다고 기록
             } else {
                 answerBox.style.display = 'flex';
                 answerBox.classList.add('wrong-answer');
                 answerBox.classList.remove('correct-answer');
                 answerText.textContent = '오답입니다! (' + selectText + ")";
-                incorrectQuestions++;
+                if(questionResults[questionIndex]===null){
+                    incorrectQuestions++;
+                }
+                if(questionResults[questionIndex]===true){
+                    correctQuestions--;
+                    incorrectQuestions++;
+                }
+                questionResults[questionIndex] = false; // 이 문제는 틀렸다고 기록
             }
 
             // 사이드바 업데이트
