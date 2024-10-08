@@ -1,0 +1,297 @@
+.screen {
+  background-color: #eeeeee;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.screen .big-box {
+  background-color: #eeeeee;
+  top: 5%;
+  width: 70%;
+  height: 90%;
+  position: relative;
+}
+
+.screen .main-box {
+  position: absolute;
+  width: 100%;
+  height: 30%;
+  top: 15%;
+  /*left: 514px;*/
+  background-color: #ffffff;
+  border-radius: 49px;
+  overflow: hidden;
+  box-shadow: var(--m3-elevation-dark-3);
+  padding-bottom: 20%; /* 하단 여백 더 증가 */
+}
+
+.screen .category-big-box {
+  display: flex;
+  width: 30%;
+  gap: 16px;
+  top: 40%;
+  left: 10%;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+}
+
+.screen .text-wrapper {
+  position: relative;
+  align-self: stretch;
+  margin-top: -1px;
+  font-family: "NanumSquare Neo OTF-cBd", Helvetica;
+  color: #404040;
+  font-size: 25px;
+  line-height: 37.5px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+.screen .category-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+  position: relative;
+  align-self: stretch;
+  flex: 0 0 auto;
+}
+
+.screen .level-box {
+  display: inline-flex;
+  gap: 38px;
+  width: 30%;
+  top: 40%;
+  right: 10%;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+}
+.screen .categories {
+  display: flex;
+  width: calc(50% - 8px);
+  position: relative;
+}
+
+.screen .each-category {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  position: relative;
+  align-self: stretch;
+  flex: 0 0 auto;
+}
+
+.screen .checkbox {
+  position: relative;
+  width: 35px;
+  height: 35px;
+  vertical-align: middle;
+}
+
+.screen .check-box-text {
+  position: relative;
+  width: fit-content;
+  font-family: "NanumSquare Neo OTF-cBd", Helvetica;
+  color: #404040;
+  font-size: 20px;
+  line-height: 30px;
+  white-space: nowrap;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+  vertical-align: middle;
+}
+
+.screen .box {
+  position: relative;
+  width: 23px;
+  height: 23px;
+  top: 6px;
+  left: 6px;
+  border-radius: 4px;
+  border: 1px solid;
+  border-color: #acacac;
+}
+
+.screen .view-4 {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.screen .line-4 {
+  position: absolute;
+  width: 2px;
+  height: 50%;
+  top: 40%;
+  left: 50%;
+}
+
+
+
+.screen .levels {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px; /* 각 요소 간의 간격 */
+  position: relative;
+  align-self: stretch;
+  width: 100%; /* 부모의 전체 너비 */
+  justify-content: space-between; /* 요소들이 부모 너비에 맞게 균등하게 분포 */
+}
+.screen .each-level {
+  flex-grow: 1; /* 각 요소가 부모의 너비에 맞춰 확장 */
+  text-align: center; /* 텍스트와 체크박스가 중앙에 정렬되도록 설정 */
+}
+.screen .description-box {
+  display: flex;
+  width: 71px;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+}
+
+.screen .view-7 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.screen .question-title-box {
+  position: absolute;
+  top:10%;
+  width:100%;
+  font-family: "NanumSquare Neo OTF-Regular", Helvetica;
+  color: #000000;
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 400;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo-image {
+  width: 100px;
+  height: 130px;
+}
+.screen .question-title {
+  font-family: "NanumSquare Neo OTF-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: 36px;
+  width: 100%;
+  align-content: center;
+}
+
+.screen .text-wrapper-3 {
+  font-size: 20px;
+  line-height: 30px;
+}
+/**
+메인 로고
+ */
+.screen .main-logo-box {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  font-family: "Markazi Text-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 60px;
+  text-align: center;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.screen .main-logo-box .logo-image {
+  height: 1%; /* 텍스트 크기와 동일하게 설정 */
+  width: auto; /* 비율 유지 */
+  margin-right: 10px; /* 로고와 텍스트 사이 간격 */
+}
+
+.screen .main-logo-box span {
+  line-height: 1; /* 텍스트의 줄 높이를 조정 */
+}
+
+/**
+메인페이지 - 시작버튼
+ */
+/* 공통 스타일 - start-left-box, start-right-box에 적용 */
+.screen .start-left-box,
+.screen .start-right-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 20px;
+  position: absolute;
+  top: 85%;
+  width: 10%;
+  height: 8%;
+  background-color: #ffac70;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* 각 박스의 위치 조정 */
+.screen .start-left-box {
+  left: 40%;  /* 왼쪽 위치 */
+  transform: translateX(-50%);
+}
+
+.screen .start-right-box {
+  right: 40%; /* 오른쪽 위치 */
+  transform: translateX(50%);
+}
+
+/* hover 효과 */
+.screen .start-left-box:hover,
+.screen .start-right-box:hover {
+  background-color: #ff9b50;
+  box-shadow: 0 0 10px rgba(255, 172, 112, 0.5);
+}
+
+/* active 효과 */
+.screen .start-left-box:active,
+.screen .start-right-box:active {
+  background-color: #ff8a30;
+  transform: scale(0.98);
+}
+
+/* 텍스트 스타일 */
+.screen .start-button-text {
+  font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+  color: white;
+  font-size: 25px;
+  line-height: 37.5px;
+  white-space: nowrap;
+  font-weight: bold;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}

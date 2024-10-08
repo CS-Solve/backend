@@ -1,0 +1,8 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://comssa.site
+
+Sitemap: https://comssa.site/sitemap.xml

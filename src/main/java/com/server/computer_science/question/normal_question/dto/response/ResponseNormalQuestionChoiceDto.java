@@ -2,8 +2,6 @@ package com.server.computer_science.question.normal_question.dto.response;
 
 
 import com.server.computer_science.question.normal_question.domain.NormalQuestionChoice;
-import com.server.computer_science.question.normal_question.dto.request.RequestNormalQuestionChoiceDto;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

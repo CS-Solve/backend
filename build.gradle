@@ -2,6 +2,64 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.10'
 	id 'io.spring.dependency-management' version '1.1.6'
+	//gradle7부터는 jvm.convert를 사용해야한다
+	//rest docs 결과물 생성 플러그인
+	id "org.asciidoctor.jvm.convert" version "3.3.2"
+	//0.17.0부터는 Java 17이 요구된다.
+	// restdocs to OpenApi3 플러그인
+	id 'com.epages.restdocs-api-spec' version '0.16.2'
+
+	//OpenApi3 to Swagger 플러그인
+	id 'org.hidetake.swagger.generator' version '2.19.2'
+}
+
+/**
+ * compileJava->test->asciidoctor->bootJar순으로 실행된다.
+ */
+
+//configurations {
+//	openapi3
+//}
+ext {
+	snippetsDir = file('build/generated-snippets')
+}
+
+/**
+ * 지정된 경로의 OpenApi3 스펙을 기반으로 SwaggerUi를 생성
+ */
+swaggerSources {
+	sample {
+		setInputFile(layout.buildDirectory.file("build/resoueces/main/static/openapi3.json").get().asFile)
+	}
+}
+
+openapi3 {
+	servers = [
+			{ url = 'http://localhost:8080' },
+	]
+	title = 'Post Service API'
+	description = 'Post Service API description'
+	version = '3.0.0'
+	format = 'json'
+	outputDirectory("build/resources/main/static/docs")
+	/*outputDirectory("src/main/resources/static/docs")*/
+}
+task deleteOldOpenApiSpec(type: Delete) {
+
+	delete file("build/resources/main/static/docs")
+}
+// OpenAPI 스펙 생성 전 원본 파일 삭제를 위한 태스크
+
+//openapi3 태스크가 deleteOldOpenApiSpec에 의존하도록 설정
+//tasks.openapi3 {
+//	dependsOn deleteOldOpenApiSpec
+//}
+
+// OpenAPI 스펙 파일을 원하는 위치로 복사하는 태스크
+task copyOpenApiSpec(type: Copy) {
+	dependsOn openapi3
+	from("build/api-spec/openapi3.yaml")
+	into("build/resources/main/static/docs")
 }
 
 group = 'com.study.computer-science'
@@ -26,6 +84,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -33,6 +92,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.16.2' //restdocs->openApi
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	testImplementation 'io.findify:s3mock_2.13:0.2.6'
 	implementation 'io.springfox:springfox-boot-starter:3.0.0'
@@ -41,3 +101,38 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+//tasks.build.dependsOn tasks.openapi3
+
+/**
+ * Rest Docs 단독으로 쓸 때 설정
+ */
+asciidoctor {
+	dependsOn test
+	inputs.dir snippetsDir
+}
+/**
+ * 기존에 존재하는 Rest docs를 삭제하여 준다
+ */
+asciidoctor.doFirst {
+	delete file('src/main/resources/static/docs')
+}
+
+
+bootJar {
+	dependsOn asciidoctor
+	copy {
+		from "${asciidoctor.outputDir}"
+		/**
+		 * build/docs/asciidoc 하위에 생기는 html파일을
+		 * 아래의 위치로 옮겨준다.
+		 */
+		into 'BOOT-INF/classes/static/docs'
+	}
+	dependsOn 'openapi3'
+}
+
+//task copyDocument(type: Copy) {
+//	dependsOn asciidoctor
+//	from file("build/docs/asciidoc")
+//	into file("src/main/resources/static/docs")
+//}

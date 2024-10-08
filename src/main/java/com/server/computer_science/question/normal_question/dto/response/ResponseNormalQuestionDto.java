@@ -1,11 +1,9 @@
 package com.server.computer_science.question.normal_question.dto.response;
 
 
-import com.server.computer_science.question.common.ProblemCategory;
-import com.server.computer_science.question.common.ProblemLevel;
+import com.server.computer_science.question.common.QuestionCategory;
+import com.server.computer_science.question.common.QuestionLevel;
 import com.server.computer_science.question.normal_question.domain.NormalQuestion;
-import com.server.computer_science.question.normal_question.dto.request.RequestNormalQuestionChoiceDto;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +15,9 @@ import java.util.stream.Collectors;
 @Getter
 public class ResponseNormalQuestionDto {
     private String question;
-    private ProblemCategory problemCategory;
-    private ProblemLevel problemLevel;
+    private String description;
+    private QuestionCategory questionCategory;
+    private QuestionLevel questionLevel;
     private List<ResponseNormalQuestionChoiceDto> normalQuestionChoices;
 
 
@@ -31,15 +30,17 @@ public class ResponseNormalQuestionDto {
                                 .map(ResponseNormalQuestionChoiceDto::of)
                                 .collect(Collectors.toList())
                 )
-                .problemCategory(question.getProblemCategory())
-                .problemLevel(question.getProblemLevel())
+                .questionCategory(question.getQuestionCategory())
+                .questionLevel(question.getQuestionLevel())
+                .description(question.getDescription())
                 .build();
     }
     @Builder
-    public ResponseNormalQuestionDto(String question, ProblemCategory problemCategory, ProblemLevel problemLevel, List<ResponseNormalQuestionChoiceDto> normalQuestionChoices) {
+    public ResponseNormalQuestionDto(String question, QuestionCategory questionCategory, QuestionLevel questionLevel, List<ResponseNormalQuestionChoiceDto> normalQuestionChoices, String description) {
         this.question = question;
-        this.problemCategory = problemCategory;
-        this.problemLevel = problemLevel;
+        this.questionCategory = questionCategory;
+        this.questionLevel = questionLevel;
         this.normalQuestionChoices = normalQuestionChoices;
+        this.description = description;
     }
 }
