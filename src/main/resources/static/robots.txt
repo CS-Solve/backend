@@ -3,4 +3,6 @@ User-agent: *
 Allow: /
 
 # Host
-Host: http://comssa.site
+Host: https://comssa.site
+
+Sitemap: https://comssa.site/sitemap.xml
