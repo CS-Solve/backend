@@ -1,0 +1,6 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: http://comssa.site
