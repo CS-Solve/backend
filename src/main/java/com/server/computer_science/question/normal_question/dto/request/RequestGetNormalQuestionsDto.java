@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
@@ -28,32 +30,23 @@ public class RequestGetNormalQuestionsDto {
                 .build();
     }
     public static RequestGetNormalQuestionsDto fromString(List<String> questionCategories, List<String> questionLevels) {
-        List<QuestionCategory> categories = null;
-        List<QuestionLevel> levels = null;
-
-        // questionCategories가 null이 아니면 String을 QuestionCategory로 매핑
-        if (questionCategories != null) {
-            categories = questionCategories.stream()
-                    .map(category -> Arrays.stream(QuestionCategory.values())
-                            .filter(q -> q.getKorean().equals(category)) // korean 필드 비교
-                            .findFirst()
-                            .orElseThrow(() -> new IllegalArgumentException("Invalid QuestionCategory: " + category)))
-                    .collect(Collectors.toList());
-        }
-
-        // questionLevels가 null이 아니면 String을 QuestionLevel로 매핑
-        if (questionLevels != null) {
-            levels = questionLevels.stream()
-                    .map(level -> Arrays.stream(QuestionLevel.values())
-                            .filter(l -> l.getKorean().equals(level)) // korean 필드 비교
-                            .findFirst()
-                            .orElseThrow(() -> new IllegalArgumentException("Invalid QuestionLevel: " + level)))
-                    .collect(Collectors.toList());
-        }
+        List<QuestionCategory> categories = mapOrGetAllEnumValues(questionCategories, QuestionCategory.class,QuestionCategory::getKorean);
+        List<QuestionLevel> levels = mapOrGetAllEnumValues(questionLevels, QuestionLevel.class,QuestionLevel::getKorean);
         // DTO 빌드
         return RequestGetNormalQuestionsDto.builder()
                 .questionCategories(categories)
                 .questionLevels(levels)
                 .build();
+    }
+    private static <T extends Enum<T>> List<T> mapOrGetAllEnumValues(List<String> values, Class<T> enumClass, Function<T, String> getKorean) {
+        if (values == null || values.isEmpty()) {
+            return Arrays.asList(enumClass.getEnumConstants());
+        }
+        return values.stream()
+                .map(value -> Arrays.stream(enumClass.getEnumConstants())
+                        .filter(e -> getKorean.apply(e).equals(value))
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalArgumentException("Invalid " + enumClass.getSimpleName() + ": " + value)))
+                .collect(Collectors.toList());
     }
 }

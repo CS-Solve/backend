@@ -29,8 +29,9 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
      */
     @Override
     public List<ResponseNormalQuestionDto> getNormalQuestions(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
-        return normalQuestionRepository.findAll().stream()
-                .filter(normalQuestion -> isQuestionFit(requestGetNormalQuestionsDto,normalQuestion))
+        return normalQuestionRepository
+                .findNormalQuestionsFetchChoices(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels())
+                .stream()
                 .map(ResponseNormalQuestionDto::of)
                 .collect(Collectors.toList());
     }
@@ -84,8 +85,6 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
                 .collect(Collectors.toList());
     }
 
-
-
     private Map<Pair<QuestionCategory,QuestionLevel>,Integer> initateCountMap() {
         Map<Pair<QuestionCategory,QuestionLevel>,Integer> counts = new LinkedHashMap<>();
         for(QuestionCategory questionCategory : QuestionCategory.values()){
@@ -96,14 +95,4 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
         return counts;
     }
 
-    private boolean isQuestionFit(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto,NormalQuestion normalQuestion) {
-        for (QuestionCategory questionCategory : requestGetNormalQuestionsDto.getQuestionCategories()) {
-            for (QuestionLevel questionLevel : requestGetNormalQuestionsDto.getQuestionLevels()) {
-                if (normalQuestion.isFit(questionCategory, questionLevel)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 }
