@@ -2344,3 +2344,58 @@
 10-08 12:10:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsStarted=1, lastLocalStreamCreatedTime=1728356271114, lastRemoteStreamCreatedTime=0}
 10-08 12:10:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsSucceeded=0, streamsFailed=0, messagesSent=0, messagesReceived=0}
 10-08 12:10:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {keepAlivesSent=24, lastMessageSentTime=0, lastMessageReceivedTime=0, localFlowControlWindow=1048576, remoteFlowControlWindow=1048576}
+10-08 12:11:51.051 [l-Executor(5-0)] INFO  c.n.p.p.s.g.PingStreamContext            -- PingStream-1 success:
+10-08 12:11:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 {target=collect.pinpoint.ncloud.com:9993, stat=READY}
+10-08 12:11:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 {callsFailed=0, callsStarted=1, callsSucceeded=0, lastCallStarted=1728356271104}
+10-08 12:11:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 subchannels:[7]
+10-08 12:11:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 {target=[[[collect.pinpoint.ncloud.com/49.236.142.55:9993]/{}]], stat=READY}
+10-08 12:11:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 {callsFailed=0, callsStarted=1, callsSucceeded=0, lastCallStarted=1728356271114}
+10-08 12:11:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 sockets:[8]
+10-08 12:11:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {local=/192.168.0.72:56139, remote=collect.pinpoint.ncloud.com/49.236.142.55:9993, security=null}
+10-08 12:11:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsStarted=1, lastLocalStreamCreatedTime=1728356271114, lastRemoteStreamCreatedTime=0}
+10-08 12:11:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsSucceeded=0, streamsFailed=0, messagesSent=0, messagesReceived=0}
+10-08 12:11:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {keepAlivesSent=25, lastMessageSentTime=0, lastMessageReceivedTime=0, localFlowControlWindow=1048576, remoteFlowControlWindow=1048576}
+10-08 12:12:51.051 [l-Executor(5-0)] INFO  c.n.p.p.s.g.PingStreamContext            -- PingStream-1 success:
+10-08 12:12:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 {target=collect.pinpoint.ncloud.com:9993, stat=READY}
+10-08 12:12:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 {callsFailed=0, callsStarted=1, callsSucceeded=0, lastCallStarted=1728356271104}
+10-08 12:12:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 subchannels:[7]
+10-08 12:12:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 {target=[[[collect.pinpoint.ncloud.com/49.236.142.55:9993]/{}]], stat=READY}
+10-08 12:12:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 {callsFailed=0, callsStarted=1, callsSucceeded=0, lastCallStarted=1728356271114}
+10-08 12:12:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 sockets:[8]
+10-08 12:12:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {local=/192.168.0.72:56139, remote=collect.pinpoint.ncloud.com/49.236.142.55:9993, security=null}
+10-08 12:12:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsStarted=1, lastLocalStreamCreatedTime=1728356271114, lastRemoteStreamCreatedTime=0}
+10-08 12:12:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsSucceeded=0, streamsFailed=0, messagesSent=0, messagesReceived=0}
+10-08 12:12:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {keepAlivesSent=27, lastMessageSentTime=0, lastMessageReceivedTime=0, localFlowControlWindow=1048576, remoteFlowControlWindow=1048576}
+10-08 12:13:51.051 [l-Executor(5-0)] INFO  c.n.p.p.s.g.PingStreamContext            -- PingStream-1 success:
+10-08 12:13:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 {target=collect.pinpoint.ncloud.com:9993, stat=READY}
+10-08 12:13:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 {callsFailed=0, callsStarted=1, callsSucceeded=0, lastCallStarted=1728356271104}
+10-08 12:13:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 subchannels:[7]
+10-08 12:13:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 {target=[[[collect.pinpoint.ncloud.com/49.236.142.55:9993]/{}]], stat=READY}
+10-08 12:13:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 {callsFailed=0, callsStarted=1, callsSucceeded=0, lastCallStarted=1728356271114}
+10-08 12:13:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 sockets:[8]
+10-08 12:13:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {local=/192.168.0.72:56139, remote=collect.pinpoint.ncloud.com/49.236.142.55:9993, security=null}
+10-08 12:13:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsStarted=1, lastLocalStreamCreatedTime=1728356271114, lastRemoteStreamCreatedTime=0}
+10-08 12:13:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsSucceeded=0, streamsFailed=0, messagesSent=0, messagesReceived=0}
+10-08 12:13:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {keepAlivesSent=28, lastMessageSentTime=0, lastMessageReceivedTime=0, localFlowControlWindow=1048576, remoteFlowControlWindow=1048576}
+10-08 12:14:51.051 [l-Executor(5-0)] INFO  c.n.p.p.s.g.PingStreamContext            -- PingStream-1 success:
+10-08 12:14:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 {target=collect.pinpoint.ncloud.com:9993, stat=READY}
+10-08 12:14:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 {callsFailed=0, callsStarted=1, callsSucceeded=0, lastCallStarted=1728356271104}
+10-08 12:14:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 subchannels:[7]
+10-08 12:14:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 {target=[[[collect.pinpoint.ncloud.com/49.236.142.55:9993]/{}]], stat=READY}
+10-08 12:14:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 {callsFailed=0, callsStarted=1, callsSucceeded=0, lastCallStarted=1728356271114}
+10-08 12:14:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 sockets:[8]
+10-08 12:14:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {local=/192.168.0.72:56139, remote=collect.pinpoint.ncloud.com/49.236.142.55:9993, security=null}
+10-08 12:14:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsStarted=1, lastLocalStreamCreatedTime=1728356271114, lastRemoteStreamCreatedTime=0}
+10-08 12:14:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsSucceeded=0, streamsFailed=0, messagesSent=0, messagesReceived=0}
+10-08 12:14:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {keepAlivesSent=30, lastMessageSentTime=0, lastMessageReceivedTime=0, localFlowControlWindow=1048576, remoteFlowControlWindow=1048576}
+10-08 12:15:51.051 [l-Executor(5-0)] INFO  c.n.p.p.s.g.PingStreamContext            -- PingStream-1 success:
+10-08 12:15:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 {target=collect.pinpoint.ncloud.com:9993, stat=READY}
+10-08 12:15:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 {callsFailed=0, callsStarted=1, callsSucceeded=0, lastCallStarted=1728356271104}
+10-08 12:15:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- RootChannel-3 subchannels:[7]
+10-08 12:15:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 {target=[[[collect.pinpoint.ncloud.com/49.236.142.55:9993]/{}]], stat=READY}
+10-08 12:15:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 {callsFailed=0, callsStarted=1, callsSucceeded=0, lastCallStarted=1728356271114}
+10-08 12:15:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 3-SubChannel-7 sockets:[8]
+10-08 12:15:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {local=/192.168.0.72:56139, remote=collect.pinpoint.ncloud.com/49.236.142.55:9993, security=null}
+10-08 12:15:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsStarted=1, lastLocalStreamCreatedTime=1728356271114, lastRemoteStreamCreatedTime=0}
+10-08 12:15:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {streamsSucceeded=0, streamsFailed=0, messagesSent=0, messagesReceived=0}
+10-08 12:15:52.052 [edReporter(0-0)] INFO  c.n.p.m.SpanChannel                      -- 7-Socket-8 {keepAlivesSent=32, lastMessageSentTime=0, lastMessageReceivedTime=0, localFlowControlWindow=1048576, remoteFlowControlWindow=1048576}
