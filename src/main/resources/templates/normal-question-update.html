@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Update Normal Questions</title>
     <script th:src="@{/js/updateQuestion.js}"></script>
+    <script th:src="@{/js/textTranslater.js}"></script>
     <link rel="stylesheet" th:href="@{/css/normal-question-update/style.css}" />
 </head>
 <body>
@@ -34,7 +35,7 @@
             </ul>
 
             <!-- 해설 텍스트 -->
-            <p th:text="${question.description}" class="description">Description</p>
+            <p th:text="${question.description}" class="description"></p>
 
             <!-- approve 토글 -->
             <label for="approve">허용:</label>
