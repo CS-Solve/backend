@@ -32,7 +32,7 @@ h2 {
 }
 
 /* 질문 텍스트 스타일 */
-.question-title {
+.questionTitle {
     font-size: 1.2em;
     font-weight: bold;
     color: #34495e;

@@ -212,7 +212,7 @@
     flex: 0 0 auto;
 }
 
-.quiz .question-item {
+.quiz .questionItem {
     margin-top: -1px;
     font-family: "NanumSquare Neo OTF-dEb", Helvetica;
     color: #000000;

@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function handleQuestionClick(e) {
         if (e.target.classList.contains('choice-item')) {
             selectChoice(e.target);
-        } else if (e.target.classList.contains('question-item')) {
+        } else if (e.target.classList.contains('questionItem')) {
             selectQuestion(e.target);
         }
     }

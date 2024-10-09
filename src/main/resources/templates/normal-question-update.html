@@ -21,7 +21,7 @@
     <div th:id ="'questions-'+${classifiedQuestion.questionCategory}">
         <div  th:id="'question-'+${question.id}"  th:each="question : ${classifiedQuestion.responseNormalQuestionDtoList}" class="question-container">
             <!-- 문제 텍스트 -->
-            <h3 th:text="${question.question}" class="question-title">Question</h3>
+            <h3 th:text="${question.question}" class="questionTitle">Question</h3>
             <!-- 문제 난이도 표시 -->
             <p th:text="'Difficulty Level: ' + ${question.questionLevel}" style="color: red;"></p>
 

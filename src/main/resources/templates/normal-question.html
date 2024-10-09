@@ -48,7 +48,7 @@
                         </div>
                     </div>
                     <div class="questions">
-                        <p class="question-item" th:text="${question.question}"></p>
+                        <p class="questionItem" th:text="${question.question}"></p>
                         <div class="choice-list" th:if="${multipleChoice}">
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
                             <div th:each="choice, choiceStat : ${question.normalQuestionChoices}"
