@@ -1,5 +1,6 @@
-package com.server.computer_science.question.normal_question.service;
+package com.server.computer_science.question.admin.service.implement;
 
+import com.server.computer_science.question.admin.service.AdminNormalQuestionMakeService;
 import com.server.computer_science.question.normal_question.domain.NormalQuestion;
 import com.server.computer_science.question.normal_question.domain.NormalQuestionChoice;
 import com.server.computer_science.question.normal_question.dto.request.RequestMakeNormalQuestionDto;
@@ -7,6 +8,7 @@ import com.server.computer_science.question.normal_question.dto.response.Respons
 import com.server.computer_science.question.normal_question.exception.DuplicateQuestionException;
 import com.server.computer_science.question.normal_question.repository.NormalQuestionChoiceRepository;
 import com.server.computer_science.question.normal_question.repository.NormalQuestionRepository;
+import com.server.computer_science.question.normal_question.service.DuplicateQuestionDetector;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class BasicNormalQuestionMakeService implements NormalQuestionMakeService {
+public class BasicAdminAdminNormalQuestionMakeService implements AdminNormalQuestionMakeService {
     private final NormalQuestionRepository normalQuestionRepository;
     private final NormalQuestionChoiceRepository normalQuestionChoiceRepository;
     private final DuplicateQuestionDetector duplicateQuestionDetector;

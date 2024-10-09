@@ -5,7 +5,7 @@ import com.server.computer_science.question.normal_question.dto.request.RequestM
 
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.exception.DuplicateQuestionException;
-import com.server.computer_science.question.normal_question.service.NormalQuestionMakeService;
+import com.server.computer_science.question.admin.service.AdminNormalQuestionMakeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -22,19 +22,19 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class NormalProblemMakeController {
-    private final NormalQuestionMakeService normalQuestionMakeService;
+    private final AdminNormalQuestionMakeService adminNormalQuestionMakeService;
 
     @ApiOperation("단답형 문제 리스트로 생성 API")
     @PostMapping(value = "/question/normal-multi")
     public ResponseEntity<List<ResponseNormalQuestionDto>> MakeMultiNormalQuestion(@RequestBody List<RequestMakeNormalQuestionDto> requestMakeNormalQuestionDtos){
-        return ResponseEntity.ok(normalQuestionMakeService.makeNormalQuestions(requestMakeNormalQuestionDtos));
+        return ResponseEntity.ok(adminNormalQuestionMakeService.makeNormalQuestions(requestMakeNormalQuestionDtos));
     }
 
     @ApiOperation("단답형 문제 단일 생성 API")
     @PostMapping(value = "/question/normal-single")
     public ResponseEntity<ResponseNormalQuestionDto> MakeSingleNormalQuestion(@RequestBody RequestMakeNormalQuestionDto requestMakeNormalQuestionDto) throws DuplicateQuestionException {
 
-        return ResponseEntity.ok(normalQuestionMakeService.makeNormalQuestion(requestMakeNormalQuestionDto));
+        return ResponseEntity.ok(adminNormalQuestionMakeService.makeNormalQuestion(requestMakeNormalQuestionDto));
     }
 
     @ExceptionHandler(DuplicateQuestionException.class)

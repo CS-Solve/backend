@@ -1,4 +1,4 @@
-package com.server.computer_science.question.normal_question.service;
+package com.server.computer_science.question.admin.service;
 
 import com.server.computer_science.question.normal_question.dto.request.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public interface NormalQuestionMakeService {
+public interface AdminNormalQuestionMakeService {
 
     public List<ResponseNormalQuestionDto> makeNormalQuestions(List<RequestMakeNormalQuestionDto> requestNormalQuestionDto);
     public ResponseNormalQuestionDto makeNormalQuestion(RequestMakeNormalQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException;

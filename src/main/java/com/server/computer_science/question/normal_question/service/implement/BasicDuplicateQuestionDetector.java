@@ -1,8 +1,7 @@
-package com.server.computer_science.question.normal_question.service;
+package com.server.computer_science.question.normal_question.service.implement;
 
+import com.server.computer_science.question.normal_question.service.DuplicateQuestionDetector;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class BasicDuplicateQuestionDetector implements DuplicateQuestionDetector {

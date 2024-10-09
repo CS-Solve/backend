@@ -7,7 +7,7 @@ import com.server.computer_science.question.normal_question.domain.NormalQuestio
 import com.server.computer_science.question.normal_question.dto.request.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.exception.DuplicateQuestionException;
-import com.server.computer_science.question.normal_question.service.NormalQuestionMakeService;
+import com.server.computer_science.question.admin.service.AdminNormalQuestionMakeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -43,7 +43,7 @@ class NormalProblemMakeControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
     @MockBean
-    private NormalQuestionMakeService normalQuestionMakeService;
+    private AdminNormalQuestionMakeService adminNormalQuestionMakeService;
 
     private NormalQuestion normalQuestion;
     private RequestMakeNormalQuestionDto requestMakeNormalQuestionDto;
@@ -63,7 +63,7 @@ class NormalProblemMakeControllerTest {
     void MakeSingleNormalQuestion() throws Exception {
         final String PATH = "/question/normal-single";
         final String document_Name ="성공";
-        Mockito.when(normalQuestionMakeService.makeNormalQuestion(any())).thenReturn(ResponseNormalQuestionDto.forUser(normalQuestion));
+        Mockito.when(adminNormalQuestionMakeService.makeNormalQuestion(any())).thenReturn(ResponseNormalQuestionDto.forUser(normalQuestion));
 
         mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -89,7 +89,7 @@ class NormalProblemMakeControllerTest {
     void MakeSingleNormalQuestionWithDuplicateError() throws Exception {
         final String PATH = "/question/normal-single";
         final String document_Name ="실패 - 중복된 문제";
-        Mockito.doThrow(DuplicateQuestionException.class).when(normalQuestionMakeService).makeNormalQuestion(any());
+        Mockito.doThrow(DuplicateQuestionException.class).when(adminNormalQuestionMakeService).makeNormalQuestion(any());
         mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestMakeNormalQuestionDto)))
