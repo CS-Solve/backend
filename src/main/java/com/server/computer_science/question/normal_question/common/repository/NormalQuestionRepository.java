@@ -13,6 +13,10 @@ import java.util.Optional;
 
 @Repository
 public interface NormalQuestionRepository extends JpaRepository<NormalQuestion,Long> {
+    /**
+     *
+     허용되지 않은 문제까지 조회
+     */
     @Query("SELECT DISTINCT nq FROM NormalQuestion nq " +
             "LEFT JOIN FETCH nq.normalQuestionChoices " +
             "WHERE nq.questionCategory IN :questionCategories " +
@@ -32,4 +36,16 @@ public interface NormalQuestionRepository extends JpaRepository<NormalQuestion,L
             "LEFT JOIN FETCH nq.normalQuestionChoices "+
     "WHERE nq.id = :id")
     Optional<NormalQuestion> findNormalQuestionsByIdFetchChoices(@Param("id") Long id);
+
+
+    /**
+     * 허용된 문제들만 조회 (ifApproved가 true인 경우)
+     */
+    @Query("SELECT DISTINCT nq FROM NormalQuestion nq " +
+            "LEFT JOIN FETCH nq.normalQuestionChoices " +
+            "WHERE nq.questionCategory IN :questionCategories " +
+            "AND nq.questionLevel IN :questionLevels " +
+            "AND nq.ifApproved = true")
+    List<NormalQuestion> findNormalQuestionsFetchChoicesWithCategoriesAndLevelsAndIfApproved(@Param("questionCategories") List<QuestionCategory> questionCategories,
+                                                                                              @Param("questionLevels") List<QuestionLevel> questionLevels);
 }

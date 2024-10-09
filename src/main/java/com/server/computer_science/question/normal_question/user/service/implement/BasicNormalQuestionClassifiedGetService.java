@@ -30,7 +30,7 @@ public class BasicNormalQuestionClassifiedGetService implements NormalQuestionCl
     }
 
     private Map<QuestionCategory, List<NormalQuestion>> makeCategoryMap(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
-        List<NormalQuestion> normalQuestions = normalQuestionDBService.getFetchChoicesByCategoriesAndLevels(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels());
+        List<NormalQuestion> normalQuestions = normalQuestionDBService.getAllFetchChoicesByCategoriesAndLevelsApproved(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels());
         return normalQuestionClassifyService.classifyNormalQuestionByClass(normalQuestions);
     }
     @Override
@@ -41,7 +41,4 @@ public class BasicNormalQuestionClassifiedGetService implements NormalQuestionCl
                 .map(entry-> ResponseClassifiedNormalQuestionDto.forUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
     }
-
-
-
 }
