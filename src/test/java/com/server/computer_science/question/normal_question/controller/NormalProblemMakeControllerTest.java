@@ -5,6 +5,7 @@ import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.computer_science.question.normal_question.admin.controller.AdminNormalQuestionController;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
+import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifiedGetService;
 import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
@@ -13,8 +14,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -45,6 +48,10 @@ class NormalProblemMakeControllerTest {
     private ObjectMapper objectMapper;
     @MockBean
     private AdminNormalQuestionMakeService adminNormalQuestionMakeService;
+    @MockBean
+    @Qualifier("basicAdminNormalQuestionClassifiedGetService")  // Qualifier 지정
+    private NormalQuestionClassifiedGetService normalQuestionClassifiedGetService;
+
 
     private NormalQuestion normalQuestion;
     private RequestMakeNormalQuestionDto requestMakeNormalQuestionDto;
@@ -62,7 +69,7 @@ class NormalProblemMakeControllerTest {
     @Test
     @DisplayName("퀴즈 생성 단일 - 성공")
     void MakeSingleNormalQuestion() throws Exception {
-        final String PATH = "/question/normal-single";
+        final String PATH = "/admin/question/normal-single";
         final String document_Name ="성공";
         Mockito.when(adminNormalQuestionMakeService.makeNormalQuestion(any())).thenReturn(ResponseNormalQuestionDto.forUser(normalQuestion));
 
@@ -88,7 +95,7 @@ class NormalProblemMakeControllerTest {
     @Test
     @DisplayName("퀴즈 생성 단일 - 실패")
     void MakeSingleNormalQuestionWithDuplicateError() throws Exception {
-        final String PATH = "/question/normal-single";
+        final String PATH = "/admin/question/normal-single";
         final String document_Name ="실패 - 중복된 문제";
         Mockito.doThrow(DuplicateQuestionException.class).when(adminNormalQuestionMakeService).makeNormalQuestion(any());
         mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)

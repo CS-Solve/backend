@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NormalProblemGetViewController {
     private final QuestionSelectorService questionSelectorService;
-    @Qualifier("BasicNormalQuestionClassifiedGetService")
+    @Qualifier("basicNormalQuestionClassifiedGetService")
     private final NormalQuestionClassifiedGetService normalQuestionClassifiedGetService;
 
     @GetMapping("/")

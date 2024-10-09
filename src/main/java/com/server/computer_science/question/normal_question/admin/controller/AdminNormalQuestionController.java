@@ -23,7 +23,7 @@ import java.util.List;
 @Api(tags ={"단답형 문제 - ADMIN"})
 @RequestMapping("/admin")
 public class AdminNormalQuestionController {
-    @Qualifier("BasicAdminNormalQuestionClassifiedGetService")
+    @Qualifier("basicAdminNormalQuestionClassifiedGetService")
     private final NormalQuestionClassifiedGetService normalQuestionClassifiedGetService;
     private final AdminNormalQuestionMakeService adminNormalQuestionMakeService;
 

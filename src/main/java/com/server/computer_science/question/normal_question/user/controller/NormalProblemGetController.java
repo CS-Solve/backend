@@ -18,7 +18,7 @@ public class NormalProblemGetController {
 
 
     @ApiOperation("단답형 문제 분야-난이도별 문제 숫자 조회 API")
-    @GetMapping(value ="/question/class")
+    @GetMapping(value ="/question/normal/class-count")
     public List<ResponseNormalQuestionClassCountDto> getNormalQuestionClasses(){
         return normalQuestionCountService.getNormalQuestionCountByClass();
     }
