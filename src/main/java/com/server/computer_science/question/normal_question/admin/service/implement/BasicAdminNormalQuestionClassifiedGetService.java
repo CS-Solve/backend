@@ -41,4 +41,13 @@ public class BasicAdminNormalQuestionClassifiedGetService implements NormalQuest
                 .map(entry-> ResponseClassifiedNormalQuestionDto.forAdmin(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ResponseClassifiedNormalQuestionDto> getClassifiedShortAnsweredNormalQuestions(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
+        List<NormalQuestion> normalQuestions = normalQuestionDBService.findAllFetchChoicesShortAnswered();
+        return normalQuestionClassifyService.classifyNormalQuestionByClass(normalQuestions)
+                .entrySet().stream()
+                .map(entry-> ResponseClassifiedNormalQuestionDto.forAdmin(entry.getKey(),entry.getValue()))
+                .collect(Collectors.toList());
+    }
 }
