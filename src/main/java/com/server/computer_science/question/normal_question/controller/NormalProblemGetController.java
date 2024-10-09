@@ -5,6 +5,7 @@ import com.server.computer_science.question.common.QuestionLevel;
 import com.server.computer_science.question.normal_question.dto.request.RequestGetNormalQuestionsDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionClassCountDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.normal_question.service.NormalQuestionCountService;
 import com.server.computer_science.question.normal_question.service.UserNormalQuestionGetService;
 import io.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -20,12 +21,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NormalProblemGetController {
     private final UserNormalQuestionGetService userNormalQuestionGetService;
+    private final NormalQuestionCountService normalQuestionCountService;
 
 
     @ApiOperation("단답형 문제 분야-난이도별 문제 숫자 조회 API")
     @GetMapping(value ="/question/class")
     public List<ResponseNormalQuestionClassCountDto> getNormalQuestionClasses(){
-        return userNormalQuestionGetService.getNormalQuestionCountByClass();
+        return normalQuestionCountService.getNormalQuestionCountByClass();
     }
 
 //        @ApiOperation("단답형 문제 조회 API")
