@@ -5,17 +5,19 @@ import com.server.computer_science.question.normal_question.domain.NormalQuestio
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
+@SuperBuilder
 public class ResponseClassifiedNormalQuestionDto {
     private QuestionCategory questionCategory;
     private List<ResponseNormalQuestionDto> responseNormalQuestionDtoList;
 
-    public static ResponseClassifiedNormalQuestionDto of(QuestionCategory questionCategory, List<NormalQuestion> normalQuestions ) {
+    public static ResponseClassifiedNormalQuestionDto forUser(QuestionCategory questionCategory, List<NormalQuestion> normalQuestions ) {
         return ResponseClassifiedNormalQuestionDto.builder()
                 .questionCategory(questionCategory)
                 .responseNormalQuestionDtoList(
@@ -25,7 +27,6 @@ public class ResponseClassifiedNormalQuestionDto {
                 )
                 .build();
     }
-    @Builder
     public ResponseClassifiedNormalQuestionDto(QuestionCategory questionCategory, List<ResponseNormalQuestionDto> responseNormalQuestionDtoList) {
         this.questionCategory = questionCategory;
         this.responseNormalQuestionDtoList = responseNormalQuestionDtoList;

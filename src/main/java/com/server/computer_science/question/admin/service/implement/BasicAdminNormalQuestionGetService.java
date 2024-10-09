@@ -2,8 +2,9 @@ package com.server.computer_science.question.admin.service.implement;
 
 
 import com.server.computer_science.question.admin.service.AdminNormalQuestionGetService;
+import com.server.computer_science.question.normal_question.dto.response.ResponseClassifiedNormalQuestionDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
-import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDtoForAdmin;
+import com.server.computer_science.question.admin.dto.ResponseNormalQuestionDtoForAdmin;
 import com.server.computer_science.question.normal_question.service.implement.NormalQuestionDBService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class BasicAdminNormalQuestionGetService implements AdminNormalQuestionGe
     private final NormalQuestionDBService normalQuestionDBService;
 
     @Override
-    public List<ResponseNormalQuestionDto> getAllNormalQuestionForAdmin() {
+    public List<ResponseClassifiedNormalQuestionDto> getAllNormalQuestionsClassifiedForAdmin() {
         return normalQuestionDBService.findAllFetchChoices()
                 .stream()
                 .map(ResponseNormalQuestionDtoForAdmin::forAdmin)

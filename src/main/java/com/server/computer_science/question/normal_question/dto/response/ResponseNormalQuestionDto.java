@@ -1,10 +1,10 @@
 package com.server.computer_science.question.normal_question.dto.response;
 
 
+import com.server.computer_science.question.admin.dto.ResponseNormalQuestionDtoForAdmin;
 import com.server.computer_science.question.common.QuestionCategory;
 import com.server.computer_science.question.common.QuestionLevel;
 import com.server.computer_science.question.normal_question.domain.NormalQuestion;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

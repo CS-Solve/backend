@@ -8,5 +8,5 @@ import java.util.List;
 
 @Service
 public interface AdminNormalQuestionGetService {
-    public List<ResponseNormalQuestionDto> getAllNormalQuestionForAdmin();
+    public List<ResponseNormalQuestionDto> getAllNormalQuestionsClassifiedForAdmin();
 }
