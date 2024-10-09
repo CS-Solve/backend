@@ -34,12 +34,8 @@ public class BasicUserNormalQuestionGetService implements UserNormalQuestionGetS
     }
 
     private Map<QuestionCategory, List<NormalQuestion>> makeCategoryMap(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
-        List<NormalQuestion> normalQuestions = normalQuestionDBService.getNormalQuestionsByCategoriesAndLevels(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels());
+        List<NormalQuestion> normalQuestions = normalQuestionDBService.getFetchChoicesByCategoriesAndLevels(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels());
         return normalQuestionClassifyService.classifyNormalQuestionByClass(normalQuestions);
-//        // 요청된 모든 카테고리에 대해 문제가 없어도 빈 리스트 보장
-//        requestGetNormalQuestionsDto.getQuestionCategories().forEach(category ->
-//                categoryMap.putIfAbsent(category, new ArrayList<>())
-//        );
     }
 
     /**

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class BasicAdminAdminNormalQuestionMakeService implements AdminNormalQuestionMakeService {
+public class BasicAdminNormalQuestionMakeService implements AdminNormalQuestionMakeService {
     private final NormalQuestionRepository normalQuestionRepository;
     private final NormalQuestionChoiceRepository normalQuestionChoiceRepository;
     private final DuplicateQuestionDetector duplicateQuestionDetector;

@@ -27,6 +27,16 @@ public class ResponseClassifiedNormalQuestionDto {
                 )
                 .build();
     }
+    public static ResponseClassifiedNormalQuestionDto forAdmin(QuestionCategory questionCategory, List<NormalQuestion> normalQuestions ) {
+        return ResponseClassifiedNormalQuestionDto.builder()
+                .questionCategory(questionCategory)
+                .responseNormalQuestionDtoList(
+                        normalQuestions.stream()
+                                .map(ResponseNormalQuestionDto::forAdmin)
+                                .collect(Collectors.toList())
+                )
+                .build();
+    }
     public ResponseClassifiedNormalQuestionDto(QuestionCategory questionCategory, List<ResponseNormalQuestionDto> responseNormalQuestionDtoList) {
         this.questionCategory = questionCategory;
         this.responseNormalQuestionDtoList = responseNormalQuestionDtoList;

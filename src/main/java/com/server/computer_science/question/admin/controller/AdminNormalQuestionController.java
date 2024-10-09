@@ -2,6 +2,7 @@ package com.server.computer_science.question.admin.controller;
 
 
 import com.server.computer_science.question.admin.service.AdminNormalQuestionGetService;
+import com.server.computer_science.question.normal_question.dto.response.ResponseClassifiedNormalQuestionDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -21,7 +22,7 @@ public class AdminNormalQuestionController {
 
     @ApiOperation("단답형 문제 조회 - ADMIN")
     @GetMapping("/question/normal")
-    public List<ResponseNormalQuestionDto> getAllNormalQuestionForAdmin(){
+    public List<ResponseClassifiedNormalQuestionDto> getAllNormalQuestionForAdmin(){
         return adminNormalQuestionGetService.getAllNormalQuestionsClassifiedForAdmin();
     }
 }

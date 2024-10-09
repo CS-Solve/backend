@@ -13,6 +13,10 @@ public class BasicNormalQuestionClassifyService implements NormalQuestionClassif
 
     @Override
     public Map<QuestionCategory, List<NormalQuestion>> classifyNormalQuestionByClass(List<NormalQuestion> normalQuestions) {
+        //        // 요청된 모든 카테고리에 대해 문제가 없어도 빈 리스트 보장
+//        requestGetNormalQuestionsDto.getQuestionCategories().forEach(category ->
+//                categoryMap.putIfAbsent(category, new ArrayList<>())
+//
         return normalQuestions.stream().collect(Collectors.groupingBy(NormalQuestion::getQuestionCategory));
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 public class NormalQuestionDBService {
     private final NormalQuestionRepository normalQuestionRepository;
 
-    public List<NormalQuestion> getNormalQuestionsByCategoriesAndLevels(List<QuestionCategory> categories, List<QuestionLevel> questionLevels){
+    public List<NormalQuestion> getFetchChoicesByCategoriesAndLevels(List<QuestionCategory> categories, List<QuestionLevel> questionLevels){
         return normalQuestionRepository.findNormalQuestionsFetchChoicesWithCategoriesAndLevels(categories,questionLevels);
     }
 
