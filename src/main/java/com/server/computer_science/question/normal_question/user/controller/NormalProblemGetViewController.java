@@ -33,9 +33,13 @@ public class NormalProblemGetViewController {
                                      @RequestParam(required = false) List<String> categories,
                                      @RequestParam(required = false) Boolean multipleChoice,
                                      Model model) {
-        model.addAttribute("questions", normalQuestionClassifiedGetService.getClassifiedNormalQuestions(RequestGetNormalQuestionsDto.fromString(categories, levels)));
+        if(multipleChoice){
+            model.addAttribute("questions", normalQuestionClassifiedGetService.getClassifiedNormalQuestions(RequestGetNormalQuestionsDto.fromString(categories, levels)));
+        }
+        else{
+            model.addAttribute("questions", normalQuestionClassifiedGetService.getClassifiedShortAnsweredNormalQuestions(RequestGetNormalQuestionsDto.fromString(categories, levels)));
+        }
         model.addAttribute("multipleChoice", multipleChoice);
-        System.out.println(multipleChoice);
         return "normal-question"; // 문제를 보여줄 페이지의 이름
     }
 
