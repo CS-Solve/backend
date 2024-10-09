@@ -1,4 +1,4 @@
-package com.server.computer_science.question.normal_question.user.dto.request;
+package com.server.computer_science.question.normal_question.admin.dto;
 
 
 import lombok.AllArgsConstructor;

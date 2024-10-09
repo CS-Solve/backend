@@ -4,7 +4,7 @@ package com.server.computer_science.question.normal_question.admin.controller;
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionMakeService;
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionUpdateService;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
-import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
+import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseClassifiedNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifiedGetService;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
