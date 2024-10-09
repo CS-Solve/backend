@@ -25,6 +25,9 @@ public class NormalQuestion {
     private QuestionLevel questionLevel;
     private String description;
 
+    public boolean canBeShortAnswered;
+    public boolean ifApproved;
+
     @OneToMany(mappedBy = "normalQuestion",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NormalQuestionChoice> normalQuestionChoices;
 
@@ -44,6 +47,13 @@ public class NormalQuestion {
         this.questionLevel = questionLevel;
         this.normalQuestionChoices = new ArrayList<>();
         this.description = description;
+    }
+
+    public void makeQuestionApproved(){
+        this.ifApproved = true;
+    }
+    public void makeQuestionCanBeShortAnswered(){
+        this.canBeShortAnswered = true;
     }
 
     public boolean isFit(QuestionCategory questionCategory, QuestionLevel questionLevel){

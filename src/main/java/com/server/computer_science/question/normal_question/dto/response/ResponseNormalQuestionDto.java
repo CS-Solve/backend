@@ -21,7 +21,7 @@ public class ResponseNormalQuestionDto {
     private List<ResponseNormalQuestionChoiceDto> normalQuestionChoices;
 
 
-    public static ResponseNormalQuestionDto of(NormalQuestion question){
+    public static ResponseNormalQuestionDto forUser(NormalQuestion question){
         return ResponseNormalQuestionDto.builder()
                 .question(question.getQuestion())
                 .normalQuestionChoices(
@@ -33,6 +33,22 @@ public class ResponseNormalQuestionDto {
                 .questionCategory(question.getQuestionCategory())
                 .questionLevel(question.getQuestionLevel())
                 .description(question.getDescription())
+                .build();
+    }
+    public static ResponseNormalQuestionDto forAdmin(NormalQuestion question){
+        return ResponseNormalQuestionDtoForAdmin.builder()
+                .question(question.getQuestion())
+                .normalQuestionChoices(
+                        question.getNormalQuestionChoices()
+                                .stream()
+                                .map(ResponseNormalQuestionChoiceDto::of)
+                                .collect(Collectors.toList())
+                )
+                .questionCategory(question.getQuestionCategory())
+                .questionLevel(question.getQuestionLevel())
+                .description(question.getDescription())
+                .ifApproved(question.isIfApproved())
+                .canBeShortAnswered(question.isCanBeShortAnswered())
                 .build();
     }
     @Builder

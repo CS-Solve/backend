@@ -55,6 +55,6 @@ public class BasicNormalQuestionMakeService implements NormalQuestionMakeService
                 .stream()
                 .map(nqc -> NormalQuestionChoice.makeWithDto(nqc,normalQuestion))
                 .collect(Collectors.toList()));
-        return ResponseNormalQuestionDto.of(normalQuestion);
+        return ResponseNormalQuestionDto.forUser(normalQuestion);
     }
 }

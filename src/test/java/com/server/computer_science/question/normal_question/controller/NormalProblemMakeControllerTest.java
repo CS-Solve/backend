@@ -63,7 +63,7 @@ class NormalProblemMakeControllerTest {
     void MakeSingleNormalQuestion() throws Exception {
         final String PATH = "/question/normal-single";
         final String document_Name ="성공";
-        Mockito.when(normalQuestionMakeService.makeNormalQuestion(any())).thenReturn(ResponseNormalQuestionDto.of(normalQuestion));
+        Mockito.when(normalQuestionMakeService.makeNormalQuestion(any())).thenReturn(ResponseNormalQuestionDto.forUser(normalQuestion));
 
         mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
                 .contentType(MediaType.APPLICATION_JSON)

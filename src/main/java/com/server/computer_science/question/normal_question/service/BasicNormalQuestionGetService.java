@@ -32,7 +32,7 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
         return normalQuestionRepository
                 .findNormalQuestionsFetchChoices(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels())
                 .stream()
-                .map(ResponseNormalQuestionDto::of)
+                .map(ResponseNormalQuestionDto::forUser)
                 .collect(Collectors.toList());
     }
 

@@ -20,7 +20,7 @@ public class ResponseClassifiedNormalQuestionDto {
                 .questionCategory(questionCategory)
                 .responseNormalQuestionDtoList(
                         normalQuestions.stream()
-                                .map(ResponseNormalQuestionDto::of)
+                                .map(ResponseNormalQuestionDto::forUser)
                                 .collect(Collectors.toList())
                 )
                 .build();
