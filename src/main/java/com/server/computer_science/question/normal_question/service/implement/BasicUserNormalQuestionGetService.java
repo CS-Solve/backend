@@ -7,8 +7,7 @@ import com.server.computer_science.question.normal_question.domain.NormalQuestio
 import com.server.computer_science.question.normal_question.dto.request.RequestGetNormalQuestionsDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseClassifiedNormalQuestionDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionClassCountDto;
-import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
-import com.server.computer_science.question.normal_question.service.NormalQuestionGetService;
+import com.server.computer_science.question.normal_question.service.UserNormalQuestionGetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
@@ -18,20 +17,8 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class UserNormalQuestionGetService implements NormalQuestionGetService {
+public class BasicUserNormalQuestionGetService implements UserNormalQuestionGetService {
     private final NormalQuestionDBService normalQuestionDBService;
-
-    /**
-     *
-     * 분야 상관없이 문제 반환
-     */
-    @Override
-    public List<ResponseNormalQuestionDto> getNormalQuestions(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
-        return normalQuestionDBService.getNormalQuestionsByCategoriesAndLevels(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels())
-                .stream()
-                .map(ResponseNormalQuestionDto::forUser)
-                .collect(Collectors.toList());
-    }
 
     /**
      * 분류별로 나누어 문제를 반환

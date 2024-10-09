@@ -1,7 +1,7 @@
 package com.server.computer_science.question.normal_question.controller;
 
 import com.server.computer_science.question.normal_question.dto.request.RequestGetNormalQuestionsDto;
-import com.server.computer_science.question.normal_question.service.NormalQuestionGetService;
+import com.server.computer_science.question.normal_question.service.UserNormalQuestionGetService;
 import com.server.computer_science.question.normal_question.service.QuestionSelectorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NormalProblemGetViewController {
     private final QuestionSelectorService questionSelectorService;
-    private final NormalQuestionGetService normalQuestionGetService;
+    private final UserNormalQuestionGetService userNormalQuestionGetService;
 
     @GetMapping("/")
     public String showMainPage(Model model){
@@ -31,7 +31,7 @@ public class NormalProblemGetViewController {
                                      @RequestParam(required = false) List<String> categories,
                                      @RequestParam(required = false) Boolean multipleChoice,
                                      Model model) {
-        model.addAttribute("questions", normalQuestionGetService.getClassifiedNormalQuestions(RequestGetNormalQuestionsDto.fromString(categories, levels)));
+        model.addAttribute("questions", userNormalQuestionGetService.getClassifiedNormalQuestions(RequestGetNormalQuestionsDto.fromString(categories, levels)));
         model.addAttribute("multipleChoice", multipleChoice);
         System.out.println(multipleChoice);
         return "normal-question"; // 문제를 보여줄 페이지의 이름
