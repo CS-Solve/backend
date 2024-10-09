@@ -16,6 +16,9 @@ public interface NormalQuestionRepository extends JpaRepository<NormalQuestion,L
             "LEFT JOIN FETCH nq.normalQuestionChoices " +
             "WHERE nq.questionCategory IN :questionCategories " +
             "AND nq.questionLevel IN :questionLevels")
-    List<NormalQuestion> findNormalQuestionsFetchChoices(@Param("questionCategories") List<QuestionCategory> questionCategories,
-                                                         @Param("questionLevels") List<QuestionLevel> questionLevels);
+    List<NormalQuestion> findNormalQuestionsFetchChoicesWithCategoriesAndLevels(@Param("questionCategories") List<QuestionCategory> questionCategories,
+                                                                                @Param("questionLevels") List<QuestionLevel> questionLevels);
+    @Query("SELECT DISTINCT nq FROM NormalQuestion nq " +
+            "LEFT JOIN FETCH nq.normalQuestionChoices ")
+    List<NormalQuestion> findNormalQuestionsFetchChoices();
 }

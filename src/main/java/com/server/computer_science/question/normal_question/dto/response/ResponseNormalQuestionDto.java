@@ -7,12 +7,14 @@ import com.server.computer_science.question.normal_question.domain.NormalQuestio
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
+@SuperBuilder
 public class ResponseNormalQuestionDto {
     private String question;
     private String description;
@@ -51,7 +53,7 @@ public class ResponseNormalQuestionDto {
                 .canBeShortAnswered(question.isCanBeShortAnswered())
                 .build();
     }
-    @Builder
+
     public ResponseNormalQuestionDto(String question, QuestionCategory questionCategory, QuestionLevel questionLevel, List<ResponseNormalQuestionChoiceDto> normalQuestionChoices, String description) {
         this.question = question;
         this.questionCategory = questionCategory;

@@ -12,16 +12,16 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
+@Transactional
 public class NormalQuestionDBService {
     private final NormalQuestionRepository normalQuestionRepository;
 
     public List<NormalQuestion> getNormalQuestionsByCategoriesAndLevels(List<QuestionCategory> categories, List<QuestionLevel> questionLevels){
-        return normalQuestionRepository.findNormalQuestionsFetchChoices(categories,questionLevels);
+        return normalQuestionRepository.findNormalQuestionsFetchChoicesWithCategoriesAndLevels(categories,questionLevels);
     }
 
-    public List<NormalQuestion> findAll(){
-        return normalQuestionRepository.findAll();
+    public List<NormalQuestion> findAllFetchChoices(){
+        return normalQuestionRepository.findNormalQuestionsFetchChoices();
     }
 
 }

@@ -8,12 +8,10 @@ import com.server.computer_science.question.normal_question.dto.request.RequestG
 import com.server.computer_science.question.normal_question.dto.response.ResponseClassifiedNormalQuestionDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionClassCountDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
-import com.server.computer_science.question.normal_question.repository.NormalQuestionRepository;
 import com.server.computer_science.question.normal_question.service.NormalQuestionGetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -64,7 +62,7 @@ public class UserNormalQuestionGetService implements NormalQuestionGetService {
      */
     @Override
     public List<ResponseNormalQuestionClassCountDto> getNormalQuestionCountByClass() {
-        List<NormalQuestion> normalQuestions = normalQuestionDBService.findAll();
+        List<NormalQuestion> normalQuestions = normalQuestionDBService.findAllFetchChoices();
         Map<Pair<QuestionCategory,QuestionLevel>,Integer> counts = initateCountMap();
         for (NormalQuestion normalQuestion : normalQuestions) {
             for(Pair<QuestionCategory,QuestionLevel> pair : counts.keySet()){
