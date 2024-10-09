@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Normal Questions</title>
+    <script th:src="@{/js/admin.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/normal-question-update/style.css}" />
+</head>
+<body>
+
+<h1>Update Normal Questions</h1>
+
+<!-- 카테고리별 질문 목록을 렌더링 -->
+<div th:each="classifiedQuestion : ${classifiedQuestions}">
+    <h2 th:text="${classifiedQuestion.questionCategory.name}">Category Name</h2>
+
+    <!-- 질문 목록 -->
+    <div th:each="question : ${classifiedQuestion.responseNormalQuestionDtoList}" class="question-container">
+        <!-- 문제 텍스트 -->
+        <h3 th:text="${question.question}" class="question-title">Question</h3>
+
+        <!-- 선택지 목록 -->
+        <ul>
+            <li th:each="choice : ${question.normalQuestionChoices}">
+                <span th:text="${choice.text}">Choice Text</span>
+                (<span th:text="${choice.selectedCount}">0</span> 선택)
+                <span th:if="${choice.answerStatus}" th:text="'[정답]'">정답</span>
+            </li>
+        </ul>
+
+        <!-- 해설 텍스트 -->
+        <p th:text="${question.description}" class="description">Description</p>
+
+        <!-- approve 토글 -->
+        <label for="approve">Approved:</label>
+        <input type="checkbox" th:checked="${question.ifApproved}"
+               th:attr="data-question-id=${question.id}"
+               onclick="toggleApprove(this.getAttribute('data-question-id'))" />
+        <br/>
+
+        <!-- canBeMultiple 토글 -->
+        <label for="canBeShortAnswered">Can be Short-answered:</label>
+        <input type="checkbox" th:checked="${question.canBeShortAnswered}"
+               th:attr="data-question-id=${question.id}"
+               onclick="toggleCanBeMultiple(this.getAttribute('data-question-id'))" />
+        <br/>
+    </div>
+</div>
+
+</body>
+</html>

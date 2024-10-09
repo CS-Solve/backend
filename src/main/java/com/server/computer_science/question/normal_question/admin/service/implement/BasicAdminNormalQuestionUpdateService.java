@@ -22,7 +22,7 @@ public class BasicAdminNormalQuestionUpdateService implements AdminNormalQuestio
     }
 
     @Override
-    public ResponseNormalQuestionDto toggleBeMultipleNormalQuestion(Long questionId) {
+    public ResponseNormalQuestionDto toggleCanBeShortAnswered(Long questionId) {
         NormalQuestion normalQuestion= normalQuestionDBService.findByIdFetchChoices(questionId);
         normalQuestion.toggleCanBeShortAnswered();
         return ResponseNormalQuestionDto.forAdmin(normalQuestion);

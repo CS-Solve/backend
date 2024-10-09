@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface AdminNormalQuestionUpdateService {
     public ResponseNormalQuestionDto toggleApproveNormalQuestion(Long questionId);
-    public ResponseNormalQuestionDto toggleBeMultipleNormalQuestion(Long questionId);
+    public ResponseNormalQuestionDto toggleCanBeShortAnswered(Long questionId);
 }
