@@ -55,6 +55,12 @@ public class NormalQuestion {
     public void makeQuestionCanBeShortAnswered(){
         this.canBeShortAnswered = true;
     }
+    public void toggleApproved(){
+        this.ifApproved = !this.ifApproved;
+    }
+    public void toggleCanBeShortAnswered(){
+        this.canBeShortAnswered = !this.canBeShortAnswered;
+    }
 
     public boolean isFit(QuestionCategory questionCategory, QuestionLevel questionLevel){
         return this.questionCategory.equals(questionCategory) && this.questionLevel.equals(questionLevel);

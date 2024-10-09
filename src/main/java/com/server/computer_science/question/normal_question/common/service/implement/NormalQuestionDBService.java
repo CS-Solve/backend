@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +23,10 @@ public class NormalQuestionDBService {
 
     public List<NormalQuestion> findAllFetchChoices(){
         return normalQuestionRepository.findNormalQuestionsFetchChoices();
+    }
+
+    public NormalQuestion findById(Long id){
+        return normalQuestionRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
 }

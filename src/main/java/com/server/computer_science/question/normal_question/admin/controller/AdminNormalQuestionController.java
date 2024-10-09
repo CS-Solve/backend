@@ -2,12 +2,12 @@ package com.server.computer_science.question.normal_question.admin.controller;
 
 
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionMakeService;
+import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionUpdateService;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseClassifiedNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifiedGetService;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
-import com.server.computer_science.question.normal_question.user.service.NormalQuestionCountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -26,25 +26,37 @@ public class AdminNormalQuestionController {
     @Qualifier("basicAdminNormalQuestionClassifiedGetService")
     private final NormalQuestionClassifiedGetService normalQuestionClassifiedGetService;
     private final AdminNormalQuestionMakeService adminNormalQuestionMakeService;
+    private final AdminNormalQuestionUpdateService adminNormalQuestionUpdateService;
 
-    @ApiOperation("단답형 문제 조회 - ADMIN")
+    @ApiOperation("단답형 문제 조회")
     @GetMapping("/question/normal")
     public List<ResponseClassifiedNormalQuestionDto> getAllNormalQuestionForAdmin(){
         return normalQuestionClassifiedGetService.getClassifiedAllNormalQuestions();
     }
 
-    @ApiOperation("단답형 문제 리스트로 생성 API")
+    @ApiOperation("단답형 문제 리스트로 생성")
     @PostMapping(value = "/question/normal-multi")
     public ResponseEntity<List<ResponseNormalQuestionDto>> MakeMultiNormalQuestion(@RequestBody List<RequestMakeNormalQuestionDto> requestMakeNormalQuestionDtos){
         return ResponseEntity.ok(adminNormalQuestionMakeService.makeNormalQuestions(requestMakeNormalQuestionDtos));
     }
 
-    @ApiOperation("단답형 문제 단일 생성 API")
+    @ApiOperation("단답형 문제 단일로 생성")
     @PostMapping(value = "/question/normal-single")
     public ResponseEntity<ResponseNormalQuestionDto> MakeSingleNormalQuestion(@RequestBody RequestMakeNormalQuestionDto requestMakeNormalQuestionDto) throws DuplicateQuestionException {
-
         return ResponseEntity.ok(adminNormalQuestionMakeService.makeNormalQuestion(requestMakeNormalQuestionDto));
     }
+
+    @ApiOperation("단답형 문제 상태 업데이트 - Approve 토글")
+    @PostMapping(value = "/question/normal/toggle-approve/{id}")
+    public ResponseEntity<ResponseNormalQuestionDto> toggleApproveNormalQuestion(@PathVariable("id")Long questionId) {
+        return ResponseEntity.ok(adminNormalQuestionUpdateService.toggleApproveNormalQuestion(questionId));
+    }
+    @ApiOperation("단답형 문제 상태 업데이트 - 단답형-주관식 토글")
+    @PostMapping(value = "/question/normal/toggle-multiple/{id}")
+    public ResponseEntity<ResponseNormalQuestionDto> toggleBeMultipleNormalQuestion(@PathVariable("id")Long questionId) {
+        return ResponseEntity.ok(adminNormalQuestionUpdateService.toggleBeMultipleNormalQuestion(questionId));
+    }
+
 
     @ExceptionHandler(DuplicateQuestionException.class)
     public ResponseEntity<String> handleException(DuplicateQuestionException e){

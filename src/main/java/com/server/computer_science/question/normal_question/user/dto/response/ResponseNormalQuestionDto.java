@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Getter
 @SuperBuilder
 public class ResponseNormalQuestionDto {
+    private Long id;
     private String question;
     private String description;
     private QuestionCategory questionCategory;
@@ -25,6 +26,7 @@ public class ResponseNormalQuestionDto {
 
     public static ResponseNormalQuestionDto forUser(NormalQuestion question){
         return ResponseNormalQuestionDto.builder()
+                .id(question.getId())
                 .question(question.getQuestion())
                 .normalQuestionChoices(
                         question.getNormalQuestionChoices()
@@ -39,6 +41,7 @@ public class ResponseNormalQuestionDto {
     }
     public static ResponseNormalQuestionDto forAdmin(NormalQuestion question){
         return ResponseNormalQuestionDtoForAdmin.builder()
+                .id(question.getId())
                 .question(question.getQuestion())
                 .normalQuestionChoices(
                         question.getNormalQuestionChoices()
@@ -54,7 +57,8 @@ public class ResponseNormalQuestionDto {
                 .build();
     }
 
-    public ResponseNormalQuestionDto(String question, QuestionCategory questionCategory, QuestionLevel questionLevel, List<ResponseNormalQuestionChoiceDto> normalQuestionChoices, String description) {
+    public ResponseNormalQuestionDto(Long id,String question, QuestionCategory questionCategory, QuestionLevel questionLevel, List<ResponseNormalQuestionChoiceDto> normalQuestionChoices, String description) {
+        this.id = id;
         this.question = question;
         this.questionCategory = questionCategory;
         this.questionLevel = questionLevel;
