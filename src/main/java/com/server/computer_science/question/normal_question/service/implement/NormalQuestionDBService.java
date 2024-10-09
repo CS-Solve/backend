@@ -20,4 +20,8 @@ public class NormalQuestionDBService {
         return normalQuestionRepository.findNormalQuestionsFetchChoices(categories,questionLevels);
     }
 
+    public List<NormalQuestion> findAll(){
+        return normalQuestionRepository.findAll();
+    }
+
 }

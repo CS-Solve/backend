@@ -1,4 +1,4 @@
-package com.server.computer_science.question.normal_question.service;
+package com.server.computer_science.question.normal_question.service.implement;
 
 
 import com.server.computer_science.question.common.QuestionCategory;
@@ -9,6 +9,7 @@ import com.server.computer_science.question.normal_question.dto.response.Respons
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionClassCountDto;
 import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.repository.NormalQuestionRepository;
+import com.server.computer_science.question.normal_question.service.NormalQuestionGetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
@@ -19,9 +20,8 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
-public class BasicNormalQuestionGetService implements NormalQuestionGetService {
-    private final NormalQuestionRepository normalQuestionRepository;
+public class UserNormalQuestionGetService implements NormalQuestionGetService {
+    private final NormalQuestionDBService normalQuestionDBService;
 
     /**
      *
@@ -29,8 +29,7 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
      */
     @Override
     public List<ResponseNormalQuestionDto> getNormalQuestions(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
-        return normalQuestionRepository
-                .findNormalQuestionsFetchChoices(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels())
+        return normalQuestionDBService.getNormalQuestionsByCategoriesAndLevels(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels())
                 .stream()
                 .map(ResponseNormalQuestionDto::forUser)
                 .collect(Collectors.toList());
@@ -49,8 +48,7 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
 
     private Map<QuestionCategory, List<NormalQuestion>> makeCategoryMap(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
         System.out.println(requestGetNormalQuestionsDto.getQuestionCategories());
-        return normalQuestionRepository
-                .findNormalQuestionsFetchChoices(requestGetNormalQuestionsDto.getQuestionCategories(), requestGetNormalQuestionsDto.getQuestionLevels())
+        return normalQuestionDBService.getNormalQuestionsByCategoriesAndLevels(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels())
                 .stream()
                 .collect(Collectors.groupingBy(NormalQuestion::getQuestionCategory));
 //        // 요청된 모든 카테고리에 대해 문제가 없어도 빈 리스트 보장
@@ -66,7 +64,7 @@ public class BasicNormalQuestionGetService implements NormalQuestionGetService {
      */
     @Override
     public List<ResponseNormalQuestionClassCountDto> getNormalQuestionCountByClass() {
-        List<NormalQuestion> normalQuestions = normalQuestionRepository.findAll();
+        List<NormalQuestion> normalQuestions = normalQuestionDBService.findAll();
         Map<Pair<QuestionCategory,QuestionLevel>,Integer> counts = initateCountMap();
         for (NormalQuestion normalQuestion : normalQuestions) {
             for(Pair<QuestionCategory,QuestionLevel> pair : counts.keySet()){
