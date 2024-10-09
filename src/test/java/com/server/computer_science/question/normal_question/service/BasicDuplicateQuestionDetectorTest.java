@@ -1,6 +1,6 @@
 package com.server.computer_science.question.normal_question.service;
 
-import com.server.computer_science.question.normal_question.service.implement.BasicDuplicateQuestionDetector;
+import com.server.computer_science.question.normal_question.admin.service.implement.BasicDuplicateQuestionDetector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

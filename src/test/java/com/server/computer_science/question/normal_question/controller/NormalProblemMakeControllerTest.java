@@ -3,11 +3,12 @@ package com.server.computer_science.question.normal_question.controller;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.server.computer_science.question.normal_question.domain.NormalQuestion;
-import com.server.computer_science.question.normal_question.dto.request.RequestMakeNormalQuestionDto;
-import com.server.computer_science.question.normal_question.dto.response.ResponseNormalQuestionDto;
-import com.server.computer_science.question.normal_question.exception.DuplicateQuestionException;
-import com.server.computer_science.question.admin.service.AdminNormalQuestionMakeService;
+import com.server.computer_science.question.normal_question.admin.controller.AdminNormalQuestionController;
+import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
+import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
+import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
+import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionMakeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-@WebMvcTest(NormalProblemMakeController.class)
+@WebMvcTest(AdminNormalQuestionController.class)
 @AutoConfigureRestDocs
 @AutoConfigureMockMvc
 class NormalProblemMakeControllerTest {
