@@ -28,9 +28,14 @@ public class BasicAdminNormalQuestionClassifiedGetService implements NormalQuest
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 관리자가 조회시 Approve됐는지 기준으로 정렬되며(false인 것부터),
+     * 이후엔 객관식 -> 주관식으로 정렬된다.
+     * @return
+     */
     @Override
     public List<ResponseClassifiedNormalQuestionDto> getClassifiedAllNormalQuestions() {
-        List<NormalQuestion> normalQuestions = normalQuestionDBService.findAllFetchChoices();
+        List<NormalQuestion> normalQuestions = normalQuestionDBService.findAllFetchChoicesSortedByApproveAndShortAnswered();
         return normalQuestionClassifyService.classifyNormalQuestionByClass(normalQuestions)
                 .entrySet().stream()
                 .map(entry-> ResponseClassifiedNormalQuestionDto.forAdmin(entry.getKey(),entry.getValue()))

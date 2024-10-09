@@ -24,6 +24,10 @@ public class ResponseNormalQuestionDto {
     private List<ResponseNormalQuestionChoiceDto> normalQuestionChoices;
 
 
+    /**
+     * 유저와 관리자에 따라 다른 정적팩토리 메소드를 사용한다
+     * 차이점은 객관식 여부와, 허용됐는지 여부 변수의 존재 여부다
+     */
     public static ResponseNormalQuestionDto forUser(NormalQuestion question){
         return ResponseNormalQuestionDto.builder()
                 .id(question.getId())

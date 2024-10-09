@@ -24,6 +24,9 @@ public class NormalQuestionDBService {
     public List<NormalQuestion> findAllFetchChoices(){
         return normalQuestionRepository.findNormalQuestionsFetchChoices();
     }
+    public List<NormalQuestion> findAllFetchChoicesSortedByApproveAndShortAnswered(){
+        return normalQuestionRepository.findNormalQuestionsFetchChoicesSortedByIfApprovedAndCanBeShortAnswered();
+    }
 
     public NormalQuestion findByIdFetchChoices(Long id){
         return normalQuestionRepository.findNormalQuestionsByIdFetchChoices(id).orElseThrow(NoSuchElementException::new);
