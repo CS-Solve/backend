@@ -49,3 +49,20 @@ function toggleCategory(categoryName) {
         questionList.style.display = "none";
     }
 }
+function deleteQuestion(questionId) {
+    if (confirm("Are you sure you want to delete this question?")) {
+        fetch(`/admin/question/normal/${questionId}`, {
+            method: 'DELETE',
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to delete question');
+                }
+                // 성공 시 삭제된 질문을 화면에서 숨김
+                document.getElementById('question-' + questionId).style.display = 'none';
+            })
+            .catch(error => {
+                console.error('Error deleting question:', error);
+            });
+    }
+}

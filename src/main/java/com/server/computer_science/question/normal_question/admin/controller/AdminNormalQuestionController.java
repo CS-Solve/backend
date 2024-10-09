@@ -58,7 +58,7 @@ public class AdminNormalQuestionController {
     }
 
     @ApiOperation("단답형 문제 삭제")
-    @DeleteMapping(value ="/question/normal")
+    @DeleteMapping(value ="/question/normal/{id}")
     public ResponseEntity<Void> deleteNormalQuestion(@PathVariable("id")Long questionId) {
         adminNormalQuestionUpdateService.deleteNormalQuestion(questionId);
         return ResponseEntity.noContent().build();
