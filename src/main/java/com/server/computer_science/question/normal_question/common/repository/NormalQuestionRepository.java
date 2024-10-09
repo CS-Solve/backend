@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface NormalQuestionRepository extends JpaRepository<NormalQuestion,Long> {
@@ -21,4 +22,9 @@ public interface NormalQuestionRepository extends JpaRepository<NormalQuestion,L
     @Query("SELECT DISTINCT nq FROM NormalQuestion nq " +
             "LEFT JOIN FETCH nq.normalQuestionChoices ")
     List<NormalQuestion> findNormalQuestionsFetchChoices();
+
+    @Query("SELECT DISTINCT nq FROM NormalQuestion nq " +
+            "LEFT JOIN FETCH nq.normalQuestionChoices "+
+    "WHERE nq.id = :id")
+    Optional<NormalQuestion> findNormalQuestionsByIdFetchChoices(@Param("id") Long id);
 }

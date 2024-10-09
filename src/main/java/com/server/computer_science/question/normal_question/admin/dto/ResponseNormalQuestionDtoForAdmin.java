@@ -19,8 +19,8 @@ public class ResponseNormalQuestionDtoForAdmin extends ResponseNormalQuestionDto
     private boolean ifApproved;
     private boolean canBeShortAnswered;
 
-    public ResponseNormalQuestionDtoForAdmin(String question, QuestionCategory questionCategory, QuestionLevel questionLevel, List<ResponseNormalQuestionChoiceDto> normalQuestionChoices, String description, boolean ifApproved, boolean canBeShortAnswered) {
-        super(question, questionCategory, questionLevel, normalQuestionChoices, description);
+    public ResponseNormalQuestionDtoForAdmin(Long id,String question, QuestionCategory questionCategory, QuestionLevel questionLevel, List<ResponseNormalQuestionChoiceDto> normalQuestionChoices, String description, boolean ifApproved, boolean canBeShortAnswered) {
+        super(id,question, questionCategory, questionLevel, normalQuestionChoices, description);
         this.ifApproved = ifApproved;
         this.canBeShortAnswered = canBeShortAnswered;
     }

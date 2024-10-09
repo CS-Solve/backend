@@ -4,6 +4,7 @@ import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.computer_science.question.normal_question.admin.controller.AdminNormalQuestionController;
+import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionUpdateService;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifiedGetService;
 import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
@@ -48,6 +49,8 @@ class NormalProblemMakeControllerTest {
     private ObjectMapper objectMapper;
     @MockBean
     private AdminNormalQuestionMakeService adminNormalQuestionMakeService;
+    @MockBean
+    private AdminNormalQuestionUpdateService adminNormalQuestionUpdateService;
     @MockBean
     @Qualifier("basicAdminNormalQuestionClassifiedGetService")  // Qualifier 지정
     private NormalQuestionClassifiedGetService normalQuestionClassifiedGetService;

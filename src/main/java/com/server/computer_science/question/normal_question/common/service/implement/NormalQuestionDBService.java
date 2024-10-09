@@ -25,8 +25,8 @@ public class NormalQuestionDBService {
         return normalQuestionRepository.findNormalQuestionsFetchChoices();
     }
 
-    public NormalQuestion findById(Long id){
-        return normalQuestionRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public NormalQuestion findByIdFetchChoices(Long id){
+        return normalQuestionRepository.findNormalQuestionsByIdFetchChoices(id).orElseThrow(NoSuchElementException::new);
     }
 
 }

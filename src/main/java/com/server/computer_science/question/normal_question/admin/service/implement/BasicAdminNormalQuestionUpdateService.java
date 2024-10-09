@@ -7,21 +7,23 @@ import com.server.computer_science.question.normal_question.user.dto.response.Re
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BasicAdminNormalQuestionUpdateService implements AdminNormalQuestionUpdateService {
     private final NormalQuestionDBService normalQuestionDBService;
     @Override
     public ResponseNormalQuestionDto toggleApproveNormalQuestion(Long questionId) {
-        NormalQuestion normalQuestion = normalQuestionDBService.findById(questionId);
+        NormalQuestion normalQuestion = normalQuestionDBService.findByIdFetchChoices(questionId);
         normalQuestion.toggleApproved();
         return ResponseNormalQuestionDto.forAdmin(normalQuestion);
     }
 
     @Override
     public ResponseNormalQuestionDto toggleBeMultipleNormalQuestion(Long questionId) {
-        NormalQuestion normalQuestion= normalQuestionDBService.findById(questionId);
+        NormalQuestion normalQuestion= normalQuestionDBService.findByIdFetchChoices(questionId);
         normalQuestion.toggleCanBeShortAnswered();
         return ResponseNormalQuestionDto.forAdmin(normalQuestion);
     }
