@@ -57,6 +57,13 @@ public class AdminNormalQuestionController {
         return ResponseEntity.ok(adminNormalQuestionUpdateService.toggleCanBeShortAnswered(questionId));
     }
 
+    @ApiOperation("단답형 문제 삭제")
+    @DeleteMapping(value ="/question/normal")
+    public ResponseEntity<Void> deleteNormalQuestion(@PathVariable("id")Long questionId) {
+        adminNormalQuestionUpdateService.deleteNormalQuestion(questionId);
+        return ResponseEntity.noContent().build();
+    }
+
 
     @ExceptionHandler(DuplicateQuestionException.class)
     public ResponseEntity<String> handleException(DuplicateQuestionException e){

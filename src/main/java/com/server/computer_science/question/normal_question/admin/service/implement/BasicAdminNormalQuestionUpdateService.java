@@ -27,4 +27,10 @@ public class BasicAdminNormalQuestionUpdateService implements AdminNormalQuestio
         normalQuestion.toggleCanBeShortAnswered();
         return ResponseNormalQuestionDto.forAdmin(normalQuestion);
     }
+
+    @Override
+    public void deleteNormalQuestion(Long questionId) {
+        NormalQuestion normalQuestion = normalQuestionDBService.findByIdFetchChoices(questionId);
+        normalQuestionDBService.deleteNormalQuestion(normalQuestion);
+    }
 }

@@ -31,5 +31,8 @@ public class NormalQuestionDBService {
     public NormalQuestion findByIdFetchChoices(Long id){
         return normalQuestionRepository.findNormalQuestionsByIdFetchChoices(id).orElseThrow(NoSuchElementException::new);
     }
+    public void deleteNormalQuestion(NormalQuestion normalQuestion){
+        normalQuestionRepository.delete(normalQuestion);
+    }
 
 }
