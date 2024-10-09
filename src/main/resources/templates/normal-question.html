@@ -16,6 +16,7 @@
     <link rel="stylesheet" th:href="@{/css/normal-question/normal-question-style.css}" />
     <script th:src="@{/js/solveQuestion.js}"></script>
     <script th:src="@{/js/showQuestionUi.js}"></script>
+    <script th:src="@{/js/textTranslater.js}"></script>
 </head>
 <body>
 <div class="quiz">
@@ -80,7 +81,7 @@
             </div>
             <!-- 해설 내용 -->
             <div class="description-content" id="descriptionContent" style="display: none;">
-                <p id="descriptionText">해설 내용이 여기에 표시됩니다.</p>
+                <p class = "descriptionText" id="descriptionText">해설 내용이 여기에 표시됩니다.</p>
             </div>
         </div>
     </div>
@@ -91,5 +92,6 @@
         <div class="text-wrapper-8">메인화면</div>
     </div>
 </div>
+
 </body>
 </html>

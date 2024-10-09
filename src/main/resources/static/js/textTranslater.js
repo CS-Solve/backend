@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const descriptions = document.querySelectorAll('.description');
+    const descriptions = document.querySelectorAll('.descriptionText, #descriptionText');
     descriptions.forEach(function(element) {
         element.innerHTML = element.textContent.replace(/\n/g, '<br/>');
     });

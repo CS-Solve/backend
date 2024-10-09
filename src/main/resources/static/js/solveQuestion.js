@@ -147,7 +147,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
             //해설 출력
             // 선택된 질문의 설명을 가져와서 descriptionBox에 표시
-            descriptionText.textContent = selectedChoice.closest('.each-question').getAttribute('data-description');
+            makeDescriptionForHtml()
+
             // 사이드바 업데이트
             updateSidebar(selectedChoice, isCorrect);
 
@@ -168,7 +169,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 사이드바 업데이트
                 updateSidebar(selectedQuestion, true);
                 showDescription()
-                descriptionText.textContent = selectedQuestion.closest('.each-question').getAttribute('data-description');
+                makeDescriptionForHtml()
+
             }
             else{ //문제 선택 안 되었을시
                 answerBox.style.display = 'flex';
@@ -182,6 +184,12 @@ document.addEventListener('DOMContentLoaded', function() {
             answerBox.classList.remove('correct-answer');
         }
     });
+    function makeDescriptionForHtml(){
+        const description = selectedChoice.closest('.each-question').getAttribute('data-description');
+
+        // 선택된 질문의 설명을 가져와 줄바꿈을 <br>로 변환하여 descriptionText에 표시
+        descriptionText.innerHTML = description.replace(/\n/g, '<br/>');
+    }
 
     // 해설 보기 버튼 클릭 이벤트
     toggleButton.addEventListener("click", function() {
