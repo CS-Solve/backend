@@ -40,3 +40,12 @@ function toggleCanBeMultiple(questionId) {
             console.error('Error toggling canBeMultiple status:', error);
         });
 }
+// 카테고리별 문제 목록 토글 함수 (카테고리 이름 기반)
+function toggleCategory(categoryName) {
+    var questionList = document.getElementById('questions-' + categoryName);
+    if (questionList.style.display === "none") {
+        questionList.style.display = "block";
+    } else {
+        questionList.style.display = "none";
+    }
+}
