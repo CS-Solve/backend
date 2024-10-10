@@ -18,7 +18,7 @@
 
 .screen .mainForm{
   position: relative;
-  top:10%;
+  top:0;
   height: 90%;
 }
 .screen .big-box .main-box {
@@ -95,9 +95,6 @@
   letter-spacing: 0;
 }
 
-.screen .mainTitle{
-  font-size:3vw;
-}
 
 
 .screen .each-level {
@@ -243,26 +240,25 @@
 메인 로고
  */
 .screen .main-logo-box {
-  position: relative;
-  top: 0;
+  position: absolute; /* 부모 요소를 기준으로 위치 */
+  top: 0; /* 화면 상단에서 없는 간격 */
   left: 50%;
-  height: 10%;
-  /*transform: translateX(-50%);*/
+  transform: translateX(-50%); /* 수평 가운데 정렬 */
   display: flex;
   align-items: center;
   font-family: "Markazi Text-Bold", Helvetica;
   font-weight: 700;
   color: #000000;
-  font-size: 10%;
   text-align: center;
   letter-spacing: 0;
   white-space: nowrap;
 }
-
+.screen .mainTitle{
+  font-size:3vw;
+}
 .screen .main-logo-box .logo-image {
   height: 1%; /* 텍스트 크기와 동일하게 설정 */
   width: 5vw; /* 비율 유지 */
-
 }
 
 .screen .main-logo-box span {
