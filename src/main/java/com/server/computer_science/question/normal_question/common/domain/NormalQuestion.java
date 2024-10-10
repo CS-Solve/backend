@@ -49,11 +49,11 @@ public class NormalQuestion {
         this.description = description;
     }
 
-    public void makeQuestionApproved(){
-        this.ifApproved = true;
+    public void changeDescription(String description) {
+        this.description = description;
     }
-    public void makeQuestionCanBeShortAnswered(){
-        this.canBeShortAnswered = true;
+    public void changeQuestion(String question) {
+        this.question = question;
     }
     public void toggleApproved(){
         this.ifApproved = !this.ifApproved;
