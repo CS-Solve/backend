@@ -49,31 +49,43 @@ document.addEventListener('DOMContentLoaded', function () {
     사이드 바 생성
      */
     function createQuestionList() {
-        const categories = document.querySelectorAll('.all-question-box');
+        const categories = document.querySelectorAll('.eachCategory');
         const questionList = document.getElementById('questionList'); // questionList는 여기에 질문 링크를 추가하는 요소
         questionList.innerHTML = ''; // 기존 리스트 초기화
 
         categories.forEach((category, categoryIndex) => {
-            // 카테고리 제목 추가
-            const categoryText = category.querySelector('.category-text').textContent; // category-text 요소의 텍스트 가져오기
+            // 카테고리 제목 가져오기
+            const categoryText = category.querySelector('.category-text').textContent;
+
+            // questionBarCategory div 생성
             const questionBarCategory = document.createElement('div');
-            questionBarCategory.textContent = categoryText;
             questionBarCategory.classList.add('questionBarCategory');
-            questionList.appendChild(questionBarCategory);
+
+            // categoryTextBox div 생성 (텍스트만을 위한 div)
+            const questionBarCategoryTitleBox = document.createElement('div');
+            questionBarCategoryTitleBox.textContent = categoryText;
+            questionBarCategoryTitleBox.classList.add('questionBarCategoryTitleBox'); // 텍스트를 위한 추가 스타일링 클래스
+
+            // categoryTextBox를 questionBarCategory 안에 추가
+            questionBarCategory.appendChild(questionBarCategoryTitleBox);
 
             // 해당 카테고리 안의 질문들을 처리
             const questions = category.querySelectorAll('.question-box');
             questions.forEach((box, index) => {
                 const link = document.createElement('a');
-                link.href = `#question-${index + 1}`;
+                link.href = `#question-${index}`;
                 link.textContent = `문제 ${index + 1}`;
                 link.dataset.questionIndex = index;
 
                 // addHoverEffectToLink 함수 호출로 링크에 호버 효과 추가
                 addHoverEffectToLink(link, index);
 
-                questionList.appendChild(link);
+                // 각 질문 링크를 카테고리 안에 추가
+                questionBarCategory.appendChild(link);
             });
+
+            // 완성된 카테고리를 questionList에 추가
+            questionList.appendChild(questionBarCategory);
         });
     }
 
@@ -102,12 +114,39 @@ document.addEventListener('DOMContentLoaded', function () {
     function handleQuestionListClick(e) {
         if (e.target.tagName === 'A') {
             e.preventDefault();
-            const index = e.target.dataset.questionIndex;
-            const questionBox = document.querySelectorAll('.question-box')[index];
-            if (questionBox) {
-                questionBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // 클릭한 a 태그의 카테고리 부모를 찾음
+            const questionBarCategory = e.target.closest('.questionBarCategory');
+
+            // 자식 요소인 제목(텍스트)를 가져옴
+            const questionBarCategoryTitle = questionBarCategory.querySelector('.questionBarCategoryTitleBox').textContent.trim(); // 제목 텍스트를 가져옴
+            const index = e.target.dataset.questionIndex; // 카테고리 내에서 a 태그의 인덱스를 가져옴
+
+            // 실제 카테고리들을 찾음
+            const categories = document.querySelectorAll(".eachCategory");
+            let matchedCategory = null;
+
+
+            // 같은 텍스트를 가진 카테고리를 찾음
+            categories.forEach((category) => {
+                const categoryText = category.querySelector('.category-text').textContent.trim();
+                if (categoryText === questionBarCategoryTitle) {
+                    matchedCategory = category;
+                }
+            });
+            if (matchedCategory) {
+                // 찾은 카테고리 내에서 해당 질문 요소 찾기
+                const questionBoxes = matchedCategory.querySelectorAll(".question-box");
+                const questionBox = questionBoxes[index];
+                // 해당 질문으로 스크롤
+                if (questionBox) {
+                    questionBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    console.error('해당 질문을 찾을 수 없습니다.');
+                }
+            } else {
+                console.error('해당 카테고리를 찾을 수 없습니다.');
             }
-            hideDescription();
         }
     }
 
@@ -234,13 +273,44 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function updateSidebar(element, isCorrect) {
-        const questionBox = element.closest('.question-box');
-        const questionIndex = Array.from(document.querySelectorAll('.question-box')).indexOf(questionBox);
-        const link = questionList.children[questionIndex];
+        // 현재 질문이 속한 카테고리를 찾음
+        const questionBox = element.closest('.question-box'); // 현재 질문을 찾음
+        const category = element.closest('.eachCategory'); // 해당 질문이 속한 카테고리 찾기
 
-        link.style.color = isCorrect ? 'green' : 'red';
-        link.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
+        // 카테고리 내에서 질문들의 리스트를 가져옴
+        const questionBoxes = Array.from(category.querySelectorAll('.question-box')); // NodeList를 배열로 변환
+        const questionIndex = questionBoxes.indexOf(questionBox); // 배열에서 현재 질문의 인덱스를 찾음
 
+        const categoryText = category.querySelector('.category-text').textContent.trim(); // 카테고리 이름 가져오기
+        console.log('카테고리:', categoryText, '질문 인덱스:', questionIndex);
+
+        // 사이드바에서 해당 카테고리 이름을 가진 요소를 찾음
+        const questionBarCategories = questionList.querySelectorAll('.questionBarCategory'); // 모든 사이드바 카테고리
+        let matchedSidebarCategory = null;
+
+        questionBarCategories.forEach((questionBarCategory) => {
+            const sidebarCategoryText = questionBarCategory.querySelector('.questionBarCategoryTitleBox').textContent.trim();
+            if (sidebarCategoryText === categoryText) {
+                matchedSidebarCategory = questionBarCategory; // 카테고리 이름이 같은 사이드바 카테고리를 찾음
+            }
+        });
+
+        if (matchedSidebarCategory) {
+            // 해당 카테고리 내에서 질문 링크를 찾음
+            const links = matchedSidebarCategory.querySelectorAll('a'); // 해당 카테고리 안의 모든 링크를 가져옴
+            const link = links[questionIndex]; // 해당 질문 인덱스의 링크 선택
+            if (link) {
+                // 링크의 색상과 스타일을 업데이트
+                link.style.color = isCorrect ? 'green' : 'red';
+                link.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
+            } else {
+                console.error('해당 인덱스의 링크를 찾을 수 없습니다.');
+            }
+        } else {
+            console.error('해당 카테고리를 찾을 수 없습니다.');
+        }
+
+        // 사이드바의 맞은 문제/틀린 문제 업데이트
         correctQuestionsElement.textContent = correctQuestions;
         incorrectQuestionsElement.textContent = incorrectQuestions;
     }

@@ -76,7 +76,7 @@
     margin-bottom: 20px; /* 질문 사이 간격 */
     min-height: 200px; /* 최소 높이 설정 */
 }
-.quiz .category-box {
+.quiz .categoryTitleBox {
     display: flex;
     height: 20%;
     align-items: flex-start;
@@ -256,7 +256,7 @@
     margin-right: 20px; /* right-box와 20px 간격 유지 */
 }
 
-.all-question-box {
+.eachCategory {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -612,14 +612,15 @@ Side bar
     margin-top: 20px; /* 질문 리스트와 텍스트 사이의 간격 설정 */
 }
 
-.question-bar .questionBarCategory{
+.question-bar .questionBarCategoryTitleBox{
     font-weight: bold; /* 굵은 텍스트 */
-    padding: 2%; /* 위아래 2%, 좌우 5% 여백 */
+    margin-top: 4vh;
     margin-bottom: 2%; /* 카테고리 사이의 간격 */
-    color: #333; /* 텍스트 색상 */
-    background-color: #f5f5f5; /* 카테고리 배경색 (밝은 회색) */
+
+    color : #4a90e2;
+    border-bottom: 1px solid #4a90e2; /* 하단에 선 */
     border-radius: 1%; /* 모서리를 살짝 둥글게 */
-    width: 90%; /* 부모 요소 기준 90% 너비 */
+    width: 100%; /* 부모 요소 기준 90% 너비 */
 }
 
 .sidebar h3 {
