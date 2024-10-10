@@ -124,6 +124,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+/*
+문제, 해설 덮어씌우기
+ */
+
 function showOverlayInput(element) {
     currentEditElement = element;
     const overlay = document.getElementById('overlay-input');
@@ -135,7 +139,8 @@ function showOverlayInput(element) {
     overlay.style.width = `${rect.width}px`;
     overlay.style.height = `${rect.height}px`;
 
-    textarea.value = element.textContent;
+    // <br> 태그를 줄 바꿈 문자로 변환
+    textarea.value = element.innerHTML.replace(/<br\s*\/?>/g, '\n');
     textarea.style.fontSize = window.getComputedStyle(element).fontSize;
     textarea.style.fontWeight = window.getComputedStyle(element).fontWeight;
     textarea.style.color = window.getComputedStyle(element).color;
@@ -147,20 +152,35 @@ function showOverlayInput(element) {
 function saveOverlayChanges() {
     if (currentEditElement) {
         const newText = document.getElementById('overlay-textarea').value;
-        currentEditElement.textContent = newText;
-        updateField(currentEditElement.getAttribute('data-id'), currentEditElement.getAttribute('data-field'), newText);
-    }
-    document.getElementById('overlay-input').style.display = 'none';
-    currentEditElement = null;
-}
+        const questionId = currentEditElement.getAttribute('data-id');
+        const field = currentEditElement.getAttribute('data-field');
 
-function cancelOverlayChanges() {
-    document.getElementById('overlay-input').style.display = 'none';
-    currentEditElement = null;
+        updateField(questionId, field, newText)
+            .then(updatedData => {
+                if (updatedData && updatedData[field] !== undefined) {
+                    console.log(`${field}가 성공적으로 업데이트되었습니다:`, updatedData[field]);
+                    // 성공 시 페이지 새로고침
+                    window.location.reload();
+                } else {
+                    console.warn(`서버 응답에 ${field} 필드가 없거나 응답이 올바르지 않습니다.`);
+                    alert('업데이트에 문제가 발생했습니다. 페이지를 새로고침한 후 다시 시도해주세요.');
+                }
+            })
+            .catch(error => {
+                console.error(`${field} 업데이트 실패:`, error);
+                alert('변경사항을 저장하는 데 실패했습니다. 페이지를 새로고침한 후 다시 시도해주세요.');
+            })
+            .finally(() => {
+                document.getElementById('overlay-input').style.display = 'none';
+                currentEditElement = null;
+            });
+    } else {
+        document.getElementById('overlay-input').style.display = 'none';
+    }
 }
 
 function updateField(questionId, field, newValue) {
-    fetch(`/admin/question/normal/${questionId}/${field}`, {
+    return fetch(`/admin/question/normal/${questionId}/${field}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -172,11 +192,12 @@ function updateField(questionId, field, newValue) {
                 throw new Error(`${field} 업데이트 실패`);
             }
             return response.json();
-        })
-        .then(data => {
-            console.log(`${field}가 성공적으로 업데이트되었습니다:`, data);
-        })
-        .catch(error => {
-            console.error(`${field} 업데이트 중 오류 발생:`, error);
         });
+}
+
+// ... (나머지 코드는 그대로 유지) ...
+
+function cancelOverlayChanges() {
+    document.getElementById('overlay-input').style.display = 'none';
+    currentEditElement = null;
 }

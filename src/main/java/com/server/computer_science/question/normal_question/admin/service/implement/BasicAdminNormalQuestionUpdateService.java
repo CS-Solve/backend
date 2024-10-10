@@ -1,6 +1,7 @@
 package com.server.computer_science.question.normal_question.admin.service.implement;
 
 import com.server.computer_science.question.normal_question.admin.dto.RequestChangeDescriptionDto;
+import com.server.computer_science.question.normal_question.admin.dto.RequestChangeQuestionDto;
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionUpdateService;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import com.server.computer_science.question.normal_question.common.service.implement.NormalQuestionDBService;
@@ -37,8 +38,10 @@ public class BasicAdminNormalQuestionUpdateService implements AdminNormalQuestio
     }
 
     @Override
-    public ResponseNormalQuestionDto changeQuestion(Long questionId) {
-        return null;
+    public ResponseNormalQuestionDto changeQuestion(Long questionId, RequestChangeQuestionDto requestChangeQuestionDto) {
+        NormalQuestion normalQuestion = normalQuestionDBService.findByIdFetchChoices(questionId);
+        normalQuestion.changeQuestion(requestChangeQuestionDto.getQuestion());
+        return ResponseNormalQuestionDto.forAdmin(normalQuestion);
     }
 
     @Override
