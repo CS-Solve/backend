@@ -19,9 +19,9 @@
     <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS(컴퓨터 사이언스) 문제 모음 - 컴싸 </title>
+    <title>CS 문제 모음 | 컴싸 </title>
 
-    <meta name="description" content="CS 문제를 풀 수 있는 사이트입니다. 다양한 분야의 CS 문제 모음과 해설을 제공합니다.">
+    <meta name="description" content="CS(컴퓨터 사이언스) 문제를 풀 수 있는 사이트입니다. 다양한 분야의 CS 문제 모음과 해설을 제공합니다.">
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/globals.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/index/styleguide.css}" />
@@ -38,37 +38,40 @@
         <h1 class ="siteDescription">CS 문제 모음 </h1>
         <form th:action="@{/question/normal}" method="get">
             <div class="main-box">
-                <div class="category-big-box">
-                    <h2 class="standard">
-                        CS 분야
-                    </h2>
-                    <div class="category-box">
-                        <div class="categories" th:each="category, iterStat : ${categories}">
-                            <div class="each-category">
-                                <input type="checkbox" th:id="${'category-' + iterStat.index}" th:value="${category}" name="categories" class="checkbox" />
-                                <label th:for="${'category-' + iterStat.index}" class="text-wrapper-2" th:text="${category}"></label>
+                <p class="question-title-box">
+                    원하는 분야와 난이도를 선택하세요. (복수 선택 가능)
+                    <!--                    <span class="questionSelect"></span>-->
+                </p>
+                <div class ="selectBox">
+
+                    <div class="category-big-box">
+                        <h2 class="standard">
+                            CS 분야
+                        </h2>
+                        <div class="category-box">
+                            <div class="categories" th:each="category, iterStat : ${categories}">
+                                <div class="each-category">
+                                    <input type="checkbox" th:id="${'category-' + iterStat.index}" th:value="${category}" name="categories" class="checkbox" />
+                                    <label th:for="${'category-' + iterStat.index}" class="text-wrapper-2" th:text="${category}"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <img class="line-4" th:src="@{/img/line-4.svg}" />
+                    <div class="level-box">
+                        <h2 class="standard">난이도</h2>
+                        <div class="levels">
+                            <div class="each-level" th:each="difficulty : ${levels}">
+                                <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="levels" class="checkbox" />
+                                <label th:for="${'difficulty-' + difficultyStat.index}" class="check-box-text" th:text="${difficulty}"></label>
                             </div>
                         </div>
                     </div>
                 </div>
-                <img class="line-4" th:src="@{/img/line-4.svg}" />
-                <div class="level-box">
-                    <h2 class="standard">난이도</h2>
-                    <div class="levels">
-                        <div class="each-level" th:each="difficulty : ${levels}">
-                            <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="levels" class="checkbox" />
-                            <label th:for="${'difficulty-' + difficultyStat.index}" class="check-box-text" th:text="${difficulty}"></label>
-                        </div>
-                    </div>
-                </div>
-
                 <!-- 문제 유형을 Boolean으로 설정 -->
                 <input type="hidden" name="multipleChoice" id="questionType" value="" />
 
-                <p class="question-title-box">
-                    &lt;문제 선택&gt;<br />원하는 분야와 난이도를 선택하세요. (복수 선택 가능)
-<!--                    <span class="questionSelect"></span>-->
-                </p>
+
 
             </div>
             <div class="logo-container">
