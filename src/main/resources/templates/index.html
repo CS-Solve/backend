@@ -43,7 +43,7 @@
         <form th:action="@{/question/normal}" method="get" class ="mainForm">
             <div class="main-box">
                 <p class="question-title-box">
-                    원하는 분야와 난이도를 선택하세요. (복수 선택 가능)
+                    분야와 난이도를 선택하세요. (복수 선택 가능)
                     <!--                    <span class="questionSelect"></span>-->
                 </p>
                 <div class="selectBox">
@@ -59,6 +59,7 @@
                             </div>
                         </div>
                     </div>
+                    <img src ="/img/line-4.svg" class ="line-4">
 
                     <!-- 난이도 선택 -->
                     <div class="level-big-box side-box">
@@ -76,8 +77,6 @@
                 </div>
                 <!-- 문제 유형을 Boolean으로 설정 -->
                 <input type="hidden" name="multipleChoice" id="questionType" value="" />
-
-
 
             </div>
 

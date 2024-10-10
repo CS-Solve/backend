@@ -28,6 +28,7 @@
     <!-- 상단 제목 -->
     <div class="logo-box">Com Ssa</div>
 
+
     <div class="left-sidebar">
         <p>총 문제 수: <span id="totalQuestions">0</span></p>
         <p>맞은 문제: <span id="correctQuestions">0</span></p>
@@ -41,7 +42,9 @@
     <div class="left-box">
         <!-- 질문 리스트 반복 렌더링 -->
         <div class="all-question-box" th:each="category, iterStat : ${questions}">
-            <div class="category-box"><div class="category-text" th:text ="${category.questionCategory.korean}">문제 분야</div></div>
+            <div class="category-box">
+                <div class="category-text" th:text ="${category.questionCategory.korean}">문제 분야</div>
+            </div>
             <div class="question-box" th:each="question, iterStat : ${category.responseNormalQuestionDtoList}">
                 <div class="each-question" th:data-description="${question.description}">
                     <div class="question-meta-data">

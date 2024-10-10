@@ -18,47 +18,43 @@
 
 .quiz .logo-box {
     position: absolute;
-    top: 53px;
+    top: 5%;
     left: 10%;
     font-family: "Markazi Text-Bold", Helvetica;
     font-weight: 700;
     color: #000000;
-    font-size: 70px;
-    text-align: center;
+    font-size: 5vw;
     letter-spacing: 0;
     line-height: 105px;
     white-space: nowrap;
 }
 
-.quiz .left-box {
+.quiz .left-box,.quiz .right-box{
     display: flex;
     flex-direction: column;
-    width: 50%;
     height: 80%;
-    align-items: center;
     gap: 28px;
     padding: 0px 10px;
     position: absolute;
-    top: 160px;
-    left: 10%;
+    border-radius: 8px; /* 모서리 둥글게 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 추가 */
     overflow: hidden;
     overflow-y: scroll;
 }
+
+.quiz .left-box {
+    width: 48%;
+    align-items: center;
+    background-color: #ffffff;
+    left: 10%;
+}
+
 .quiz .right-box {
-    display: flex;
-    flex-direction: column;
-    width: 35%; /* 오른쪽 박스의 너비 */
-    height: 80%;
+    width: 38%;
     gap: 21px;
     padding: 26px 30px;
-    position: absolute;
-    top: 160px;
-    left: 60%; /* left-box 위치 + 너비 + 간격 */
     background-color: #e6efff;
-    border-radius: 10px;
-    box-shadow: var(--m3-elevation-dark-3);
-    overflow: hidden;
-    overflow-y: scroll;
+    left: 60%; /* left-box 위치 + 너비 + 간격 */
 }
 .quiz .right-box .child-element {
     position: absolute;
@@ -80,7 +76,7 @@
     margin-bottom: 20px; /* 질문 사이 간격 */
     min-height: 200px; /* 최소 높이 설정 */
 }
-.quiz .category-scroll-box {
+.quiz .category-box {
     display: flex;
     height: 20%;
     align-items: flex-start;
@@ -264,7 +260,7 @@
     flex-direction: column;
     align-items: flex-start;
     width: calc(100% - 20px); /* 가로 너비 고정, 오른쪽에 일정 거리 유지 (20px) */
-    background-color: #ffffff;
+
     box-sizing: border-box;
     border-radius: 23px;
     padding: 20px 22px;
@@ -495,25 +491,29 @@
     letter-spacing: 0;
     line-height: 40px;
     white-space: nowrap;
-    font-weight: 400;
-    color: #000000;
+    font-weight: 700; /* 폰트를 굵게 변경 */
+    color: #ffffff;
     border: none;
-    background-color: #d9d9d9;
+    background: linear-gradient(135deg, #ff7f50, #ff6347); /* 그라데이션 효과 추가 */
     height: 50%;
     width: 15%;
     cursor: pointer;
+    border-radius: 8px; /* 모서리를 둥글게 */
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* 애니메이션 추가 */
 }
+
 /* 마우스를 올렸을 때의 스타일 */
 .quiz .check-button:hover {
-    background-color: #ff6347; /* Hover 시 색상 변경 (좀 더 어두운 코랄색) */
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* 그림자 더 강조 */
+    background-color: #ff6347;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Hover 시 더 큰 그림자 */
+    transform: translateY(-2px); /* Hover 시 약간 위로 올라가게 */
 }
 
 /* 버튼 클릭 시의 스타일 */
 .quiz .check-button:active {
-    background-color: #ff4500; /* 클릭 시 더 어두운 코랄색 */
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* 그림자 약간 축소 */
-    transform: translateY(2px); /* 클릭 시 버튼이 눌린 것처럼 보이게 */
+    background-color: #ff4500; /* 클릭 시 어두운 색상 */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 클릭 시 그림자 축소 */
+    transform: translateY(2px); /* 클릭 시 눌리는 효과 */
 }
 
 
@@ -569,30 +569,46 @@
 /**
 Side bar
  */
-
+.left-sidebar,.right-box,.left-box{
+    top:15%;
+}
 /* 사이드바 스타일 */
 .left-sidebar {
-    width: 8%;
-    height: 80%;
+    width: 10%; /* 사이드바 너비를 퍼센트로 설정 */
+    height: 80%; /* 높이를 퍼센트로 설정 */
     position: fixed;
-    top: 10%;
     left: 0;
     background-color: #eeeeee;
-    padding: 20px;
+    padding: 1.5%; /* 패딩을 퍼센트로 조정 */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
+    align-items: center; /* 중앙 정렬 */
+    justify-content: flex-start; /* 컨텐츠가 위쪽에 배치되도록 설정 */
+
 }
 
-.left-sidebar > p {
-    margin: 5px 0;
+.left-sidebar p {
+    font-family: "NanumSquare Neo OTF", Helvetica;
+    font-size: 0.8vw; /* 폰트 크기를 뷰포트 너비에 맞게 설정 */
+    font-weight: 500; /* 폰트를 중간 두께로 설정 */
+    color: #404040; /* 텍스트 색상을 조정 */
+    margin-bottom: 8%; /* 텍스트 사이 간격을 퍼센트로 조정 */
 }
 
-.left-sidebar .question-bar {
-    flex-grow: 1;
-    overflow-y: auto;
-    margin-top: 10px;
-    height: calc(100% - 100px); /* 상단 정보의 대략적인 높이를 뺍니다 */
+.left-sidebar span {
+    font-family: "NanumSquare Neo OTF", Helvetica;
+    font-size: 1.2vw; /* 숫자를 조금 더 강조 */
+    font-weight: 700;
+}
+
+/* 질문 리스트가 스크롤되도록 설정 */
+.question-bar {
+    width: 100%; /* 부모의 너비를 100% 사용 */
+    height: 100%; /* 질문 리스트 영역 높이 설정 */
+    overflow-y: auto; /* 세로 스크롤 활성화 */
+    padding-right: 2%; /* 스크롤이 나타날 때 여백 확보 */
+    margin-top: 20px; /* 질문 리스트와 텍스트 사이의 간격 설정 */
 }
 
 .sidebar h3 {
