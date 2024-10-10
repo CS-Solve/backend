@@ -19,9 +19,9 @@
     <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS 문제, 컴퓨터사이언스,CS 문제 사이트, 카카오 cs 문제 - comssa.site </title>
+    <title>CS 문제 모음 | 컴싸 </title>
 
-    <meta name="description" content="컴퓨터사이언스(CS) 문제 풀이 사이트입니다. 다양한 분야의 CS 문제 모음과 해설을 제공합니다.">
+    <meta name="description" content="CS(컴퓨터 사이언스) 문제를 풀 수 있는 사이트입니다. 다양한 분야의 CS 문제 모음과 해설을 제공합니다.">
 
     <link rel="stylesheet" type="text/css" th:href="@{/css/globals.css}" />
     <link rel="stylesheet" type="text/css" th:href="@{/css/index/styleguide.css}" />
@@ -35,53 +35,62 @@
 <!-- End Google Tag Manager (noscript) -->
 <div class="screen">
     <div class="big-box">
-        <h1>CS 문제 풀이 </h1>
-        <form th:action="@{/question/normal}" method="get">
+        <h1 class ="siteDescription">CS 문제 모음 </h1>
+        <div class="main-logo-box">
+            <img src="/img/mainLogo.svg" alt="CS Solver Logo" class="logo-image">
+            <h2 class ="mainTitle">컴퓨터 사이언스</h2>
+        </div>
+        <form th:action="@{/question/normal}" method="get" class ="mainForm">
             <div class="main-box">
-                <div class="category-big-box">
-                    <h2 class="text-wrapper">CS 분야</h2>
-                    <div class="category-box">
-                        <div class="categories" th:each="category, iterStat : ${categories}">
-                            <div class="each-category">
-                                <input type="checkbox" th:id="${'category-' + iterStat.index}" th:value="${category}" name="categories" class="checkbox" />
-                                <label th:for="${'category-' + iterStat.index}" class="text-wrapper-2" th:text="${category}"></label>
+                <p class="question-title-box">
+                    분야와 난이도를 선택하세요. (복수 선택 가능)
+                    <!--                    <span class="questionSelect"></span>-->
+                </p>
+                <div class="selectBox">
+                    <!-- 분야 선택 -->
+                    <div class="category-big-box side-box">
+                        <h2 class="standard">CS 분야</h2>
+                        <div class="scroll-box">
+                            <div class="categories" th:each="category, iterStat : ${categories}">
+                                <div class="each-category">
+                                    <input type="checkbox" th:id="${'category-' + iterStat.index}" th:value="${category}" name="categories" class="checkbox" />
+                                    <label th:for="${'category-' + iterStat.index}" class="text-wrapper-2" th:text="${category}"></label>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <img class="line-4" th:src="@{/img/line-4.svg}" />
-                <div class="level-box">
-                    <h2 class="text-wrapper">난이도</h2>
-                    <div class="levels">
-                        <div class="each-level" th:each="difficulty : ${levels}">
-                            <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="levels" class="checkbox" />
-                            <label th:for="${'difficulty-' + difficultyStat.index}" class="check-box-text" th:text="${difficulty}"></label>
+                    <img src ="/img/line-4.svg" class ="line-4">
+
+                    <!-- 난이도 선택 -->
+                    <div class="level-big-box side-box">
+                        <h2 class="standard">난이도</h2>
+                        <div class="scroll-box">
+                            <div class="levels">
+                                <div class="each-level" th:each="difficulty : ${levels}">
+                                    <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="levels" class="checkbox" />
+                                    <label th:for="${'difficulty-' + difficultyStat.index}" class="check-box-text" th:text="${difficulty}"></label>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
-
                 <!-- 문제 유형을 Boolean으로 설정 -->
                 <input type="hidden" name="multipleChoice" id="questionType" value="" />
 
-                <p class="question-title-box">
-                    <span class="questionTitle">&lt;문제 선택&gt;<br /></span>
-                    <span class="text-wrapper-3">원하는 분야와 난이도를 선택하세요. (복수 선택 가능)</span>
-                </p>
+            </div>
 
-            </div>
-            <div class="logo-container">
 
+
+            <div class="start-button-container">
+                <button type="submit" class="start-left-box" onclick="makeMultipleChoice(true)">
+                    <span class="start-button-text">객관식</span>
+                </button>
+                <button type="submit" class="start-right-box" onclick="makeMultipleChoice(false)">
+                    <span class="start-button-text">주관식</span>
+                </button>
             </div>
-            <div class="main-logo-box">
-                <img src="/img/mainLogo.svg" alt="CS Solver Logo" class="logo-image">
-                <span>컴퓨터 사이언스</span>
-            </div>
-            <button type="submit" class="start-left-box" onclick="makeMultipleChoice(true)">
-                <span class="start-button-text">객관식</span>
-            </button>
-            <button type="submit" class="start-right-box" onclick="makeMultipleChoice(false)">
-                <span class="start-button-text">주관식</span>
-            </button>
+
         </form>
     </div>
 </div>
