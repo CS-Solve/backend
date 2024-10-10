@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     let selectedChoice = null;
     let selectedQuestion = null;
+    let currentQuestionIndex;
+    let marked = false;
 
     // 상수 정의
     const choices = document.querySelectorAll('.choice-item');
@@ -24,6 +26,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 초기화 작업
     initialize();
+
+    function registerEventListeners() {
+        questionList.addEventListener('click', handleQuestionListClick);
+        document.querySelector('.left-box').addEventListener('click', handleQuestionClick);
+        checkAnswerButton.addEventListener('click', handleCheckAnswer);
+        toggleButton.addEventListener('click', toggleDescriptionVisibility);
+    }
 
     function initialize() {
         // 총 문제 수 업데이트
@@ -67,12 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function registerEventListeners() {
-        questionList.addEventListener('click', handleQuestionListClick);
-        document.querySelector('.left-box').addEventListener('click', handleQuestionClick);
-        checkAnswerButton.addEventListener('click', handleCheckAnswer);
-        toggleButton.addEventListener('click', toggleDescriptionVisibility);
-    }
+
 
     function handleQuestionListClick(e) {
         if (e.target.tagName === 'A') {
@@ -87,9 +91,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function handleQuestionClick(e) {
+        // 해설 내용을 바꾼다.
         if (e.target.classList.contains('choice-item')) {
             selectChoice(e.target);
-        } else if (e.target.classList.contains('questionItem')) {
+            /*
+            객관식 문제가 아닐때만 문제 선택을 활성화 한다.
+             */
+        } else if (multipleChoice ===false && e.target.classList.contains('questionItem')) {
             selectQuestion(e.target);
         }
     }
@@ -100,7 +108,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         selectedChoice = choice;
         selectedChoice.classList.add('selected-choice');
-        hideDescription();
+        refreshAnswerAndDescription();
     }
 
     function selectQuestion(question) {
@@ -109,10 +117,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         selectedQuestion = question;
         selectedQuestion.classList.add('selected-question');
+       refreshAnswerAndDescription();
+    }
+    function refreshAnswerAndDescription(){
+        makeDescriptionForHtml()
+        hideAnswerMessage();
         hideDescription();
+        marked = false;
     }
 
     function toggleDescriptionVisibility() {
+        if(marked === false){
+
+        }
         if (descriptionContent.style.display === "none") {
             showDescription();
         } else {
@@ -120,14 +137,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    /**
+     * 채점 버튼을 눌렀을시
+     */
     function handleCheckAnswer() {
         if (selectedChoice && multipleChoice) {
             processMultipleChoice();
         } else if (!multipleChoice && selectedQuestion) {
             processShortAnswer();
         } else {
-            showAnswerMessage('선택지를 먼저 선택하세요!', false);
+            showAnswerMessage('먼저 선택하세요!', false);
         }
+        marked = true;
     }
 
     function processMultipleChoice() {
@@ -137,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectText = selectedChoice.getAttribute('data-choice-text');
 
         updateAnswerResult(isCorrect, selectText, questionIndex);
-        makeDescriptionForHtml();
         updateSidebar(selectedChoice, isCorrect);
     }
 
@@ -152,7 +172,6 @@ document.addEventListener('DOMContentLoaded', function () {
         questionResults[questionIndex] = true;
         updateSidebar(selectedQuestion, true);
         showDescription();
-        makeDescriptionForHtml();
     }
 
     function updateAnswerResult(isCorrect, selectText, questionIndex) {
@@ -180,6 +199,9 @@ document.addEventListener('DOMContentLoaded', function () {
         answerBox.classList.toggle('correct-answer', isCorrect);
         answerBox.classList.toggle('wrong-answer', !isCorrect);
         answerText.textContent = message;
+    }
+    function hideAnswerMessage(){
+        answerBox.style.display='none';
     }
 
     function makeDescriptionForHtml() {
