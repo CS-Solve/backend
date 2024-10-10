@@ -33,7 +33,7 @@
 .quiz .left-box {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 50%;
     height: 80%;
     align-items: center;
     gap: 28px;
@@ -47,13 +47,13 @@
 .quiz .right-box {
     display: flex;
     flex-direction: column;
-    width: 30%; /* 오른쪽 박스의 너비 */
+    width: 35%; /* 오른쪽 박스의 너비 */
     height: 80%;
     gap: 21px;
     padding: 26px 30px;
     position: absolute;
     top: 160px;
-    left: 50%; /* left-box 위치 + 너비 + 간격 */
+    left: 60%; /* left-box 위치 + 너비 + 간격 */
     background-color: #e6efff;
     border-radius: 10px;
     box-shadow: var(--m3-elevation-dark-3);

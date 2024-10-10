@@ -35,11 +35,13 @@
 <!-- End Google Tag Manager (noscript) -->
 <div class="screen">
     <div class="big-box">
-        <h1>CS 문제 풀이 </h1>
+        <h1 class ="siteDescription">CS 문제 풀이 </h1>
         <form th:action="@{/question/normal}" method="get">
             <div class="main-box">
                 <div class="category-big-box">
-                    <h2 class="text-wrapper">CS 분야</h2>
+                    <h2 class="standard">
+                        CS 분야
+                    </h2>
                     <div class="category-box">
                         <div class="categories" th:each="category, iterStat : ${categories}">
                             <div class="each-category">
@@ -51,7 +53,7 @@
                 </div>
                 <img class="line-4" th:src="@{/img/line-4.svg}" />
                 <div class="level-box">
-                    <h2 class="text-wrapper">난이도</h2>
+                    <h2 class="standard">난이도</h2>
                     <div class="levels">
                         <div class="each-level" th:each="difficulty : ${levels}">
                             <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="levels" class="checkbox" />
@@ -64,8 +66,8 @@
                 <input type="hidden" name="multipleChoice" id="questionType" value="" />
 
                 <p class="question-title-box">
-                    <span class="questionTitle">&lt;문제 선택&gt;<br /></span>
-                    <span class="text-wrapper-3">원하는 분야와 난이도를 선택하세요. (복수 선택 가능)</span>
+                    &lt;문제 선택&gt;<br />원하는 분야와 난이도를 선택하세요. (복수 선택 가능)
+<!--                    <span class="questionSelect"></span>-->
                 </p>
 
             </div>
@@ -74,14 +76,17 @@
             </div>
             <div class="main-logo-box">
                 <img src="/img/mainLogo.svg" alt="CS Solver Logo" class="logo-image">
-                <span>컴퓨터 사이언스</span>
+                <h2 class ="mainTitle">컴퓨터 사이언스</h2>
             </div>
-            <button type="submit" class="start-left-box" onclick="makeMultipleChoice(true)">
-                <span class="start-button-text">객관식</span>
-            </button>
-            <button type="submit" class="start-right-box" onclick="makeMultipleChoice(false)">
-                <span class="start-button-text">주관식</span>
-            </button>
+            <div class="start-button-container">
+                <button type="submit" class="start-left-box" onclick="makeMultipleChoice(true)">
+                    <span class="start-button-text">객관식</span>
+                </button>
+                <button type="submit" class="start-right-box" onclick="makeMultipleChoice(false)">
+                    <span class="start-button-text">주관식</span>
+                </button>
+            </div>
+
         </form>
     </div>
 </div>
