@@ -38,21 +38,42 @@ document.addEventListener('DOMContentLoaded', function () {
         // 총 문제 수 업데이트
         totalQuestionsElement.textContent = totalQuestions;
 
-        // 문제 리스트 생성
+        // 사이드바 문제 리스트 생성
         createQuestionList();
 
         // 이벤트 리스너 등록
         registerEventListeners();
     }
 
+    /*
+    사이드 바 생성
+     */
     function createQuestionList() {
-        document.querySelectorAll('.question-box').forEach((box, index) => {
-            const link = document.createElement('a');
-            link.href = `#question-${index + 1}`;
-            link.textContent = `문제 ${index + 1}`;
-            link.dataset.questionIndex = index;
-            addHoverEffectToLink(link, index);
-            questionList.appendChild(link);
+        const categories = document.querySelectorAll('.all-question-box');
+        const questionList = document.getElementById('questionList'); // questionList는 여기에 질문 링크를 추가하는 요소
+        questionList.innerHTML = ''; // 기존 리스트 초기화
+
+        categories.forEach((category, categoryIndex) => {
+            // 카테고리 제목 추가
+            const categoryText = category.querySelector('.category-text').textContent; // category-text 요소의 텍스트 가져오기
+            const questionBarCategory = document.createElement('div');
+            questionBarCategory.textContent = categoryText;
+            questionBarCategory.classList.add('questionBarCategory');
+            questionList.appendChild(questionBarCategory);
+
+            // 해당 카테고리 안의 질문들을 처리
+            const questions = category.querySelectorAll('.question-box');
+            questions.forEach((box, index) => {
+                const link = document.createElement('a');
+                link.href = `#question-${index + 1}`;
+                link.textContent = `문제 ${index + 1}`;
+                link.dataset.questionIndex = index;
+
+                // addHoverEffectToLink 함수 호출로 링크에 호버 효과 추가
+                addHoverEffectToLink(link, index);
+
+                questionList.appendChild(link);
+            });
         });
     }
 
@@ -205,6 +226,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function makeDescriptionForHtml() {
+        /*
+        주관식이냐, 객관식이냐에 출력 내용을 구분한다.
+         */
         const description = selectedChoice ? selectedChoice.closest('.each-question').getAttribute('data-description') : selectedQuestion.closest('.each-question').getAttribute('data-description');
         descriptionText.innerHTML = description.replace(/\n/g, '<br/>');
     }

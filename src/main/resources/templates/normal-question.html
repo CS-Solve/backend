@@ -49,7 +49,7 @@
                 <div class="each-question" th:data-description="${question.description}">
                     <div class="question-meta-data">
                         <div class="quiz-number">
-                            <div class="text-wrapper-2" th:text="${iterStat.index + 1} + '번'"></div>
+                            <div class="questionIndex" th:text="${iterStat.index + 1} + '번'"></div>
                         </div>
                         <div class="level-show-box" id="levelBox" th:data-level="${question.questionLevel.korean}">
                             <div class="level-show-text" th:text="${question.questionLevel.korean}"></div>

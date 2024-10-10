@@ -1,5 +1,5 @@
 .quiz {
-    background-color: #eeeeee;
+    background-color: #f4f4f9;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -155,13 +155,14 @@
     gap: 10px;
     padding: 10px 9px;
     position: relative;
-    background-color: #d9d9d9;
+    background-color: #f4f4f9;
     border-radius: 12px;
 }
 
-.quiz .text-wrapper-2 {
+.quiz .questionIndex {
     position: relative;
     width: fit-content;
+
     margin-top: -5px;
     margin-bottom: -7px;
     font-family: "NanumSquare Neo OTF-dEb", Helvetica;
@@ -578,7 +579,7 @@ Side bar
     height: 80%; /* 높이를 퍼센트로 설정 */
     position: fixed;
     left: 0;
-    background-color: #eeeeee;
+    background-color: #f4f4f9;
     padding: 1.5%; /* 패딩을 퍼센트로 조정 */
     box-sizing: border-box;
     display: flex;
@@ -602,13 +603,23 @@ Side bar
     font-weight: 700;
 }
 
-/* 질문 리스트가 스크롤되도록 설정 */
+/* 질문 리스트*/
 .question-bar {
     width: 100%; /* 부모의 너비를 100% 사용 */
     height: 100%; /* 질문 리스트 영역 높이 설정 */
     overflow-y: auto; /* 세로 스크롤 활성화 */
     padding-right: 2%; /* 스크롤이 나타날 때 여백 확보 */
     margin-top: 20px; /* 질문 리스트와 텍스트 사이의 간격 설정 */
+}
+
+.question-bar .questionBarCategory{
+    font-weight: bold; /* 굵은 텍스트 */
+    padding: 2%; /* 위아래 2%, 좌우 5% 여백 */
+    margin-bottom: 2%; /* 카테고리 사이의 간격 */
+    color: #333; /* 텍스트 색상 */
+    background-color: #f5f5f5; /* 카테고리 배경색 (밝은 회색) */
+    border-radius: 1%; /* 모서리를 살짝 둥글게 */
+    width: 90%; /* 부모 요소 기준 90% 너비 */
 }
 
 .sidebar h3 {
