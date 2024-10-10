@@ -80,7 +80,7 @@
     margin-bottom: 20px; /* 질문 사이 간격 */
     min-height: 200px; /* 최소 높이 설정 */
 }
-.quiz .category-box {
+.quiz .category-scroll-box {
     display: flex;
     height: 20%;
     align-items: flex-start;
@@ -98,7 +98,7 @@
     font-size:24px;
 }
 
-.quiz .category {
+.quiz .each-category {
     position: relative;
     flex: 1;
     align-self: stretch;

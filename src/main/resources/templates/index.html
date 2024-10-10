@@ -36,19 +36,21 @@
 <div class="screen">
     <div class="big-box">
         <h1 class ="siteDescription">CS 문제 모음 </h1>
-        <form th:action="@{/question/normal}" method="get">
+        <div class="main-logo-box">
+            <img src="/img/mainLogo.svg" alt="CS Solver Logo" class="logo-image">
+            <h2 class ="mainTitle">컴퓨터 사이언스</h2>
+        </div>
+        <form th:action="@{/question/normal}" method="get" class ="mainForm">
             <div class="main-box">
                 <p class="question-title-box">
                     원하는 분야와 난이도를 선택하세요. (복수 선택 가능)
                     <!--                    <span class="questionSelect"></span>-->
                 </p>
-                <div class ="selectBox">
-
-                    <div class="category-big-box">
-                        <h2 class="standard">
-                            CS 분야
-                        </h2>
-                        <div class="category-box">
+                <div class="selectBox">
+                    <!-- 분야 선택 -->
+                    <div class="category-big-box side-box">
+                        <h2 class="standard">CS 분야</h2>
+                        <div class="scroll-box">
                             <div class="categories" th:each="category, iterStat : ${categories}">
                                 <div class="each-category">
                                     <input type="checkbox" th:id="${'category-' + iterStat.index}" th:value="${category}" name="categories" class="checkbox" />
@@ -57,15 +59,19 @@
                             </div>
                         </div>
                     </div>
-                    <img class="line-4" th:src="@{/img/line-4.svg}" />
-                    <div class="level-box">
+
+                    <!-- 난이도 선택 -->
+                    <div class="level-big-box side-box">
                         <h2 class="standard">난이도</h2>
-                        <div class="levels">
-                            <div class="each-level" th:each="difficulty : ${levels}">
-                                <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="levels" class="checkbox" />
-                                <label th:for="${'difficulty-' + difficultyStat.index}" class="check-box-text" th:text="${difficulty}"></label>
+                        <div class="scroll-box">
+                            <div class="levels">
+                                <div class="each-level" th:each="difficulty : ${levels}">
+                                    <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="levels" class="checkbox" />
+                                    <label th:for="${'difficulty-' + difficultyStat.index}" class="check-box-text" th:text="${difficulty}"></label>
+                                </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 <!-- 문제 유형을 Boolean으로 설정 -->
@@ -74,13 +80,9 @@
 
 
             </div>
-            <div class="logo-container">
 
-            </div>
-            <div class="main-logo-box">
-                <img src="/img/mainLogo.svg" alt="CS Solver Logo" class="logo-image">
-                <h2 class ="mainTitle">컴퓨터 사이언스</h2>
-            </div>
+
+
             <div class="start-button-container">
                 <button type="submit" class="start-left-box" onclick="makeMultipleChoice(true)">
                     <span class="start-button-text">객관식</span>

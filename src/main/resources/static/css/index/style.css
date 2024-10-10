@@ -13,36 +13,73 @@
   width: 70%;
   height: 90%;
   position: relative;
+ /* 세로 정렬 */
 }
 
-.screen .main-box {
-  position: absolute;
+.screen .mainForm{
+  position: relative;
+  top:10%;
+  height: 90%;
+}
+.screen .big-box .main-box {
+  position: relative;
   width: 100%;
-  height: 30%;
-  top: 15%;
-  /*left: 514px;*/
+  top: 10%;
+  height: 55%;
   background-color: #ffffff;
   border-radius: 49px;
-  overflow: hidden;
   box-shadow: var(--m3-elevation-dark-3);
-  padding-bottom: 20%; /* 하단 여백 더 증가 */
+  flex-direction: column;
+  padding-bottom: 5%;
+  justify-content: flex-start; /* 자식 요소들을 위에서부터 정렬 */
 }
 
-.screen .selectBox{
+/**
+메인 로고
+ */
+.screen big-box.main-logo-box {
   position: relative;
-  top: 20%;
-  height: 100%;
+  top: 0;
+  left: 50%;
+  /*transform: translateX(-50%);*/
+  /*display: flex;*/
+  align-items: center;
+  font-family: "Markazi Text-Bold", Helvetica;
+  font-weight: 700;
+  color: #000000;
+  font-size: 10%;
+  text-align: center;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
-.screen .category-big-box {
+.screen .selectBox {
+  position: relative;
+  top: 30%;
+  height: 70%; /* 전체 높이 설정 */
+  display: flex; /* 좌우 정렬을 위해 flex 사용 */
+  justify-content: space-between; /* 좌우로 요소를 배치 */
+}
+
+/* 공통 스타일 */
+.screen .side-box {
   display: flex;
   width: 30%;
   gap: 16px;
-  top: 40%;
-  left: 10%;
   flex-direction: column;
   align-items: center;
-  position: absolute;
+  position: relative;
+  max-height: 100%; /* 부모 높이를 넘지 않도록 */
+}
+
+/* 분야 선택 (왼쪽) */
+.screen .category-big-box {
+  left: 10%;
+}
+
+/* 난이도 선택 (오른쪽) */
+.screen .level-big-box {
+  right: 10%;
 }
 
 .screen .standard {
@@ -63,47 +100,13 @@
 }
 
 
-.screen .category-box {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  width: 100%;
-  position: relative;
-  align-self: stretch;
-  flex: 0 0 auto;
-}
-/**
-난이도 선택
- */
-.screen .level-box {
-  display: inline-flex;
-  gap: 38px;
-  width: 30%;
-  top: 40%;
-  right: 10%;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-}
-
-
-.screen .levels {
-  display: flex;
-  flex-direction: row; /* 가로 정렬 */
-  align-items: flex-start;
-  gap: 5%; /* 각 요소 간의 간격 */
-  width: 100%;
-  max-height: 50vh; /* 최대 높이를 뷰포트 높이의 50%로 제한하여 스크롤을 활성화 */
-  overflow-y: auto; /* 세로 스크롤 활성화 */
-}
-
 .screen .each-level {
   flex-grow: 1;
   text-align: center;
   width: 100%; /* 각 항목이 세로 정렬될 때 가로로 100% 너비를 차지 */
 }
 /* category-box에 스크롤 활성화 */
-.screen .category-box {
+.screen .scroll-box {
   display: flex;
   flex-direction: column; /* 세로로 정렬 */
   gap: 10px; /* 각 카테고리 간의 간격 */
@@ -111,13 +114,20 @@
   overflow-y: auto; /* 세로 스크롤 활성화 */
   padding-right: 10px; /* 스크롤바가 나타날 때 텍스트가 가리지 않도록 패딩 추가 */
 }
-
 /* 각 카테고리의 스타일 */
 .screen .each-category {
   display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
   align-items: center;
   width: 100%;
+  position: relative;
+  align-self: stretch;
+  flex: 0 0 auto;
+  overflow-y: auto; /* 세로 스크롤 가능 */
+  overflow-x: hidden; /* 가로 스크롤 제거 */
 }
+
 
 .screen .checkbox {
   position: relative;
@@ -161,24 +171,14 @@
 
 .screen .line-4 {
   position: absolute;
-  width: 2px;
-  height: 50%;
-  top: 40%;
+  width: 4px;
+  height: 100%;
   left: 50%;
 }
 
 
 
-.screen .levels {
-  display: flex;
-  flex-direction: column; /* 세로 정렬 */
-  align-items: flex-start;
-  gap: 5%; /* 각 요소 간의 간격 */
-  width: 100%;
-  max-height: 50vh; /* 최대 높이를 뷰포트 높이의 50%로 제한하여 스크롤을 활성화 */
-  overflow-y: auto; /* 세로 스크롤 활성화 */
-  flex-grow: 1;
-}
+
 
 .screen .each-level {
 
@@ -218,11 +218,11 @@
 }
 
 
-.logo-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
+/*.logo-container {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  margin-bottom: 20px;*/
+/*}*/
 
 /*.logo-image {*/
 /*  width: 100px;*/
@@ -243,16 +243,17 @@
 메인 로고
  */
 .screen .main-logo-box {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 50%;
-  transform: translateX(-50%);
+  height: 10%;
+  /*transform: translateX(-50%);*/
   display: flex;
   align-items: center;
   font-family: "Markazi Text-Bold", Helvetica;
   font-weight: 700;
   color: #000000;
-  font-size: 60px;
+  font-size: 10%;
   text-align: center;
   letter-spacing: 0;
   white-space: nowrap;
@@ -261,7 +262,7 @@
 .screen .main-logo-box .logo-image {
   height: 1%; /* 텍스트 크기와 동일하게 설정 */
   width: 5vw; /* 비율 유지 */
-  margin-right: 10px; /* 로고와 텍스트 사이 간격 */
+
 }
 
 .screen .main-logo-box span {
@@ -350,29 +351,20 @@
   .siteDescription{
     display: none;
   }
-  .main-box{
-    position: absolute;
-    width: 100%;
-    height: 30%; !important;
-    top: 5%;
-    /*left: 514px;*/
-    background-color: #ffffff;
-    border-radius: 49px;
-    overflow: hidden;
-    box-shadow: var(--m3-elevation-dark-3);
-    padding-bottom: 20%; /* 하단 여백 더 증가 */
-  }
+  /*.main-box{*/
+  /*  position: relative;*/
+  /*  height: 80vh; !important;*/
+  /*  top: 5%;*/
+  /*  background-color: #ffffff;*/
+  /*  border-radius: 49px;*/
+  /*  box-shadow: var(--m3-elevation-dark-3);*/
+  /*}*/
   .big-box{
     background-color: #eeeeee;
     top: 5%;
     width: 90%; !important;
     height: 90%;
     position: relative;
-  }
-  .screen .levels {
-    flex-direction: column; /* 모바일에서 세로 정렬 */
-    /*max-height: 30vh; !* 최대 높이를 뷰포트 높이의 30%로 설정 *!*/
-    overflow-y: scroll; /* 세로 스크롤 활성화 */
   }
 
   .screen .standard{
@@ -384,7 +376,7 @@
   }
 
   /* 부모 요소가 스크롤을 지원할 수 있도록 높이 제약 */
-  .level-box {
+  .level-big-box {
     height: auto; /* 부모의 높이가 자동으로 조정되도록 설정 */
   }
 
