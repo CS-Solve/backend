@@ -1,5 +1,5 @@
 .screen {
-  background-color: #eeeeee;
+  background-color: #f4f4f9;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -8,7 +8,7 @@
 }
 
 .screen .big-box {
-  background-color: #eeeeee;
+  /*background-color: #eeeeee;*/
   top: 5%;
   width: 70%;
   height: 90%;

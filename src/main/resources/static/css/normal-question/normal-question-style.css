@@ -1,5 +1,5 @@
 .quiz {
-    background-color: #eeeeee;
+    background-color: #f4f4f9;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -76,7 +76,7 @@
     margin-bottom: 20px; /* 질문 사이 간격 */
     min-height: 200px; /* 최소 높이 설정 */
 }
-.quiz .category-box {
+.quiz .categoryTitleBox {
     display: flex;
     height: 20%;
     align-items: flex-start;
@@ -155,13 +155,14 @@
     gap: 10px;
     padding: 10px 9px;
     position: relative;
-    background-color: #d9d9d9;
+    background-color: #f4f4f9;
     border-radius: 12px;
 }
 
-.quiz .text-wrapper-2 {
+.quiz .questionIndex {
     position: relative;
     width: fit-content;
+
     margin-top: -5px;
     margin-bottom: -7px;
     font-family: "NanumSquare Neo OTF-dEb", Helvetica;
@@ -209,6 +210,7 @@
 }
 
 .quiz .questionItem {
+
     margin-top: -1px;
     font-family: "NanumSquare Neo OTF-dEb", Helvetica;
     color: #000000;
@@ -216,7 +218,7 @@
     line-height: 30px;
     position: relative;
     align-self: stretch;
-    font-weight: 400;
+    font-weight: bold;
     letter-spacing: 0;
 }
 
@@ -255,7 +257,7 @@
     margin-right: 20px; /* right-box와 20px 간격 유지 */
 }
 
-.all-question-box {
+.eachCategory {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -487,7 +489,7 @@
  */
 .quiz .check-button {
     font-family: "NanumSquare Neo OTF-dEb", Helvetica;
-    font-size: 20px;
+    font-size: 90%;
     letter-spacing: 0;
     line-height: 40px;
     white-space: nowrap;
@@ -495,8 +497,8 @@
     color: #ffffff;
     border: none;
     background: linear-gradient(135deg, #ff7f50, #ff6347); /* 그라데이션 효과 추가 */
-    height: 50%;
-    width: 15%;
+    height: 30%;
+    width: 30%;
     cursor: pointer;
     border-radius: 8px; /* 모서리를 둥글게 */
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* 애니메이션 추가 */
@@ -578,7 +580,7 @@ Side bar
     height: 80%; /* 높이를 퍼센트로 설정 */
     position: fixed;
     left: 0;
-    background-color: #eeeeee;
+    background-color: #f4f4f9;
     padding: 1.5%; /* 패딩을 퍼센트로 조정 */
     box-sizing: border-box;
     display: flex;
@@ -602,13 +604,24 @@ Side bar
     font-weight: 700;
 }
 
-/* 질문 리스트가 스크롤되도록 설정 */
+/* 질문 리스트*/
 .question-bar {
     width: 100%; /* 부모의 너비를 100% 사용 */
     height: 100%; /* 질문 리스트 영역 높이 설정 */
     overflow-y: auto; /* 세로 스크롤 활성화 */
     padding-right: 2%; /* 스크롤이 나타날 때 여백 확보 */
     margin-top: 20px; /* 질문 리스트와 텍스트 사이의 간격 설정 */
+}
+
+.question-bar .questionBarCategoryTitleBox{
+    font-weight: bold; /* 굵은 텍스트 */
+    margin-top: 4vh;
+    margin-bottom: 2%; /* 카테고리 사이의 간격 */
+
+    color : #4a90e2;
+    border-bottom: 1px solid #4a90e2; /* 하단에 선 */
+    border-radius: 1%; /* 모서리를 살짝 둥글게 */
+    width: 100%; /* 부모 요소 기준 90% 너비 */
 }
 
 .sidebar h3 {

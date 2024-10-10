@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     let selectedChoice = null;
     let selectedQuestion = null;
+    let currentQuestionIndex;
+    let marked = false;
 
     // 상수 정의
     const choices = document.querySelectorAll('.choice-item');
@@ -25,25 +27,65 @@ document.addEventListener('DOMContentLoaded', function () {
     // 초기화 작업
     initialize();
 
+    function registerEventListeners() {
+        questionList.addEventListener('click', handleQuestionListClick);
+        document.querySelector('.left-box').addEventListener('click', handleQuestionClick);
+        checkAnswerButton.addEventListener('click', handleCheckAnswer);
+        toggleButton.addEventListener('click', toggleDescriptionVisibility);
+    }
+
     function initialize() {
         // 총 문제 수 업데이트
         totalQuestionsElement.textContent = totalQuestions;
 
-        // 문제 리스트 생성
+        // 사이드바 문제 리스트 생성
         createQuestionList();
 
         // 이벤트 리스너 등록
         registerEventListeners();
     }
 
+    /*
+    사이드 바 생성
+     */
     function createQuestionList() {
-        document.querySelectorAll('.question-box').forEach((box, index) => {
-            const link = document.createElement('a');
-            link.href = `#question-${index + 1}`;
-            link.textContent = `문제 ${index + 1}`;
-            link.dataset.questionIndex = index;
-            addHoverEffectToLink(link, index);
-            questionList.appendChild(link);
+        const categories = document.querySelectorAll('.eachCategory');
+        const questionList = document.getElementById('questionList'); // questionList는 여기에 질문 링크를 추가하는 요소
+        questionList.innerHTML = ''; // 기존 리스트 초기화
+
+        categories.forEach((category, categoryIndex) => {
+            // 카테고리 제목 가져오기
+            const categoryText = category.querySelector('.category-text').textContent;
+
+            // questionBarCategory div 생성
+            const questionBarCategory = document.createElement('div');
+            questionBarCategory.classList.add('questionBarCategory');
+
+            // categoryTextBox div 생성 (텍스트만을 위한 div)
+            const questionBarCategoryTitleBox = document.createElement('div');
+            questionBarCategoryTitleBox.textContent = categoryText;
+            questionBarCategoryTitleBox.classList.add('questionBarCategoryTitleBox'); // 텍스트를 위한 추가 스타일링 클래스
+
+            // categoryTextBox를 questionBarCategory 안에 추가
+            questionBarCategory.appendChild(questionBarCategoryTitleBox);
+
+            // 해당 카테고리 안의 질문들을 처리
+            const questions = category.querySelectorAll('.question-box');
+            questions.forEach((box, index) => {
+                const link = document.createElement('a');
+                link.href = `#question-${index}`;
+                link.textContent = `문제 ${index + 1}`;
+                link.dataset.questionIndex = index;
+
+                // addHoverEffectToLink 함수 호출로 링크에 호버 효과 추가
+                addHoverEffectToLink(link, index);
+
+                // 각 질문 링크를 카테고리 안에 추가
+                questionBarCategory.appendChild(link);
+            });
+
+            // 완성된 카테고리를 questionList에 추가
+            questionList.appendChild(questionBarCategory);
         });
     }
 
@@ -67,29 +109,55 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function registerEventListeners() {
-        questionList.addEventListener('click', handleQuestionListClick);
-        document.querySelector('.left-box').addEventListener('click', handleQuestionClick);
-        checkAnswerButton.addEventListener('click', handleCheckAnswer);
-        toggleButton.addEventListener('click', toggleDescriptionVisibility);
+
+
+    // 카테고리 이름을 기준으로 카테고리와 질문 찾기
+    function findQuestionInCategory(categoryTitle, questionIndex) {
+        const category = Array.from(document.querySelectorAll('.eachCategory'))
+            .find(category => category.querySelector('.category-text').textContent.trim() === categoryTitle);
+        return category ? category.querySelectorAll('.question-box')[questionIndex] : null;
     }
 
+// 사이드바에서 카테고리와 질문 링크 찾기
+    function findSidebarLink(categoryTitle, questionIndex) {
+        const sidebarCategory = Array.from(questionList.querySelectorAll('.questionBarCategory'))
+            .find(sidebar => sidebar.querySelector('.questionBarCategoryTitleBox').textContent.trim() === categoryTitle);
+        return sidebarCategory ? sidebarCategory.querySelectorAll('a')[questionIndex] : null;
+    }
+
+// 질문 클릭 시 해당 질문으로 스크롤
     function handleQuestionListClick(e) {
         if (e.target.tagName === 'A') {
             e.preventDefault();
-            const index = e.target.dataset.questionIndex;
-            const questionBox = document.querySelectorAll('.question-box')[index];
-            if (questionBox) {
-                questionBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-            hideDescription();
+            const categoryTitle = e.target.closest('.questionBarCategory').querySelector('.questionBarCategoryTitleBox').textContent.trim();
+            const questionIndex = e.target.dataset.questionIndex;
+            const questionBox = findQuestionInCategory(categoryTitle, questionIndex);
+            if (questionBox) questionBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+// 사이드바 링크 스타일 업데이트
+    function updateSidebar(element, isCorrect) {
+        const questionBox = element.closest('.question-box');
+        const category = element.closest('.eachCategory');
+        const questionIndex = Array.from(category.querySelectorAll('.question-box')).indexOf(questionBox);
+        const categoryTitle = category.querySelector('.category-text').textContent.trim();
+        const link = findSidebarLink(categoryTitle, questionIndex);
+        if (link) {
+            link.style.color = isCorrect ? 'green' : 'red';
+            link.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
+            link.scrollIntoView({ behavior: 'smooth', block: 'start' });s
         }
     }
 
     function handleQuestionClick(e) {
+        // 해설 내용을 바꾼다.
         if (e.target.classList.contains('choice-item')) {
             selectChoice(e.target);
-        } else if (e.target.classList.contains('questionItem')) {
+            /*
+            객관식 문제가 아닐때만 문제 선택을 활성화 한다.
+             */
+        } else if (multipleChoice ===false && e.target.classList.contains('questionItem')) {
             selectQuestion(e.target);
         }
     }
@@ -100,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         selectedChoice = choice;
         selectedChoice.classList.add('selected-choice');
-        hideDescription();
+        refreshAnswerAndDescription();
     }
 
     function selectQuestion(question) {
@@ -109,10 +177,19 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         selectedQuestion = question;
         selectedQuestion.classList.add('selected-question');
+       refreshAnswerAndDescription();
+    }
+    function refreshAnswerAndDescription(){
+        makeDescriptionForHtml()
+        hideAnswerMessage();
         hideDescription();
+        marked = false;
     }
 
     function toggleDescriptionVisibility() {
+        if(marked === false){
+
+        }
         if (descriptionContent.style.display === "none") {
             showDescription();
         } else {
@@ -120,14 +197,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    /**
+     * 채점 버튼을 눌렀을시
+     */
     function handleCheckAnswer() {
         if (selectedChoice && multipleChoice) {
             processMultipleChoice();
         } else if (!multipleChoice && selectedQuestion) {
             processShortAnswer();
         } else {
-            showAnswerMessage('선택지를 먼저 선택하세요!', false);
+            showAnswerMessage('먼저 선택하세요!', false);
         }
+        marked = true;
     }
 
     function processMultipleChoice() {
@@ -137,7 +218,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectText = selectedChoice.getAttribute('data-choice-text');
 
         updateAnswerResult(isCorrect, selectText, questionIndex);
-        makeDescriptionForHtml();
         updateSidebar(selectedChoice, isCorrect);
     }
 
@@ -152,7 +232,6 @@ document.addEventListener('DOMContentLoaded', function () {
         questionResults[questionIndex] = true;
         updateSidebar(selectedQuestion, true);
         showDescription();
-        makeDescriptionForHtml();
     }
 
     function updateAnswerResult(isCorrect, selectText, questionIndex) {
@@ -181,23 +260,18 @@ document.addEventListener('DOMContentLoaded', function () {
         answerBox.classList.toggle('wrong-answer', !isCorrect);
         answerText.textContent = message;
     }
+    function hideAnswerMessage(){
+        answerBox.style.display='none';
+    }
 
     function makeDescriptionForHtml() {
+        /*
+        주관식이냐, 객관식이냐에 출력 내용을 구분한다.
+         */
         const description = selectedChoice ? selectedChoice.closest('.each-question').getAttribute('data-description') : selectedQuestion.closest('.each-question').getAttribute('data-description');
         descriptionText.innerHTML = description.replace(/\n/g, '<br/>');
     }
 
-    function updateSidebar(element, isCorrect) {
-        const questionBox = element.closest('.question-box');
-        const questionIndex = Array.from(document.querySelectorAll('.question-box')).indexOf(questionBox);
-        const link = questionList.children[questionIndex];
-
-        link.style.color = isCorrect ? 'green' : 'red';
-        link.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
-
-        correctQuestionsElement.textContent = correctQuestions;
-        incorrectQuestionsElement.textContent = incorrectQuestions;
-    }
 
     function showDescription() {
         descriptionContent.style.display = "block";

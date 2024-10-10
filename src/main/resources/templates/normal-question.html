@@ -26,7 +26,7 @@
 <body>
 <div class="quiz">
     <!-- 상단 제목 -->
-    <div class="logo-box">Com Ssa</div>
+<!--    <div class="logo-box">Com Ssa</div>-->
 
 
     <div class="left-sidebar">
@@ -41,15 +41,15 @@
     <input type="hidden" id="multipleChoice" th:value="${multipleChoice}" />
     <div class="left-box">
         <!-- 질문 리스트 반복 렌더링 -->
-        <div class="all-question-box" th:each="category, iterStat : ${questions}">
-            <div class="category-box">
+        <div class="eachCategory" th:each="category, iterStat : ${questions}">
+            <div class="categoryTitleBox">
                 <div class="category-text" th:text ="${category.questionCategory.korean}">문제 분야</div>
             </div>
             <div class="question-box" th:each="question, iterStat : ${category.responseNormalQuestionDtoList}">
                 <div class="each-question" th:data-description="${question.description}">
                     <div class="question-meta-data">
                         <div class="quiz-number">
-                            <div class="text-wrapper-2" th:text="${iterStat.index + 1} + '번'"></div>
+                            <div class="questionIndex" th:text="${iterStat.index + 1} + '번'"></div>
                         </div>
                         <div class="level-show-box" id="levelBox" th:data-level="${question.questionLevel.korean}">
                             <div class="level-show-text" th:text="${question.questionLevel.korean}"></div>
