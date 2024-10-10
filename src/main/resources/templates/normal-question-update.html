@@ -2,40 +2,49 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Update Normal Questions</title>
+    <title>일반 질문 업데이트</title>
     <script th:src="@{/js/updateQuestion.js}"></script>
     <script th:src="@{/js/textTranslater.js}"></script>
     <link rel="stylesheet" th:href="@{/css/normal-question-update/style.css}" />
 </head>
 <body>
 
-<h1>Update Normal Questions</h1>
+<h1>일반 질문 업데이트</h1>
 
 <!-- 카테고리별 질문 목록을 렌더링 -->
 <div th:each="classifiedQuestion : ${classifiedQuestions}">
     <h2 th:text="${classifiedQuestion.questionCategory}"
         th:attr="onclick=|toggleCategory('${classifiedQuestion.questionCategory}')|"
-        style="cursor: pointer; color: #2980b9;">Category Name</h2>
+        style="cursor: pointer; color: #2980b9;">카테고리 이름</h2>
 
     <!-- 질문 목록 -->
-    <div th:id ="'questions-'+${classifiedQuestion.questionCategory}">
-        <div  th:id="'question-'+${question.id}"  th:each="question : ${classifiedQuestion.responseNormalQuestionDtoList}" class="question-container">
+    <div th:id="'questions-'+${classifiedQuestion.questionCategory}">
+        <div th:id="'question-'+${question.id}" th:each="question : ${classifiedQuestion.responseNormalQuestionDtoList}" class="question-container">
             <!-- 문제 텍스트 -->
-            <h3 th:text="${question.question}" class="questionTitle">Question</h3>
-            <!-- 문제 난이도 표시 -->
-            <p th:text="'Difficulty Level: ' + ${question.questionLevel}" style="color: red;"></p>
+            <div class="editable-container">
+                <h3 th:text="${question.question}" class="questionTitle" th:attr="data-id=${question.id}, data-field='question'">질문</h3>
+            </div>
+
+            <!-- 문제 난이도 드롭다운 -->
+            <select th:attr="data-question-id=${question.id}" onchange="updateDifficulty(this)">
+                <option value="LOW" th:selected="${question.questionLevel == 'LOW'}">하</option>
+                <option value="MEDIUM" th:selected="${question.questionLevel == 'MEDIUM'}">중</option>
+                <option value="HIGH" th:selected="${question.questionLevel == 'HIGH'}">상</option>
+            </select>
 
             <!-- 선택지 목록 -->
             <ul>
                 <li th:each="choice : ${question.normalQuestionChoices}">
-                    <span th:text="${choice.text}">Choice Text</span>
+                    <span th:text="${choice.text}">선택지 텍스트</span>
                     (<span th:text="${choice.selectedCount}">0</span> 선택)
                     <span th:if="${choice.answerStatus}" th:text="'[정답]'">정답</span>
                 </li>
             </ul>
 
             <!-- 해설 텍스트 -->
-            <p th:text="${question.description}" class="descriptionText" id="descriptionText" style="color: skyblue;"></p>
+            <div class="editable-container">
+                <p th:text="${question.description}" class="description" th:attr="data-id=${question.id}, data-field='description'">설명</p>
+            </div>
 
             <!-- approve 토글 -->
             <label for="approve">허용:</label>
@@ -52,12 +61,16 @@
             <br/>
 
             <button type="button" th:onclick="|deleteQuestion(${question.id})|">
-                Delete Question
+                질문 삭제
             </button>
         </div>
-
     </div>
+</div>
 
+<div id="overlay-input" class="overlay-input" style="display: none;">
+    <textarea id="overlay-textarea"></textarea>
+    <button onclick="saveOverlayChanges()">저장</button>
+    <button onclick="cancelOverlayChanges()">취소</button>
 </div>
 
 </body>
