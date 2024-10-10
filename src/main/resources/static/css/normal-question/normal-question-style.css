@@ -210,6 +210,7 @@
 }
 
 .quiz .questionItem {
+
     margin-top: -1px;
     font-family: "NanumSquare Neo OTF-dEb", Helvetica;
     color: #000000;
@@ -217,7 +218,7 @@
     line-height: 30px;
     position: relative;
     align-self: stretch;
-    font-weight: 400;
+    font-weight: bold;
     letter-spacing: 0;
 }
 
@@ -488,7 +489,7 @@
  */
 .quiz .check-button {
     font-family: "NanumSquare Neo OTF-dEb", Helvetica;
-    font-size: 20px;
+    font-size: 90%;
     letter-spacing: 0;
     line-height: 40px;
     white-space: nowrap;
@@ -496,8 +497,8 @@
     color: #ffffff;
     border: none;
     background: linear-gradient(135deg, #ff7f50, #ff6347); /* 그라데이션 효과 추가 */
-    height: 50%;
-    width: 15%;
+    height: 30%;
+    width: 30%;
     cursor: pointer;
     border-radius: 8px; /* 모서리를 둥글게 */
     transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* 애니메이션 추가 */

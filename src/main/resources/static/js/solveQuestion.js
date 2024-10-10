@@ -111,42 +111,42 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+    // 카테고리 이름을 기준으로 카테고리와 질문 찾기
+    function findQuestionInCategory(categoryTitle, questionIndex) {
+        const category = Array.from(document.querySelectorAll('.eachCategory'))
+            .find(category => category.querySelector('.category-text').textContent.trim() === categoryTitle);
+        return category ? category.querySelectorAll('.question-box')[questionIndex] : null;
+    }
+
+// 사이드바에서 카테고리와 질문 링크 찾기
+    function findSidebarLink(categoryTitle, questionIndex) {
+        const sidebarCategory = Array.from(questionList.querySelectorAll('.questionBarCategory'))
+            .find(sidebar => sidebar.querySelector('.questionBarCategoryTitleBox').textContent.trim() === categoryTitle);
+        return sidebarCategory ? sidebarCategory.querySelectorAll('a')[questionIndex] : null;
+    }
+
+// 질문 클릭 시 해당 질문으로 스크롤
     function handleQuestionListClick(e) {
         if (e.target.tagName === 'A') {
             e.preventDefault();
+            const categoryTitle = e.target.closest('.questionBarCategory').querySelector('.questionBarCategoryTitleBox').textContent.trim();
+            const questionIndex = e.target.dataset.questionIndex;
+            const questionBox = findQuestionInCategory(categoryTitle, questionIndex);
+            if (questionBox) questionBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
 
-            // 클릭한 a 태그의 카테고리 부모를 찾음
-            const questionBarCategory = e.target.closest('.questionBarCategory');
-
-            // 자식 요소인 제목(텍스트)를 가져옴
-            const questionBarCategoryTitle = questionBarCategory.querySelector('.questionBarCategoryTitleBox').textContent.trim(); // 제목 텍스트를 가져옴
-            const index = e.target.dataset.questionIndex; // 카테고리 내에서 a 태그의 인덱스를 가져옴
-
-            // 실제 카테고리들을 찾음
-            const categories = document.querySelectorAll(".eachCategory");
-            let matchedCategory = null;
-
-
-            // 같은 텍스트를 가진 카테고리를 찾음
-            categories.forEach((category) => {
-                const categoryText = category.querySelector('.category-text').textContent.trim();
-                if (categoryText === questionBarCategoryTitle) {
-                    matchedCategory = category;
-                }
-            });
-            if (matchedCategory) {
-                // 찾은 카테고리 내에서 해당 질문 요소 찾기
-                const questionBoxes = matchedCategory.querySelectorAll(".question-box");
-                const questionBox = questionBoxes[index];
-                // 해당 질문으로 스크롤
-                if (questionBox) {
-                    questionBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                } else {
-                    console.error('해당 질문을 찾을 수 없습니다.');
-                }
-            } else {
-                console.error('해당 카테고리를 찾을 수 없습니다.');
-            }
+// 사이드바 링크 스타일 업데이트
+    function updateSidebar(element, isCorrect) {
+        const questionBox = element.closest('.question-box');
+        const category = element.closest('.eachCategory');
+        const questionIndex = Array.from(category.querySelectorAll('.question-box')).indexOf(questionBox);
+        const categoryTitle = category.querySelector('.category-text').textContent.trim();
+        const link = findSidebarLink(categoryTitle, questionIndex);
+        if (link) {
+            link.style.color = isCorrect ? 'green' : 'red';
+            link.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
+            link.scrollIntoView({ behavior: 'smooth', block: 'start' });s
         }
     }
 
@@ -272,48 +272,6 @@ document.addEventListener('DOMContentLoaded', function () {
         descriptionText.innerHTML = description.replace(/\n/g, '<br/>');
     }
 
-    function updateSidebar(element, isCorrect) {
-        // 현재 질문이 속한 카테고리를 찾음
-        const questionBox = element.closest('.question-box'); // 현재 질문을 찾음
-        const category = element.closest('.eachCategory'); // 해당 질문이 속한 카테고리 찾기
-
-        // 카테고리 내에서 질문들의 리스트를 가져옴
-        const questionBoxes = Array.from(category.querySelectorAll('.question-box')); // NodeList를 배열로 변환
-        const questionIndex = questionBoxes.indexOf(questionBox); // 배열에서 현재 질문의 인덱스를 찾음
-
-        const categoryText = category.querySelector('.category-text').textContent.trim(); // 카테고리 이름 가져오기
-        console.log('카테고리:', categoryText, '질문 인덱스:', questionIndex);
-
-        // 사이드바에서 해당 카테고리 이름을 가진 요소를 찾음
-        const questionBarCategories = questionList.querySelectorAll('.questionBarCategory'); // 모든 사이드바 카테고리
-        let matchedSidebarCategory = null;
-
-        questionBarCategories.forEach((questionBarCategory) => {
-            const sidebarCategoryText = questionBarCategory.querySelector('.questionBarCategoryTitleBox').textContent.trim();
-            if (sidebarCategoryText === categoryText) {
-                matchedSidebarCategory = questionBarCategory; // 카테고리 이름이 같은 사이드바 카테고리를 찾음
-            }
-        });
-
-        if (matchedSidebarCategory) {
-            // 해당 카테고리 내에서 질문 링크를 찾음
-            const links = matchedSidebarCategory.querySelectorAll('a'); // 해당 카테고리 안의 모든 링크를 가져옴
-            const link = links[questionIndex]; // 해당 질문 인덱스의 링크 선택
-            if (link) {
-                // 링크의 색상과 스타일을 업데이트
-                link.style.color = isCorrect ? 'green' : 'red';
-                link.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
-            } else {
-                console.error('해당 인덱스의 링크를 찾을 수 없습니다.');
-            }
-        } else {
-            console.error('해당 카테고리를 찾을 수 없습니다.');
-        }
-
-        // 사이드바의 맞은 문제/틀린 문제 업데이트
-        correctQuestionsElement.textContent = correctQuestions;
-        incorrectQuestionsElement.textContent = incorrectQuestions;
-    }
 
     function showDescription() {
         descriptionContent.style.display = "block";
