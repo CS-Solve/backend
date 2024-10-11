@@ -68,7 +68,7 @@ jobs:
       # S3 버킷으로 정적 리소스 업로드
     - name: Upload static assets to S3
       run: |
-      # 일치하는 버킷이 없을 경우 --delete로 자동 삭제된다
+        # 일치하는 파일이 없을 경우 --delete로 자동 삭제된다
         aws s3 sync ./src/main/resources/static s3://comssa-static --delete
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.S3_IAM_KEY}}
