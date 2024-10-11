@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const toggleButton = document.getElementById("toggleDescription");
     const descriptionContent = document.getElementById("descriptionContent");
     const descriptionText = document.getElementById("descriptionText");
-    const totalQuestionsElement = document.getElementById('totalQuestions');
+    const totalQuestionsCount = document.getElementById('totalQuestionsCount');
     const correctQuestions = document.getElementById('correctQuestions');
     const incorrectQuestions = document.getElementById('incorrectQuestions');
     const questionList = document.getElementById('questionList');
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function initialize() {
         // 총 문제 수 업데이트
-        totalQuestionsElement.textContent = totalQuestions.length;
+        totalQuestionsCount.textContent = totalQuestions.length;
 
         // 사이드바 문제 리스트 생성
         createQuestionList();
