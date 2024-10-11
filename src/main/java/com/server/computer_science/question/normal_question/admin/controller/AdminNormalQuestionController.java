@@ -1,6 +1,8 @@
 package com.server.computer_science.question.normal_question.admin.controller;
 
 
+import com.server.computer_science.question.normal_question.admin.dto.RequestChangeDescriptionDto;
+import com.server.computer_science.question.normal_question.admin.dto.RequestChangeQuestionDto;
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionMakeService;
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionUpdateService;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
@@ -55,6 +57,22 @@ public class AdminNormalQuestionController {
     @PatchMapping(value = "/question/normal/toggle-multiple/{id}")
     public ResponseEntity<ResponseNormalQuestionDto> toggleCanBeShortAnswered(@PathVariable("id")Long questionId) {
         return ResponseEntity.ok(adminNormalQuestionUpdateService.toggleCanBeShortAnswered(questionId));
+    }
+    @ApiOperation("단답형 문제 상태 업데이트 - 문제 업데이트")
+    @PatchMapping(value = "/question/normal/{id}/question")
+    public ResponseEntity<ResponseNormalQuestionDto> changeQuestion(
+            @PathVariable("id")Long questionId,
+            @RequestBody RequestChangeQuestionDto requestChangeQuestionDto) {
+        return ResponseEntity.ok(adminNormalQuestionUpdateService.changeQuestion(questionId, requestChangeQuestionDto));
+    }
+
+    @ApiOperation("단답형 문제 상태 업데이트 - 해설 업데이트")
+    @PatchMapping(value = "/question/normal/{id}/description")
+    public ResponseEntity<ResponseNormalQuestionDto> changeDescription(
+            @PathVariable("id")Long questionId,
+            @RequestBody RequestChangeDescriptionDto requestChangeDescriptionDto
+            ) {
+        return ResponseEntity.ok(adminNormalQuestionUpdateService.changeDescription(questionId,requestChangeDescriptionDto));
     }
 
     @ApiOperation("단답형 문제 삭제")

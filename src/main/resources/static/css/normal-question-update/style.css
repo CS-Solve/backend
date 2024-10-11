@@ -45,6 +45,49 @@ h2 {
     color: #2980b9;  /* 파란색 */
 }
 
+/* 오버레이 입력 필드 스타일 */
+.overlay-input {
+    position: absolute;
+    background-color: white;
+
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 1000;  /* 다른 요소들 위에 표시되도록 z-index 추가 */
+    width: 100%;
+}
+
+.overlay-input textarea {
+
+    width: 100%;
+    min-height: 300px;  /* 최소 높이 설정 */
+    max-height: 1000px;  /* 최대 높이 설정 */
+    border: 1px solid #3498db;
+    resize: vertical;  /* 수직으로만 크기 조절 가능 */
+    outline: none;
+    font-family: inherit;
+    padding: 5px;
+}
+
+.overlay-input button {
+    margin-top: 5px;
+    /*padding: 3px 10px;*/
+    cursor: pointer;
+}
+
+/* 편집 가능한 요소에 호버 효과 추가 */
+.editable-container > * {
+    transition: background-color 0.3s ease;
+}
+
+.editable-container > *:hover {
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+
+
 /* 선택지 리스트 스타일 */
 ul {
     list-style: none;
