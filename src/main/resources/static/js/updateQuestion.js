@@ -115,6 +115,7 @@ function makeEditable(element, field, questionId) {
 
 let currentEditElement = null;
 
+// 페이지 로드 시 실행될 함수
 document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('.editable-container').forEach(container => {
         container.addEventListener('dblclick', function(e) {
@@ -122,6 +123,14 @@ document.addEventListener('DOMContentLoaded', function() {
             showOverlayInput(editableElement);
         });
     });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    // 저장된 스크롤 위치가 있다면 해당 위치로 스크롤
+    const savedScrollPosition = localStorage.getItem('scrollPosition');
+    if (savedScrollPosition) {
+        window.scrollTo(0, parseInt(savedScrollPosition));
+        localStorage.removeItem('scrollPosition'); // 사용 후 제거
+    }
 });
 
 /*
@@ -159,6 +168,10 @@ function saveOverlayChanges() {
             .then(updatedData => {
                 if (updatedData && updatedData[field] !== undefined) {
                     console.log(`${field}가 성공적으로 업데이트되었습니다:`, updatedData[field]);
+
+                    // 현재 스크롤 위치 저장
+                    localStorage.setItem('scrollPosition', window.pageYOffset);
+
                     // 성공 시 페이지 새로고침
                     window.location.reload();
                 } else {
