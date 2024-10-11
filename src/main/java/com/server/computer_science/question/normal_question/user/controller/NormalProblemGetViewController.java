@@ -5,12 +5,14 @@ import com.server.computer_science.question.normal_question.common.service.Norma
 import com.server.computer_science.question.normal_question.user.service.QuestionSelectorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.SortedMap;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,12 +21,17 @@ public class NormalProblemGetViewController {
     @Qualifier("basicNormalQuestionClassifiedGetService")
     private final NormalQuestionClassifiedGetService normalQuestionClassifiedGetService;
 
+    @Value("${resource.base-url}")
+    private String resourceBaseUrl;
+    private final String baseUrl = "baseUrl";
+
     @GetMapping("/")
     public String showMainPage(Model model){
         List<String> categories = questionSelectorService.getCategories();
         List<String> levels = questionSelectorService.getLevels();
         model.addAttribute("categories", categories);
         model.addAttribute("levels", levels);
+        model.addAttribute(baseUrl, resourceBaseUrl);
         return "index";
     }
 
@@ -39,6 +46,7 @@ public class NormalProblemGetViewController {
         else{
             model.addAttribute("questions", normalQuestionClassifiedGetService.getClassifiedShortAnsweredNormalQuestions(RequestGetNormalQuestionsDto.fromString(categories, levels)));
         }
+        model.addAttribute(baseUrl, resourceBaseUrl);
         model.addAttribute("multipleChoice", multipleChoice);
         return "normal-question"; // 문제를 보여줄 페이지의 이름
     }
