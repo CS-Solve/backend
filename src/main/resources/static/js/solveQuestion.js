@@ -14,16 +14,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const descriptionContent = document.getElementById("descriptionContent");
     const descriptionText = document.getElementById("descriptionText");
     const totalQuestionsElement = document.getElementById('totalQuestions');
-    const correctQuestionsElement = document.getElementById('correctQuestions');
-    const incorrectQuestionsElement = document.getElementById('incorrectQuestions');
+    const correctQuestions = document.getElementById('correctQuestions');
+    const incorrectQuestions = document.getElementById('incorrectQuestions');
     const questionList = document.getElementById('questionList');
 
-    const totalQuestions = document.querySelectorAll('.question-box').length;
+    const totalQuestions = document.querySelectorAll('.question-box');
     const multipleChoice = document.getElementById('multipleChoice').value === 'true';
-    let correctQuestions = 0;
-    let incorrectQuestions = 0;
-    const questionResults = new Array(totalQuestions).fill(null);
-
+    let correctQuestionsCount = 0;
+    let incorrectQuestionsCount = 0;
+    const questionResults = new Array(totalQuestions.length).fill(null);
     // 초기화 작업
     initialize();
 
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function initialize() {
         // 총 문제 수 업데이트
-        totalQuestionsElement.textContent = totalQuestions;
+        totalQuestionsElement.textContent = totalQuestions.length;
 
         // 사이드바 문제 리스트 생성
         createQuestionList();
@@ -146,7 +145,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (link) {
             link.style.color = isCorrect ? 'green' : 'red';
             link.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
-            link.scrollIntoView({ behavior: 'smooth', block: 'start' });s
+            link.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
 
@@ -211,48 +210,56 @@ document.addEventListener('DOMContentLoaded', function () {
         marked = true;
     }
 
+    // 결과를 기록하는 공통 함수
+    function updateQuestionResult(questionBox, isCorrect) {
+        const questionResult = questionBox.querySelector('.questionResult');
+        // 현재 결과값을 설정 (dataset.result를 사용해 CSS가 적용되도록)
+        questionResult.dataset.result = isCorrect ? "true" : "false";
+        questionResult.textContent = isCorrect ? "O" : "X"; // O 또는 X 표시
+    }
+
+// 객관식 문제 처리 함수
     function processMultipleChoice() {
         const questionBox = selectedChoice.closest('.question-box');
-        const questionIndex = Array.from(document.querySelectorAll('.question-box')).indexOf(questionBox);
         const isCorrect = selectedChoice.getAttribute('data-answer-status') === 'true';
         const selectText = selectedChoice.getAttribute('data-choice-text');
 
-        updateAnswerResult(isCorrect, selectText, questionIndex);
+        if (!questionBox) {
+            console.error('해당 문제 상자를 찾을 수 없습니다.');
+            return;
+        }
+
+        // 공통 로직 호출
+        updateQuestionResult(questionBox, isCorrect);
+
+        // 정답/오답 메시지 표시
+        showAnswerMessage(isCorrect ? `정답입니다! (${selectText})` : `오답입니다! (${selectText})`, isCorrect);
+
+        // 사이드바 업데이트
         updateSidebar(selectedChoice, isCorrect);
     }
 
+// 주관식 문제 처리 함수
     function processShortAnswer() {
         const questionBox = selectedQuestion.closest('.question-box');
-        const questionIndex = Array.from(document.querySelectorAll('.question-box')).indexOf(questionBox);
 
-        showAnswerMessage('주관식 문제는 해설이 바로 표시됩니다.', true);
-        if (questionResults[questionIndex] === null) {
-            correctQuestions++;
+        if (!questionBox) {
+            console.error('해당 문제 상자를 찾을 수 없습니다.');
+            return;
         }
-        questionResults[questionIndex] = true;
+
+        // 주관식 문제는 맞은 것으로 처리
+        updateQuestionResult(questionBox, true);
+
+        // 주관식 정답 메시지 표시
+        showAnswerMessage('주관식 문제는 해설이 바로 표시됩니다.', true);
+
+        // 사이드바 업데이트
         updateSidebar(selectedQuestion, true);
         showDescription();
     }
 
-    function updateAnswerResult(isCorrect, selectText, questionIndex) {
-        showAnswerMessage(isCorrect ? `정답입니다! (${selectText})` : `오답입니다! (${selectText})`, isCorrect);
 
-        if (isCorrect) {
-            if (questionResults[questionIndex] === null) correctQuestions++;
-            if (questionResults[questionIndex] === false) {
-                correctQuestions++;
-                incorrectQuestions--;
-            }
-        } else {
-            if (questionResults[questionIndex] === null) incorrectQuestions++;
-            if (questionResults[questionIndex] === true) {
-                correctQuestions--;
-                incorrectQuestions++;
-            }
-        }
-
-        questionResults[questionIndex] = isCorrect;
-    }
 
     function showAnswerMessage(message, isCorrect) {
         answerBox.style.display = 'flex';
