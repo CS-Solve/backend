@@ -23,10 +23,10 @@
 
     <meta name="description" content="CS(컴퓨터 사이언스) 문제를 풀 수 있는 사이트입니다. 다양한 분야의 CS 문제 모음과 해설을 제공합니다.">
 
-    <link rel="stylesheet" type="text/css" th:href="@{/css/globals.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index/styleguide.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{/css/index/style.css}" />
-    <script th:src="@{/js/questionChoice.js}"></script>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/globals.css|" />
+    <link rel="stylesheet" th:href="|${baseUrl}/css/index/styleguide.css|" />
+    <link rel="stylesheet" th:href="|${baseUrl}/css/index/style.css|" />
+    <script th:src="|${baseUrl}/js/chooseQuestionType.js|"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -37,7 +37,7 @@
     <div class="big-box">
         <h1 class ="siteDescription">CS 문제 모음 </h1>
         <div class="main-logo-box">
-            <img src="/img/mainLogo.svg" alt="CS Solver Logo" class="logo-image">
+            <img th:src="|${baseUrl}/img/mainLogo.svg|" alt="CS Solver Logo" class="logo-image">
             <h2 class ="mainTitle">컴퓨터 사이언스</h2>
         </div>
         <form th:action="@{/question/normal}" method="get" class ="mainForm">
@@ -59,8 +59,7 @@
                             </div>
                         </div>
                     </div>
-                    <img src ="/img/line-4.svg" class ="line-4">
-
+                    <img th:src="|${baseUrl}/img/line-4.svg|" class="line-4">
                     <!-- 난이도 선택 -->
                     <div class="level-big-box side-box">
                         <h2 class="standard">난이도</h2>

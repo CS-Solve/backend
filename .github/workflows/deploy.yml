@@ -43,7 +43,7 @@ jobs:
         ls -l
         mkdir -p src/main/resources
         echo "${{ secrets.APPLICATION_DEPLOY}}" > src/main/resources/application-deploy.yml
-        echo "${{ secrets.APPLICATION_LOCAL }}" > src/main/resources/application-local.yml
+        echo "${{ secrets.APPLICATION_TEST }}" > src/main/resources/application-test.yml
         
         # Gradle wrapper 파일 실행 권한주기
     - name: Grant execute permission for gradlew
@@ -64,6 +64,16 @@ jobs:
 
         docker tag app ${{secrets.DOCKER_USERNAME}}/cs-api:latest
         docker push ${{secrets.DOCKER_USERNAME}}/cs-api:latest
+
+      # S3 버킷으로 정적 리소스 업로드
+    - name: Upload static assets to S3
+      run: |
+        # 일치하는 파일이 없을 경우 --delete로 자동 삭제된다
+        aws s3 sync ./src/main/resources/static s3://comssa-static --delete
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.S3_IAM_KEY}}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_IAM_PASSWORD}}
+        AWS_REGION: "ap-northeast-2"
 
     - name: deploy in cloud
       uses: appleboy/ssh-action@master
