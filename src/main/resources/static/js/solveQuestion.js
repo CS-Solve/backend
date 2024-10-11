@@ -1,28 +1,20 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     let selectedChoice = null;
     let selectedQuestion = null;
-    let currentQuestionIndex;
     let marked = false;
-
     // 상수 정의
-    const choices = document.querySelectorAll('.choice-item');
     const checkAnswerButton = document.getElementById('checkButton');
     const answerBox = document.getElementById('answerBox');
     const answerText = document.getElementById('answerText');
-    const descriptionBox = document.querySelector('.description-box');
     const toggleButton = document.getElementById("toggleDescription");
     const descriptionContent = document.getElementById("descriptionContent");
     const descriptionText = document.getElementById("descriptionText");
     const totalQuestionsCount = document.getElementById('totalQuestionsCount');
-    const correctQuestions = document.getElementById('correctQuestions');
-    const incorrectQuestions = document.getElementById('incorrectQuestions');
     const questionList = document.getElementById('questionList');
 
     const totalQuestions = document.querySelectorAll('.question-box');
     const multipleChoice = document.getElementById('multipleChoice').value === 'true';
-    let correctQuestionsCount = 0;
-    let incorrectQuestionsCount = 0;
-    const questionResults = new Array(totalQuestions.length).fill(null);
     // 초기화 작업
     initialize();
 
@@ -34,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function initialize() {
+
+
         // 총 문제 수 업데이트
         totalQuestionsCount.textContent = totalQuestions.length;
 
@@ -42,13 +36,49 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 이벤트 리스너 등록
         registerEventListeners();
+        // 세션 정보에 저장되어 있는 것들을 적용
+        applyDataFromSessionStorage()
+    }
+    function getStorageKey(category,index){
+        return `${category}-${index}`;
+    }
+
+    /**
+     * ex) 문제 채점 결과 등
+     */
+    function applyDataFromSessionStorage(){
+        const categories = document.querySelectorAll('.category');
+        console.log(Array.from(questionList.querySelectorAll('.questionBarCategory')))
+        categories.forEach(categoryJson =>{
+            const categoryText = categoryJson.querySelector('.category-text').textContent.trim();
+            const questionBoxes = categoryJson.querySelectorAll('.question-box');
+            questionBoxes.forEach((questionBox,index) =>{
+                const storedResult = sessionStorage.getItem(getStorageKey(categoryText,index));
+                if(storedResult!==null){
+                    const isCorrect = JSON.parse(storedResult)
+                    /*
+                    본문 문제 업데이트
+                     */
+                    markQuestionResult(questionBox,isCorrect)
+
+                    /*
+                    사이드바 업데이트
+                     */
+                    const sideBarQuestion = findSidebarQuestion(categoryText,index);
+                    if(sideBarQuestion!==null) {
+                        makeSideBarQuestionColor(sideBarQuestion,isCorrect);
+                    }
+
+                }
+            })
+        })
     }
 
     /*
     사이드 바 생성
      */
     function createQuestionList() {
-        const categories = document.querySelectorAll('.eachCategory');
+        const categories = document.querySelectorAll('.category');
         const questionList = document.getElementById('questionList'); // questionList는 여기에 질문 링크를 추가하는 요소
         questionList.innerHTML = ''; // 기존 리스트 초기화
 
@@ -110,17 +140,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    // 카테고리 이름을 기준으로 카테고리와 질문 찾기
-    function findQuestionInCategory(categoryTitle, questionIndex) {
-        const category = Array.from(document.querySelectorAll('.eachCategory'))
-            .find(category => category.querySelector('.category-text').textContent.trim() === categoryTitle);
+    // 문제 창에서 카테고리 이름,인덱스를 기준으로 질문 찾기
+    function findQuestionInCategory(categoryText, questionIndex) {
+        const category = Array.from(document.querySelectorAll('.category'))
+            .find(category => category.querySelector('.category-text').textContent.trim() === categoryText);
+
         return category ? category.querySelectorAll('.question-box')[questionIndex] : null;
     }
 
-// 사이드바에서 카테고리와 질문 링크 찾기
-    function findSidebarLink(categoryTitle, questionIndex) {
+// 사이드바에서 카테고리 이름, 인덱스를 기준으로 질문 찾기
+    function findSidebarQuestion(categoryText, questionIndex) {
         const sidebarCategory = Array.from(questionList.querySelectorAll('.questionBarCategory'))
-            .find(sidebar => sidebar.querySelector('.questionBarCategoryTitleBox').textContent.trim() === categoryTitle);
+            .find(sidebar => sidebar.querySelector('.questionBarCategoryTitleBox').textContent.trim() === categoryText);
         return sidebarCategory ? sidebarCategory.querySelectorAll('a')[questionIndex] : null;
     }
 
@@ -138,16 +169,23 @@ document.addEventListener('DOMContentLoaded', function () {
 // 사이드바 링크 스타일 업데이트
     function updateSidebar(element, isCorrect) {
         const questionBox = element.closest('.question-box');
-        const category = element.closest('.eachCategory');
+        const category = element.closest('.category');
         const questionIndex = Array.from(category.querySelectorAll('.question-box')).indexOf(questionBox);
         const categoryTitle = category.querySelector('.category-text').textContent.trim();
-        const link = findSidebarLink(categoryTitle, questionIndex);
-        if (link) {
-            link.style.color = isCorrect ? 'green' : 'red';
-            link.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
-            link.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+
+
+        const sideBarQuestion = findSidebarQuestion(categoryTitle, questionIndex);
+        if (sideBarQuestion) {
+            makeSideBarQuestionColor(sideBarQuestion,isCorrect);
+            sideBarQuestion.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
+    function makeSideBarQuestionColor(sideBarQuestion,isCorrect){
+        sideBarQuestion.style.color = isCorrect ? 'green' : 'red';
+        sideBarQuestion.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
+    }
+
 
     function handleQuestionClick(e) {
         // 해설 내용을 바꾼다.
@@ -212,11 +250,25 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 결과를 기록하는 공통 함수
     function updateQuestionResult(questionBox, isCorrect) {
+        markQuestionResult(questionBox,isCorrect)
+        //현재 채점 결과를 세션 스토리지에 저장한다.
+        const category = questionBox.closest('.category').querySelector('.category-text').textContent.trim();
+        const index = questionBox.dataset.questionIndex;
+        const storageKey = getStorageKey(category,index);
+        sessionStorage.setItem(storageKey,JSON.stringify(isCorrect))
+    }
+    function markQuestionResult(questionBox, isCorrect) {
         const questionResult = questionBox.querySelector('.questionResult');
-        // 현재 결과값을 설정 (dataset.result를 사용해 CSS가 적용되도록)
+
+        // isCorrect가 null이거나 undefined인 경우 아무것도 표시하지 않음
+        if (isCorrect === null || isCorrect === undefined) {
+            return;
+        }
+
         questionResult.dataset.result = isCorrect ? "true" : "false";
         questionResult.textContent = isCorrect ? "O" : "X"; // O 또는 X 표시
     }
+
 
 // 객관식 문제 처리 함수
     function processMultipleChoice() {
