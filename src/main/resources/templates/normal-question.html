@@ -30,9 +30,9 @@
 
 
     <div class="left-sidebar">
-        <p>총 문제 수: <span id="totalQuestions">0</span></p>
-        <p>맞은 문제: <span id="correctQuestions">0</span></p>
-        <p>틀린 문제: <span id="incorrectQuestions">0</span></p>
+        <p>총 문제 수: <span id="totalQuestionsCount">0</span></p>
+<!--        <p>맞은 문제: <span id="correctQuestions">0</span></p>-->
+<!--        <p>틀린 문제: <span id="incorrectQuestions">0</span></p>-->
         <div class="question-bar">
             <div id="questionList"></div>
         </div>
@@ -54,9 +54,11 @@
                         <div class="level-show-box" id="levelBox" th:data-level="${question.questionLevel.korean}">
                             <div class="level-show-text" th:text="${question.questionLevel.korean}"></div>
                         </div>
+                        <div class="questionResult"></div> <!-- 정답/오답 여부를 여기에 표시 -->
                     </div>
                     <div class="questions">
-                        <p class="questionItem" th:text="${question.question}"></p>
+                        <p class="questionItem" th:text="${question.question}">
+                        </p>
                         <div class="choice-list" th:if="${multipleChoice}">
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
                             <div th:each="choice, choiceStat : ${question.normalQuestionChoices}"
@@ -67,6 +69,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- 정답 여부에 따른 표시 -->
+                    <!-- 여기서 정답/오답 여부를 표시 -->
                 </div>
             </div>
         </div>

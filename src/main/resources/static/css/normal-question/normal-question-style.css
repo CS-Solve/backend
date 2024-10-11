@@ -222,6 +222,24 @@
     letter-spacing: 0;
 }
 
+/* 문제 결과 표시  */
+.questionResult {
+    font-size: 100%; /* 텍스트 크기 */
+    font-weight: bold;
+    margin-left: 10%; /* 문제 옆에 간격 추가 */
+    vertical-align: middle; /* 텍스트 정렬 */
+}
+
+/* 정답 O 표시 */
+.questionResult[data-result="true"] {
+    color: green;
+}
+
+/* 오답 X 표시 */
+.questionResult[data-result="false"] {
+    color: red;
+}
+
 .quiz .div-4 {
     font-family: "NanumSquare Neo OTF-Regular", Helvetica;
     color: transparent;
