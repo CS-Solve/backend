@@ -48,14 +48,27 @@ document.addEventListener('DOMContentLoaded', function () {
      */
     function applyDataFromSessionStorage(){
         const categories = document.querySelectorAll('.category');
-        categories.forEach(category =>{
-            const categoryText = category.querySelector('.category-text').textContent.trim();
-            const questionBoxes = category.querySelectorAll('.question-box');
+        console.log(Array.from(questionList.querySelectorAll('.questionBarCategory')))
+        categories.forEach(categoryJson =>{
+            const categoryText = categoryJson.querySelector('.category-text').textContent.trim();
+            const questionBoxes = categoryJson.querySelectorAll('.question-box');
             questionBoxes.forEach((questionBox,index) =>{
                 const storedResult = sessionStorage.getItem(getStorageKey(categoryText,index));
-                if(!storedResult!==null){
+                if(storedResult!==null){
                     const isCorrect = JSON.parse(storedResult)
-                    markResult(questionBox,isCorrect)
+                    /*
+                    본문 문제 업데이트
+                     */
+                    markQuestionResult(questionBox,isCorrect)
+
+                    /*
+                    사이드바 업데이트
+                     */
+                    const sideBarQuestion = findSidebarQuestion(categoryText,index);
+                    if(sideBarQuestion!==null) {
+                        makeSideBarQuestionColor(sideBarQuestion,isCorrect);
+                    }
+
                 }
             })
         })
@@ -128,16 +141,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     // 문제 창에서 카테고리 이름,인덱스를 기준으로 질문 찾기
-    function findQuestionInCategory(categoryTitle, questionIndex) {
+    function findQuestionInCategory(categoryText, questionIndex) {
         const category = Array.from(document.querySelectorAll('.category'))
-            .find(category => category.querySelector('.category-text').textContent.trim() === categoryTitle);
+            .find(category => category.querySelector('.category-text').textContent.trim() === categoryText);
+
         return category ? category.querySelectorAll('.question-box')[questionIndex] : null;
     }
 
 // 사이드바에서 카테고리 이름, 인덱스를 기준으로 질문 찾기
-    function findSidebarLink(categoryTitle, questionIndex) {
+    function findSidebarQuestion(categoryText, questionIndex) {
         const sidebarCategory = Array.from(questionList.querySelectorAll('.questionBarCategory'))
-            .find(sidebar => sidebar.querySelector('.questionBarCategoryTitleBox').textContent.trim() === categoryTitle);
+            .find(sidebar => sidebar.querySelector('.questionBarCategoryTitleBox').textContent.trim() === categoryText);
         return sidebarCategory ? sidebarCategory.querySelectorAll('a')[questionIndex] : null;
     }
 
@@ -158,13 +172,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const category = element.closest('.category');
         const questionIndex = Array.from(category.querySelectorAll('.question-box')).indexOf(questionBox);
         const categoryTitle = category.querySelector('.category-text').textContent.trim();
-        const link = findSidebarLink(categoryTitle, questionIndex);
-        if (link) {
-            link.style.color = isCorrect ? 'green' : 'red';
-            link.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
-            link.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+
+
+        const sideBarQuestion = findSidebarQuestion(categoryTitle, questionIndex);
+        if (sideBarQuestion) {
+            makeSideBarQuestionColor(sideBarQuestion,isCorrect);
+            sideBarQuestion.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     }
+    function makeSideBarQuestionColor(sideBarQuestion,isCorrect){
+        sideBarQuestion.style.color = isCorrect ? 'green' : 'red';
+        sideBarQuestion.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
+    }
+
 
     function handleQuestionClick(e) {
         // 해설 내용을 바꾼다.
@@ -229,14 +250,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 결과를 기록하는 공통 함수
     function updateQuestionResult(questionBox, isCorrect) {
-        markResult(questionBox,isCorrect)
+        markQuestionResult(questionBox,isCorrect)
         //현재 채점 결과를 세션 스토리지에 저장한다.
         const category = questionBox.closest('.category').querySelector('.category-text').textContent.trim();
         const index = questionBox.dataset.questionIndex;
         const storageKey = getStorageKey(category,index);
         sessionStorage.setItem(storageKey,JSON.stringify(isCorrect))
     }
-    function markResult(questionBox, isCorrect) {
+    function markQuestionResult(questionBox, isCorrect) {
         const questionResult = questionBox.querySelector('.questionResult');
 
         // isCorrect가 null이거나 undefined인 경우 아무것도 표시하지 않음
