@@ -2,7 +2,6 @@ package com.server.computer_science.question.normal_question.admin.service.imple
 
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionMakeService;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
-import com.server.computer_science.question.normal_question.common.domain.QuestionChoice;
 import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;

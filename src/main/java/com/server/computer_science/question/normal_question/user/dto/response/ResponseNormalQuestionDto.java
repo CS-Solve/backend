@@ -48,7 +48,7 @@ public class ResponseNormalQuestionDto {
                 .id(question.getId())
                 .content(question.getContent())
                 .questionChoices(
-                        question.getQuestionChoices()
+                        question.getNormalQuestionChoices()
                                 .stream()
                                 .map(ResponseNormalQuestionChoiceDto::of)
                                 .collect(Collectors.toList())
@@ -84,7 +84,7 @@ public class ResponseNormalQuestionDto {
                 .id(question.getId())
                 .content(question.getContent())
                 .questionChoices(
-                        question.getQuestionChoices()
+                        question.getNormalQuestionChoices()
                                 .stream()
                                 .map(ResponseNormalQuestionChoiceDto::of)
                                 .collect(Collectors.toList())

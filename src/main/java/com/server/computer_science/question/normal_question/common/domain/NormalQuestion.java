@@ -24,7 +24,7 @@ public class NormalQuestion extends Question {
     public boolean ifApproved;
 
     @OneToMany(mappedBy = "normalQuestion",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<QuestionChoice> questionChoices;
+    private List<NormalQuestionChoice> questionChoices;
 
     public static NormalQuestion makeWithDto(RequestMakeNormalQuestionDto dto){
         NormalQuestion normalQuestion = NormalQuestion.builder()

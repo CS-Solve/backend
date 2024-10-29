@@ -1,8 +1,7 @@
 package com.server.computer_science.question.license_question.domain;
 
 import com.server.computer_science.question.common.domain.Question;
-import com.server.computer_science.question.common.domain.QuestionLevel;
-import com.server.computer_science.question.normal_question.common.domain.QuestionChoice;
+import com.server.computer_science.question.normal_question.common.domain.NormalQuestionChoice;
 import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,11 +27,11 @@ public class LicenseNormalQuestion extends Question {
     protected LicenseCategory licenseCategory;
 
     @OneToMany(mappedBy = "licenseNormalQuestion",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<QuestionChoice> questionChoices;
+    private List<LicenseNormalQuestionChoice> normalQuestionChoices;
 
     @Override
     public void initDefaults() {
-        this.questionChoices = new ArrayList<>();
+        this.normalQuestionChoices = new ArrayList<>();
     }
 
     public static LicenseNormalQuestion makeWithDto(RequestMakeNormalQuestionDto dto,LicenseSession licenseSession,LicenseCategory licenseCategory){
