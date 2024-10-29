@@ -2,7 +2,7 @@ package com.server.computer_science.question.normal_question.common.domain;
 
 
 import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;
-import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionChoiceDto;
+import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionChoiceDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +28,7 @@ public class QuestionChoice {
     @JoinColumn(name = "license_normal_question_id")
     private LicenseNormalQuestion licenseNormalQuestion;
 
-    public static QuestionChoice MakeNormalQuestionWithDto(RequestMakeNormalQuestionChoiceDto dto, NormalQuestion normalQuestion) {
+    public static QuestionChoice fromNormalQuestion(RequestMakeNormalQuestionChoiceDto dto, NormalQuestion normalQuestion) {
         QuestionChoice questionChoice =  QuestionChoice.builder()
                 .text(dto.getText())
                 .selectedCount(0)
@@ -38,11 +38,26 @@ public class QuestionChoice {
         normalQuestion.getQuestionChoices().add(questionChoice);
         return questionChoice;
     }
+
+    public static QuestionChoice fromLicenseNormalQuestion(
+            RequestMakeNormalQuestionChoiceDto dto,
+            LicenseNormalQuestion licenseNormalQuestion) {
+        QuestionChoice questionChoice =  QuestionChoice.builder()
+                .text(dto.getText())
+                .selectedCount(0)
+                .answerStatus(dto.isAnswerStatus())
+                .licenseNormalQuestion(licenseNormalQuestion)
+                .build();
+        licenseNormalQuestion.getQuestionChoices().add(questionChoice);
+        return questionChoice;
+    }
     @Builder
-    public QuestionChoice(String text, int selectedCount, boolean answerStatus, NormalQuestion normalQuestion) {
+    public QuestionChoice(String text, int selectedCount, boolean answerStatus, NormalQuestion normalQuestion,LicenseNormalQuestion licenseNormalQuestion ) {
         this.text = text;
         this.selectedCount = selectedCount;
         this.answerStatus = answerStatus;
         this.normalQuestion = normalQuestion;
+        this.licenseNormalQuestion = licenseNormalQuestion;
     }
+
 }

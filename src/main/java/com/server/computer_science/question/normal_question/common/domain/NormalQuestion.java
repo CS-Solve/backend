@@ -4,7 +4,7 @@ package com.server.computer_science.question.normal_question.common.domain;
 import com.server.computer_science.question.common.domain.Question;
 import com.server.computer_science.question.common.domain.QuestionCategory;
 import com.server.computer_science.question.common.domain.QuestionLevel;
-import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
+import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

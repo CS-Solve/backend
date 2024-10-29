@@ -1,6 +1,6 @@
 package com.server.computer_science.question.normal_question.admin.service;
 
-import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
+import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
 import org.springframework.stereotype.Service;

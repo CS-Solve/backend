@@ -18,17 +18,22 @@ public class LicenseSession {
     private Long id;
     private String content;
 
+    @Enumerated(value = EnumType.STRING)
+    protected LicenseCategory licenseCategory;
+
     @OneToMany(mappedBy = "licenseSession",cascade = CascadeType.PERSIST, orphanRemoval = false)
     private List<LicenseNormalQuestion> licenseNormalQuestions;
 
 
     @Builder
-    public LicenseSession(String content) {
+    public LicenseSession(String content, LicenseCategory licenseCategory) {
         this.content = content;
+        this.licenseCategory = licenseCategory;
     }
 
-    public LicenseSession from(String content) {
+    public static LicenseSession from(String content, LicenseCategory licenseCategory) {
         return LicenseSession.builder()
+                .licenseCategory(licenseCategory)
                 .content(content)
                 .build();
     }
