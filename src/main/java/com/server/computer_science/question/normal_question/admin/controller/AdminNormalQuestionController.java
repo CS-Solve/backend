@@ -63,7 +63,7 @@ public class AdminNormalQuestionController {
     public ResponseEntity<ResponseNormalQuestionDto> changeQuestion(
             @PathVariable("id")Long questionId,
             @RequestBody RequestChangeQuestionDto requestChangeQuestionDto) {
-        return ResponseEntity.ok(adminNormalQuestionUpdateService.changeQuestion(questionId, requestChangeQuestionDto));
+        return ResponseEntity.ok(adminNormalQuestionUpdateService.changeContent(questionId, requestChangeQuestionDto));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - 해설 업데이트")

@@ -55,7 +55,7 @@ public class BasicAdminNormalQuestionMakeService implements AdminNormalQuestionM
         normalQuestionRepository.save(normalQuestion);
         normalQuestionChoiceRepository.saveAll(requestNormalQuestionDto.getNormalQuestionChoices()
                 .stream()
-                .map(nqc -> QuestionChoice.makeWithDto(nqc,normalQuestion))
+                .map(nqc -> QuestionChoice.MakeNormalQuestionWithDto(nqc,normalQuestion))
                 .collect(Collectors.toList()));
         return ResponseNormalQuestionDto.forUser(normalQuestion);
     }

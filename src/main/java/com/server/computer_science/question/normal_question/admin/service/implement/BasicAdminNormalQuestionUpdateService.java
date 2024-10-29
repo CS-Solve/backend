@@ -38,9 +38,9 @@ public class BasicAdminNormalQuestionUpdateService implements AdminNormalQuestio
     }
 
     @Override
-    public ResponseNormalQuestionDto changeQuestion(Long questionId, RequestChangeQuestionDto requestChangeQuestionDto) {
+    public ResponseNormalQuestionDto changeContent(Long questionId, RequestChangeQuestionDto requestChangeQuestionDto) {
         NormalQuestion normalQuestion = normalQuestionDBService.findByIdFetchChoices(questionId);
-        normalQuestion.changeQuestion(requestChangeQuestionDto.getQuestion());
+        normalQuestion.changeContent(requestChangeQuestionDto.getQuestion());
         return ResponseNormalQuestionDto.forAdmin(normalQuestion);
     }
 

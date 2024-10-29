@@ -23,13 +23,14 @@ public class QuestionChoice {
     @JoinColumn(name = "normal_question_id")
     private NormalQuestion normalQuestion;
 
-    public static QuestionChoice makeWithDto(RequestMakeNormalQuestionChoiceDto dto, NormalQuestion normalQuestion) {
+    public static QuestionChoice MakeNormalQuestionWithDto(RequestMakeNormalQuestionChoiceDto dto, NormalQuestion normalQuestion) {
         QuestionChoice questionChoice =  QuestionChoice.builder()
                 .text(dto.getText())
                 .selectedCount(0)
                 .answerStatus(dto.isAnswerStatus())
                 .normalQuestion(normalQuestion)
                 .build();
+        System.out.println(normalQuestion+"/"+normalQuestion.getQuestionChoices());
         normalQuestion.getQuestionChoices().add(questionChoice);
         return questionChoice;
     }

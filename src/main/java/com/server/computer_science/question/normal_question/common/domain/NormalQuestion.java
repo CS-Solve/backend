@@ -5,9 +5,11 @@ import com.server.computer_science.question.common.domain.Question;
 import com.server.computer_science.question.common.domain.QuestionCategory;
 import com.server.computer_science.question.common.domain.QuestionLevel;
 import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@SuperBuilder
 @NoArgsConstructor
 public class NormalQuestion extends Question {
     @Id @GeneratedValue(strategy= GenerationType.SEQUENCE)
@@ -26,23 +29,21 @@ public class NormalQuestion extends Question {
     private List<QuestionChoice> questionChoices;
 
     public static NormalQuestion makeWithDto(RequestMakeNormalQuestionDto dto){
-        return NormalQuestion.builder()
-                .questionCategory(dto.getQuestionCategory())
+        NormalQuestion normalQuestion = NormalQuestion.builder()
                 .content(dto.getQuestion())
+                .questionCategory(dto.getQuestionCategory())
                 .questionLevel(dto.getQuestionLevel())
                 .description(dto.getDescription())
+                .imageUrl(null)
                 .build();
+        normalQuestion.initDefaults();
+        return normalQuestion;
     }
-
-    @Builder
-    public NormalQuestion(String content, QuestionCategory questionCategory, QuestionLevel questionLevel, String description) {
-        this.content = content;
-        this.questionCategory = questionCategory;
-        this.questionLevel = questionLevel;
+    public void initDefaults() {
         this.questionChoices = new ArrayList<>();
-        this.description = description;
+        this.canBeShortAnswered = false;
+        this.ifApproved = false;
     }
-
 
     public void toggleApproved(){
         this.ifApproved = !this.ifApproved;
@@ -62,5 +63,19 @@ public class NormalQuestion extends Question {
                 .questionLevel(QuestionLevel.LOW)
                 .description("testDescription")
                 .build();
+    }
+
+    @Override
+    public String toString() {
+        return "NormalQuestion{" +
+                "questionChoices=" + questionChoices +
+                ", content='" + content + '\'' +
+                ", questionCategory=" + questionCategory +
+                ", questionLevel=" + questionLevel +
+                ", description='" + description + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", ifApproved=" + ifApproved +
+                ", canBeShortAnswered=" + canBeShortAnswered +
+                '}';
     }
 }
