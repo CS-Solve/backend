@@ -44,7 +44,7 @@ public class BasicAdminNormalQuestionMakeService implements AdminNormalQuestionM
 
     private boolean checkWithAllQuestionsFromDB(RequestMakeNormalQuestionDto normalQuestionDto, List<NormalQuestion> normalQuestions) {
         for(NormalQuestion normalQuestion: normalQuestions){
-            if(duplicateQuestionDetector.isQuestionDuplicate(normalQuestion.getContent(), normalQuestionDto.getQuestion()))
+            if(duplicateQuestionDetector.isQuestionDuplicate(normalQuestion.getContent(), normalQuestionDto.getContent()))
                 return false;
         }
         return true;
@@ -53,7 +53,7 @@ public class BasicAdminNormalQuestionMakeService implements AdminNormalQuestionM
     private ResponseNormalQuestionDto makeNormalQuiz(RequestMakeNormalQuestionDto requestNormalQuestionDto) {
         NormalQuestion normalQuestion = NormalQuestion.makeWithDto(requestNormalQuestionDto);
         normalQuestionRepository.save(normalQuestion);
-        normalQuestionChoiceRepository.saveAll(requestNormalQuestionDto.getNormalQuestionChoices()
+        normalQuestionChoiceRepository.saveAll(requestNormalQuestionDto.getQuestionChoices()
                 .stream()
                 .map(nqc -> QuestionChoice.MakeNormalQuestionWithDto(nqc,normalQuestion))
                 .collect(Collectors.toList()));

@@ -15,9 +15,9 @@ import java.util.List;
 @Builder
 @Getter
 public class RequestMakeNormalQuestionDto {
-    private String question;
+    private String content;
     private QuestionCategory questionCategory;
     private QuestionLevel questionLevel;
-    private List<RequestMakeNormalQuestionChoiceDto> normalQuestionChoices;
+    private List<RequestMakeNormalQuestionChoiceDto> questionChoices;
     private String description;
 }

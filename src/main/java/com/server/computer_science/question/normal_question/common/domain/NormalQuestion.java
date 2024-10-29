@@ -5,8 +5,6 @@ import com.server.computer_science.question.common.domain.Question;
 import com.server.computer_science.question.common.domain.QuestionCategory;
 import com.server.computer_science.question.common.domain.QuestionLevel;
 import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -30,7 +28,7 @@ public class NormalQuestion extends Question {
 
     public static NormalQuestion makeWithDto(RequestMakeNormalQuestionDto dto){
         NormalQuestion normalQuestion = NormalQuestion.builder()
-                .content(dto.getQuestion())
+                .content(dto.getContent())
                 .questionCategory(dto.getQuestionCategory())
                 .questionLevel(dto.getQuestionLevel())
                 .description(dto.getDescription())

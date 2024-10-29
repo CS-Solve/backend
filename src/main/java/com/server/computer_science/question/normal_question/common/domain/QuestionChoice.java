@@ -1,6 +1,7 @@
 package com.server.computer_science.question.normal_question.common.domain;
 
 
+import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;
 import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionChoiceDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,6 +24,10 @@ public class QuestionChoice {
     @JoinColumn(name = "normal_question_id")
     private NormalQuestion normalQuestion;
 
+    @ManyToOne
+    @JoinColumn(name = "license_normal_question_id")
+    private LicenseNormalQuestion licenseNormalQuestion;
+
     public static QuestionChoice MakeNormalQuestionWithDto(RequestMakeNormalQuestionChoiceDto dto, NormalQuestion normalQuestion) {
         QuestionChoice questionChoice =  QuestionChoice.builder()
                 .text(dto.getText())
@@ -30,7 +35,6 @@ public class QuestionChoice {
                 .answerStatus(dto.isAnswerStatus())
                 .normalQuestion(normalQuestion)
                 .build();
-        System.out.println(normalQuestion+"/"+normalQuestion.getQuestionChoices());
         normalQuestion.getQuestionChoices().add(questionChoice);
         return questionChoice;
     }
