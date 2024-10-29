@@ -3,8 +3,8 @@ package com.server.computer_science.question.normal_question.admin.dto;
 
 import com.server.computer_science.question.common.domain.QuestionCategory;
 import com.server.computer_science.question.common.domain.QuestionLevel;
-import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionChoiceDto;
-import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.dto.ResponseNormalQuestionChoiceDto;
+import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

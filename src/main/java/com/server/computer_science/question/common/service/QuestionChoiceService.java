@@ -1,4 +1,4 @@
-package com.server.computer_science.question.normal_question.admin.service.implement;
+package com.server.computer_science.question.common.service;
 
 import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;
 import com.server.computer_science.question.license_question.domain.LicenseNormalQuestionChoice;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class NormalQuestionChoiceService {
+public class QuestionChoiceService {
     private final NormalQuestionChoiceRepository normalQuestionChoiceRepository;
     private final LicenseNormalQuestionChoiceRepository licenseNormalQuestionChoiceRepository;
 

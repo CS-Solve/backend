@@ -8,7 +8,7 @@ import com.server.computer_science.question.normal_question.admin.service.AdminN
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifiedGetService;
 import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
-import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionMakeService;
 import org.junit.jupiter.api.BeforeEach;

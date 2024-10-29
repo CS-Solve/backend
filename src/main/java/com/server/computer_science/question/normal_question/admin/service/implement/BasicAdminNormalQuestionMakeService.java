@@ -1,9 +1,10 @@
 package com.server.computer_science.question.normal_question.admin.service.implement;
 
+import com.server.computer_science.question.common.service.QuestionChoiceService;
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionMakeService;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
-import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.normal_question.common.repository.NormalQuestionRepository;
 import com.server.computer_science.question.normal_question.admin.service.DuplicateQuestionDetector;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 @Transactional
 public class BasicAdminNormalQuestionMakeService implements AdminNormalQuestionMakeService {
     private final NormalQuestionRepository normalQuestionRepository;
-    private final NormalQuestionChoiceService normalQuestionChoiceService;
+    private final QuestionChoiceService questionChoiceService;
     private final DuplicateQuestionDetector duplicateQuestionDetector;
 
     /**
@@ -39,7 +40,7 @@ public class BasicAdminNormalQuestionMakeService implements AdminNormalQuestionM
     private ResponseNormalQuestionDto makeNormalQuiz(RequestMakeNormalQuestionDto requestNormalQuestionDto) {
         NormalQuestion normalQuestion = NormalQuestion.makeWithDto(requestNormalQuestionDto);
         normalQuestionRepository.save(normalQuestion);
-        normalQuestionChoiceService.saveWith(requestNormalQuestionDto, normalQuestion);
+        questionChoiceService.saveWith(requestNormalQuestionDto, normalQuestion);
         return ResponseNormalQuestionDto.forAdmin(normalQuestion);
     }
 

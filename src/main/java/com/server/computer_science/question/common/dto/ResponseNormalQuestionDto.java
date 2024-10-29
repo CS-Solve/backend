@@ -1,4 +1,4 @@
-package com.server.computer_science.question.normal_question.user.dto.response;
+package com.server.computer_science.question.common.dto;
 
 
 import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;

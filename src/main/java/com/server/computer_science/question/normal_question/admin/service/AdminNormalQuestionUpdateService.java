@@ -3,7 +3,7 @@ package com.server.computer_science.question.normal_question.admin.service;
 
 import com.server.computer_science.question.normal_question.admin.dto.RequestChangeDescriptionDto;
 import com.server.computer_science.question.normal_question.admin.dto.RequestChangeQuestionDto;
-import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
 import org.springframework.stereotype.Service;
 
 @Service

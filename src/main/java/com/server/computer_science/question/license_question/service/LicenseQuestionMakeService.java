@@ -6,8 +6,8 @@ import com.server.computer_science.question.license_question.domain.LicenseSessi
 import com.server.computer_science.question.license_question.dto.request.RequestMakeNormalLicenseQuestionDto;
 import com.server.computer_science.question.license_question.repository.LicenseNormalQuestionRepository;
 import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
-import com.server.computer_science.question.normal_question.admin.service.implement.NormalQuestionChoiceService;
-import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.service.QuestionChoiceService;
+import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class LicenseQuestionMakeService {
     private final LicenseSessionService licenseSessionService;
     private final LicenseNormalQuestionRepository licenseNormalQuestionRepository;
-    private final NormalQuestionChoiceService normalQuestionChoiceService;
+    private final QuestionChoiceService questionChoiceService;
     public List<ResponseNormalQuestionDto> makeLicenseNormalQuestion(RequestMakeNormalLicenseQuestionDto requestMakeNormalLicenseQuestionDto){
         LicenseSession licenseSession = licenseSessionService.getLicenseSession(
                 requestMakeNormalLicenseQuestionDto.getLicenseSession(),
@@ -36,7 +36,7 @@ public class LicenseQuestionMakeService {
     private ResponseNormalQuestionDto saveNormalLicenseQuestion(RequestMakeNormalQuestionDto requestMakeNormalQuestionDto, LicenseSession licenseSession, LicenseCategory licenseCategory){
         LicenseNormalQuestion licenseNormalQuestion = LicenseNormalQuestion.makeWithDto(requestMakeNormalQuestionDto,licenseSession,licenseCategory);
         licenseNormalQuestionRepository.save(licenseNormalQuestion);
-        normalQuestionChoiceService.saveWith(requestMakeNormalQuestionDto,licenseNormalQuestion);
+        questionChoiceService.saveWith(requestMakeNormalQuestionDto,licenseNormalQuestion);
         return ResponseNormalQuestionDto.forAdmin(licenseNormalQuestion);
     }
 }
