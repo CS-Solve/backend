@@ -1,4 +1,4 @@
-package com.server.computer_science.question.common;
+package com.server.computer_science.question.common.domain;
 
 public enum QuestionLevel {
 

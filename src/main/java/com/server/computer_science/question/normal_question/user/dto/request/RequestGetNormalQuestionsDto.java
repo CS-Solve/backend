@@ -1,8 +1,8 @@
 package com.server.computer_science.question.normal_question.user.dto.request;
 
 
-import com.server.computer_science.question.common.QuestionCategory;
-import com.server.computer_science.question.common.QuestionLevel;
+import com.server.computer_science.question.common.domain.QuestionCategory;
+import com.server.computer_science.question.common.domain.QuestionLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

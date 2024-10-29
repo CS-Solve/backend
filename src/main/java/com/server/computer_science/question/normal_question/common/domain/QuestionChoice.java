@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class NormalQuestionChoice {
+public class QuestionChoice {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,18 +23,18 @@ public class NormalQuestionChoice {
     @JoinColumn(name = "normal_question_id")
     private NormalQuestion normalQuestion;
 
-    public static NormalQuestionChoice makeWithDto(RequestMakeNormalQuestionChoiceDto dto, NormalQuestion normalQuestion) {
-        NormalQuestionChoice normalQuestionChoice=  NormalQuestionChoice.builder()
+    public static QuestionChoice makeWithDto(RequestMakeNormalQuestionChoiceDto dto, NormalQuestion normalQuestion) {
+        QuestionChoice questionChoice =  QuestionChoice.builder()
                 .text(dto.getText())
                 .selectedCount(0)
                 .answerStatus(dto.isAnswerStatus())
                 .normalQuestion(normalQuestion)
                 .build();
-        normalQuestion.getNormalQuestionChoices().add(normalQuestionChoice);
-        return normalQuestionChoice;
+        normalQuestion.getQuestionChoices().add(questionChoice);
+        return questionChoice;
     }
     @Builder
-    public NormalQuestionChoice(String text, int selectedCount, boolean answerStatus, NormalQuestion normalQuestion) {
+    public QuestionChoice(String text, int selectedCount, boolean answerStatus, NormalQuestion normalQuestion) {
         this.text = text;
         this.selectedCount = selectedCount;
         this.answerStatus = answerStatus;

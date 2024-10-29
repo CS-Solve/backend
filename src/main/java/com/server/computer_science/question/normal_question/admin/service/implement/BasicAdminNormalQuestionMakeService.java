@@ -2,7 +2,7 @@ package com.server.computer_science.question.normal_question.admin.service.imple
 
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionMakeService;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
-import com.server.computer_science.question.normal_question.common.domain.NormalQuestionChoice;
+import com.server.computer_science.question.normal_question.common.domain.QuestionChoice;
 import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
@@ -44,7 +44,7 @@ public class BasicAdminNormalQuestionMakeService implements AdminNormalQuestionM
 
     private boolean checkWithAllQuestionsFromDB(RequestMakeNormalQuestionDto normalQuestionDto, List<NormalQuestion> normalQuestions) {
         for(NormalQuestion normalQuestion: normalQuestions){
-            if(duplicateQuestionDetector.isQuestionDuplicate(normalQuestion.getQuestion(), normalQuestionDto.getQuestion()))
+            if(duplicateQuestionDetector.isQuestionDuplicate(normalQuestion.getContent(), normalQuestionDto.getQuestion()))
                 return false;
         }
         return true;
@@ -55,7 +55,7 @@ public class BasicAdminNormalQuestionMakeService implements AdminNormalQuestionM
         normalQuestionRepository.save(normalQuestion);
         normalQuestionChoiceRepository.saveAll(requestNormalQuestionDto.getNormalQuestionChoices()
                 .stream()
-                .map(nqc -> NormalQuestionChoice.makeWithDto(nqc,normalQuestion))
+                .map(nqc -> QuestionChoice.makeWithDto(nqc,normalQuestion))
                 .collect(Collectors.toList()));
         return ResponseNormalQuestionDto.forUser(normalQuestion);
     }

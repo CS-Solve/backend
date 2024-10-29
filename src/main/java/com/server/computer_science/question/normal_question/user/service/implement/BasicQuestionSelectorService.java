@@ -1,7 +1,7 @@
 package com.server.computer_science.question.normal_question.user.service.implement;
 
-import com.server.computer_science.question.common.QuestionCategory;
-import com.server.computer_science.question.common.QuestionLevel;
+import com.server.computer_science.question.common.domain.QuestionCategory;
+import com.server.computer_science.question.common.domain.QuestionLevel;
 import com.server.computer_science.question.normal_question.user.service.QuestionSelectorService;
 import org.springframework.stereotype.Service;
 

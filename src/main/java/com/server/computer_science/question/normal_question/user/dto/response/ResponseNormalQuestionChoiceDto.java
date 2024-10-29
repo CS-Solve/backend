@@ -1,7 +1,7 @@
 package com.server.computer_science.question.normal_question.user.dto.response;
 
 
-import com.server.computer_science.question.normal_question.common.domain.NormalQuestionChoice;
+import com.server.computer_science.question.normal_question.common.domain.QuestionChoice;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,11 +15,11 @@ public class ResponseNormalQuestionChoiceDto {
     private int selectedCount;
     private boolean answerStatus;
 
-    public static ResponseNormalQuestionChoiceDto of(NormalQuestionChoice normalQuestionChoice) {
+    public static ResponseNormalQuestionChoiceDto of(QuestionChoice questionChoice) {
         return ResponseNormalQuestionChoiceDto.builder()
-                .text(normalQuestionChoice.getText())
-                .selectedCount(normalQuestionChoice.getSelectedCount())
-                .answerStatus(normalQuestionChoice.isAnswerStatus())
+                .text(questionChoice.getText())
+                .selectedCount(questionChoice.getSelectedCount())
+                .answerStatus(questionChoice.isAnswerStatus())
                 .build();
     }
 

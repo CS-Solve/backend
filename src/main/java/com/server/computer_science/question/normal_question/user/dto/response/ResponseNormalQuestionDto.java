@@ -2,8 +2,8 @@ package com.server.computer_science.question.normal_question.user.dto.response;
 
 
 import com.server.computer_science.question.normal_question.admin.dto.ResponseNormalQuestionDtoForAdmin;
-import com.server.computer_science.question.common.QuestionCategory;
-import com.server.computer_science.question.common.QuestionLevel;
+import com.server.computer_science.question.common.domain.QuestionCategory;
+import com.server.computer_science.question.common.domain.QuestionLevel;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,11 +17,11 @@ import java.util.stream.Collectors;
 @SuperBuilder
 public class ResponseNormalQuestionDto {
     private Long id;
-    private String question;
+    private String content;
     private String description;
     private QuestionCategory questionCategory;
     private QuestionLevel questionLevel;
-    private List<ResponseNormalQuestionChoiceDto> normalQuestionChoices;
+    private List<ResponseNormalQuestionChoiceDto> questionChoices;
 
 
     /**
@@ -31,9 +31,9 @@ public class ResponseNormalQuestionDto {
     public static ResponseNormalQuestionDto forUser(NormalQuestion question){
         return ResponseNormalQuestionDto.builder()
                 .id(question.getId())
-                .question(question.getQuestion())
-                .normalQuestionChoices(
-                        question.getNormalQuestionChoices()
+                .content(question.getContent())
+                .questionChoices(
+                        question.getQuestionChoices()
                                 .stream()
                                 .map(ResponseNormalQuestionChoiceDto::of)
                                 .collect(Collectors.toList())
@@ -46,9 +46,9 @@ public class ResponseNormalQuestionDto {
     public static ResponseNormalQuestionDto forAdmin(NormalQuestion question){
         return ResponseNormalQuestionDtoForAdmin.builder()
                 .id(question.getId())
-                .question(question.getQuestion())
-                .normalQuestionChoices(
-                        question.getNormalQuestionChoices()
+                .content(question.getContent())
+                .questionChoices(
+                        question.getQuestionChoices()
                                 .stream()
                                 .map(ResponseNormalQuestionChoiceDto::of)
                                 .collect(Collectors.toList())
@@ -61,12 +61,12 @@ public class ResponseNormalQuestionDto {
                 .build();
     }
 
-    public ResponseNormalQuestionDto(Long id,String question, QuestionCategory questionCategory, QuestionLevel questionLevel, List<ResponseNormalQuestionChoiceDto> normalQuestionChoices, String description) {
+    public ResponseNormalQuestionDto(Long id, String content, QuestionCategory questionCategory, QuestionLevel questionLevel, List<ResponseNormalQuestionChoiceDto> questionChoices, String description) {
         this.id = id;
-        this.question = question;
+        this.content = content;
         this.questionCategory = questionCategory;
         this.questionLevel = questionLevel;
-        this.normalQuestionChoices = normalQuestionChoices;
+        this.questionChoices = questionChoices;
         this.description = description;
     }
 }

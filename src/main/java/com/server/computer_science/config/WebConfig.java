@@ -1,4 +1,4 @@
-package com.server.computer_science.question.common;
+package com.server.computer_science.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;

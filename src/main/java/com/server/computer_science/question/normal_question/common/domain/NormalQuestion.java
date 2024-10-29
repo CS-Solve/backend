@@ -1,8 +1,9 @@
 package com.server.computer_science.question.normal_question.common.domain;
 
 
-import com.server.computer_science.question.common.QuestionCategory;
-import com.server.computer_science.question.common.QuestionLevel;
+import com.server.computer_science.question.common.domain.Question;
+import com.server.computer_science.question.common.domain.QuestionCategory;
+import com.server.computer_science.question.common.domain.QuestionLevel;
 import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,46 +16,34 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-public class NormalQuestion {
+public class NormalQuestion extends Question {
     @Id @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
-    private String question;
-    @Enumerated(value = EnumType.STRING)
-    private QuestionCategory questionCategory;
-    @Enumerated(value = EnumType.STRING)
-    private QuestionLevel questionLevel;
-    private String description;
-
     public boolean canBeShortAnswered;
     public boolean ifApproved;
 
     @OneToMany(mappedBy = "normalQuestion",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NormalQuestionChoice> normalQuestionChoices;
+    private List<QuestionChoice> questionChoices;
 
     public static NormalQuestion makeWithDto(RequestMakeNormalQuestionDto dto){
         return NormalQuestion.builder()
                 .questionCategory(dto.getQuestionCategory())
-                .question(dto.getQuestion())
+                .content(dto.getQuestion())
                 .questionLevel(dto.getQuestionLevel())
                 .description(dto.getDescription())
                 .build();
     }
 
     @Builder
-    public NormalQuestion(String question, QuestionCategory questionCategory, QuestionLevel questionLevel,String description) {
-        this.question = question;
+    public NormalQuestion(String content, QuestionCategory questionCategory, QuestionLevel questionLevel, String description) {
+        this.content = content;
         this.questionCategory = questionCategory;
         this.questionLevel = questionLevel;
-        this.normalQuestionChoices = new ArrayList<>();
+        this.questionChoices = new ArrayList<>();
         this.description = description;
     }
 
-    public void changeDescription(String description) {
-        this.description = description;
-    }
-    public void changeQuestion(String question) {
-        this.question = question;
-    }
+
     public void toggleApproved(){
         this.ifApproved = !this.ifApproved;
     }
@@ -68,7 +57,7 @@ public class NormalQuestion {
 
     public static NormalQuestion makeForTest(){
         return NormalQuestion.builder()
-                .question("testQuest")
+                .content("testQuest")
                 .questionCategory(QuestionCategory.COMPUTER_ARCHITECTURE)
                 .questionLevel(QuestionLevel.LOW)
                 .description("testDescription")
