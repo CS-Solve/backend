@@ -6,8 +6,8 @@ import com.server.computer_science.question.license_question.domain.LicenseSessi
 import com.server.computer_science.question.license_question.dto.request.RequestMakeNormalLicenseQuestionDto;
 import com.server.computer_science.question.license_question.repository.LicenseNormalQuestionRepository;
 import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
-import com.server.computer_science.question.common.service.QuestionChoiceService;
-import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.service.Implements.QuestionChoiceService;
+import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

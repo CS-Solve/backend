@@ -1,5 +1,6 @@
 package com.server.computer_science.question.license_question.service;
 
+import com.server.computer_science.question.license_question.domain.LicenseCategory;
 import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;
 import com.server.computer_science.question.license_question.repository.LicenseNormalQuestionRepository;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifyService;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,12 @@ public class LicenseQuestionGetService {
         return normalQuestionClassifyService.classifyLicenseNormalQuestionByClass(licenseNormalQuestions)
                 .entrySet().stream()
                 .map(entry->ResponseClassifiedNormalQuestionDto.LicenseQuestionForUser(entry.getKey(),entry.getValue()))
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getLicenseCategories(){
+        return Arrays.stream(LicenseCategory.values())
+                .map(LicenseCategory::getKorean)
                 .collect(Collectors.toList());
     }
 }

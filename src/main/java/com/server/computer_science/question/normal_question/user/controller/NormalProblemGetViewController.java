@@ -2,7 +2,6 @@ package com.server.computer_science.question.normal_question.user.controller;
 
 import com.server.computer_science.question.normal_question.user.dto.request.RequestGetNormalQuestionsDto;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifiedGetService;
-import com.server.computer_science.question.normal_question.user.service.QuestionSelectorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,12 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.SortedMap;
 
 @Controller
 @RequiredArgsConstructor
 public class NormalProblemGetViewController {
-    private final QuestionSelectorService questionSelectorService;
+
     @Qualifier("basicNormalQuestionClassifiedGetService")
     private final NormalQuestionClassifiedGetService normalQuestionClassifiedGetService;
 
@@ -25,15 +23,6 @@ public class NormalProblemGetViewController {
     private String resourceBaseUrl;
     private final String baseUrl = "baseUrl";
 
-    @GetMapping("/")
-    public String showMainPage(Model model){
-        List<String> categories = questionSelectorService.getCategories();
-        List<String> levels = questionSelectorService.getLevels();
-        model.addAttribute("categories", categories);
-        model.addAttribute("levels", levels);
-        model.addAttribute(baseUrl, resourceBaseUrl);
-        return "index";
-    }
 
     @GetMapping("/question/normal")
     public String getNormalQuestions(@RequestParam(required = false) List<String> levels,

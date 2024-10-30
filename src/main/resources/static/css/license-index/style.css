@@ -1,0 +1,396 @@
+.screen {
+    background-color: #f4f4f9;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+}
+
+.screen .big-box {
+    /*background-color: #eeeeee;*/
+    top: 5%;
+    width: 70%;
+    height: 90%;
+    position: relative;
+    /* 세로 정렬 */
+}
+
+.screen .mainForm{
+    position: relative;
+    top:0;
+    height: 90%;
+}
+.screen .big-box .main-box {
+    position: relative;
+    width: 100%;
+    top: 10%;
+    height: 55%;
+    background-color: #ffffff;
+    border-radius: 49px;
+    box-shadow: var(--m3-elevation-dark-3);
+    flex-direction: column;
+    padding-bottom: 5%;
+    justify-content: flex-start; /* 자식 요소들을 위에서부터 정렬 */
+}
+
+/**
+메인 로고
+ */
+.screen big-box.main-logo-box {
+    position: relative;
+    top: 0;
+    left: 50%;
+    /*transform: translateX(-50%);*/
+    /*display: flex;*/
+    align-items: center;
+    font-family: "Markazi Text-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 10%;
+    text-align: center;
+    letter-spacing: 0;
+    white-space: nowrap;
+
+}
+
+.screen .selectBox {
+    position: relative;
+    top: 30%;
+    height: 70%; /* 전체 높이 설정 */
+    display: flex; /* 좌우 정렬을 위해 flex 사용 */
+    justify-content: space-between; /* 좌우로 요소를 배치 */
+}
+
+/* 공통 스타일 */
+.screen .side-box {
+    display: flex;
+    width: 30%;
+    gap: 16px;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    max-height: 100%; /* 부모 높이를 넘지 않도록 */
+}
+
+/* 분야 선택 (왼쪽) */
+.screen .category-big-box {
+    left: 10%;
+}
+
+/* 난이도 선택 (오른쪽) */
+.screen .level-big-box {
+    right: 10%;
+}
+
+.screen .standard {
+    position: relative;
+    align-self: stretch;
+    margin-top: -1px;
+    font-family: "NanumSquare Neo OTF-cBd", Helvetica;
+    color: #404040;
+    font-size: 25px;
+    line-height: 37.5px;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 0;
+}
+
+
+
+.screen .each-level {
+    flex-grow: 1;
+    text-align: center;
+    width: 100%; /* 각 항목이 세로 정렬될 때 가로로 100% 너비를 차지 */
+}
+/* 스크롤 활성화 */
+.screen .scroll-box {
+    display: flex;
+    flex-direction: column; /* 세로로 정렬 */
+    gap: 10px; /* 각 카테고리 간의 간격 */
+    max-height: 30vh; /* 최대 높이를 뷰포트 높이의 30%로 설정 */
+    overflow: scroll; /* 스크롤 활성화 */
+    padding-right: 10px; /* 스크롤바가 나타날 때 텍스트가 가리지 않도록 패딩 추가 */
+
+    /* 테두리 및 시각적 효과 */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* 연한 회색 테두리 */
+    border-radius: 8px; /* 모서리를 조금 더 부드럽게 */
+    box-shadow: inset 0px 10px 8px -8px rgba(0, 0, 0, 0.2), /* 위쪽 섀도우 */
+    inset 0px -10px 8px -8px rgba(0, 0, 0, 0.2); /* 아래쪽 섀도우 */
+}
+
+
+
+
+
+
+
+/* 각 카테고리의 스타일 */
+.screen .each-category {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    align-self: stretch;
+    flex: 0 0 auto;
+    overflow-y: auto; /* 세로 스크롤 가능 */
+    overflow-x: hidden; /* 가로 스크롤 제거 */
+}
+.screen .each-level {
+
+    text-align: center;
+    width: 100%; /* 각 항목이 세로 정렬될 때 가로로 100% 너비를 차지 */
+}
+
+
+
+.screen .checkbox {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+}
+
+.screen .check-box-text {
+    position: relative;
+    width: fit-content;
+    font-family: "NanumSquare Neo OTF-cBd", Helvetica;
+    color: #404040;
+    font-size: 20px;
+    line-height: 30px;
+    white-space: nowrap;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 0;
+    vertical-align: middle;
+}
+
+.screen .box {
+    position: relative;
+    width: 23px;
+    height: 23px;
+    top: 6px;
+    left: 6px;
+    border-radius: 4px;
+    border: 1px solid;
+    border-color: #acacac;
+}
+
+.screen .view-4 {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.screen .line-4 {
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    left: 50%;
+}
+
+
+
+
+
+
+.screen .description-box {
+    display: flex;
+    width: 71px;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+}
+
+.screen .view-7 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.screen .question-title-box {
+    position: absolute;
+    top:5%;
+    width:100%;
+    font-family: "NanumSquare Neo OTF-Regular", Helvetica;
+    color: #000000;
+    font-size: 2vW;
+    line-height: 4vh;
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 0;
+}
+
+
+/*.logo-container {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  margin-bottom: 20px;*/
+/*}*/
+
+/*.logo-image {*/
+/*  width: 100px;*/
+/*  height: 130px;*/
+/*}*/
+.screen .questionTitle {
+    font-family: "NanumSquare Neo OTF-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 24px;
+    letter-spacing: 0;
+    line-height: 36px;
+    width: 100%;
+    align-content: center;
+}
+
+/**
+메인 로고
+ */
+.screen .main-logo-box {
+    position: absolute; /* 부모 요소를 기준으로 위치 */
+    top: 0; /* 화면 상단에서 없는 간격 */
+    left: 50%;
+    transform: translateX(-50%); /* 수평 가운데 정렬 */
+    display: flex;
+    align-items: center;
+    font-family: "Markazi Text-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    text-align: center;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+.screen .mainTitle{
+    font-size:3vw;
+    font-family: 'Cambay', sans-serif;
+}
+.screen .main-logo-box .logo-image {
+    height: 1%; /* 텍스트 크기와 동일하게 설정 */
+    width: 5vw; /* 비율 유지 */
+
+}
+
+.screen .main-logo-box span {
+    line-height: 1; /* 텍스트의 줄 높이를 조정 */
+}
+.siteDescription{
+    font-size: 1vw;
+}
+/**
+메인페이지 - 시작버튼
+ */
+/* 공통 스타일 - start-left-box, start-right-box에 적용 */
+/* 버튼들을 감싸는 부모 컨테이너 */
+
+
+/* 버튼들을 감싸는 부모 컨테이너 */
+.start-button-container {
+    display: flex;
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center; /* 가로 중앙 정렬 */
+    justify-content: center; /* 세로 중앙 정렬 */
+    width: 100%;
+    height: 30vh;
+    top: 70%;
+    position: absolute;
+    bottom: 5%; /* 화면 하단에서 여유 공간 */
+}
+
+/* 버튼 스타일 */
+.start-left-box,
+.start-right-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    width: 50%; /* 버튼 너비 설정 */
+    height: 30%;
+    background-color: #ffac70;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 10px; /* 버튼 사이의 간격 */
+}
+
+/* hover 효과 */
+.start-left-box:hover,
+.start-right-box:hover {
+    background-color: #ff9b50;
+    box-shadow: 0 0 10px rgba(255, 172, 112, 0.5);
+}
+
+/* active 효과 */
+.start-left-box:active,
+.start-right-box:active {
+    background-color: #ff8a30;
+    transform: scale(0.98);
+}
+
+/* 텍스트 스타일 */
+.start-button-text {
+    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+    color: white;
+    font-size: 25px;
+    line-height: 37.5px;
+    white-space: nowrap;
+    font-weight: bold;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* 모바일 화면을 위한 미디어 쿼리 */
+@media (max-width: 768px) {
+    .siteDescription{
+        display: none;
+    }
+    /*.main-box{*/
+    /*  position: relative;*/
+    /*  height: 80vh; !important;*/
+    /*  top: 5%;*/
+    /*  background-color: #ffffff;*/
+    /*  border-radius: 49px;*/
+    /*  box-shadow: var(--m3-elevation-dark-3);*/
+    /*}*/
+    .big-box{
+        background-color: #eeeeee;
+        top: 5%;
+        width: 90%; !important;
+        height: 90%;
+        position: relative;
+    }
+
+    .screen .standard{
+        font-size: 5vw;
+    }
+
+    .screen .each-level {
+        width: 100%; /* 세로 정렬 시 각 요소가 가로로 100% 너비 */
+    }
+
+    /* 부모 요소가 스크롤을 지원할 수 있도록 높이 제약 */
+    .level-big-box {
+        height: auto; /* 부모의 높이가 자동으로 조정되도록 설정 */
+    }
+
+}

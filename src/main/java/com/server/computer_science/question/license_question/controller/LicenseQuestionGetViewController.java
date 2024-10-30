@@ -17,7 +17,7 @@ public class LicenseQuestionGetViewController {
     private String resourceBaseUrl;
     private final String baseUrl = "baseUrl";
 
-    @GetMapping("/question/license/engineer/{sessionId}")
+    @GetMapping("/question/license/{sessionId}")
     public String getLicenseEngineerQuestions(
             @PathVariable Long sessionId,
             Model model
@@ -27,4 +27,10 @@ public class LicenseQuestionGetViewController {
         model.addAttribute("questions",licenseQuestionGetService.getClassifiedLicenseNormalQuestion(sessionId));
         return "license-question";
     }
+
+//    @GetMapping("/question/license/category")
+//    public String getLicenseCategories(Model model){
+//
+//
+//    }
 }

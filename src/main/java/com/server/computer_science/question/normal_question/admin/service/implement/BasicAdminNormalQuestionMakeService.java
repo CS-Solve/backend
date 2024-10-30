@@ -1,10 +1,10 @@
 package com.server.computer_science.question.normal_question.admin.service.implement;
 
-import com.server.computer_science.question.common.service.QuestionChoiceService;
+import com.server.computer_science.question.common.service.Implements.QuestionChoiceService;
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionMakeService;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
-import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.normal_question.common.repository.NormalQuestionRepository;
 import com.server.computer_science.question.normal_question.admin.service.DuplicateQuestionDetector;

@@ -5,7 +5,7 @@ import com.server.computer_science.question.normal_question.admin.dto.RequestCha
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionUpdateService;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import com.server.computer_science.question.normal_question.common.service.implement.NormalQuestionDBService;
-import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;

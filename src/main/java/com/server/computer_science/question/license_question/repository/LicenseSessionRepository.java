@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -14,4 +15,6 @@ public interface LicenseSessionRepository extends JpaRepository<LicenseSession, 
 
     @Query("SELECT ls FROM LicenseSession ls "+"WHERE ls.content = :session AND ls.licenseCategory = :licenseCategory")
     Optional<LicenseSession> findLicenseSessionByContent(@Param("session") String content, @Param("licenseCategory") LicenseCategory licenseCategory);
+
+    List<LicenseSession> findAllByLicenseCategory(LicenseCategory licenseCategory);
 }

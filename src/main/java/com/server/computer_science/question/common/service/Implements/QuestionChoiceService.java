@@ -1,4 +1,4 @@
-package com.server.computer_science.question.common.service;
+package com.server.computer_science.question.common.service.Implements;
 
 import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;
 import com.server.computer_science.question.license_question.domain.LicenseNormalQuestionChoice;
