@@ -1,6 +1,8 @@
 package com.server.computer_science.question.license_question.controller;
 
+import com.server.computer_science.question.license_question.dto.response.ResponseLicenseSessionDto;
 import com.server.computer_science.question.license_question.service.LicenseQuestionGetService;
+import com.server.computer_science.question.license_question.service.LicenseSessionService;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseClassifiedNormalQuestionDto;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import java.util.List;
 public class LicenseQuestionGetViewController {
 
     private final LicenseQuestionGetService licenseQuestionGetService;
+    private final LicenseSessionService licenseSessionService;
     @Value("${resource.base-url}")
     private String resourceBaseUrl;
     private final String baseUrl = "baseUrl";
@@ -31,6 +34,7 @@ public class LicenseQuestionGetViewController {
     ){
         model.addAttribute(baseUrl,resourceBaseUrl);
         model.addAttribute("multipleChoice",true);
+        model.addAttribute("licenseSession", ResponseLicenseSessionDto.from(licenseSessionService.getLicenseSessionById(sessionId)));
         model.addAttribute("questions",licenseQuestionGetService.getClassifiedLicenseNormalQuestion(sessionId));
         return "license-question";
     }

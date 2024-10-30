@@ -25,4 +25,7 @@ public class LicenseSessionService {
         licenseSessionRepository.save(newLicenseSession);
         return newLicenseSession;
     }
+    public LicenseSession getLicenseSessionById(Long licenseSessionId){
+        return licenseSessionRepository.findById(licenseSessionId).orElse(null);
+    }
 }
