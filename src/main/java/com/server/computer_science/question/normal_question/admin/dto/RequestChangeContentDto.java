@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Getter
-public class RequestChangeQuestionDto {
+public class RequestChangeContentDto {
     private String content;
 }

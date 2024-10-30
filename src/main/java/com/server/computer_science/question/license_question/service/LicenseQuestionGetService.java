@@ -3,7 +3,7 @@ package com.server.computer_science.question.license_question.service;
 import com.server.computer_science.question.license_question.domain.LicenseCategory;
 import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;
 import com.server.computer_science.question.license_question.repository.LicenseNormalQuestionRepository;
-import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifyService;
+import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifyByCategoryService;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseClassifiedNormalQuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class LicenseQuestionGetService {
     private final LicenseNormalQuestionRepository licenseNormalQuestionRepository;
-    private final NormalQuestionClassifyService normalQuestionClassifyService;
+    private final NormalQuestionClassifyByCategoryService normalQuestionClassifyByCategoryService;
 
     public List<ResponseClassifiedNormalQuestionDto> getClassifiedLicenseNormalQuestion(Long sessionId) {
-        List<LicenseNormalQuestion> licenseNormalQuestions = licenseNormalQuestionRepository.findAllByLicenseSessionId(sessionId);
-        return normalQuestionClassifyService.classifyLicenseNormalQuestionByClass(licenseNormalQuestions)
+        List<LicenseNormalQuestion> licenseNormalQuestions = licenseNormalQuestionRepository.findAllByLicenseSessionIdFetchChoices(sessionId);
+        return normalQuestionClassifyByCategoryService.classifyLicenseNormalQuestionByCategoryOrdered(licenseNormalQuestions)
                 .entrySet().stream()
                 .map(entry->ResponseClassifiedNormalQuestionDto.LicenseQuestionForUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
