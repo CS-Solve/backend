@@ -6,10 +6,12 @@ import com.server.computer_science.question.license_question.dto.response.Respon
 import com.server.computer_science.question.license_question.dto.response.ResponseLicensesDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,13 +46,13 @@ public class MainViewController {
     }
 
     @GetMapping("/license/{category}")
-    public String showLicenseSessions(Model model, @PathVariable LicenseCategory licenseCategory){
-        List<ResponseLicenseSessionDto> licenseSessions = questionSelectorService.getLicenseSessions(licenseCategory)
+    @ResponseBody
+    public ResponseEntity<List<ResponseLicenseSessionDto>> showLicenseSessions(@PathVariable LicenseCategory category) {
+        List<ResponseLicenseSessionDto> licenseSessions = questionSelectorService.getLicenseSessions(category)
                 .stream()
                 .map(ResponseLicenseSessionDto::from)
                 .collect(Collectors.toList());
-        model.addAttribute("licenseCategories", licenseSessions);
-        model.addAttribute(baseUrl, resourceBaseUrl);
-        return "license-index";
+
+        return ResponseEntity.ok(licenseSessions);
     }
 }

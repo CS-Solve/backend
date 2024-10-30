@@ -6,6 +6,7 @@ import com.server.computer_science.question.common.service.QuestionSelectorServi
 import com.server.computer_science.question.license_question.domain.LicenseCategory;
 import com.server.computer_science.question.license_question.domain.LicenseSession;
 import com.server.computer_science.question.license_question.repository.LicenseSessionRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,8 +15,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class BasicQuestionSelectorService implements QuestionSelectorService {
-    private LicenseSessionRepository licenseSessionRepository;
+    private final LicenseSessionRepository licenseSessionRepository;
 
     @Override
     public List<String> getCategories() {
