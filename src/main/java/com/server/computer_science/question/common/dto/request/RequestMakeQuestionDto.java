@@ -15,5 +15,6 @@ public class RequestMakeQuestionDto {
     private String content;
     private QuestionCategory questionCategory;
     private QuestionLevel questionLevel;
+    private String imageUrl;
     private String description;
 }
