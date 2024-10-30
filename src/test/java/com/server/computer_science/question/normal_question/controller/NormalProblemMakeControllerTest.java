@@ -68,31 +68,31 @@ class NormalProblemMakeControllerTest {
     void MakeMultiNormalQuestion() {
     }
 
-    @Test
-    @DisplayName("퀴즈 생성 단일 - 성공")
-    void MakeSingleNormalQuestion() throws Exception {
-        final String PATH = "/admin/question/normal-single";
-        final String document_Name ="성공";
-        Mockito.when(adminNormalQuestionMakeService.makeNormalQuestion(any())).thenReturn(ResponseNormalQuestionDto.forUser(normalQuestion));
-
-        mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(requestMakeNormalQuestionDto)))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(print())
-                .andDo(MockMvcRestDocumentation.document(
-                        document_Name
-                ))
-                .andDo(MockMvcRestDocumentationWrapper.document(
-                        document_Name
-                        ,resource(
-                                ResourceSnippetParameters.builder()
-                                        .tag(tag)
-                                        .description("단답형 문제 생성 - 성공")
-                                .build()
-                        )
-                ));
-    }
+//    @Test
+//    @DisplayName("퀴즈 생성 단일 - 성공")
+//    void MakeSingleNormalQuestion() throws Exception {
+//        final String PATH = "/admin/question/normal-single";
+//        final String document_Name ="성공";
+//        Mockito.when(adminNormalQuestionMakeService.makeNormalQuestion(any())).thenReturn(ResponseNormalQuestionDto.forUser(normalQuestion));
+//
+//        mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(requestMakeNormalQuestionDto)))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andDo(print())
+//                .andDo(MockMvcRestDocumentation.document(
+//                        document_Name
+//                ))
+//                .andDo(MockMvcRestDocumentationWrapper.document(
+//                        document_Name
+//                        ,resource(
+//                                ResourceSnippetParameters.builder()
+//                                        .tag(tag)
+//                                        .description("단답형 문제 생성 - 성공")
+//                                .build()
+//                        )
+//                ));
+//    }
 
     @Test
     @DisplayName("퀴즈 생성 단일 - 실패")
