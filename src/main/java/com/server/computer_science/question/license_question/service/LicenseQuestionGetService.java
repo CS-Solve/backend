@@ -21,7 +21,7 @@ public class LicenseQuestionGetService {
     private final NormalQuestionClassifyService normalQuestionClassifyService;
 
     public List<ResponseClassifiedNormalQuestionDto> getClassifiedLicenseNormalQuestion(Long sessionId) {
-        List<LicenseNormalQuestion> licenseNormalQuestions = licenseNormalQuestionRepository.findAllByLicenseSessionId(sessionId);
+        List<LicenseNormalQuestion> licenseNormalQuestions = licenseNormalQuestionRepository.findAllByLicenseSessionIdFetchChoices(sessionId);
         return normalQuestionClassifyService.classifyLicenseNormalQuestionByClass(licenseNormalQuestions)
                 .entrySet().stream()
                 .map(entry->ResponseClassifiedNormalQuestionDto.LicenseQuestionForUser(entry.getKey(),entry.getValue()))
