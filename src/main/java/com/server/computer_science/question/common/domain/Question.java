@@ -27,6 +27,9 @@ public abstract class Question {
     public void changeContent(String content) {
         this.content = content;
     }
+    public void updateImage(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
     public abstract void initDefaults();
 
     public Question(String content, QuestionCategory questionCategory, QuestionLevel questionLevel, String description, String imageUrl) {

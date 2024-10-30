@@ -8,10 +8,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,5 +24,12 @@ public class AdminLicenseQuestionController {
     @PostMapping
     public ResponseEntity<List<ResponseNormalQuestionDto>> makeLicenseQuestionOfSession(@RequestBody RequestMakeNormalLicenseQuestionDto requestMakeNormalLicenseQuestionDto){
         return ResponseEntity.ok(licenseQuestionMakeService.makeLicenseNormalQuestion(requestMakeNormalLicenseQuestionDto));
+    }
+
+    @ApiOperation("단답형 문제 이미지 업로드")
+    @PatchMapping("/{license-question-id}")
+    public ResponseEntity<String>  updateLicenseQuestionWithImage(@PathVariable("license-question-id") Long licenseQuestionId, @RequestPart(value="image",required = true) MultipartFile file){
+        return ResponseEntity.ok(licenseQuestionMakeService.updateLicenseQuestionWithImage(licenseQuestionId,file));
+
     }
 }
