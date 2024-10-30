@@ -4,6 +4,10 @@ import com.server.computer_science.question.license_question.domain.LicenseNorma
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface LicenseNormalQuestionRepository extends JpaRepository<LicenseNormalQuestion, Long> {
+
+    List<LicenseNormalQuestion> findAllByLicenseSessionId(Long licenseSessionId);
 }

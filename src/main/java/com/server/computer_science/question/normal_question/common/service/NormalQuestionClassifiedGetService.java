@@ -16,5 +16,4 @@ public interface NormalQuestionClassifiedGetService {
     public List<ResponseClassifiedNormalQuestionDto> getClassifiedNormalQuestions(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto);
     public List<ResponseClassifiedNormalQuestionDto> getClassifiedShortAnsweredNormalQuestions(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto);
     public List<ResponseClassifiedNormalQuestionDto> getClassifiedAllNormalQuestions();
-
 }

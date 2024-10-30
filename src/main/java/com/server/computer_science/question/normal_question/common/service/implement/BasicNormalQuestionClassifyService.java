@@ -1,6 +1,7 @@
 package com.server.computer_science.question.normal_question.common.service.implement;
 
 import com.server.computer_science.question.common.domain.QuestionCategory;
+import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifyService;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class BasicNormalQuestionClassifyService implements NormalQuestionClassifyService {
+    /*
+    Generic Type으로 변경 검토
+     */
 
     @Override
     public Map<QuestionCategory, List<NormalQuestion>> classifyNormalQuestionByClass(List<NormalQuestion> normalQuestions) {
@@ -19,5 +23,10 @@ public class BasicNormalQuestionClassifyService implements NormalQuestionClassif
 //                categoryMap.putIfAbsent(category, new ArrayList<>())
 //
         return normalQuestions.stream().collect(Collectors.groupingBy(NormalQuestion::getQuestionCategory));
+    }
+
+    @Override
+    public Map<QuestionCategory, List<LicenseNormalQuestion>> classifyLicenseNormalQuestionByClass(List<LicenseNormalQuestion> licenseNormalQuestions) {
+        return licenseNormalQuestions.stream().collect(Collectors.groupingBy(LicenseNormalQuestion::getQuestionCategory));
     }
 }
