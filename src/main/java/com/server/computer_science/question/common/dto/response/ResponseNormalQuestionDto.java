@@ -20,6 +20,7 @@ public class ResponseNormalQuestionDto {
     private Long id;
     private String content;
     private String description;
+    private String imageUrl;
     private QuestionCategory questionCategory;
     private QuestionLevel questionLevel;
     private List<ResponseNormalQuestionChoiceDto> questionChoices;
@@ -55,6 +56,7 @@ public class ResponseNormalQuestionDto {
                 )
                 .questionCategory(question.getQuestionCategory())
                 .questionLevel(question.getQuestionLevel())
+                .imageUrl(question.getImageUrl())
                 .description(question.getDescription())
                 .build();
     }
