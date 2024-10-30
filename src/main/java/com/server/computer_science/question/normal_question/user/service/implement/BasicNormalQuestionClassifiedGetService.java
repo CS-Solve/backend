@@ -7,7 +7,6 @@ import com.server.computer_science.question.normal_question.user.dto.request.Req
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseClassifiedNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifyService;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifiedGetService;
-import com.server.computer_science.question.normal_question.user.service.ChoiceShuffleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 public class BasicNormalQuestionClassifiedGetService implements NormalQuestionClassifiedGetService {
     private final NormalQuestionDBService normalQuestionDBService;
     private final NormalQuestionClassifyService normalQuestionClassifyService;
-    private final ChoiceShuffleService choiceShuffleService;
 
     /**
      * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 객관식.
@@ -36,7 +34,7 @@ public class BasicNormalQuestionClassifiedGetService implements NormalQuestionCl
         }
         return normalQuestionClassifyService.classifyNormalQuestionByClass(normalQuestions)
                 .entrySet().stream()
-                .map(entry-> ResponseClassifiedNormalQuestionDto.forUser(entry.getKey(),entry.getValue()))
+                .map(entry-> ResponseClassifiedNormalQuestionDto.normalQuestionForUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
     }
 
@@ -50,7 +48,7 @@ public class BasicNormalQuestionClassifiedGetService implements NormalQuestionCl
                 requestGetNormalQuestionsDto.getQuestionLevels());
         return normalQuestionClassifyService.classifyNormalQuestionByClass(normalQuestions)
                 .entrySet().stream()
-                .map(entry-> ResponseClassifiedNormalQuestionDto.forUser(entry.getKey(),entry.getValue()))
+                .map(entry-> ResponseClassifiedNormalQuestionDto.normalQuestionForUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
     }
 
@@ -62,7 +60,7 @@ public class BasicNormalQuestionClassifiedGetService implements NormalQuestionCl
         List<NormalQuestion> normalQuestions = normalQuestionDBService.findAllFetchChoices();
         return normalQuestionClassifyService.classifyNormalQuestionByClass(normalQuestions)
                 .entrySet().stream()
-                .map(entry-> ResponseClassifiedNormalQuestionDto.forUser(entry.getKey(),entry.getValue()))
+                .map(entry-> ResponseClassifiedNormalQuestionDto.normalQuestionForUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
     }
 
