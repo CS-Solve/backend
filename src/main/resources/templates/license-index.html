@@ -16,6 +16,7 @@
     <link rel="stylesheet" th:href="|${baseUrl}/css/globals.css|" />
     <link rel="stylesheet" th:href="|${baseUrl}/css/license-index/styleguide.css|" />
     <link rel="stylesheet" th:href="|${baseUrl}/css/license-index/style.css|" />
+    <link rel="stylesheet" th:href="|${baseUrl}/css/global-index/style.css|" />
     <script th:src="|${baseUrl}/js/license-index/chooseQuestionType.js|"></script>
 </head>
 <body>
@@ -28,7 +29,10 @@
         </div>
         <form th:action="@{/question/license}" method="get" class="mainForm">
             <div class="main-box">
-                <p class="question-title-box">자격증 분야와 회차를 선택하세요.</p>
+                <p class="question-title-box">
+                    <span class="choice-left" onclick="window.location.href='/'">전공 CS</span>
+                    <span class="choice-right" onclick="window.location.href='/license'">자격증</span>
+                </p>
                 <div class="selectBox">
                     <!-- 분야 선택 -->
                     <div class="category-big-box side-box">

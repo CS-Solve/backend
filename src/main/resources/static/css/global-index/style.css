@@ -1,0 +1,103 @@
+/* 기존 .question-title-box에 Flex 속성 추가 */
+/* question-title-box 스타일 수정 */
+
+.screen .big-box .main-box {
+    position: relative;
+    width: 100%;
+    top: 10%;
+    height: 55%;
+    background-color: #ffffff;
+    border-radius: 49px;
+    box-shadow: var(--m3-elevation-dark-3);
+    flex-direction: column;
+    padding-bottom: 5%;
+    justify-content: flex-start; /* 자식 요소들을 위에서부터 정렬 */
+    overflow: hidden;
+}
+.screen .question-title-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    font-family: "NanumSquare Neo OTF-Bd", Helvetica; /* 좀 더 굵은 폰트 스타일 */
+    color: #333333; /* 글씨를 약간 더 부드러운 검정으로 */
+    font-size: 2vw;
+    line-height: 4vh;
+    font-weight: 500;
+    text-align: center;
+    letter-spacing: 0;
+    background-color: #f2f4f7; /* 더 진한 배경색 */
+    border-bottom: 2px solid #b0b0b0;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* 소제목 느낌을 위한 그림자 */
+}
+
+/* 전공 CS와 자격증 사이 경계선 */
+.choice-left, .choice-right {
+    padding: 1.2vh 2vw;
+    flex: 1;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-right: 1px solid #cccccc; /* 가운데 경계선 */
+    color: #444; /* 버튼 텍스트 색상 */
+}
+
+.choice-right {
+    border-right: none; /* 오른쪽 끝에는 경계선을 추가하지 않음 */
+}
+
+/* 호버 효과 */
+.choice-left:hover, .choice-right:hover {
+    background-color: #e8edf3; /* 약간 더 진한 배경 */
+    color: #0056b3; /* 강조된 텍스트 색상 */
+}
+
+.screen .selectBox {
+    position: relative;
+    top: 10%;
+    height: 70%; /* 전체 높이 설정 */
+    display: flex; /* 좌우 정렬을 위해 flex 사용 */
+    justify-content: space-between; /* 좌우로 요소를 배치 */
+}
+
+/* 모바일 화면을 위한 미디어 쿼리 */
+@media (max-width: 768px) {
+    .siteDescription{
+        display: none;
+    }
+    /*.main-box{*/
+    /*  position: relative;*/
+    /*  height: 80vh; !important;*/
+    /*  top: 5%;*/
+    /*  background-color: #ffffff;*/
+    /*  border-radius: 49px;*/
+    /*  box-shadow: var(--m3-elevation-dark-3);*/
+    /*}*/
+    .big-box{
+        background-color: #eeeeee;
+        top: 5%;
+        width: 90%; !important;
+        height: 90%;
+        position: relative;
+    }
+    .screen .choice-left, .screen .choice-right{
+        font-size: 5vw;
+    }
+
+    .screen .standard{
+        font-size: 5vw;
+    }
+
+    .screen .each-level {
+        width: 100%; /* 세로 정렬 시 각 요소가 가로로 100% 너비 */
+    }
+
+    /* 부모 요소가 스크롤을 지원할 수 있도록 높이 제약 */
+    .level-big-box {
+        height: auto; /* 부모의 높이가 자동으로 조정되도록 설정 */
+    }
+
+}

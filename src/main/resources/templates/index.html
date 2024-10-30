@@ -27,6 +27,7 @@
     <link rel="stylesheet" th:href="|${baseUrl}/css/globals.css|" />
     <link rel="stylesheet" th:href="|${baseUrl}/css/index/styleguide.css|" />
     <link rel="stylesheet" th:href="|${baseUrl}/css/index/style.css|" />
+    <link rel="stylesheet" th:href="|${baseUrl}/css/global-index/style.css|" />
     <script th:src="|${baseUrl}/js/index/chooseQuestionType.js|"></script>
 </head>
 <body>
@@ -45,8 +46,8 @@
         <form th:action="@{/question/normal}" method="get" class ="mainForm">
             <div class="main-box">
                 <p class="question-title-box">
-                    분야와 난이도를 선택하세요. (복수 선택 가능)
-                    <!--                    <span class="questionSelect"></span>-->
+                    <span class="choice-left" onclick="window.location.href='/'">전공 CS</span>
+                    <span class="choice-right" onclick="window.location.href='/license'">자격증</span>
                 </p>
                 <div class="selectBox">
                     <!-- 분야 선택 -->

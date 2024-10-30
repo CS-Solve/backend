@@ -21,18 +21,7 @@
     top:0;
     height: 90%;
 }
-.screen .big-box .main-box {
-    position: relative;
-    width: 100%;
-    top: 10%;
-    height: 55%;
-    background-color: #ffffff;
-    border-radius: 49px;
-    box-shadow: var(--m3-elevation-dark-3);
-    flex-direction: column;
-    padding-bottom: 5%;
-    justify-content: flex-start; /* 자식 요소들을 위에서부터 정렬 */
-}
+
 
 /**
 메인 로고
@@ -52,14 +41,6 @@
     letter-spacing: 0;
     white-space: nowrap;
 
-}
-
-.screen .selectBox {
-    position: relative;
-    top: 30%;
-    height: 70%; /* 전체 높이 설정 */
-    display: flex; /* 좌우 정렬을 위해 flex 사용 */
-    justify-content: space-between; /* 좌우로 요소를 배치 */
 }
 
 /* 공통 스타일 */
@@ -199,18 +180,7 @@
     flex: 0 0 auto;
 }
 
-.screen .question-title-box {
-    position: absolute;
-    top:5%;
-    width:100%;
-    font-family: "NanumSquare Neo OTF-Regular", Helvetica;
-    color: #000000;
-    font-size: 2vW;
-    line-height: 4vh;
-    font-weight: 400;
-    text-align: center;
-    letter-spacing: 0;
-}
+
 
 
 /*.logo-container {*/
@@ -233,7 +203,6 @@
     width: 100%;
     align-content: center;
 }
-
 /**
 메인 로고
  */
@@ -357,41 +326,3 @@
 
 
 
-
-/* 모바일 화면을 위한 미디어 쿼리 */
-@media (max-width: 768px) {
-    .siteDescription{
-        display: none;
-    }
-    /*.main-box{*/
-    /*  position: relative;*/
-    /*  height: 80vh; !important;*/
-    /*  top: 5%;*/
-    /*  background-color: #ffffff;*/
-    /*  border-radius: 49px;*/
-    /*  box-shadow: var(--m3-elevation-dark-3);*/
-    /*}*/
-    .big-box{
-        background-color: #eeeeee;
-        top: 5%;
-        width: 90%; !important;
-        height: 90%;
-        position: relative;
-    }
-
-    .screen .standard{
-        font-size: 5vw;
-    }
-
-    .screen .each-level {
-        width: 100%; /* 세로 정렬 시 각 요소가 가로로 100% 너비 */
-    }
-
-    /* 부모 요소가 스크롤을 지원할 수 있도록 높이 제약 */
-    .level-big-box {
-        height: auto; /* 부모의 높이가 자동으로 조정되도록 설정 */
-    }
-
-
-
-}
