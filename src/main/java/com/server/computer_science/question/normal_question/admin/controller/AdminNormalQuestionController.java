@@ -9,7 +9,7 @@ import com.server.computer_science.question.normal_question.common.exception.Dup
 import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseClassifiedNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifiedGetService;
-import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

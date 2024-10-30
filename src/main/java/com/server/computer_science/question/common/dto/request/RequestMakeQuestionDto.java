@@ -1,4 +1,4 @@
-package com.server.computer_science.question.common.dto;
+package com.server.computer_science.question.common.dto.request;
 
 import com.server.computer_science.question.common.domain.QuestionCategory;
 import com.server.computer_science.question.common.domain.QuestionLevel;

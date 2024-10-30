@@ -19,15 +19,16 @@
     <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS 문제 및 퀴즈 모음 | 컴싸 </title>
+    <title>CS 전공 및 자격증 기출 문제 모음 | 컴싸 </title>
     <link rel="icon" type="image/svg+xml" th:href="|${baseUrl}/img/mainLogo.svg|">
 
-    <meta name="description" content="CS(컴퓨터 사이언스) 문제를 풀며 개념을 복습하고 면접에 대비해보세요. 다양한 분야의 CS 문제 모음과 해설을 제공합니다.">
+    <meta name="description" content="CS(컴퓨터 사이언스) 문제를 풀며 개념을 복습하고 면접에 대비해보세요. 다양한 분야의 CS 전공 문제 모음과 해설을 제공합니다.">
 
     <link rel="stylesheet" th:href="|${baseUrl}/css/globals.css|" />
     <link rel="stylesheet" th:href="|${baseUrl}/css/index/styleguide.css|" />
     <link rel="stylesheet" th:href="|${baseUrl}/css/index/style.css|" />
-    <script th:src="|${baseUrl}/js/chooseQuestionType.js|"></script>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/global-index/style.css|" />
+    <script th:src="|${baseUrl}/js/index/chooseQuestionType.js|"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -36,7 +37,7 @@
 <!-- End Google Tag Manager (noscript) -->
 <div class="screen">
     <div class="big-box">
-        <h1 class ="siteDescription">CS 문제 모음 </h1>
+        <h1 class ="siteDescription">CS 전공 및 자격증 기출 문제 모음 </h1>
         <div class="main-logo-box">
             <img th:src="|${baseUrl}/img/mainLogo.svg|" alt="CS Solver Logo" class="logo-image">
             <link href="https://fonts.googleapis.com/css2?family=Cambay&display=swap" rel="stylesheet">
@@ -45,8 +46,8 @@
         <form th:action="@{/question/normal}" method="get" class ="mainForm">
             <div class="main-box">
                 <p class="question-title-box">
-                    분야와 난이도를 선택하세요. (복수 선택 가능)
-                    <!--                    <span class="questionSelect"></span>-->
+                    <span class="choice-left" onclick="window.location.href='/'">전공 CS</span>
+                    <span class="choice-right" onclick="window.location.href='/license'">자격증</span>
                 </p>
                 <div class="selectBox">
                     <!-- 분야 선택 -->

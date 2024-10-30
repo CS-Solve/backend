@@ -3,7 +3,7 @@ package com.server.computer_science.question.license_question.controller;
 
 import com.server.computer_science.question.license_question.dto.request.RequestMakeNormalLicenseQuestionDto;
 import com.server.computer_science.question.license_question.service.LicenseQuestionMakeService;
-import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
