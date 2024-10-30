@@ -253,9 +253,7 @@
 .screen .main-logo-box span {
   line-height: 1; /* 텍스트의 줄 높이를 조정 */
 }
-.siteDescription{
-  font-size: 1vw;
-}
+
 /**
 메인페이지 - 시작버튼
  */
