@@ -19,9 +19,10 @@
     <!-- End Google Tag Manager -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS 문제 모음 | 컴싸 </title>
+    <title>CS 문제 및 퀴즈 모음 | 컴싸 </title>
+    <link rel="icon" type="image/svg+xml" th:href="|${baseUrl}/img/mainLogo.svg|">
 
-    <meta name="description" content="CS(컴퓨터 사이언스) 문제를 풀 수 있는 사이트입니다. 다양한 분야의 CS 문제 모음과 해설을 제공합니다.">
+    <meta name="description" content="CS(컴퓨터 사이언스) 문제를 풀며 개념을 복습하고 면접에 대비해보세요. 다양한 분야의 CS 문제 모음과 해설을 제공합니다.">
 
     <link rel="stylesheet" th:href="|${baseUrl}/css/globals.css|" />
     <link rel="stylesheet" th:href="|${baseUrl}/css/index/styleguide.css|" />
@@ -38,7 +39,8 @@
         <h1 class ="siteDescription">CS 문제 모음 </h1>
         <div class="main-logo-box">
             <img th:src="|${baseUrl}/img/mainLogo.svg|" alt="CS Solver Logo" class="logo-image">
-            <h2 class ="mainTitle">컴퓨터 사이언스</h2>
+            <link href="https://fonts.googleapis.com/css2?family=Cambay&display=swap" rel="stylesheet">
+            <h2 class ="mainTitle">Com Ssa</h2>
         </div>
         <form th:action="@{/question/normal}" method="get" class ="mainForm">
             <div class="main-box">

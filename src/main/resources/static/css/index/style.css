@@ -51,6 +51,7 @@
   text-align: center;
   letter-spacing: 0;
   white-space: nowrap;
+
 }
 
 .screen .selectBox {
@@ -269,10 +270,12 @@
 }
 .screen .mainTitle{
   font-size:3vw;
+  font-family: 'Cambay', sans-serif;
 }
 .screen .main-logo-box .logo-image {
   height: 1%; /* 텍스트 크기와 동일하게 설정 */
   width: 5vw; /* 비율 유지 */
+
 }
 
 .screen .main-logo-box span {
