@@ -11,7 +11,10 @@ public enum QuestionCategory {
     DESIGN_PATTERN("디자인 패턴",false),
     JAVA("Java",true),
     SOFTWARE_DESIGN("소프트웨어 설계", true),
-    SOFTWARE_DEVELOPMENT("소프트웨어 개발",true);
+    SOFTWARE_DEVELOPMENT("소프트웨어 개발",true),
+    DATABASE_DESIGN("데이터베이스 구축",true),
+    PROGRAMMING_LANGUAGE("프로그래밍 언어 활용",true),
+    INFORMATION_SECURITY("정보시스템 구축관리",true);
 
 
     private final String korean;
