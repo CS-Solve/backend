@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -19,7 +18,7 @@ public class LicenseQuestionGetViewController {
     private final String baseUrl = "baseUrl";
 
     @GetMapping("/question/license/{sessionId}")
-    public String getLicenseEngineerQuestions(
+    public String getLicenseQuestionsBySession(
             @PathVariable Long sessionId,
             Model model
     ){
@@ -27,6 +26,16 @@ public class LicenseQuestionGetViewController {
         model.addAttribute("multipleChoice",true);
         model.addAttribute("questions",licenseQuestionGetService.getClassifiedLicenseNormalQuestion(sessionId));
         return "license-question";
+    }
+
+    @GetMapping("/question/license/{sessionId}/update")
+    public String updateLicenseQuestions(
+            @PathVariable Long sessionId,
+            Model model
+    ){
+        model.addAttribute(baseUrl,resourceBaseUrl);
+        model.addAttribute("classifiedQuestions",licenseQuestionGetService.getClassifiedLicenseNormalQuestion(sessionId));
+        return "license-question-update";
     }
 
 //    @GetMapping("/question/license/category")
