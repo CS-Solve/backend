@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>일반 질문 업데이트</title>
-    <script th:src="|${baseUrl}/js/updateQuestion.js|" ></script>
-    <script th:src="|${baseUrl}/js/translateTextForHtml.js|" ></script>
-    <link rel="stylesheet" th:href="|${baseUrl}/css/normal-question-update/style.css|" />
+    <script th:src="|${baseUrl}/js/updateQuestion.js|"></script>
+    <script th:src="|${baseUrl}/js/translateTextForHtml.js|"></script>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/normal-question-update/style.css|"/>
 </head>
 <body>
 
@@ -19,10 +19,16 @@
 
     <!-- 질문 목록 -->
     <div th:id="'questions-'+${classifiedQuestion.questionCategory}">
-        <div th:id="'question-'+${question.id}" th:each="question : ${classifiedQuestion.responseNormalQuestionDtoList}" class="question-container">
+        <div th:each="question, iterStat : ${classifiedQuestion.responseNormalQuestionDtoList}"
+             th:id="'question-'+${question.id}" class="question-container">
+
+            <!-- 질문 번호 표시 -->
+            <span class="question-number" th:text="${iterStat.count} + '. '"></span>
+
             <!-- 문제 텍스트 -->
             <div class="editable-container">
-                <h3 th:text="${question.content}" class="questionTitle" th:attr="data-id=${question.id}, data-field='question'">질문</h3>
+                <h3 th:text="${question.content}" class="questionTitle"
+                    th:attr="data-id=${question.id}, data-field='question'">질문</h3>
             </div>
 
             <!-- 이미지 업로드 및 표시 -->
@@ -30,13 +36,11 @@
                 <div th:if="${question.imageUrl != null}">
                     <img th:src="${question.imageUrl}" alt="Question Image" class="question-image"/>
                 </div>
-                <div th:if="${question.imageUrl == null}">
-                    <label th:for="|image-upload-${question.id}|">이미지 업로드:</label>
-                    <input type="file"
-                           th:id="|image-upload-${question.id}|"
-                           th:attr ="question-id=${question.id}"
-                           onchange="uploadImage(this.getAttribute('question-id'), this)" />
-                </div>
+                <label th:for="|image-upload-${question.id}|">이미지 업로드:</label>
+                <input type="file"
+                       th:id="|image-upload-${question.id}|"
+                       th:attr="question-id=${question.id}"
+                       onchange="uploadImage(this.getAttribute('question-id'), this)"/>
             </div>
 
             <!-- 문제 난이도 드롭다운 -->
@@ -59,8 +63,6 @@
             <div class="editable-container">
                 <p th:text="${question.description}" class="description" th:attr="data-id=${question.id}, data-field='description'">설명</p>
             </div>
-
-
 
             <button type="button" th:onclick="|deleteQuestion(${question.id})|">
                 질문 삭제
