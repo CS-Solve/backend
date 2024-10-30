@@ -4,6 +4,7 @@ package com.server.computer_science.question.license_question.controller;
 import com.server.computer_science.question.license_question.dto.request.RequestMakeNormalLicenseQuestionDto;
 import com.server.computer_science.question.license_question.service.LicenseQuestionMakeService;
 import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.normal_question.admin.dto.RequestChangeDescriptionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -32,4 +33,14 @@ public class AdminLicenseQuestionController {
         return ResponseEntity.ok(licenseQuestionMakeService.updateLicenseQuestionWithImage(licenseQuestionId,file));
 
     }
+
+    @ApiOperation("단답형 문제 상태 업데이트 - 문제 해설 업데이트")
+    @PatchMapping(value = "/{id}/description")
+    public ResponseEntity<ResponseNormalQuestionDto> changeQuestion(
+            @PathVariable("id")Long questionId,
+            @RequestBody RequestChangeDescriptionDto changeDescriptionDto) {
+        return ResponseEntity.ok(licenseQuestionMakeService.changeContent(questionId, changeDescriptionDto));
+    }
+
+
 }

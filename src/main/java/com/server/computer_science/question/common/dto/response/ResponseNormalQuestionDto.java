@@ -93,6 +93,7 @@ public class ResponseNormalQuestionDto {
                 )
                 .questionCategory(question.getQuestionCategory())
                 .questionLevel(question.getQuestionLevel())
+                .imageUrl(question.getImageUrl())
                 .description(question.getDescription())
                 .build();
     }

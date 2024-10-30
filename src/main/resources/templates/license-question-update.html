@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>일반 질문 업데이트</title>
-    <script th:src="|${baseUrl}/js/updateQuestion.js|"></script>
+    <title>자격증 질문 업데이트</title>
+    <script th:src="|${baseUrl}/js/license-index/updateQuestion.js|"></script>
     <script th:src="|${baseUrl}/js/translateTextForHtml.js|"></script>
     <link rel="stylesheet" th:href="|${baseUrl}/css/normal-question-update/style.css|"/>
 </head>
 <body>
 
-<h1>일반 질문 업데이트</h1>
+<h1>자격증 질문 업데이트</h1>
 
 <!-- 카테고리별 질문 목록을 렌더링 -->
 <div th:each="classifiedQuestion : ${classifiedQuestions}">
@@ -64,9 +64,9 @@
                 <p th:text="${question.description}" class="description" th:attr="data-id=${question.id}, data-field='description'">설명</p>
             </div>
 
-            <button type="button" th:onclick="|deleteQuestion(${question.id})|">
-                질문 삭제
-            </button>
+<!--            <button type="button" th:onclick="|deleteQuestion(${question.id})|">-->
+<!--                질문 삭제-->
+<!--            </button>-->
         </div>
     </div>
 </div>

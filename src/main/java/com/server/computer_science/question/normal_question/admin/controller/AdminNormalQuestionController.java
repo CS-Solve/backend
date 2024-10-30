@@ -2,7 +2,7 @@ package com.server.computer_science.question.normal_question.admin.controller;
 
 
 import com.server.computer_science.question.normal_question.admin.dto.RequestChangeDescriptionDto;
-import com.server.computer_science.question.normal_question.admin.dto.RequestChangeQuestionDto;
+import com.server.computer_science.question.normal_question.admin.dto.RequestChangeContentDto;
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionMakeService;
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionUpdateService;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
@@ -62,8 +62,8 @@ public class AdminNormalQuestionController {
     @PatchMapping(value = "/question/normal/{id}/question")
     public ResponseEntity<ResponseNormalQuestionDto> changeQuestion(
             @PathVariable("id")Long questionId,
-            @RequestBody RequestChangeQuestionDto requestChangeQuestionDto) {
-        return ResponseEntity.ok(adminNormalQuestionUpdateService.changeContent(questionId, requestChangeQuestionDto));
+            @RequestBody RequestChangeContentDto requestChangeContentDto) {
+        return ResponseEntity.ok(adminNormalQuestionUpdateService.changeContent(questionId, requestChangeContentDto));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - 해설 업데이트")

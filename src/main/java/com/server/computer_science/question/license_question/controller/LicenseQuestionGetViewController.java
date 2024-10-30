@@ -35,7 +35,10 @@ public class LicenseQuestionGetViewController {
         return "license-question";
     }
 
-    @GetMapping("/question/license/{sessionId}/update")
+    /*
+    업데이트 화면
+     */
+    @GetMapping("/admin/question/license/update/{sessionId}")
     public String updateLicenseQuestions(
             @PathVariable Long sessionId,
             Model model
@@ -45,6 +48,7 @@ public class LicenseQuestionGetViewController {
         return "license-question-update";
     }
 
+
     /*
     임시 JSON 용
      */
@@ -53,5 +57,7 @@ public class LicenseQuestionGetViewController {
     public ResponseEntity<List<ResponseClassifiedNormalQuestionDto>> getLicenseQuestionsJson(@PathVariable Long sessionId){
         return ResponseEntity.ok(licenseQuestionGetService.getClassifiedLicenseNormalQuestion(sessionId));
     }
+
+
 
 }

@@ -6,6 +6,8 @@ import com.server.computer_science.question.license_question.domain.LicenseNorma
 import com.server.computer_science.question.license_question.domain.LicenseSession;
 import com.server.computer_science.question.license_question.dto.request.RequestMakeNormalLicenseQuestionDto;
 import com.server.computer_science.question.license_question.repository.LicenseNormalQuestionRepository;
+import com.server.computer_science.question.normal_question.admin.dto.RequestChangeContentDto;
+import com.server.computer_science.question.normal_question.admin.dto.RequestChangeDescriptionDto;
 import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.common.service.Implements.QuestionChoiceService;
 import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
@@ -57,4 +59,13 @@ public class LicenseQuestionMakeService {
             return null;
         }
     }
+
+    public ResponseNormalQuestionDto changeContent(Long questionId, RequestChangeDescriptionDto requestChangeDescriptionDto){
+        LicenseNormalQuestion licenseNormalQuestion = licenseNormalQuestionRepository.findById(questionId).orElse(null);
+        licenseNormalQuestion.changeDescription(requestChangeDescriptionDto.getDescription());
+
+        return ResponseNormalQuestionDto.forAdmin(licenseNormalQuestion);
+    }
+
+
 }
