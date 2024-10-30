@@ -17,7 +17,7 @@ public class LicenseSessionService {
     private final LicenseSessionRepository licenseSessionRepository;
 
     public LicenseSession getLicenseSession(String session, LicenseCategory licenseCategory){
-        Optional<LicenseSession> licenseSession = licenseSessionRepository.findLicenseSessionByContent(session);
+        Optional<LicenseSession> licenseSession = licenseSessionRepository.findLicenseSessionByContent(session,licenseCategory);
         if(licenseSession.isPresent()){
             return licenseSession.get();
         }

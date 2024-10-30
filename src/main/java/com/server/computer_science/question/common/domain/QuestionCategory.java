@@ -9,7 +9,12 @@ public enum QuestionCategory {
     ALGORITHM("알고리즘",false),
     OOP("객체 지향",false),
     DESIGN_PATTERN("디자인 패턴",false),
-    JAVA("Java",true);
+    JAVA("Java",true),
+    SOFTWARE_DESIGN("소프트웨어 설계", true),
+    SOFTWARE_DEVELOPMENT("소프트웨어 개발",true),
+    DATABASE_DESIGN("데이터베이스 구축",true),
+    PROGRAMMING_LANGUAGE("프로그래밍 언어 활용",true),
+    INFORMATION_SECURITY("정보시스템 구축관리",true);
 
 
     private final String korean;
