@@ -23,6 +23,7 @@ public class LicenseQuestionGetViewController {
             Model model
     ){
         model.addAttribute(baseUrl,resourceBaseUrl);
+        model.addAttribute("multipleChoice",true);
         model.addAttribute("questions",licenseQuestionGetService.getClassifiedLicenseNormalQuestion(sessionId));
         return "license-question";
     }
