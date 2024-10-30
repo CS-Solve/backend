@@ -1,9 +1,7 @@
 package com.server.computer_science.question.normal_question.user.service.implement;
 
 
-import com.server.computer_science.question.common.QuestionCategory;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
-import com.server.computer_science.question.normal_question.common.domain.NormalQuestionChoice;
 import com.server.computer_science.question.normal_question.common.service.implement.NormalQuestionDBService;
 import com.server.computer_science.question.normal_question.user.dto.request.RequestGetNormalQuestionsDto;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseClassifiedNormalQuestionDto;
@@ -34,7 +32,7 @@ public class BasicNormalQuestionClassifiedGetService implements NormalQuestionCl
                 requestGetNormalQuestionsDto.getQuestionCategories(),
                 requestGetNormalQuestionsDto.getQuestionLevels());
         for(NormalQuestion normalQuestion : normalQuestions){
-            Collections.shuffle(normalQuestion.getNormalQuestionChoices());
+            Collections.shuffle(normalQuestion.getQuestionChoices());
         }
         return normalQuestionClassifyService.classifyNormalQuestionByClass(normalQuestions)
                 .entrySet().stream()

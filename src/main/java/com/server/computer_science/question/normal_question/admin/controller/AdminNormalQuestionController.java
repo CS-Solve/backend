@@ -6,10 +6,10 @@ import com.server.computer_science.question.normal_question.admin.dto.RequestCha
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionMakeService;
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionUpdateService;
 import com.server.computer_science.question.normal_question.common.exception.DuplicateQuestionException;
-import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
+import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
 import com.server.computer_science.question.normal_question.user.dto.response.ResponseClassifiedNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifiedGetService;
-import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -63,7 +63,7 @@ public class AdminNormalQuestionController {
     public ResponseEntity<ResponseNormalQuestionDto> changeQuestion(
             @PathVariable("id")Long questionId,
             @RequestBody RequestChangeQuestionDto requestChangeQuestionDto) {
-        return ResponseEntity.ok(adminNormalQuestionUpdateService.changeQuestion(questionId, requestChangeQuestionDto));
+        return ResponseEntity.ok(adminNormalQuestionUpdateService.changeContent(questionId, requestChangeQuestionDto));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - 해설 업데이트")

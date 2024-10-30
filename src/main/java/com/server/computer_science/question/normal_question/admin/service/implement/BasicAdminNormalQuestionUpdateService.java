@@ -5,7 +5,7 @@ import com.server.computer_science.question.normal_question.admin.dto.RequestCha
 import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionUpdateService;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import com.server.computer_science.question.normal_question.common.service.implement.NormalQuestionDBService;
-import com.server.computer_science.question.normal_question.user.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
@@ -38,9 +38,9 @@ public class BasicAdminNormalQuestionUpdateService implements AdminNormalQuestio
     }
 
     @Override
-    public ResponseNormalQuestionDto changeQuestion(Long questionId, RequestChangeQuestionDto requestChangeQuestionDto) {
+    public ResponseNormalQuestionDto changeContent(Long questionId, RequestChangeQuestionDto requestChangeQuestionDto) {
         NormalQuestion normalQuestion = normalQuestionDBService.findByIdFetchChoices(questionId);
-        normalQuestion.changeQuestion(requestChangeQuestionDto.getQuestion());
+        normalQuestion.changeContent(requestChangeQuestionDto.getContent());
         return ResponseNormalQuestionDto.forAdmin(normalQuestion);
     }
 

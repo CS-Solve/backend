@@ -1,43 +1,42 @@
 package com.server.computer_science.question.normal_question.common.domain;
 
 
-import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionChoiceDto;
-import lombok.Builder;
+import com.server.computer_science.question.common.domain.QuestionChoice;
+import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionChoiceDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class NormalQuestionChoice {
+@SuperBuilder
+public class NormalQuestionChoice extends QuestionChoice {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String text;
-    private int selectedCount;
-    private boolean answerStatus;
 
     @ManyToOne
     @JoinColumn(name = "normal_question_id")
     private NormalQuestion normalQuestion;
 
-    public static NormalQuestionChoice makeWithDto(RequestMakeNormalQuestionChoiceDto dto, NormalQuestion normalQuestion) {
-        NormalQuestionChoice normalQuestionChoice=  NormalQuestionChoice.builder()
+    public static NormalQuestionChoice fromNormalQuestion(RequestMakeNormalQuestionChoiceDto dto, NormalQuestion normalQuestion) {
+        NormalQuestionChoice normalQuestionChoice =  NormalQuestionChoice.builder()
                 .text(dto.getText())
                 .selectedCount(0)
                 .answerStatus(dto.isAnswerStatus())
                 .normalQuestion(normalQuestion)
                 .build();
-        normalQuestion.getNormalQuestionChoices().add(normalQuestionChoice);
+        normalQuestion.getQuestionChoices().add(normalQuestionChoice);
         return normalQuestionChoice;
     }
-    @Builder
+
     public NormalQuestionChoice(String text, int selectedCount, boolean answerStatus, NormalQuestion normalQuestion) {
-        this.text = text;
-        this.selectedCount = selectedCount;
-        this.answerStatus = answerStatus;
+        super(text, selectedCount, answerStatus);
         this.normalQuestion = normalQuestion;
     }
+
 }

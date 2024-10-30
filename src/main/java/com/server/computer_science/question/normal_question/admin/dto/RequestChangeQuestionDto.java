@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 public class RequestChangeQuestionDto {
-    private String question;
+    private String content;
 }

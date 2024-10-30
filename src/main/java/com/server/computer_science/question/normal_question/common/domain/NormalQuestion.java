@@ -1,12 +1,13 @@
 package com.server.computer_science.question.normal_question.common.domain;
 
 
-import com.server.computer_science.question.common.QuestionCategory;
-import com.server.computer_science.question.common.QuestionLevel;
-import com.server.computer_science.question.normal_question.user.dto.request.RequestMakeNormalQuestionDto;
-import lombok.Builder;
+import com.server.computer_science.question.common.domain.Question;
+import com.server.computer_science.question.common.domain.QuestionCategory;
+import com.server.computer_science.question.common.domain.QuestionLevel;
+import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,47 +15,34 @@ import java.util.List;
 
 @Entity
 @Getter
+@SuperBuilder
 @NoArgsConstructor
-public class NormalQuestion {
+public class NormalQuestion extends Question {
     @Id @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
-    private String question;
-    @Enumerated(value = EnumType.STRING)
-    private QuestionCategory questionCategory;
-    @Enumerated(value = EnumType.STRING)
-    private QuestionLevel questionLevel;
-    private String description;
-
     public boolean canBeShortAnswered;
     public boolean ifApproved;
 
     @OneToMany(mappedBy = "normalQuestion",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NormalQuestionChoice> normalQuestionChoices;
+    private List<NormalQuestionChoice> questionChoices;
 
     public static NormalQuestion makeWithDto(RequestMakeNormalQuestionDto dto){
-        return NormalQuestion.builder()
+        NormalQuestion normalQuestion = NormalQuestion.builder()
+                .content(dto.getContent())
                 .questionCategory(dto.getQuestionCategory())
-                .question(dto.getQuestion())
                 .questionLevel(dto.getQuestionLevel())
                 .description(dto.getDescription())
+                .imageUrl(null)
                 .build();
+        normalQuestion.initDefaults();
+        return normalQuestion;
+    }
+    public void initDefaults() {
+        this.questionChoices = new ArrayList<>();
+        this.canBeShortAnswered = false;
+        this.ifApproved = false;
     }
 
-    @Builder
-    public NormalQuestion(String question, QuestionCategory questionCategory, QuestionLevel questionLevel,String description) {
-        this.question = question;
-        this.questionCategory = questionCategory;
-        this.questionLevel = questionLevel;
-        this.normalQuestionChoices = new ArrayList<>();
-        this.description = description;
-    }
-
-    public void changeDescription(String description) {
-        this.description = description;
-    }
-    public void changeQuestion(String question) {
-        this.question = question;
-    }
     public void toggleApproved(){
         this.ifApproved = !this.ifApproved;
     }
@@ -68,10 +56,24 @@ public class NormalQuestion {
 
     public static NormalQuestion makeForTest(){
         return NormalQuestion.builder()
-                .question("testQuest")
+                .content("testQuest")
                 .questionCategory(QuestionCategory.COMPUTER_ARCHITECTURE)
                 .questionLevel(QuestionLevel.LOW)
                 .description("testDescription")
                 .build();
+    }
+
+    @Override
+    public String toString() {
+        return "NormalQuestion{" +
+                "questionChoices=" + questionChoices +
+                ", content='" + content + '\'' +
+                ", questionCategory=" + questionCategory +
+                ", questionLevel=" + questionLevel +
+                ", description='" + description + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", ifApproved=" + ifApproved +
+                ", canBeShortAnswered=" + canBeShortAnswered +
+                '}';
     }
 }

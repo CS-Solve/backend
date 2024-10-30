@@ -1,6 +1,7 @@
 package com.server.computer_science.question.normal_question.user.dto.response;
 
-import com.server.computer_science.question.common.QuestionCategory;
+import com.server.computer_science.question.common.domain.QuestionCategory;
+import com.server.computer_science.question.common.dto.ResponseNormalQuestionDto;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
