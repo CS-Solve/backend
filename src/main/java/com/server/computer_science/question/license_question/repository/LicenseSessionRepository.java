@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface LicenseSessionRepository extends JpaRepository<LicenseSession, Long> {
 
-    @Query("SELECT ls FROM LicenseSession ls "+"WHERE ls.content = :session")
-    Optional<LicenseSession> findLicenseSessionByContent(@Param("session") String content);
+    @Query("SELECT ls FROM LicenseSession ls "+"WHERE ls.content = :session AND ls.licenseCategory = :licenseCategory")
+    Optional<LicenseSession> findLicenseSessionByContent(@Param("session") String content, @Param("licenseCategory") String licenseCategory);
 }
