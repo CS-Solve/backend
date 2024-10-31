@@ -22,7 +22,7 @@
         <div th:id="'question-'+${question.id}" th:each="question : ${classifiedQuestion.responseNormalQuestionDtoList}" class="question-container">
             <!-- 문제 텍스트 -->
             <div class="editable-container">
-                <h3 th:text="${question.content}" class="questionTitle" th:attr="data-id=${question.id}, data-field='question'">질문</h3>
+                <h3 th:text="${question.content}" class="questionTitle" th:attr="data-id=${question.id}, data-field='content'">질문</h3>
             </div>
 
             <!-- 문제 난이도 드롭다운 -->

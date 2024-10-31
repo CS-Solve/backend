@@ -59,10 +59,16 @@ public class LicenseQuestionMakeService {
             return null;
         }
     }
-
-    public ResponseNormalQuestionDto changeContent(Long questionId, RequestChangeDescriptionDto requestChangeDescriptionDto){
+    public ResponseNormalQuestionDto changeDescription(Long questionId, RequestChangeDescriptionDto requestChangeDescriptionDto){
         LicenseNormalQuestion licenseNormalQuestion = licenseNormalQuestionRepository.findById(questionId).orElse(null);
         licenseNormalQuestion.changeDescription(requestChangeDescriptionDto.getDescription());
+
+        return ResponseNormalQuestionDto.forAdmin(licenseNormalQuestion);
+    }
+
+    public ResponseNormalQuestionDto changeContent(Long questionId, RequestChangeContentDto requestChangeContentDto){
+        LicenseNormalQuestion licenseNormalQuestion = licenseNormalQuestionRepository.findById(questionId).orElse(null);
+        licenseNormalQuestion.changeContent(requestChangeContentDto.getContent());
 
         return ResponseNormalQuestionDto.forAdmin(licenseNormalQuestion);
     }
