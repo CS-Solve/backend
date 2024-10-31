@@ -1,44 +1,3 @@
-function toggleApprove(questionId) {
-    fetch(`/admin/question/normal/toggle-approve/${questionId}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('승인 상태 토글 실패');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('승인 상태가 성공적으로 토글되었습니다:', data);
-        })
-        .catch(error => {
-            console.error('승인 상태 토글 중 오류 발생:', error);
-        });
-}
-
-function toggleCanBeMultiple(questionId) {
-    fetch(`/admin/question/normal/toggle-multiple/${questionId}`, {
-        method: 'PATCH',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('중복 선택 가능 상태 토글 실패');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('중복 선택 가능 상태가 성공적으로 토글되었습니다:', data);
-        })
-        .catch(error => {
-            console.error('중복 선택 가능 상태 토글 중 오류 발생:', error);
-        });
-}
 
 function toggleCategory(categoryName) {
     var questionList = document.getElementById('questions-' + categoryName);
@@ -51,7 +10,7 @@ function toggleCategory(categoryName) {
 
 function deleteQuestion(questionId) {
     if (confirm("정말로 이 질문을 삭제하시겠습니까?")) {
-        fetch(`/admin/question/normal/${questionId}`, {
+        fetch(`/admin/question/license/${questionId}`, {
             method: 'DELETE',
         })
             .then(response => {

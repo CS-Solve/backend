@@ -10,11 +10,14 @@ public enum QuestionCategory {
     OOP("객체 지향",false),
     DESIGN_PATTERN("디자인 패턴",false),
     JAVA("Java",true),
-    SOFTWARE_DESIGN("소프트웨어 설계", true),
-    SOFTWARE_DEVELOPMENT("소프트웨어 개발",true),
-    DATABASE_DESIGN("데이터베이스 구축",true),
-    PROGRAMMING_LANGUAGE("프로그래밍 언어 활용",true),
-    INFORMATION_SECURITY("정보시스템 구축관리",true);
+    SOFTWARE_DESIGN("소프트웨어 설계", false),
+    SOFTWARE_DEVELOPMENT("소프트웨어 개발",false),
+    DATABASE_DESIGN("데이터베이스 구축",false),
+    PROGRAMMING_LANGUAGE("프로그래밍 언어 활용",false),
+    INFORMATION_SECURITY("정보시스템 구축관리",false),
+    DATA_MODELING("데이터 모델링에 대한 이해",false),
+    SQL_UTILIZE("SQL 기본 및 활용",false);
+
 
 
     private final String korean;

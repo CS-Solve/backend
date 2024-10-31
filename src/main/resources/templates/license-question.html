@@ -26,8 +26,8 @@
 <div class="quiz">
     <!-- 상단 제목 -->
     <!--    <div class="logo-box">Com Ssa</div>-->
-
-
+    <h1 class="session-box" th:text="${licenseSession.licenseCategory} + ' - ' + ${licenseSession.content}+ ' / 복원 문제는 오류가 있을 수 있습니다.'"></h1>
+    </h1>
     <div class="left-sidebar">
         <p>총 문제 수: <span id="totalQuestionsCount">0</span></p>
         <!--        <p>맞은 문제: <span id="correctQuestions">0</span></p>-->
@@ -57,7 +57,7 @@
                         <div class="questionResult"></div> <!-- 정답/오답 여부를 여기에 표시 -->
                     </div>
                     <div class="questions">
-                        <p class="questionItem" th:text="${question.content}">
+                        <p class="questionItem" id ="questionItem" th:text="${question.content}">
                             <div th:if="${question.imageUrl != null}">
                                 <img th:src="${question.imageUrl}" alt="Question Image" class="question-image"/>
                             </div>
