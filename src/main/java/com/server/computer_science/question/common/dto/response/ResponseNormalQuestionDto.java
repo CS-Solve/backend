@@ -1,6 +1,8 @@
 package com.server.computer_science.question.common.dto.response;
 
 
+import com.server.computer_science.question.common.domain.Question;
+import com.server.computer_science.question.common.domain.QuestionChoice;
 import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;
 import com.server.computer_science.question.normal_question.admin.dto.ResponseNormalQuestionDtoForAdmin;
 import com.server.computer_science.question.common.domain.QuestionCategory;
@@ -11,6 +13,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
@@ -24,17 +27,17 @@ public class ResponseNormalQuestionDto {
     private QuestionCategory questionCategory;
     private QuestionLevel questionLevel;
     private List<ResponseNormalQuestionChoiceDto> questionChoices;
-
-
     /**
      * 유저와 관리자에 따라 다른 정적팩토리 메소드를 사용한다
      */
-    public static ResponseNormalQuestionDto forUser(NormalQuestion question){
+    public static <T extends Question>ResponseNormalQuestionDto forUser(
+            T question,
+            List<? extends QuestionChoice> choiceExtractor){
         return ResponseNormalQuestionDto.builder()
                 .id(question.getId())
                 .content(question.getContent())
                 .questionChoices(
-                        question.getQuestionChoices()
+                        choiceExtractor
                                 .stream()
                                 .map(ResponseNormalQuestionChoiceDto::of)
                                 .collect(Collectors.toList())
@@ -42,25 +45,25 @@ public class ResponseNormalQuestionDto {
                 .questionCategory(question.getQuestionCategory())
                 .questionLevel(question.getQuestionLevel())
                 .description(question.getDescription())
-                .build();
-    }
-    public static ResponseNormalQuestionDto forUser(LicenseNormalQuestion question){
-        return ResponseNormalQuestionDto.builder()
-                .id(question.getId())
-                .content(question.getContent())
-                .questionChoices(
-                        question.getNormalQuestionChoices()
-                                .stream()
-                                .map(ResponseNormalQuestionChoiceDto::of)
-                                .collect(Collectors.toList())
-                )
-                .questionCategory(question.getQuestionCategory())
-                .questionLevel(question.getQuestionLevel())
                 .imageUrl(question.getImageUrl())
-                .description(question.getDescription())
                 .build();
     }
-
+//    public static ResponseNormalQuestionDto forUser(LicenseNormalQuestion question){
+//        return ResponseNormalQuestionDto.builder()
+//                .id(question.getId())
+//                .content(question.getContent())
+//                .questionChoices(
+//                        question.getNormalQuestionChoices()
+//                                .stream()
+//                                .map(ResponseNormalQuestionChoiceDto::of)
+//                                .collect(Collectors.toList())
+//                )
+//                .questionCategory(question.getQuestionCategory())
+//                .questionLevel(question.getQuestionLevel())
+//                .imageUrl(question.getImageUrl())
+//                .description(question.getDescription())
+//                .build();
+//    }
     /**
      * 차이점은 NormalQuesiton시 주관식 가능 여부와, 허용됐는지 여부 변수의 존재 여부다
      */

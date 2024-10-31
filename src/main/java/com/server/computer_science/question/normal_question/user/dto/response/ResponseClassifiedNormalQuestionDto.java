@@ -26,7 +26,9 @@ public class ResponseClassifiedNormalQuestionDto {
                 .questionCategory(questionCategory)
                 .responseNormalQuestionDtoList(
                         normalQuestions.stream()
-                                .map(ResponseNormalQuestionDto::forUser)
+                                .map(question -> ResponseNormalQuestionDto.forUser(
+                                        question,question.getQuestionChoices()
+                                ))
                                 .collect(Collectors.toList())
                 )
                 .build();
@@ -38,7 +40,9 @@ public class ResponseClassifiedNormalQuestionDto {
                 .questionCategory(questionCategory)
                 .responseNormalQuestionDtoList(
                         normalQuestions.stream()
-                                .map(ResponseNormalQuestionDto::forUser)
+                                .map(question -> ResponseNormalQuestionDto.forUser(
+                                        question,question.getNormalQuestionChoices()
+                                ))
                                 .collect(Collectors.toList())
                 )
                 .build();

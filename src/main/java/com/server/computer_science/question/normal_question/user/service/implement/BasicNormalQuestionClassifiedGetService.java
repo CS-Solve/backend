@@ -32,7 +32,7 @@ public class BasicNormalQuestionClassifiedGetService implements NormalQuestionCl
         for(NormalQuestion normalQuestion : normalQuestions){
             Collections.shuffle(normalQuestion.getQuestionChoices());
         }
-        return questionClassifyByCategoryService.classifyNormalQuestionByCategoryOrdered(normalQuestions)
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(normalQuestions)
                 .entrySet().stream()
                 .map(entry-> ResponseClassifiedNormalQuestionDto.normalQuestionForUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
@@ -46,7 +46,7 @@ public class BasicNormalQuestionClassifiedGetService implements NormalQuestionCl
         List<NormalQuestion> normalQuestions = normalQuestionDBService.findAllFetchChoicesByCategoriesAndLevelsApprovedAndShortAnswered(
                 requestGetNormalQuestionsDto.getQuestionCategories(),
                 requestGetNormalQuestionsDto.getQuestionLevels());
-        return questionClassifyByCategoryService.classifyNormalQuestionByCategoryOrdered(normalQuestions)
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(normalQuestions)
                 .entrySet().stream()
                 .map(entry-> ResponseClassifiedNormalQuestionDto.normalQuestionForUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
@@ -58,7 +58,7 @@ public class BasicNormalQuestionClassifiedGetService implements NormalQuestionCl
     @Override
     public List<ResponseClassifiedNormalQuestionDto> getClassifiedAllNormalQuestions() {
         List<NormalQuestion> normalQuestions = normalQuestionDBService.findAllFetchChoices();
-        return questionClassifyByCategoryService.classifyNormalQuestionByCategoryOrdered(normalQuestions)
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(normalQuestions)
                 .entrySet().stream()
                 .map(entry-> ResponseClassifiedNormalQuestionDto.normalQuestionForUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());

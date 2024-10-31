@@ -47,4 +47,11 @@ public class LicenseNormalQuestion extends Question {
         licenseNormalQuestion.initDefaults();
         return licenseNormalQuestion;
     }
+    /**
+     * Dto 반환시 Generic을 쓰기위해 상위 추상 클래스에 포함한 메소드
+     */
+    @Override
+    public Long getId() {
+        return id;
+    }
 }

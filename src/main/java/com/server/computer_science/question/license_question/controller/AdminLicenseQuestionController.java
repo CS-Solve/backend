@@ -4,6 +4,7 @@ package com.server.computer_science.question.license_question.controller;
 import com.server.computer_science.question.license_question.dto.request.RequestMakeNormalLicenseQuestionDto;
 import com.server.computer_science.question.license_question.service.LicenseQuestionMakeService;
 import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
+import com.server.computer_science.question.license_question.service.LicenseQuestionUpdateService;
 import com.server.computer_science.question.normal_question.admin.dto.RequestChangeContentDto;
 import com.server.computer_science.question.normal_question.admin.dto.RequestChangeDescriptionDto;
 import io.swagger.annotations.Api;
@@ -21,6 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminLicenseQuestionController {
     private final LicenseQuestionMakeService licenseQuestionMakeService;
+    private final LicenseQuestionUpdateService licenseQuestionUpdateService;
 
     @ApiOperation("단답형 문제 세션으로 생성")
     @PostMapping
@@ -55,7 +57,7 @@ public class AdminLicenseQuestionController {
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> changeDescription(
             @PathVariable("id")Long questionId) {
-        licenseQuestionMakeService.deleteLicenseQuestion(questionId);
+        licenseQuestionUpdateService.deleteQuestion(questionId);
         return ResponseEntity.noContent().build();
     }
 

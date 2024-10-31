@@ -1,6 +1,7 @@
 package com.server.computer_science.question.common.dto.response;
 
 
+import com.server.computer_science.question.common.domain.QuestionChoice;
 import com.server.computer_science.question.license_question.domain.LicenseNormalQuestionChoice;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestionChoice;
 import lombok.Builder;
@@ -16,21 +17,13 @@ public class ResponseNormalQuestionChoiceDto {
     private int selectedCount;
     private boolean answerStatus;
 
-    public static ResponseNormalQuestionChoiceDto of(NormalQuestionChoice normalQuestionChoice) {
+    public static <T extends QuestionChoice> ResponseNormalQuestionChoiceDto of(T questionChoice) {
         return ResponseNormalQuestionChoiceDto.builder()
-                .text(normalQuestionChoice.getText())
-                .selectedCount(normalQuestionChoice.getSelectedCount())
-                .answerStatus(normalQuestionChoice.isAnswerStatus())
+                .text(questionChoice.getText())
+                .selectedCount(questionChoice.getSelectedCount())
+                .answerStatus(questionChoice.isAnswerStatus())
                 .build();
     }
-    public static ResponseNormalQuestionChoiceDto of(LicenseNormalQuestionChoice normalQuestionChoice) {
-        return ResponseNormalQuestionChoiceDto.builder()
-                .text(normalQuestionChoice.getText())
-                .selectedCount(normalQuestionChoice.getSelectedCount())
-                .answerStatus(normalQuestionChoice.isAnswerStatus())
-                .build();
-    }
-
 
     @Builder
     public ResponseNormalQuestionChoiceDto(String text, int selectedCount, boolean answerStatus) {
