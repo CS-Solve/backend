@@ -2,8 +2,6 @@ package com.server.computer_science.question.normal_question.admin.controller;
 
 
 import com.server.computer_science.question.normal_question.admin.service.implement.BasicAdminNormalQuestionClassifiedGetService;
-import com.server.computer_science.question.normal_question.admin.service.implement.BasicAdminNormalQuestionUpdateService;
-import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;

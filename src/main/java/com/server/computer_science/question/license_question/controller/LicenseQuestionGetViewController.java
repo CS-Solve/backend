@@ -62,6 +62,4 @@ public class LicenseQuestionGetViewController {
         return ResponseEntity.ok(licenseQuestionGetService.getClassifiedLicenseNormalQuestion(sessionId));
     }
 
-
-
 }

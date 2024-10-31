@@ -22,7 +22,7 @@ public class BasicAdminNormalQuestionClassifiedGetService implements NormalQuest
     @Override
     public List<ResponseClassifiedNormalQuestionDto> getClassifiedNormalQuestions(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
         List<NormalQuestion> normalQuestions = normalQuestionDBService.getFetchChoicesByCategoriesAndLevels(requestGetNormalQuestionsDto.getQuestionCategories(),requestGetNormalQuestionsDto.getQuestionLevels());
-        return questionClassifyByCategoryService.classifyNormalQuestionByCategoryOrdered(normalQuestions)
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(normalQuestions)
                 .entrySet().stream()
                 .map(entry-> ResponseClassifiedNormalQuestionDto.forAdmin(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
@@ -36,7 +36,7 @@ public class BasicAdminNormalQuestionClassifiedGetService implements NormalQuest
     @Override
     public List<ResponseClassifiedNormalQuestionDto> getClassifiedAllNormalQuestions() {
         List<NormalQuestion> normalQuestions = normalQuestionDBService.findAllFetchChoicesSortedByApproveAndShortAnswered();
-        return questionClassifyByCategoryService.classifyNormalQuestionByCategoryOrdered(normalQuestions)
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(normalQuestions)
                 .entrySet().stream()
                 .map(entry-> ResponseClassifiedNormalQuestionDto.forAdmin(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
@@ -45,7 +45,7 @@ public class BasicAdminNormalQuestionClassifiedGetService implements NormalQuest
     @Override
     public List<ResponseClassifiedNormalQuestionDto> getClassifiedShortAnsweredNormalQuestions(RequestGetNormalQuestionsDto requestGetNormalQuestionsDto) {
         List<NormalQuestion> normalQuestions = normalQuestionDBService.findAllFetchChoicesShortAnswered();
-        return questionClassifyByCategoryService.classifyNormalQuestionByCategoryOrdered(normalQuestions)
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(normalQuestions)
                 .entrySet().stream()
                 .map(entry-> ResponseClassifiedNormalQuestionDto.forAdmin(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());

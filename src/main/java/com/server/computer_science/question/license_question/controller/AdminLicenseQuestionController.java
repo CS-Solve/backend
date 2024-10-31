@@ -4,7 +4,7 @@ package com.server.computer_science.question.license_question.controller;
 import com.server.computer_science.question.license_question.dto.request.RequestMakeNormalLicenseQuestionDto;
 import com.server.computer_science.question.license_question.service.LicenseQuestionMakeService;
 import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
-import com.server.computer_science.question.license_question.service.LicenseQuestionUpdateService;
+import com.server.computer_science.question.license_question.service.AdminLicenseNormalQuestionUpdateService;
 import com.server.computer_science.question.normal_question.admin.dto.RequestChangeContentDto;
 import com.server.computer_science.question.normal_question.admin.dto.RequestChangeDescriptionDto;
 import io.swagger.annotations.Api;
@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminLicenseQuestionController {
     private final LicenseQuestionMakeService licenseQuestionMakeService;
-    private final LicenseQuestionUpdateService licenseQuestionUpdateService;
+    private final AdminLicenseNormalQuestionUpdateService adminLicenseNormalQuestionUpdateService;
 
     @ApiOperation("단답형 문제 세션으로 생성")
     @PostMapping
@@ -42,7 +42,7 @@ public class AdminLicenseQuestionController {
     public ResponseEntity<ResponseNormalQuestionDto> changeContent(
             @PathVariable("id")Long questionId,
             @RequestBody RequestChangeContentDto requestChangeContentDto) {
-        return ResponseEntity.ok(licenseQuestionMakeService.changeContent(questionId, requestChangeContentDto));
+        return ResponseEntity.ok(ResponseNormalQuestionDto.forAdmin(adminLicenseNormalQuestionUpdateService.changeContent(questionId,requestChangeContentDto)));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - 문제 해설 업데이트")
@@ -50,14 +50,14 @@ public class AdminLicenseQuestionController {
     public ResponseEntity<ResponseNormalQuestionDto> changeDescription(
             @PathVariable("id")Long questionId,
             @RequestBody RequestChangeDescriptionDto changeDescriptionDto) {
-        return ResponseEntity.ok(licenseQuestionMakeService.changeDescription(questionId, changeDescriptionDto));
+        return ResponseEntity.ok(ResponseNormalQuestionDto.forAdmin(adminLicenseNormalQuestionUpdateService.changeDescription(questionId,changeDescriptionDto)));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - 문제 삭제")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> changeDescription(
             @PathVariable("id")Long questionId) {
-        licenseQuestionUpdateService.deleteQuestion(questionId);
+        adminLicenseNormalQuestionUpdateService.deleteQuestion(questionId);
         return ResponseEntity.noContent().build();
     }
 

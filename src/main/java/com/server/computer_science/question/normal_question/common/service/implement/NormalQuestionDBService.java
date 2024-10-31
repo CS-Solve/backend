@@ -20,6 +20,11 @@ public class NormalQuestionDBService {
     /**
      * 허용되지 않은 모든 문제까지 조회 (주로 관리자)
      */
+    // 기본 개별 조회
+    public NormalQuestion findById(Long id) {
+        return normalQuestionRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    }
+
     // 카테고리, 레벨로 조회 - 선택지까지
     public List<NormalQuestion> getFetchChoicesByCategoriesAndLevels(List<QuestionCategory> categories, List<QuestionLevel> questionLevels){
         return normalQuestionRepository.findFetchChoicesWithCategoriesAndLevels(categories,questionLevels);
@@ -40,10 +45,15 @@ public class NormalQuestionDBService {
     public NormalQuestion findByIdFetchChoices(Long id){
         return normalQuestionRepository.findByIdFetchChoices(id).orElseThrow(NoSuchElementException::new);
     }
+    // id로 삭제
+    public void deleteById(Long id){
+        normalQuestionRepository.deleteById(id);
+    }
     // 개별 삭제
     public void deleteNormalQuestion(NormalQuestion normalQuestion){
         normalQuestionRepository.delete(normalQuestion);
     }
+
 
 
 

@@ -4,7 +4,7 @@ import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.computer_science.question.normal_question.admin.controller.AdminNormalQuestionController;
-import com.server.computer_science.question.normal_question.admin.service.AdminNormalQuestionUpdateService;
+import com.server.computer_science.question.normal_question.admin.service.implement.AdminNormalQuestionUpdateService;
 import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
 import com.server.computer_science.question.normal_question.common.service.NormalQuestionClassifiedGetService;
 import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
