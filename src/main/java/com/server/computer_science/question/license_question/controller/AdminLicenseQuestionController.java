@@ -51,5 +51,13 @@ public class AdminLicenseQuestionController {
         return ResponseEntity.ok(licenseQuestionMakeService.changeDescription(questionId, changeDescriptionDto));
     }
 
+    @ApiOperation("단답형 문제 상태 업데이트 - 문제 삭제")
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> changeDescription(
+            @PathVariable("id")Long questionId) {
+        licenseQuestionMakeService.deleteLicenseQuestion(questionId);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }

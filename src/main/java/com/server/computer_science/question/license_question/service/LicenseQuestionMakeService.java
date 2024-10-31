@@ -73,5 +73,10 @@ public class LicenseQuestionMakeService {
         return ResponseNormalQuestionDto.forAdmin(licenseNormalQuestion);
     }
 
+    public void deleteLicenseQuestion(Long questionId){
+        LicenseNormalQuestion licenseNormalQuestion = licenseNormalQuestionRepository.findById(questionId).orElse(null);
+        licenseNormalQuestionRepository.delete(licenseNormalQuestion);
+    }
+
 
 }
