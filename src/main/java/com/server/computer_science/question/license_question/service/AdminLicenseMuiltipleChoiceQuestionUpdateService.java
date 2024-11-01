@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class AdminLicenseQuestionUpdateService implements QuestionUpdateService<LicenseMultipleChoiceQuestion> {
+public class AdminLicenseMuiltipleChoiceQuestionUpdateService implements QuestionUpdateService<LicenseMultipleChoiceQuestion> {
     private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
 
     @Override
@@ -20,6 +20,6 @@ public class AdminLicenseQuestionUpdateService implements QuestionUpdateService<
 
     @Override
     public LicenseMultipleChoiceQuestion findById(Long questionId) {
-        return licenseMultipleChoiceQuestionRepository.findById(questionId).orElse(null);
+        return licenseMultipleChoiceQuestionRepository.findByIdFetchChoices(questionId).orElse(null);
     }
 }

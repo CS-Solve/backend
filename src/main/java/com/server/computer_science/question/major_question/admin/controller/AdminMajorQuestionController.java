@@ -5,7 +5,7 @@ import com.server.computer_science.question.common.dto.request.RequestChangeDesc
 import com.server.computer_science.question.common.dto.request.RequestChangeContentDto;
 import com.server.computer_science.question.major_question.admin.dto.ResponseMajorQuestionForAdminDto;
 import com.server.computer_science.question.major_question.admin.service.AdminMajorQuestionMakeService;
-import com.server.computer_science.question.major_question.admin.service.implement.AdminMajorQuestionUpdateService;
+import com.server.computer_science.question.major_question.admin.service.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.server.computer_science.question.major_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import com.server.computer_science.question.major_question.common.service.MajorQuestionClassifiedGetService;
@@ -29,7 +29,7 @@ public class AdminMajorQuestionController {
     @Qualifier("basicAdminNormalQuestionClassifiedGetService")
     private final MajorQuestionClassifiedGetService majorQuestionClassifiedGetService;
     private final AdminMajorQuestionMakeService adminMajorQuestionMakeService;
-    private final AdminMajorQuestionUpdateService adminMajorQuestionUpdateService;
+    private final AdminMajorMultipleChoiceQuestionUpdateService adminMajorMultipleChoiceQuestionUpdateService;
 
     @ApiOperation("단답형 문제 조회")
     @GetMapping("/question/normal")
@@ -52,19 +52,19 @@ public class AdminMajorQuestionController {
     @ApiOperation("단답형 문제 상태 업데이트 - Approve 토글")
     @PatchMapping(value = "/question/normal/toggle-approve/{id}")
     public ResponseEntity<ResponseQuestionDto> toggleApproveNormalQuestion(@PathVariable("id")Long questionId) {
-        return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(adminMajorQuestionUpdateService.toggleApproveNormalQuestion(questionId)));
+        return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(adminMajorMultipleChoiceQuestionUpdateService.toggleApproveNormalQuestion(questionId)));
     }
     @ApiOperation("단답형 문제 상태 업데이트 - 단답형-주관식 토글")
     @PatchMapping(value = "/question/normal/toggle-multiple/{id}")
     public ResponseEntity<ResponseQuestionDto> toggleCanBeShortAnswered(@PathVariable("id")Long questionId) {
-        return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(adminMajorQuestionUpdateService.toggleCanBeShortAnswered(questionId)));
+        return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(adminMajorMultipleChoiceQuestionUpdateService.toggleCanBeShortAnswered(questionId)));
     }
     @ApiOperation("단답형 문제 상태 업데이트 - 문제 업데이트")
     @PatchMapping(value = "/question/normal/{id}/question")
     public ResponseEntity<ResponseQuestionDto> changeQuestion(
             @PathVariable("id")Long questionId,
             @RequestBody RequestChangeContentDto requestChangeContentDto) {
-        return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(adminMajorQuestionUpdateService.changeContent(questionId, requestChangeContentDto)));
+        return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(adminMajorMultipleChoiceQuestionUpdateService.changeContent(questionId, requestChangeContentDto)));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - 해설 업데이트")
@@ -73,13 +73,13 @@ public class AdminMajorQuestionController {
             @PathVariable("id")Long questionId,
             @RequestBody RequestChangeDescriptionDto requestChangeDescriptionDto
             ) {
-        return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(adminMajorQuestionUpdateService.changeDescription(questionId,requestChangeDescriptionDto)));
+        return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(adminMajorMultipleChoiceQuestionUpdateService.changeDescription(questionId,requestChangeDescriptionDto)));
     }
 
     @ApiOperation("단답형 문제 삭제")
     @DeleteMapping(value ="/question/normal/{id}")
     public ResponseEntity<Void> deleteNormalQuestion(@PathVariable("id")Long questionId) {
-        adminMajorQuestionUpdateService.deleteQuestion(questionId);
+        adminMajorMultipleChoiceQuestionUpdateService.deleteQuestion(questionId);
         return ResponseEntity.noContent().build();
     }
 

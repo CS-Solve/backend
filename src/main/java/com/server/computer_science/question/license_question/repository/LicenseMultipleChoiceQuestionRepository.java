@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LicenseMultipleChoiceQuestionRepository extends JpaRepository<LicenseMultipleChoiceQuestion, Long> {
@@ -15,4 +16,9 @@ public interface LicenseMultipleChoiceQuestionRepository extends JpaRepository<L
             "LEFT JOIN FETCH lnq.questionChoices " +
             "WHERE lnq.licenseSession.id = :licenseSessionId ")
     List<LicenseMultipleChoiceQuestion> findAllByLicenseSessionIdFetchChoices(@Param("licenseSessionId") Long licenseSessionId);
+
+    @Query("SELECT lnq FROM LicenseMultipleChoiceQuestion  lnq " +
+            "LEFT JOIN FETCH lnq.questionChoices " +
+            "WHERE lnq.id = :questionId ")
+    Optional<LicenseMultipleChoiceQuestion> findByIdFetchChoices(@Param("questionId") Long questionId);
 }

@@ -19,7 +19,7 @@
 
     <!-- 질문 목록 -->
     <div th:id="'questions-'+${classifiedQuestion.questionCategory}">
-        <div th:each="question, iterStat : ${classifiedQuestion.responseNormalQuestionDtoList}"
+        <div th:each="question, iterStat : ${classifiedQuestion.responseQuestionDtoList}"
              th:id="'question-'+${question.id}" class="question-container">
 
             <!-- 질문 번호 표시 -->
