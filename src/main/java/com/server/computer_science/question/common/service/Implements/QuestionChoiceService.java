@@ -1,12 +1,12 @@
 package com.server.computer_science.question.common.service.Implements;
 
-import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;
-import com.server.computer_science.question.license_question.domain.LicenseNormalQuestionChoice;
-import com.server.computer_science.question.license_question.repository.LicenseNormalQuestionChoiceRepository;
-import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
-import com.server.computer_science.question.normal_question.common.domain.NormalQuestion;
-import com.server.computer_science.question.normal_question.common.domain.NormalQuestionChoice;
-import com.server.computer_science.question.normal_question.common.repository.NormalQuestionChoiceRepository;
+import com.server.computer_science.question.license_question.domain.LicenseMultipleChoiceQuestion;
+import com.server.computer_science.question.license_question.domain.LicenseQuestionChoice;
+import com.server.computer_science.question.license_question.repository.LicenseQuestionChoiceRepository;
+import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
+import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
+import com.server.computer_science.question.major_question.common.domain.MajorQuestionChoice;
+import com.server.computer_science.question.major_question.common.repository.MajorQuestionChoiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,19 +17,19 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class QuestionChoiceService {
-    private final NormalQuestionChoiceRepository normalQuestionChoiceRepository;
-    private final LicenseNormalQuestionChoiceRepository licenseNormalQuestionChoiceRepository;
+    private final MajorQuestionChoiceRepository majorQuestionChoiceRepository;
+    private final LicenseQuestionChoiceRepository licenseQuestionChoiceRepository;
 
-    public void saveWith(RequestMakeNormalQuestionDto dto, LicenseNormalQuestion licenseNormalQuestion){
-        licenseNormalQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
+    public void saveWith(RequestMakeMajorMultipleChoiceQuestionDto dto, LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion){
+        licenseQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
                 .stream()
-                .map(qc -> LicenseNormalQuestionChoice.fromLicenseNormalQuestion(qc,licenseNormalQuestion))
+                .map(qc -> LicenseQuestionChoice.from(qc, licenseMultipleChoiceQuestion))
                 .collect(Collectors.toList()));
     }
-    public void saveWith(RequestMakeNormalQuestionDto dto, NormalQuestion normalQuestion){
-        normalQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
+    public void saveWith(RequestMakeMajorMultipleChoiceQuestionDto dto, MajorMultipleChoiceQuestion majorMultipleChoiceQuestion){
+        majorQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
                 .stream()
-                .map(qc -> NormalQuestionChoice.fromNormalQuestion(qc,normalQuestion))
+                .map(qc -> MajorQuestionChoice.fromNormalQuestion(qc, majorMultipleChoiceQuestion))
                 .collect(Collectors.toList()));
     }
 

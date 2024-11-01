@@ -3,7 +3,7 @@ package com.server.computer_science.question.license_question.controller;
 import com.server.computer_science.question.license_question.dto.response.ResponseLicenseSessionDto;
 import com.server.computer_science.question.license_question.service.LicenseQuestionGetService;
 import com.server.computer_science.question.license_question.service.LicenseSessionService;
-import com.server.computer_science.question.normal_question.user.dto.response.ResponseClassifiedNormalQuestionDto;
+import com.server.computer_science.question.major_question.user.dto.response.ResponseClassifiedMultipleQuestionDto;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,7 +58,7 @@ public class LicenseQuestionGetViewController {
      */
     @GetMapping("/question/license/{sessionId}/rest")
     @ResponseBody
-    public ResponseEntity<List<ResponseClassifiedNormalQuestionDto>> getLicenseQuestionsJson(@PathVariable Long sessionId){
+    public ResponseEntity<List<ResponseClassifiedMultipleQuestionDto>> getLicenseQuestionsJson(@PathVariable Long sessionId){
         return ResponseEntity.ok(licenseQuestionGetService.getClassifiedLicenseNormalQuestion(sessionId));
     }
 

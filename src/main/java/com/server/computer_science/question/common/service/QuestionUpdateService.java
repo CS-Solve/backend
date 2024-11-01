@@ -1,10 +1,8 @@
 package com.server.computer_science.question.common.service;
 
 import com.server.computer_science.question.common.domain.Question;
-import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
-import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;
-import com.server.computer_science.question.normal_question.admin.dto.RequestChangeContentDto;
-import com.server.computer_science.question.normal_question.admin.dto.RequestChangeDescriptionDto;
+import com.server.computer_science.question.common.dto.request.RequestChangeContentDto;
+import com.server.computer_science.question.common.dto.request.RequestChangeDescriptionDto;
 
 public interface QuestionUpdateService<T extends Question> {
 
