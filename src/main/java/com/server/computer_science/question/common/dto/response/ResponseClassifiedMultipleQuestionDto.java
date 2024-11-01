@@ -20,7 +20,7 @@ public class ResponseClassifiedMultipleQuestionDto {
     private List<ResponseQuestionDto> responseQuestionDtoList;
 
     /**
-     * 일반 CS 문제 전용
+     * 유저 객관식 문제 전용
      */
     public static <T extends Question & ChoiceProvider> ResponseClassifiedMultipleQuestionDto forUser(QuestionCategory questionCategory, List<T> multipleChoiceQuestions) {
         return ResponseClassifiedMultipleQuestionDto.builder()
@@ -34,6 +34,9 @@ public class ResponseClassifiedMultipleQuestionDto {
                 )
                 .build();
     }
+    /**
+     * 관리자 객관식
+     */
     public static ResponseClassifiedMultipleQuestionDto forAdmin(QuestionCategory questionCategory, List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
         return ResponseClassifiedMultipleQuestionDto.builder()
                 .questionCategory(questionCategory)

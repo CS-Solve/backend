@@ -4,7 +4,7 @@ package com.server.computer_science.question.common.dto.response;
 import com.server.computer_science.question.common.domain.Question;
 import com.server.computer_science.question.common.domain.QuestionChoice;
 import com.server.computer_science.question.license_question.domain.LicenseMultipleChoiceQuestion;
-import com.server.computer_science.question.major_question.admin.dto.ResponseMajorQuestionForAdmin;
+import com.server.computer_science.question.major_question.admin.dto.ResponseMajorQuestionForAdminDto;
 import com.server.computer_science.question.common.domain.QuestionCategory;
 import com.server.computer_science.question.common.domain.QuestionLevel;
 import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
@@ -26,10 +26,8 @@ public class ResponseQuestionDto {
     private QuestionCategory questionCategory;
     private QuestionLevel questionLevel;
     private List<ResponseQuestionChoiceDto> questionChoices;
-    /**
-     * 유저와 관리자에 따라 다른 정적팩토리 메소드를 사용한다
-     */
-    public static <T extends Question> ResponseQuestionDto forUser(
+
+    public static <T extends Question> ResponseQuestionDto.ResponseQuestionDtoBuilder<?,?> common(
             T question,
             List<? extends QuestionChoice> choiceExtractor){
         return ResponseQuestionDto.builder()
@@ -44,43 +42,28 @@ public class ResponseQuestionDto {
                 .questionCategory(question.getQuestionCategory())
                 .questionLevel(question.getQuestionLevel())
                 .description(question.getDescription())
-                .imageUrl(question.getImageUrl())
+                .imageUrl(question.getImageUrl());
+    }
+    /**
+     * 유저와 관리자에 따라 다른 정적팩토리 메소드를 사용한다
+     */
+    public static <T extends Question> ResponseQuestionDto forUser(
+            T question,
+            List<? extends QuestionChoice> choiceExtractor){
+        return common(question, choiceExtractor)
                 .build();
     }
     /**
      * 차이점은 NormalQuesiton시 주관식 가능 여부와, 허용됐는지 여부 변수의 존재 여부다
      */
-    public static ResponseQuestionDto forAdmin(MajorMultipleChoiceQuestion question){
-        return ResponseMajorQuestionForAdmin.builder()
-                .id(question.getId())
-                .content(question.getContent())
-                .questionChoices(
-                        question.getQuestionChoices()
-                                .stream()
-                                .map(ResponseQuestionChoiceDto::of)
-                                .collect(Collectors.toList())
-                )
-                .questionCategory(question.getQuestionCategory())
-                .questionLevel(question.getQuestionLevel())
-                .description(question.getDescription())
-                .ifApproved(question.isIfApproved())
-                .canBeShortAnswered(question.isCanBeShortAnswered())
-                .build();
+    public static ResponseMajorQuestionForAdminDto forAdmin(MajorMultipleChoiceQuestion question){
+        ResponseMajorQuestionForAdminDto responseMajorQuestionForAdminDto =  (ResponseMajorQuestionForAdminDto) common(question,question.getQuestionChoices()).build();
+        responseMajorQuestionForAdminDto.setIfApproved(question.isIfApproved());
+        responseMajorQuestionForAdminDto.setCanBeShortAnswered(question.isCanBeShortAnswered());
+        return responseMajorQuestionForAdminDto;
     }
-    public static ResponseQuestionDto forAdmin(LicenseMultipleChoiceQuestion question){
-        return ResponseMajorQuestionForAdmin.builder()
-                .id(question.getId())
-                .content(question.getContent())
-                .questionChoices(
-                        question.getQuestionChoices()
-                                .stream()
-                                .map(ResponseQuestionChoiceDto::of)
-                                .collect(Collectors.toList())
-                )
-                .questionCategory(question.getQuestionCategory())
-                .questionLevel(question.getQuestionLevel())
-                .imageUrl(question.getImageUrl())
-                .description(question.getDescription())
+    public static ResponseQuestionDto forAdmin(LicenseMultipleChoiceQuestion question) {
+        return common(question, question.getQuestionChoices())
                 .build();
     }
 

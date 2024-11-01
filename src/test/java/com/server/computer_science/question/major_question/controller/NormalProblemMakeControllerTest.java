@@ -4,7 +4,7 @@ import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.computer_science.question.major_question.admin.controller.AdminMajorQuestionController;
-import com.server.computer_science.question.major_question.admin.service.implement.AdminNormalQuestionUpdateService;
+import com.server.computer_science.question.major_question.admin.service.implement.AdminMajorQuestionUpdateService;
 import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
 import com.server.computer_science.question.major_question.common.service.MajorQuestionClassifiedGetService;
 import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
@@ -48,7 +48,7 @@ class NormalProblemMakeControllerTest {
     @MockBean
     private AdminMajorQuestionMakeService adminMajorQuestionMakeService;
     @MockBean
-    private AdminNormalQuestionUpdateService adminNormalQuestionUpdateService;
+    private AdminMajorQuestionUpdateService adminMajorQuestionUpdateService;
     @MockBean
     @Qualifier("basicAdminNormalQuestionClassifiedGetService")  // Qualifier 지정
     private MajorQuestionClassifiedGetService majorQuestionClassifiedGetService;

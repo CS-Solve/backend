@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class AdminNormalQuestionUpdateService implements QuestionUpdateService<MajorMultipleChoiceQuestion> {
+public class AdminMajorQuestionUpdateService implements QuestionUpdateService<MajorMultipleChoiceQuestion> {
     private final MajorMultipleChoiceQuestionDBService majorMultipleChoiceQuestionDBService;
 
     public MajorMultipleChoiceQuestion toggleApproveNormalQuestion(Long questionId) {
