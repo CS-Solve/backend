@@ -16,23 +16,26 @@ public enum QuestionCategory {
     PROGRAMMING_LANGUAGE("프로그래밍 언어 활용",false),
     INFORMATION_SECURITY("정보시스템 구축관리",false),
     DATA_MODELING("데이터 모델링에 대한 이해",false),
-    SQL_UTILIZE("SQL 기본 및 활용",false);
+    SQL_UTILIZE("SQL 기본 및 활용",false),
+    DATA_UNDERSTANDING("데이터의 이해",false),
+    DATA_ANALYSIS_PLANNING("데이터 분석 기회",false),
+    DATA_ANALYSIS("데이터 분석",false);
 
 
 
     private final String korean;
-    private final boolean canBeShow;
+    private final boolean canBeShownInMajor;
 
-    QuestionCategory(String korean, boolean canBeShow) {
+    QuestionCategory(String korean, boolean canBeShownInMajor) {
         this.korean = korean;
-        this.canBeShow = canBeShow;
+        this.canBeShownInMajor = canBeShownInMajor;
     }
 
     public String getKorean() {
         return korean;
     }
 
-    public boolean isCanBeShow() {
-        return canBeShow;
+    public boolean isCanBeShownInMajor() {
+        return canBeShownInMajor;
     }
 }
