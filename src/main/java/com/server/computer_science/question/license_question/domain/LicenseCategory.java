@@ -5,7 +5,8 @@ import java.util.Optional;
 
 public enum LicenseCategory {
     SQLD("SQLD"),
-    ENGINEER("정보처리기사");
+    ENGINEER("정보처리기사"),
+    ADSP("ADSP");
 
     private final String korean;
 

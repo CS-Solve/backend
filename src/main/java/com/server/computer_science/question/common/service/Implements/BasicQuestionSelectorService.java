@@ -9,7 +9,6 @@ import com.server.computer_science.question.license_question.repository.LicenseS
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ public class BasicQuestionSelectorService implements QuestionSelectorService {
     @Override
     public List<String> getCategories() {
         return Arrays.stream(QuestionCategory.values())
-                .filter(QuestionCategory::isCanBeShow)
+                .filter(QuestionCategory::isCanBeShownInMajor)
                 .map(QuestionCategory::getKorean)
                 .collect(Collectors.toList());
     }
