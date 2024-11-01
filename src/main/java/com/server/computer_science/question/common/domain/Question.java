@@ -21,6 +21,8 @@ public abstract class Question {
     protected String description;
     protected String imageUrl;
 
+    public abstract Long getId();
+
     public void changeDescription(String description) {
         this.description = description;
     }

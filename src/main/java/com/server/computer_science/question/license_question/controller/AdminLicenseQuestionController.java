@@ -1,11 +1,12 @@
 package com.server.computer_science.question.license_question.controller;
 
 
-import com.server.computer_science.question.license_question.dto.request.RequestMakeNormalLicenseQuestionDto;
+import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
+import com.server.computer_science.question.license_question.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import com.server.computer_science.question.license_question.service.LicenseQuestionMakeService;
-import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
-import com.server.computer_science.question.normal_question.admin.dto.RequestChangeContentDto;
-import com.server.computer_science.question.normal_question.admin.dto.RequestChangeDescriptionDto;
+import com.server.computer_science.question.license_question.service.AdminLicenseQuestionUpdateService;
+import com.server.computer_science.question.common.dto.request.RequestChangeContentDto;
+import com.server.computer_science.question.common.dto.request.RequestChangeDescriptionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +22,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminLicenseQuestionController {
     private final LicenseQuestionMakeService licenseQuestionMakeService;
+    private final AdminLicenseQuestionUpdateService adminLicenseQuestionUpdateService;
 
     @ApiOperation("단답형 문제 세션으로 생성")
     @PostMapping
-    public ResponseEntity<List<ResponseNormalQuestionDto>> makeLicenseQuestionOfSession(@RequestBody RequestMakeNormalLicenseQuestionDto requestMakeNormalLicenseQuestionDto){
-        return ResponseEntity.ok(licenseQuestionMakeService.makeLicenseNormalQuestion(requestMakeNormalLicenseQuestionDto));
+    public ResponseEntity<List<ResponseQuestionDto>> makeLicenseQuestionOfSession(@RequestBody RequestMakeLicenseMultipleChoiceQuestionDto requestMakeLicenseMultipleChoiceQuestionDto){
+        return ResponseEntity.ok(licenseQuestionMakeService.makeLicenseNormalQuestion(requestMakeLicenseMultipleChoiceQuestionDto));
     }
 
     @ApiOperation("단답형 문제 이미지 업로드")
@@ -37,27 +39,26 @@ public class AdminLicenseQuestionController {
 
     @ApiOperation("단답형 문제 상태 업데이트 - 문제 지문 업데이트")
     @PatchMapping(value = "/{id}/content")
-    public ResponseEntity<ResponseNormalQuestionDto> changeContent(
+    public ResponseEntity<ResponseQuestionDto> changeContent(
             @PathVariable("id")Long questionId,
             @RequestBody RequestChangeContentDto requestChangeContentDto) {
-        return ResponseEntity.ok(licenseQuestionMakeService.changeContent(questionId, requestChangeContentDto));
+        return ResponseEntity.ok(ResponseQuestionDto.forAdmin(adminLicenseQuestionUpdateService.changeContent(questionId,requestChangeContentDto)));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - 문제 해설 업데이트")
     @PatchMapping(value = "/{id}/description")
-    public ResponseEntity<ResponseNormalQuestionDto> changeDescription(
+    public ResponseEntity<ResponseQuestionDto> changeDescription(
             @PathVariable("id")Long questionId,
             @RequestBody RequestChangeDescriptionDto changeDescriptionDto) {
-        return ResponseEntity.ok(licenseQuestionMakeService.changeDescription(questionId, changeDescriptionDto));
+        return ResponseEntity.ok(ResponseQuestionDto.forAdmin(adminLicenseQuestionUpdateService.changeDescription(questionId,changeDescriptionDto)));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - 문제 삭제")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> changeDescription(
             @PathVariable("id")Long questionId) {
-        licenseQuestionMakeService.deleteLicenseQuestion(questionId);
+        adminLicenseQuestionUpdateService.deleteQuestion(questionId);
         return ResponseEntity.noContent().build();
     }
-
 
 }

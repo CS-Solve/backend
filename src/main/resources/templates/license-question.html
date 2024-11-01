@@ -26,7 +26,7 @@
 <div class="quiz">
     <!-- 상단 제목 -->
     <!--    <div class="logo-box">Com Ssa</div>-->
-    <h1 class="session-box" th:text="${licenseSession.licenseCategory} + ' - ' + ${licenseSession.content}+ ' / 복원 문제는 오류가 있을 수 있습니다.'"></h1>
+    <h1 class="session-box" th:text="${licenseSession.licenseCategory.korean} + ' - ' + ${licenseSession.content}+ ' / 복원 문제는 오류가 있을 수 있습니다.'"></h1>
     </h1>
     <div class="left-sidebar">
         <p>총 문제 수: <span id="totalQuestionsCount">0</span></p>
@@ -44,7 +44,7 @@
             <div class="categoryTitleBox">
                 <div class="category-text" th:text ="${category.questionCategory.korean}">문제 분야</div>
             </div>
-            <div class="question-box" th:each="question, iterStat : ${category.responseNormalQuestionDtoList}"
+            <div class="question-box" th:each="question, iterStat : ${category.responseQuestionDtoList}"
                  th:data-question-index="${iterStat.index}">
                 <div class="each-question" th:data-description="${question.description}">
                     <div class="question-meta-data">

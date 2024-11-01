@@ -22,7 +22,7 @@ public class LicenseSession {
     protected LicenseCategory licenseCategory;
 
     @OneToMany(mappedBy = "licenseSession",cascade = CascadeType.PERSIST, orphanRemoval = false)
-    private List<LicenseNormalQuestion> licenseNormalQuestions;
+    private List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions;
 
 
     @Builder

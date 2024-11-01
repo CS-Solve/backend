@@ -1,16 +1,14 @@
 package com.server.computer_science.question.license_question.service;
 
+import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
 import com.server.computer_science.question.common.service.FileUploadService;
 import com.server.computer_science.question.license_question.domain.LicenseCategory;
-import com.server.computer_science.question.license_question.domain.LicenseNormalQuestion;
+import com.server.computer_science.question.license_question.domain.LicenseMultipleChoiceQuestion;
 import com.server.computer_science.question.license_question.domain.LicenseSession;
-import com.server.computer_science.question.license_question.dto.request.RequestMakeNormalLicenseQuestionDto;
-import com.server.computer_science.question.license_question.repository.LicenseNormalQuestionRepository;
-import com.server.computer_science.question.normal_question.admin.dto.RequestChangeContentDto;
-import com.server.computer_science.question.normal_question.admin.dto.RequestChangeDescriptionDto;
-import com.server.computer_science.question.normal_question.admin.dto.RequestMakeNormalQuestionDto;
+import com.server.computer_science.question.license_question.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
+import com.server.computer_science.question.license_question.repository.LicenseMultipleChoiceQuestionRepository;
+import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import com.server.computer_science.question.common.service.Implements.QuestionChoiceService;
-import com.server.computer_science.question.common.dto.response.ResponseNormalQuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,33 +23,33 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class LicenseQuestionMakeService {
     private final LicenseSessionService licenseSessionService;
-    private final LicenseNormalQuestionRepository licenseNormalQuestionRepository;
+    private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
     private final QuestionChoiceService questionChoiceService;
     private final FileUploadService fileUploadService;
-    public List<ResponseNormalQuestionDto> makeLicenseNormalQuestion(RequestMakeNormalLicenseQuestionDto requestMakeNormalLicenseQuestionDto){
+    public List<ResponseQuestionDto> makeLicenseNormalQuestion(RequestMakeLicenseMultipleChoiceQuestionDto requestMakeLicenseMultipleChoiceQuestionDto){
         LicenseSession licenseSession = licenseSessionService.getLicenseSession(
-                requestMakeNormalLicenseQuestionDto.getLicenseSession(),
-                requestMakeNormalLicenseQuestionDto.getLicenseCategory());
-        List<RequestMakeNormalQuestionDto> questions = requestMakeNormalLicenseQuestionDto.getQuestions();
+                requestMakeLicenseMultipleChoiceQuestionDto.getLicenseSession(),
+                requestMakeLicenseMultipleChoiceQuestionDto.getLicenseCategory());
+        List<RequestMakeMajorMultipleChoiceQuestionDto> questions = requestMakeLicenseMultipleChoiceQuestionDto.getQuestions();
         return questions
                 .stream()
-                .map(q-> saveNormalLicenseQuestion(q,licenseSession,requestMakeNormalLicenseQuestionDto.getLicenseCategory()))
+                .map(q-> saveNormalLicenseQuestion(q,licenseSession, requestMakeLicenseMultipleChoiceQuestionDto.getLicenseCategory()))
                 .collect(Collectors.toList());
     }
 
-    private ResponseNormalQuestionDto saveNormalLicenseQuestion(RequestMakeNormalQuestionDto requestMakeNormalQuestionDto, LicenseSession licenseSession, LicenseCategory licenseCategory){
-        LicenseNormalQuestion licenseNormalQuestion = LicenseNormalQuestion.makeWithDto(requestMakeNormalQuestionDto,licenseSession,licenseCategory);
-        licenseNormalQuestionRepository.save(licenseNormalQuestion);
-        questionChoiceService.saveWith(requestMakeNormalQuestionDto,licenseNormalQuestion);
-        return ResponseNormalQuestionDto.forAdmin(licenseNormalQuestion);
+    private ResponseQuestionDto saveNormalLicenseQuestion(RequestMakeMajorMultipleChoiceQuestionDto requestMakeMajorMultipleChoiceQuestionDto, LicenseSession licenseSession, LicenseCategory licenseCategory){
+        LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.makeWithDto(requestMakeMajorMultipleChoiceQuestionDto,licenseSession,licenseCategory);
+        licenseMultipleChoiceQuestionRepository.save(licenseMultipleChoiceQuestion);
+        questionChoiceService.saveWith(requestMakeMajorMultipleChoiceQuestionDto, licenseMultipleChoiceQuestion);
+        return ResponseQuestionDto.forAdmin(licenseMultipleChoiceQuestion);
     }
 
     public String updateLicenseQuestionWithImage(Long licenseQuestionId, MultipartFile file){
         try{
-            LicenseNormalQuestion licenseNormalQuestion = licenseNormalQuestionRepository.findById(licenseQuestionId).orElse(null);
+            LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = licenseMultipleChoiceQuestionRepository.findById(licenseQuestionId).orElse(null);
             String imageUrl = fileUploadService.uploadImage(file,"license");
-            assert licenseNormalQuestion != null;
-            licenseNormalQuestion.updateImage(imageUrl);
+            assert licenseMultipleChoiceQuestion != null;
+            licenseMultipleChoiceQuestion.updateImage(imageUrl);
             return imageUrl;
         }
         catch (IOException e){
@@ -59,24 +57,4 @@ public class LicenseQuestionMakeService {
             return null;
         }
     }
-    public ResponseNormalQuestionDto changeDescription(Long questionId, RequestChangeDescriptionDto requestChangeDescriptionDto){
-        LicenseNormalQuestion licenseNormalQuestion = licenseNormalQuestionRepository.findById(questionId).orElse(null);
-        licenseNormalQuestion.changeDescription(requestChangeDescriptionDto.getDescription());
-
-        return ResponseNormalQuestionDto.forAdmin(licenseNormalQuestion);
-    }
-
-    public ResponseNormalQuestionDto changeContent(Long questionId, RequestChangeContentDto requestChangeContentDto){
-        LicenseNormalQuestion licenseNormalQuestion = licenseNormalQuestionRepository.findById(questionId).orElse(null);
-        licenseNormalQuestion.changeContent(requestChangeContentDto.getContent());
-
-        return ResponseNormalQuestionDto.forAdmin(licenseNormalQuestion);
-    }
-
-    public void deleteLicenseQuestion(Long questionId){
-        LicenseNormalQuestion licenseNormalQuestion = licenseNormalQuestionRepository.findById(questionId).orElse(null);
-        licenseNormalQuestionRepository.delete(licenseNormalQuestion);
-    }
-
-
 }
