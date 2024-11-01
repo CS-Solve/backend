@@ -3,7 +3,7 @@ package com.server.computer_science.question.license_question.service;
 import com.server.computer_science.question.license_question.domain.LicenseMultipleChoiceQuestion;
 import com.server.computer_science.question.license_question.repository.LicenseMultipleChoiceQuestionRepository;
 import com.server.computer_science.question.major_question.common.service.QuestionClassifyByCategoryService;
-import com.server.computer_science.question.major_question.user.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.server.computer_science.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,7 @@ public class LicenseQuestionGetService {
         }
         return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions)
                 .entrySet().stream()
-                .map(entry-> ResponseClassifiedMultipleQuestionDto.LicenseQuestionForUser(entry.getKey(),entry.getValue()))
+                .map(entry-> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
     }
 }

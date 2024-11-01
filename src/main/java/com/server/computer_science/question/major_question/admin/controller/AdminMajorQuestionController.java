@@ -9,7 +9,7 @@ import com.server.computer_science.question.major_question.admin.service.impleme
 import com.server.computer_science.question.major_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import com.server.computer_science.question.major_question.common.service.MajorQuestionClassifiedGetService;
-import com.server.computer_science.question.major_question.user.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.server.computer_science.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

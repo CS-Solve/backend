@@ -4,7 +4,7 @@ package com.server.computer_science.question.major_question.user.service.impleme
 import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
 import com.server.computer_science.question.major_question.common.service.implement.MajorMultipleChoiceQuestionDBService;
 import com.server.computer_science.question.major_question.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
-import com.server.computer_science.question.major_question.user.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.server.computer_science.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computer_science.question.major_question.common.service.QuestionClassifyByCategoryService;
 import com.server.computer_science.question.major_question.common.service.MajorQuestionClassifiedGetService;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClas
      */
 
     @Override
-    public List<ResponseClassifiedMultipleQuestionDto> getClassifiedNormalQuestions(RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
+    public List<ResponseClassifiedMultipleQuestionDto> getClassifiedMajorMultipleChoiceQuestions(RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
         List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDBService.findAllFetchChoicesByCategoriesAndLevelsApproved(
                 requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
                 requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
@@ -34,7 +34,7 @@ public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClas
         }
         return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions)
                 .entrySet().stream()
-                .map(entry-> ResponseClassifiedMultipleQuestionDto.normalQuestionForUser(entry.getKey(),entry.getValue()))
+                .map(entry-> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
     }
 
@@ -48,7 +48,7 @@ public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClas
                 requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
         return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions)
                 .entrySet().stream()
-                .map(entry-> ResponseClassifiedMultipleQuestionDto.normalQuestionForUser(entry.getKey(),entry.getValue()))
+                .map(entry-> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
     }
 
@@ -60,7 +60,7 @@ public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClas
         List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDBService.findAllFetchChoices();
         return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions)
                 .entrySet().stream()
-                .map(entry-> ResponseClassifiedMultipleQuestionDto.normalQuestionForUser(entry.getKey(),entry.getValue()))
+                .map(entry-> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
     }
 

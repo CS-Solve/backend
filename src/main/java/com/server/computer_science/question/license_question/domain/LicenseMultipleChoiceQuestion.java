@@ -1,5 +1,6 @@
 package com.server.computer_science.question.license_question.domain;
 
+import com.server.computer_science.question.common.domain.ChoiceProvider;
 import com.server.computer_science.question.common.domain.Question;
 import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import lombok.Getter;
@@ -14,7 +15,7 @@ import java.util.List;
 @Getter
 @SuperBuilder
 @NoArgsConstructor
-public class LicenseMultipleChoiceQuestion extends Question {
+public class LicenseMultipleChoiceQuestion extends Question implements ChoiceProvider {
     @Id
     @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;

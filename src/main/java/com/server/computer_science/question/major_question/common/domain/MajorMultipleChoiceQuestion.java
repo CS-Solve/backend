@@ -1,6 +1,7 @@
 package com.server.computer_science.question.major_question.common.domain;
 
 
+import com.server.computer_science.question.common.domain.ChoiceProvider;
 import com.server.computer_science.question.common.domain.Question;
 import com.server.computer_science.question.common.domain.QuestionCategory;
 import com.server.computer_science.question.common.domain.QuestionLevel;
@@ -17,7 +18,7 @@ import java.util.List;
 @Getter
 @SuperBuilder
 @NoArgsConstructor
-public class MajorMultipleChoiceQuestion extends Question {
+public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvider{
     @Id @GeneratedValue(strategy= GenerationType.SEQUENCE)
     private Long id;
     public boolean canBeShortAnswered;

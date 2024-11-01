@@ -1,7 +1,8 @@
-package com.server.computer_science.question.major_question.user.dto.response;
+package com.server.computer_science.question.common.dto.response;
 
+import com.server.computer_science.question.common.domain.ChoiceProvider;
+import com.server.computer_science.question.common.domain.Question;
 import com.server.computer_science.question.common.domain.QuestionCategory;
-import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
 import com.server.computer_science.question.license_question.domain.LicenseMultipleChoiceQuestion;
 import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
 import lombok.Getter;
@@ -21,25 +22,11 @@ public class ResponseClassifiedMultipleQuestionDto {
     /**
      * 일반 CS 문제 전용
      */
-    public static ResponseClassifiedMultipleQuestionDto normalQuestionForUser(QuestionCategory questionCategory, List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
+    public static <T extends Question & ChoiceProvider> ResponseClassifiedMultipleQuestionDto forUser(QuestionCategory questionCategory, List<T> multipleChoiceQuestions) {
         return ResponseClassifiedMultipleQuestionDto.builder()
                 .questionCategory(questionCategory)
                 .responseQuestionDtoList(
-                        majorMultipleChoiceQuestions.stream()
-                                .map(question -> ResponseQuestionDto.forUser(
-                                        question,question.getQuestionChoices()
-                                ))
-                                .collect(Collectors.toList())
-                )
-                .build();
-    }
-
-
-    public static ResponseClassifiedMultipleQuestionDto LicenseQuestionForUser(QuestionCategory questionCategory, List<LicenseMultipleChoiceQuestion> normalQuestions ) {
-        return ResponseClassifiedMultipleQuestionDto.builder()
-                .questionCategory(questionCategory)
-                .responseQuestionDtoList(
-                        normalQuestions.stream()
+                        multipleChoiceQuestions.stream()
                                 .map(question -> ResponseQuestionDto.forUser(
                                         question,question.getQuestionChoices()
                                 ))

@@ -30,7 +30,7 @@ public class MajorQuestionGetViewController {
                                      @RequestParam(required = false) Boolean multipleChoice,
                                      Model model) {
         if(multipleChoice){
-            model.addAttribute("questions", majorQuestionClassifiedGetService.getClassifiedNormalQuestions(RequestGetQuestionByCategoryAndLevelDto.fromString(categories, levels)));
+            model.addAttribute("questions", majorQuestionClassifiedGetService.getClassifiedMajorMultipleChoiceQuestions(RequestGetQuestionByCategoryAndLevelDto.fromString(categories, levels)));
         }
         else{
             model.addAttribute("questions", majorQuestionClassifiedGetService.getClassifiedShortAnsweredMajorQuestions(RequestGetQuestionByCategoryAndLevelDto.fromString(categories, levels)));
