@@ -25,12 +25,12 @@ public class LicenseMultipleChoiceQuestion extends Question {
     @Enumerated(value = EnumType.STRING)
     protected LicenseCategory licenseCategory;
 
-    @OneToMany(mappedBy = "licenseNormalQuestion",cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<LicenseQuestionChoice> normalQuestionChoices;
+    @OneToMany(mappedBy = "licenseMultipleChoiceQuestion",cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<LicenseQuestionChoice> questionChoices;
 
     @Override
     public void initDefaults() {
-        this.normalQuestionChoices = new ArrayList<>();
+        this.questionChoices = new ArrayList<>();
     }
 
     public static LicenseMultipleChoiceQuestion makeWithDto(RequestMakeMajorMultipleChoiceQuestionDto dto, LicenseSession licenseSession, LicenseCategory licenseCategory){

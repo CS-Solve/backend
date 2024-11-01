@@ -19,7 +19,7 @@ public class MajorQuestionChoice extends QuestionChoice {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "normal_question_id")
+    @JoinColumn(name = "major_multiple_choice_question_id")
     private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
     public static MajorQuestionChoice fromNormalQuestion(RequestMakeMajorQuestionChoiceDto dto, MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {

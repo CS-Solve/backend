@@ -12,7 +12,7 @@ import java.util.List;
 public interface LicenseMultipleChoiceQuestionRepository extends JpaRepository<LicenseMultipleChoiceQuestion, Long> {
 
     @Query("SELECT DISTINCT lnq FROM LicenseMultipleChoiceQuestion  lnq " +
-            "LEFT JOIN FETCH lnq.normalQuestionChoices " +
+            "LEFT JOIN FETCH lnq.questionChoices " +
             "WHERE lnq.licenseSession.id = :licenseSessionId ")
     List<LicenseMultipleChoiceQuestion> findAllByLicenseSessionIdFetchChoices(@Param("licenseSessionId") Long licenseSessionId);
 }

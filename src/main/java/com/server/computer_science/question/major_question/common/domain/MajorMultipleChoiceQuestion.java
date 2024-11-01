@@ -23,7 +23,7 @@ public class MajorMultipleChoiceQuestion extends Question {
     public boolean canBeShortAnswered;
     public boolean ifApproved;
 
-    @OneToMany(mappedBy = "normalQuestion",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "majorMultipleChoiceQuestion",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MajorQuestionChoice> questionChoices;
 
     public static MajorMultipleChoiceQuestion makeWithDto(RequestMakeMajorMultipleChoiceQuestionDto dto){

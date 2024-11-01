@@ -41,7 +41,7 @@ public class ResponseClassifiedMultipleQuestionDto {
                 .responseQuestionDtoList(
                         normalQuestions.stream()
                                 .map(question -> ResponseQuestionDto.forUser(
-                                        question,question.getNormalQuestionChoices()
+                                        question,question.getQuestionChoices()
                                 ))
                                 .collect(Collectors.toList())
                 )

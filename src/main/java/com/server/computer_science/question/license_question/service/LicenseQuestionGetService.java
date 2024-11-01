@@ -22,7 +22,7 @@ public class LicenseQuestionGetService {
     public List<ResponseClassifiedMultipleQuestionDto> getClassifiedLicenseNormalQuestion(Long sessionId) {
         List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository.findAllByLicenseSessionIdFetchChoices(sessionId);
         for(LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion : licenseMultipleChoiceQuestions){
-            Collections.shuffle(licenseMultipleChoiceQuestion.getNormalQuestionChoices());
+            Collections.shuffle(licenseMultipleChoiceQuestion.getQuestionChoices());
         }
         return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions)
                 .entrySet().stream()

@@ -17,7 +17,7 @@ public class LicenseQuestionChoice extends QuestionChoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "license_normal_question_id")
+    @JoinColumn(name = "license_multiple_choice_question_id")
     private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
 
     public static LicenseQuestionChoice from(
@@ -29,7 +29,7 @@ public class LicenseQuestionChoice extends QuestionChoice {
                 .answerStatus(dto.isAnswerStatus())
                 .licenseMultipleChoiceQuestion(licenseMultipleChoiceQuestion)
                 .build();
-        licenseMultipleChoiceQuestion.getNormalQuestionChoices().add(questionChoice);
+        licenseMultipleChoiceQuestion.getQuestionChoices().add(questionChoice);
         return questionChoice;
     }
 
