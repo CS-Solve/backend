@@ -26,22 +26,7 @@
 /**
 메인 로고
  */
-.screen big-box.main-logo-box {
-    position: relative;
-    top: 0;
-    left: 50%;
-    /*transform: translateX(-50%);*/
-    /*display: flex;*/
-    align-items: center;
-    font-family: "Markazi Text-Bold", Helvetica;
-    font-weight: 700;
-    color: #000000;
-    font-size: 10%;
-    text-align: center;
-    letter-spacing: 0;
-    white-space: nowrap;
 
-}
 
 /* 공통 스타일 */
 .screen .side-box {
@@ -203,44 +188,13 @@
     width: 100%;
     align-content: center;
 }
-/**
-메인 로고
- */
-.screen .main-logo-box {
-    position: absolute; /* 부모 요소를 기준으로 위치 */
-    top: 0; /* 화면 상단에서 없는 간격 */
-    left: 50%;
-    transform: translateX(-50%); /* 수평 가운데 정렬 */
-    display: flex;
-    align-items: center;
-    font-family: "Markazi Text-Bold", Helvetica;
-    font-weight: 700;
-    color: #000000;
-    text-align: center;
-    letter-spacing: 0;
-    white-space: nowrap;
-}
-.screen .mainTitle{
-    font-size:3vw;
-    font-family: 'Cambay', sans-serif;
-}
-.screen .main-logo-box .logo-image {
-    height: 1%; /* 텍스트 크기와 동일하게 설정 */
-    width: 5vw; /* 비율 유지 */
-
-}
-
-.screen .main-logo-box span {
-    line-height: 1; /* 텍스트의 줄 높이를 조정 */
-}
 
 /**
 메인페이지 - 시작버튼
  */
 /* 공통 스타일 - start-left-box, start-right-box에 적용 */
+
 /* 버튼들을 감싸는 부모 컨테이너 */
-
-
 /* 버튼들을 감싸는 부모 컨테이너 */
 .start-button-container {
     display: flex;

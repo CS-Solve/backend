@@ -26,7 +26,7 @@
 <div class="quiz">
     <!-- 상단 제목 -->
     <!--    <div class="logo-box">Com Ssa</div>-->
-    <h1 class="session-box" th:text="${licenseSession.licenseCategory.korean} + ' - ' + ${licenseSession.content}+ ' / 복원 문제는 오류가 있을 수 있습니다.'"></h1>
+    <h1 class="session-box" th:text="${licenseSession.licenseCategory.korean} + ' 기출 - ' + ${licenseSession.content}+ ' / 복원 문제는 오류가 있을 수 있습니다.'"></h1>
     </h1>
     <div class="left-sidebar">
         <p>총 문제 수: <span id="totalQuestionsCount">0</span></p>
@@ -107,6 +107,9 @@
         <div class="text-wrapper-8">메인화면</div>
     </div>
 </div>
-
+<footer style="position: absolute; bottom: 0; width: 100%; text-align: center; padding: 1em; background-color: #f2f4f7; font-size: 2vw; color: #333;">
+    <p>건의 및 문의사항: <a href="https://open.kakao.com/o/sHIYrIXg" target="_blank">https://open.kakao.com/o/sHIYrIXg</a></p>
+    <p>Email: <a href="mailto:solve.comssa@gmail.com">solve.comssa@gmail.com</a></p>
+</footer>
 </body>
 </html>

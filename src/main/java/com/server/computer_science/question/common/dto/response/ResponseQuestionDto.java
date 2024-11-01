@@ -57,10 +57,22 @@ public class ResponseQuestionDto {
      * 차이점은 NormalQuesiton시 주관식 가능 여부와, 허용됐는지 여부 변수의 존재 여부다
      */
     public static ResponseMajorQuestionForAdminDto forAdmin(MajorMultipleChoiceQuestion question){
-        ResponseMajorQuestionForAdminDto responseMajorQuestionForAdminDto =  (ResponseMajorQuestionForAdminDto) common(question,question.getQuestionChoices()).build();
-        responseMajorQuestionForAdminDto.setIfApproved(question.isIfApproved());
-        responseMajorQuestionForAdminDto.setCanBeShortAnswered(question.isCanBeShortAnswered());
-        return responseMajorQuestionForAdminDto;
+        return ResponseMajorQuestionForAdminDto.builder()
+                .id(question.getId())
+                .content(question.getContent())
+                .questionChoices(
+                        question.getQuestionChoices()
+                                .stream()
+                                .map(ResponseQuestionChoiceDto::of)
+                                .collect(Collectors.toList())
+                )
+                .questionCategory(question.getQuestionCategory())
+                .questionLevel(question.getQuestionLevel())
+                .description(question.getDescription())
+                .imageUrl(question.getImageUrl())
+                .ifApproved(question.isIfApproved())
+                .canBeShortAnswered(question.isCanBeShortAnswered())
+                .build();
     }
     public static ResponseQuestionDto forAdmin(LicenseMultipleChoiceQuestion question) {
         return common(question, question.getQuestionChoices())
