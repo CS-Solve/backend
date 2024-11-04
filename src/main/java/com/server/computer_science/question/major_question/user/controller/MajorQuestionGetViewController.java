@@ -1,5 +1,6 @@
 package com.server.computer_science.question.major_question.user.controller;
 
+import com.server.computer_science.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computer_science.question.major_question.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import com.server.computer_science.question.major_question.user.service.implement.BasicMajorQuestionClassifiedGetService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,21 +24,27 @@ public class MajorQuestionGetViewController {
     private final String baseUrl = "baseUrl";
 
 
-    @GetMapping("/question/normal")
+    @GetMapping("/question/major")
     public String getNormalQuestions(@RequestParam(required = false) List<String> levels,
                                      @RequestParam(required = false) List<String> categories,
                                      @RequestParam(required = false) Boolean multipleChoice,
                                      Model model) {
         if(multipleChoice){
-            model.addAttribute("questions", basicMajorQuestionClassifiedGetService.getClassifiedMajorMultipleChoiceQuestions(RequestGetQuestionByCategoryAndLevelDto.fromString(categories, levels)));
+            model.addAttribute("questions", basicMajorQuestionClassifiedGetService
+                    .getApprovedClassifiedMajorMultipleChoiceQuestions(RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels))
+                    .entrySet().stream()
+                    .map(entry-> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(),entry.getValue()))
+                    .collect(Collectors.toList()));
         }
         else{
-            model.addAttribute("questions", basicMajorQuestionClassifiedGetService.getClassifiedShortAnsweredMajorQuestions(RequestGetQuestionByCategoryAndLevelDto.fromString(categories, levels)));
+            model.addAttribute("questions", basicMajorQuestionClassifiedGetService
+                    .getApprovedClassifiedShortAnsweredMajorQuestions(RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels))
+                    .entrySet().stream()
+                    .map(entry-> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(),entry.getValue()))
+                    .collect(Collectors.toList()));
         }
         model.addAttribute(baseUrl, resourceBaseUrl);
         model.addAttribute("multipleChoice", multipleChoice);
         return "major-question"; // 문제를 보여줄 페이지의 이름
     }
-
-
 }

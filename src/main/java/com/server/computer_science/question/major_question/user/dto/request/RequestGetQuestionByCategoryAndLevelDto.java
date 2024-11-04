@@ -21,13 +21,20 @@ public class RequestGetQuestionByCategoryAndLevelDto {
     private List<QuestionCategory> questionCategories;
     private List<QuestionLevel> questionLevels;
 
-    public static RequestGetQuestionByCategoryAndLevelDto of(List<QuestionCategory> questionCategories, List<QuestionLevel> questionLevels) {
+    public static RequestGetQuestionByCategoryAndLevelDto from(List<QuestionCategory> questionCategories, List<QuestionLevel> questionLevels) {
         return RequestGetQuestionByCategoryAndLevelDto.builder()
                 .questionCategories(questionCategories)
                 .questionLevels(questionLevels)
                 .build();
     }
-    public static RequestGetQuestionByCategoryAndLevelDto fromString(List<String> questionCategories, List<String> questionLevels) {
+
+    /**
+     *
+     * @param questionCategories
+     * @param questionLevels
+     * 한글로 된 문제 카테고리와 레벨을 받고 Enum으로 전환한 후에 반환.
+     */
+    public static RequestGetQuestionByCategoryAndLevelDto fromKorean(List<String> questionCategories, List<String> questionLevels) {
         List<QuestionCategory> categories = mapOrGetAllEnumValues(questionCategories, QuestionCategory.class,QuestionCategory::getKorean);
         List<QuestionLevel> levels = mapOrGetAllEnumValues(questionLevels, QuestionLevel.class,QuestionLevel::getKorean);
         // DTO 빌드
@@ -36,6 +43,9 @@ public class RequestGetQuestionByCategoryAndLevelDto {
                 .questionLevels(levels)
                 .build();
     }
+    /*
+    리스트에 아무 것도 포함되어있지 않다면, Enum의 모든 값을 포함하여 반환한다.
+     */
     private static <T extends Enum<T>> List<T> mapOrGetAllEnumValues(List<String> values, Class<T> enumClass, Function<T, String> getKorean) {
         if (values == null || values.isEmpty()) {
             return Arrays.asList(enumClass.getEnumConstants());

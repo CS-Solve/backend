@@ -1,6 +1,7 @@
 package com.server.computer_science.question.major_question.user.service.implement;
 
 
+import com.server.computer_science.question.common.domain.QuestionCategory;
 import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
 import com.server.computer_science.question.major_question.common.service.implement.MajorMultipleChoiceQuestionDBService;
 import com.server.computer_science.question.major_question.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
@@ -25,31 +26,23 @@ public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClas
      */
 
     @Override
-    public List<ResponseClassifiedMultipleQuestionDto> getClassifiedMajorMultipleChoiceQuestions(RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
+    public Map<QuestionCategory,List<MajorMultipleChoiceQuestion>> getApprovedClassifiedMajorMultipleChoiceQuestions(RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
         List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDBService.findAllFetchChoicesByCategoriesAndLevelsApproved(
                 requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
                 requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
         for(MajorMultipleChoiceQuestion majorMultipleChoiceQuestion : majorMultipleChoiceQuestions){
             Collections.shuffle(majorMultipleChoiceQuestion.getQuestionChoices());
         }
-        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions)
-                .entrySet().stream()
-                .map(entry-> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(),entry.getValue()))
-                .collect(Collectors.toList());
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
     }
-
     /**
      분야, 난이도 파라미터로 문제를 조회하는 경우 - 주관식
      */
     @Override
-    public List<ResponseClassifiedMultipleQuestionDto> getClassifiedShortAnsweredMajorQuestions(RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
+    public Map<QuestionCategory,List<MajorMultipleChoiceQuestion>> getApprovedClassifiedShortAnsweredMajorQuestions(RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
         List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDBService.findAllFetchChoicesByCategoriesAndLevelsApprovedAndShortAnswered(
                 requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
                 requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
-        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions)
-                .entrySet().stream()
-                .map(entry-> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(),entry.getValue()))
-                .collect(Collectors.toList());
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
     }
-
 }
