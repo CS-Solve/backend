@@ -31,10 +31,9 @@ public class AdminLicenseQuestionController {
     }
 
     @ApiOperation("단답형 문제 이미지 업로드")
-    @PatchMapping("/{license-question-id}")
-    public ResponseEntity<String>  updateLicenseQuestionWithImage(@PathVariable("license-question-id") Long licenseQuestionId, @RequestPart(value="image",required = true) MultipartFile file){
+    @PatchMapping("/{id}/image")
+    public ResponseEntity<String>  updateLicenseQuestionWithImage(@PathVariable("id") Long licenseQuestionId, @RequestPart(value="image") MultipartFile file){
         return ResponseEntity.ok(licenseQuestionMakeService.updateLicenseQuestionWithImage(licenseQuestionId,file));
-
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - 문제 지문 업데이트")

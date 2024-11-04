@@ -21,7 +21,6 @@ public interface QuestionUpdateService<T extends Question> {
     default T changeContent(Long questionId, RequestChangeContentDto requestChangeContentDto) {
         T question = findById(questionId);
         question.changeContent(requestChangeContentDto.getContent());
-        System.out.println(question.getContent());
         return question;
     }
 

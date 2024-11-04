@@ -184,7 +184,7 @@ function uploadImage(questionId, fileInput) {
 
 
 
-    fetch(`/admin/question/license/${questionId}`, {
+    fetch(`/admin/question/license/${questionId}/image`, {
         method: 'PATCH',
         body: formData
     }).then(response => {

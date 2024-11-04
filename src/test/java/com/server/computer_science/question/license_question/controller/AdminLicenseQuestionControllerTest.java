@@ -3,6 +3,8 @@ package com.server.computer_science.question.license_question.controller;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.server.computer_science.ControllerTest;
+import com.server.computer_science.question.common.dto.request.RequestChangeContentDto;
+import com.server.computer_science.question.common.dto.request.RequestChangeDescriptionDto;
 import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
 import com.server.computer_science.question.license_question.domain.LicenseCategory;
 import com.server.computer_science.question.license_question.domain.LicenseMultipleChoiceQuestion;
@@ -31,17 +33,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @DisplayName("단위 테스트 - 자격증 Admin Controller")
 class AdminLicenseQuestionControllerTest extends ControllerTest {
     private final String tag = "자격증 문제";
-
     @MockBean
     private LicenseQuestionMakeService licenseQuestionMakeService;
     @MockBean
     private AdminLicenseMuiltipleChoiceQuestionUpdateService adminLicenseMuiltipleChoiceQuestionUpdateService;
 
     private final String baseApiUrl = "/admin/question/license";
+    private final String idUrl = "/1";
     private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
     private List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions;
+    private ResponseQuestionDto responseQuestionDto;
     private List<ResponseQuestionDto> responseQuestionDtos;
-
 
     @BeforeEach
     void setUp() {
@@ -49,11 +51,12 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
         responseQuestionDtos= new ArrayList<>();
         licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.makeForTest("test");
         licenseMultipleChoiceQuestions.add(licenseMultipleChoiceQuestion);
-        responseQuestionDtos.add(ResponseQuestionDto.forAdmin(licenseMultipleChoiceQuestion));
+        responseQuestionDto = ResponseQuestionDto.forAdmin(licenseMultipleChoiceQuestion);
+        responseQuestionDtos.add(responseQuestionDto);
     }
 
     @Test
-    @DisplayName("자격증 문제 생성")
+    @DisplayName("생성")
     void makeLicenseQuestion() throws Exception {
         final String path = baseApiUrl;
         final String document_Name ="성공";
@@ -68,6 +71,82 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
                                 LicenseMultipleChoiceQuestion::getQuestionChoices))))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(responseQuestionDtos)))
+                .andDo(print())
+                .andDo(MockMvcRestDocumentation.document(
+                        document_Name
+                ))
+                .andDo(MockMvcRestDocumentationWrapper.document(
+                        document_Name
+                        ,resource(
+                                ResourceSnippetParameters.builder()
+                                        .tag(tag)
+                                        .description("자격증")
+                                        .build()
+                        )
+                ));
+    }
+
+    @Test
+    @DisplayName("본문 업데이트")
+    void updateLicenseQuestionContent() throws Exception {
+        final String path = baseApiUrl+idUrl+"/content";
+        final String document_Name ="성공";
+        Mockito.when(adminLicenseMuiltipleChoiceQuestionUpdateService.changeContent(any(),any())).thenReturn(licenseMultipleChoiceQuestion);
+
+        mockMvc.perform(RestDocumentationRequestBuilders.patch(path)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(RequestChangeContentDto.forTest())))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(responseQuestionDto)))
+                .andDo(print())
+                .andDo(MockMvcRestDocumentation.document(
+                        document_Name
+                ))
+                .andDo(MockMvcRestDocumentationWrapper.document(
+                        document_Name
+                        ,resource(
+                                ResourceSnippetParameters.builder()
+                                        .tag(tag)
+                                        .description("자격증")
+                                        .build()
+                        )
+                ));
+    }
+    @Test
+    @DisplayName("해설 업데이트")
+    void updateLicenseQuestionDescription() throws Exception {
+        final String path = baseApiUrl+idUrl+"/description";
+        final String document_Name ="성공";
+        Mockito.when(adminLicenseMuiltipleChoiceQuestionUpdateService.changeDescription(any(),any())).thenReturn(licenseMultipleChoiceQuestion);
+
+        mockMvc.perform(RestDocumentationRequestBuilders.patch(path)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(RequestChangeDescriptionDto.forTest())))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(responseQuestionDto)))
+                .andDo(print())
+                .andDo(MockMvcRestDocumentation.document(
+                        document_Name
+                ))
+                .andDo(MockMvcRestDocumentationWrapper.document(
+                        document_Name
+                        ,resource(
+                                ResourceSnippetParameters.builder()
+                                        .tag(tag)
+                                        .description("자격증")
+                                        .build()
+                        )
+                ));
+    }
+
+    @Test
+    @DisplayName("삭제")
+    void deleteLicenseQuestion() throws Exception {
+        final String path = baseApiUrl+idUrl;
+        final String document_Name ="성공";
+
+        mockMvc.perform(RestDocumentationRequestBuilders.delete(path))
+                .andExpect(MockMvcResultMatchers.status().isNoContent())
                 .andDo(print())
                 .andDo(MockMvcRestDocumentation.document(
                         document_Name
