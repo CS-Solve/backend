@@ -1,4 +1,4 @@
-package com.server.computer_science.question.major_question.common.service;
+package com.server.computer_science.question.major_question.user.service;
 
 
 import com.server.computer_science.question.major_question.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
@@ -14,5 +14,5 @@ public interface MajorQuestionClassifiedGetService {
      */
     public List<ResponseClassifiedMultipleQuestionDto> getClassifiedMajorMultipleChoiceQuestions(RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto);
     public List<ResponseClassifiedMultipleQuestionDto> getClassifiedShortAnsweredMajorQuestions(RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto);
-    public List<ResponseClassifiedMultipleQuestionDto> getClassifiedAllMajorQuestions();
+
 }

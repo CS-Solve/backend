@@ -6,14 +6,14 @@ import com.server.computer_science.question.major_question.common.service.implem
 import com.server.computer_science.question.major_question.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import com.server.computer_science.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computer_science.question.major_question.common.service.QuestionClassifyByCategoryService;
-import com.server.computer_science.question.major_question.common.service.MajorQuestionClassifiedGetService;
+import com.server.computer_science.question.major_question.user.service.MajorQuestionClassifiedGetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Service("basicMajorQuestionClassifiedGetService")
+@Service
 @RequiredArgsConstructor
 public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService {
     private final MajorMultipleChoiceQuestionDBService majorMultipleChoiceQuestionDBService;
@@ -51,19 +51,5 @@ public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClas
                 .map(entry-> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(),entry.getValue()))
                 .collect(Collectors.toList());
     }
-
-    /**
-     * 현재 유저가 파라미터 없이 문제를 조회하는 경우는 존재하지 않는다.
-     */
-    @Override
-    public List<ResponseClassifiedMultipleQuestionDto> getClassifiedAllMajorQuestions() {
-        List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDBService.findAllFetchChoices();
-        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions)
-                .entrySet().stream()
-                .map(entry-> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(),entry.getValue()))
-                .collect(Collectors.toList());
-    }
-
-
 
 }

@@ -4,11 +4,12 @@ package com.server.computer_science.question.major_question.admin.controller;
 import com.server.computer_science.question.common.dto.request.RequestChangeDescriptionDto;
 import com.server.computer_science.question.common.dto.request.RequestChangeContentDto;
 import com.server.computer_science.question.major_question.admin.dto.ResponseMajorQuestionForAdminDto;
+import com.server.computer_science.question.major_question.admin.service.AdminMajorQuestionClassifiedGetService;
 import com.server.computer_science.question.major_question.admin.service.AdminMajorQuestionMakeService;
 import com.server.computer_science.question.major_question.admin.service.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.server.computer_science.question.major_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.major_question.admin.dto.RequestMakeMultipleChoiceQuestionDto;
-import com.server.computer_science.question.major_question.common.service.MajorQuestionClassifiedGetService;
+import com.server.computer_science.question.major_question.user.service.MajorQuestionClassifiedGetService;
 import com.server.computer_science.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
 import io.swagger.annotations.Api;
@@ -26,15 +27,14 @@ import java.util.List;
 @Api(tags ={"단답형 문제 - ADMIN"})
 @RequestMapping("/admin")
 public class AdminMajorQuestionController {
-    @Qualifier("basicAdminMajorQuestionClassifiedGetService")
-    private final MajorQuestionClassifiedGetService majorQuestionClassifiedGetService;
+    private final AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
     private final AdminMajorQuestionMakeService adminMajorQuestionMakeService;
     private final AdminMajorMultipleChoiceQuestionUpdateService adminMajorMultipleChoiceQuestionUpdateService;
 
     @ApiOperation("단답형 문제 조회")
     @GetMapping("/question/major")
     public List<ResponseClassifiedMultipleQuestionDto> getAllNormalQuestionForAdmin(){
-        return majorQuestionClassifiedGetService.getClassifiedAllMajorQuestions();
+        return adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions();
     }
 
     @ApiOperation("단답형 문제 리스트로 생성")

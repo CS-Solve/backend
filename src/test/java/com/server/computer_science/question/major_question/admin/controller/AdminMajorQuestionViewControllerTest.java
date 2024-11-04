@@ -2,11 +2,9 @@ package com.server.computer_science.question.major_question.admin.controller;
 
 import com.server.computer_science.ControllerTest;
 import com.server.computer_science.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
-import com.server.computer_science.question.major_question.admin.service.implement.BasicAdminMajorQuestionClassifiedGetService;
-import com.server.computer_science.question.major_question.common.service.MajorQuestionClassifiedGetService;
+import com.server.computer_science.question.major_question.admin.service.AdminMajorQuestionClassifiedGetService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -25,15 +23,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AdminMajorQuestionViewControllerTest extends ControllerTest {
 
     @MockBean
-    @Qualifier("basicAdminMajorQuestionClassifiedGetService")  // Qualifier 지정
-    private MajorQuestionClassifiedGetService majorQuestionClassifiedGetService;
+    private AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
 
     @Test
     @DisplayName("전공 문제 update 페이지 View")
     void updateMajorQuestionPage() throws Exception {
         // Given
         List<ResponseClassifiedMultipleQuestionDto> classifiedQuestions = new ArrayList<>(); // 테스트 데이터 예시
-        when(majorQuestionClassifiedGetService.getClassifiedAllMajorQuestions())
+        when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions())
                 .thenReturn(classifiedQuestions);
 
         // When & Then

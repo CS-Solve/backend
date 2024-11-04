@@ -6,9 +6,9 @@ import com.server.computer_science.ControllerTest;
 import com.server.computer_science.question.common.dto.request.RequestChangeContentDto;
 import com.server.computer_science.question.common.dto.request.RequestChangeDescriptionDto;
 import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
+import com.server.computer_science.question.major_question.admin.service.AdminMajorQuestionClassifiedGetService;
 import com.server.computer_science.question.major_question.admin.service.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
-import com.server.computer_science.question.major_question.common.service.MajorQuestionClassifiedGetService;
 import com.server.computer_science.question.major_question.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import com.server.computer_science.question.major_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.major_question.admin.service.AdminMajorQuestionMakeService;
@@ -16,7 +16,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -41,8 +40,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
     @MockBean
     private AdminMajorMultipleChoiceQuestionUpdateService adminMajorMultipleChoiceQuestionUpdateService;
     @MockBean
-    @Qualifier("basicAdminMajorQuestionClassifiedGetService")  // Qualifier 지정
-    private MajorQuestionClassifiedGetService majorQuestionClassifiedGetService;
+    private AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
     private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
     private RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto;
 
@@ -59,7 +57,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
     void getMajorMultipleChoiceQuestions() throws Exception {
         final String PATH = "/admin/question/major";
         final String document_Name ="성공";
-        Mockito.when(majorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()).thenReturn(new ArrayList<>());
+        Mockito.when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()).thenReturn(new ArrayList<>());
         mockMvc.perform(RestDocumentationRequestBuilders.get(PATH))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(print())

@@ -1,9 +1,8 @@
 package com.server.computer_science.question.major_question.user.controller;
 
 import com.server.computer_science.question.major_question.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
-import com.server.computer_science.question.major_question.common.service.MajorQuestionClassifiedGetService;
+import com.server.computer_science.question.major_question.user.service.implement.BasicMajorQuestionClassifiedGetService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,8 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MajorQuestionGetViewController {
 
-    @Qualifier("basicMajorQuestionClassifiedGetService")
-    private final MajorQuestionClassifiedGetService majorQuestionClassifiedGetService;
+    private final BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
 
     @Value("${resource.base-url}")
     private String resourceBaseUrl;
@@ -30,10 +28,10 @@ public class MajorQuestionGetViewController {
                                      @RequestParam(required = false) Boolean multipleChoice,
                                      Model model) {
         if(multipleChoice){
-            model.addAttribute("questions", majorQuestionClassifiedGetService.getClassifiedMajorMultipleChoiceQuestions(RequestGetQuestionByCategoryAndLevelDto.fromString(categories, levels)));
+            model.addAttribute("questions", basicMajorQuestionClassifiedGetService.getClassifiedMajorMultipleChoiceQuestions(RequestGetQuestionByCategoryAndLevelDto.fromString(categories, levels)));
         }
         else{
-            model.addAttribute("questions", majorQuestionClassifiedGetService.getClassifiedShortAnsweredMajorQuestions(RequestGetQuestionByCategoryAndLevelDto.fromString(categories, levels)));
+            model.addAttribute("questions", basicMajorQuestionClassifiedGetService.getClassifiedShortAnsweredMajorQuestions(RequestGetQuestionByCategoryAndLevelDto.fromString(categories, levels)));
         }
         model.addAttribute(baseUrl, resourceBaseUrl);
         model.addAttribute("multipleChoice", multipleChoice);
