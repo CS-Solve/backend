@@ -26,41 +26,41 @@ import java.util.List;
 @Api(tags ={"단답형 문제 - ADMIN"})
 @RequestMapping("/admin")
 public class AdminMajorQuestionController {
-    @Qualifier("basicAdminNormalQuestionClassifiedGetService")
+    @Qualifier("basicAdminMajorQuestionClassifiedGetService")
     private final MajorQuestionClassifiedGetService majorQuestionClassifiedGetService;
     private final AdminMajorQuestionMakeService adminMajorQuestionMakeService;
     private final AdminMajorMultipleChoiceQuestionUpdateService adminMajorMultipleChoiceQuestionUpdateService;
 
     @ApiOperation("단답형 문제 조회")
-    @GetMapping("/question/normal")
+    @GetMapping("/question/major")
     public List<ResponseClassifiedMultipleQuestionDto> getAllNormalQuestionForAdmin(){
         return majorQuestionClassifiedGetService.getClassifiedAllMajorQuestions();
     }
 
     @ApiOperation("단답형 문제 리스트로 생성")
-    @PostMapping(value = "/question/normal-multi")
+    @PostMapping(value = "/question/major-multi")
     public ResponseEntity<List<ResponseQuestionDto>> MakeMultiNormalQuestion(@RequestBody List<RequestMakeMajorMultipleChoiceQuestionDto> requestMakeMajorMultipleChoiceQuestionDtos){
-        return ResponseEntity.ok(adminMajorQuestionMakeService.makeNormalQuestions(requestMakeMajorMultipleChoiceQuestionDtos));
+        return ResponseEntity.ok(adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMajorMultipleChoiceQuestionDtos));
     }
 
     @ApiOperation("단답형 문제 단일로 생성")
-    @PostMapping(value = "/question/normal-single")
+    @PostMapping(value = "/question/major-single")
     public ResponseEntity<ResponseQuestionDto> MakeSingleNormalQuestion(@RequestBody RequestMakeMajorMultipleChoiceQuestionDto requestMakeMajorMultipleChoiceQuestionDto) throws DuplicateQuestionException {
-        return ResponseEntity.ok(adminMajorQuestionMakeService.makeNormalQuestion(requestMakeMajorMultipleChoiceQuestionDto));
+        return ResponseEntity.ok(adminMajorQuestionMakeService.makeMultipleChoiceQuestion(requestMakeMajorMultipleChoiceQuestionDto));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - Approve 토글")
-    @PatchMapping(value = "/question/normal/toggle-approve/{id}")
+    @PatchMapping(value = "/question/major/{id}/toggle-approve")
     public ResponseEntity<ResponseQuestionDto> toggleApproveNormalQuestion(@PathVariable("id")Long questionId) {
         return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(adminMajorMultipleChoiceQuestionUpdateService.toggleApproveNormalQuestion(questionId)));
     }
     @ApiOperation("단답형 문제 상태 업데이트 - 단답형-주관식 토글")
-    @PatchMapping(value = "/question/normal/toggle-multiple/{id}")
+    @PatchMapping(value = "/question/major/{id}/toggle-multiple")
     public ResponseEntity<ResponseQuestionDto> toggleCanBeShortAnswered(@PathVariable("id")Long questionId) {
         return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(adminMajorMultipleChoiceQuestionUpdateService.toggleCanBeShortAnswered(questionId)));
     }
     @ApiOperation("단답형 문제 상태 업데이트 - 문제 업데이트")
-    @PatchMapping(value = "/question/normal/{id}/question")
+    @PatchMapping(value = "/question/major/{id}/content")
     public ResponseEntity<ResponseQuestionDto> changeQuestion(
             @PathVariable("id")Long questionId,
             @RequestBody RequestChangeContentDto requestChangeContentDto) {
@@ -68,7 +68,7 @@ public class AdminMajorQuestionController {
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - 해설 업데이트")
-    @PatchMapping(value = "/question/normal/{id}/description")
+    @PatchMapping(value = "/question/major/{id}/description")
     public ResponseEntity<ResponseQuestionDto> changeDescription(
             @PathVariable("id")Long questionId,
             @RequestBody RequestChangeDescriptionDto requestChangeDescriptionDto
@@ -77,7 +77,7 @@ public class AdminMajorQuestionController {
     }
 
     @ApiOperation("단답형 문제 삭제")
-    @DeleteMapping(value ="/question/normal/{id}")
+    @DeleteMapping(value ="/question/major/{id}")
     public ResponseEntity<Void> deleteNormalQuestion(@PathVariable("id")Long questionId) {
         adminMajorMultipleChoiceQuestionUpdateService.deleteQuestion(questionId);
         return ResponseEntity.noContent().build();

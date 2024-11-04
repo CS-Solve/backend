@@ -16,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MajorQuestionGetViewController {
 
-    @Qualifier("basicNormalQuestionClassifiedGetService")
+    @Qualifier("basicMajorQuestionClassifiedGetService")
     private final MajorQuestionClassifiedGetService majorQuestionClassifiedGetService;
 
     @Value("${resource.base-url}")
@@ -37,7 +37,7 @@ public class MajorQuestionGetViewController {
         }
         model.addAttribute(baseUrl, resourceBaseUrl);
         model.addAttribute("multipleChoice", multipleChoice);
-        return "normal-question"; // 문제를 보여줄 페이지의 이름
+        return "major-question"; // 문제를 보여줄 페이지의 이름
     }
 
 

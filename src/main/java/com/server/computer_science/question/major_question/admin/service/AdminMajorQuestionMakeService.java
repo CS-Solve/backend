@@ -10,6 +10,6 @@ import java.util.List;
 @Service
 public interface AdminMajorQuestionMakeService {
 
-    public List<ResponseQuestionDto> makeNormalQuestions(List<RequestMakeMajorMultipleChoiceQuestionDto> requestNormalQuestionDto);
-    public ResponseQuestionDto makeNormalQuestion(RequestMakeMajorMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException;
+    public List<ResponseQuestionDto> makeMultipleChoiceQuestions(List<RequestMakeMajorMultipleChoiceQuestionDto> requestNormalQuestionDto);
+    public ResponseQuestionDto makeMultipleChoiceQuestion(RequestMakeMajorMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException;
 }

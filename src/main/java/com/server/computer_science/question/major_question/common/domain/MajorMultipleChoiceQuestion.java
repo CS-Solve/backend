@@ -60,6 +60,7 @@ public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvi
                 .content("testQuest")
                 .questionCategory(QuestionCategory.COMPUTER_ARCHITECTURE)
                 .questionLevel(QuestionLevel.LOW)
+                .questionChoices(new ArrayList<>())
                 .description("testDescription")
                 .build();
     }

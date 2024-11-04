@@ -28,7 +28,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
      * 리스트로 생성
      */
     @Override
-    public List<ResponseQuestionDto> makeNormalQuestions(List<RequestMakeMajorMultipleChoiceQuestionDto> requestNormalQuestionDtos) {
+    public List<ResponseQuestionDto> makeMultipleChoiceQuestions(List<RequestMakeMajorMultipleChoiceQuestionDto> requestNormalQuestionDtos) {
         List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorQuestionRepository.findAll();
         return requestNormalQuestionDtos
                 .stream()
@@ -49,7 +49,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
     단일 생성
      */
     @Override
-    public ResponseQuestionDto makeNormalQuestion(RequestMakeMajorMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException {
+    public ResponseQuestionDto makeMultipleChoiceQuestion(RequestMakeMajorMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException {
         List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorQuestionRepository.findAll();
         if(checkWithAllQuestionsFromDB(requestNormalQuestionDto, majorMultipleChoiceQuestions)){
             throw new DuplicateQuestionException();

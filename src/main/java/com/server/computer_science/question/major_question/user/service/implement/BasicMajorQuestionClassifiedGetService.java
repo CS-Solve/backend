@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Service("basicNormalQuestionClassifiedGetService")
+@Service("basicMajorQuestionClassifiedGetService")
 @RequiredArgsConstructor
 public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService {
     private final MajorMultipleChoiceQuestionDBService majorMultipleChoiceQuestionDBService;

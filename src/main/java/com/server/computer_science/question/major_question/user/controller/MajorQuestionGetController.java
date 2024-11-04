@@ -21,26 +21,4 @@ public class MajorQuestionGetController {
     public List<ResponseMajorQuestionClassCountDto> getNormalQuestionClasses(){
         return majorQuestionCountService.getNormalQuestionCountByClass();
     }
-
-//        @ApiOperation("단답형 문제 조회 API")
-//    @GetMapping(value = "/question/normal")
-//    public List<ResponseNormalQuestionDto> getNormalQuestions(
-//            @Parameter(name = "categories", in = ParameterIn.QUERY,
-//                    description = "중복 가능",
-//                    example = "DATABASE,\n" +
-//                            "    NETWORK,\n" +
-//                            "    OPERATING_SYSTEM,\n" +
-//                            "    COMPUTER_ARCHITECTURE,\n" +
-//                            "    DATA_STRUCTURE,\n" +
-//                            "    ALGORITHM,\n" +
-//                            "    OOP,\n" +
-//                            "    DESIGN_PATTERN")
-//            @RequestParam(required = false) List<QuestionCategory> categories,
-//            @Parameter(name = "levels", in = ParameterIn.QUERY,
-//                    description = "중복 가능",
-//                    example = "LOW,MEDIUM,HIGH")
-//            @RequestParam(required = false) List<QuestionLevel> levels
-//    ){
-//        return userNormalQuestionGetService.getNormalQuestions(RequestGetNormalQuestionsDto.of(categories, levels));
-//    }
 }
