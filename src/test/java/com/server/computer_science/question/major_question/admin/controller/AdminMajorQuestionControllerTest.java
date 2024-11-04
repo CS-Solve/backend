@@ -9,7 +9,7 @@ import com.server.computer_science.question.common.dto.response.ResponseQuestion
 import com.server.computer_science.question.major_question.admin.service.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
 import com.server.computer_science.question.major_question.common.service.MajorQuestionClassifiedGetService;
-import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
+import com.server.computer_science.question.major_question.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import com.server.computer_science.question.major_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.major_question.admin.service.AdminMajorQuestionMakeService;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @DisplayName("단위 테스트 - 전공 개념 Admin Controller")
 class AdminMajorQuestionControllerTest extends ControllerTest {
 
-    private final String tag = "단답형 문제";
+    private final String tag = "전공 문제";
     @MockBean
     private AdminMajorQuestionMakeService adminMajorQuestionMakeService;
     @MockBean
@@ -44,12 +44,12 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
     @Qualifier("basicAdminMajorQuestionClassifiedGetService")  // Qualifier 지정
     private MajorQuestionClassifiedGetService majorQuestionClassifiedGetService;
     private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
-    private RequestMakeMajorMultipleChoiceQuestionDto requestMakeMajorMultipleChoiceQuestionDto;
+    private RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto;
 
     @BeforeEach
     void setUp() {
         majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
-        requestMakeMajorMultipleChoiceQuestionDto = new RequestMakeMajorMultipleChoiceQuestionDto();
+        requestMakeMultipleChoiceQuestionDto = new RequestMakeMultipleChoiceQuestionDto();
     }
     @Test
     void MakeMultiNormalQuestion() {
@@ -109,7 +109,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
         Mockito.when(adminMajorQuestionMakeService.makeMultipleChoiceQuestion(any())).thenReturn(ResponseQuestionDto.forUser(majorMultipleChoiceQuestion,majorMultipleChoiceQuestion.getQuestionChoices()));
         mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestMakeMajorMultipleChoiceQuestionDto)))
+                        .content(objectMapper.writeValueAsString(requestMakeMultipleChoiceQuestionDto)))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(print())
                 .andDo(MockMvcRestDocumentation.document(
@@ -133,7 +133,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
         Mockito.doThrow(DuplicateQuestionException.class).when(adminMajorQuestionMakeService).makeMultipleChoiceQuestion(any());
         mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(requestMakeMajorMultipleChoiceQuestionDto)))
+                        .content(objectMapper.writeValueAsString(requestMakeMultipleChoiceQuestionDto)))
                 .andExpect(MockMvcResultMatchers.status().isConflict())
                 .andDo(print())
                 .andDo(MockMvcRestDocumentation.document(

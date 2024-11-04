@@ -7,7 +7,7 @@ import com.server.computer_science.question.major_question.admin.dto.ResponseMaj
 import com.server.computer_science.question.major_question.admin.service.AdminMajorQuestionMakeService;
 import com.server.computer_science.question.major_question.admin.service.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.server.computer_science.question.major_question.common.exception.DuplicateQuestionException;
-import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
+import com.server.computer_science.question.major_question.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import com.server.computer_science.question.major_question.common.service.MajorQuestionClassifiedGetService;
 import com.server.computer_science.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
@@ -39,14 +39,14 @@ public class AdminMajorQuestionController {
 
     @ApiOperation("단답형 문제 리스트로 생성")
     @PostMapping(value = "/question/major-multi")
-    public ResponseEntity<List<ResponseQuestionDto>> MakeMultiNormalQuestion(@RequestBody List<RequestMakeMajorMultipleChoiceQuestionDto> requestMakeMajorMultipleChoiceQuestionDtos){
-        return ResponseEntity.ok(adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMajorMultipleChoiceQuestionDtos));
+    public ResponseEntity<List<ResponseQuestionDto>> MakeMultiNormalQuestion(@RequestBody List<RequestMakeMultipleChoiceQuestionDto> requestMakeMultipleChoiceQuestionDtos){
+        return ResponseEntity.ok(adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMultipleChoiceQuestionDtos));
     }
 
     @ApiOperation("단답형 문제 단일로 생성")
     @PostMapping(value = "/question/major-single")
-    public ResponseEntity<ResponseQuestionDto> MakeSingleNormalQuestion(@RequestBody RequestMakeMajorMultipleChoiceQuestionDto requestMakeMajorMultipleChoiceQuestionDto) throws DuplicateQuestionException {
-        return ResponseEntity.ok(adminMajorQuestionMakeService.makeMultipleChoiceQuestion(requestMakeMajorMultipleChoiceQuestionDto));
+    public ResponseEntity<ResponseQuestionDto> MakeSingleNormalQuestion(@RequestBody RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto) throws DuplicateQuestionException {
+        return ResponseEntity.ok(adminMajorQuestionMakeService.makeMultipleChoiceQuestion(requestMakeMultipleChoiceQuestionDto));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - Approve 토글")

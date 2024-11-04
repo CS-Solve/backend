@@ -4,8 +4,7 @@ import com.server.computer_science.question.common.dto.response.ResponseQuestion
 import com.server.computer_science.question.common.service.Implements.QuestionChoiceService;
 import com.server.computer_science.question.major_question.admin.service.AdminMajorQuestionMakeService;
 import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
-import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
-import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
+import com.server.computer_science.question.major_question.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import com.server.computer_science.question.major_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.major_question.common.repository.MajorQuestionRepository;
 import com.server.computer_science.question.major_question.admin.service.DuplicateQuestionDetector;
@@ -28,7 +27,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
      * 리스트로 생성
      */
     @Override
-    public List<ResponseQuestionDto> makeMultipleChoiceQuestions(List<RequestMakeMajorMultipleChoiceQuestionDto> requestNormalQuestionDtos) {
+    public List<ResponseQuestionDto> makeMultipleChoiceQuestions(List<RequestMakeMultipleChoiceQuestionDto> requestNormalQuestionDtos) {
         List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorQuestionRepository.findAll();
         return requestNormalQuestionDtos
                 .stream()
@@ -38,7 +37,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
     }
 
 
-    private ResponseQuestionDto makeNormalQuiz(RequestMakeMajorMultipleChoiceQuestionDto requestNormalQuestionDto) {
+    private ResponseQuestionDto makeNormalQuiz(RequestMakeMultipleChoiceQuestionDto requestNormalQuestionDto) {
         MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeWithDto(requestNormalQuestionDto);
         majorQuestionRepository.save(majorMultipleChoiceQuestion);
         questionChoiceService.saveWith(requestNormalQuestionDto, majorMultipleChoiceQuestion);
@@ -49,14 +48,14 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
     단일 생성
      */
     @Override
-    public ResponseQuestionDto makeMultipleChoiceQuestion(RequestMakeMajorMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException {
+    public ResponseQuestionDto makeMultipleChoiceQuestion(RequestMakeMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException {
         List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorQuestionRepository.findAll();
         if(checkWithAllQuestionsFromDB(requestNormalQuestionDto, majorMultipleChoiceQuestions)){
             throw new DuplicateQuestionException();
         }
         return makeNormalQuiz(requestNormalQuestionDto);
     }
-    private boolean checkWithAllQuestionsFromDB(RequestMakeMajorMultipleChoiceQuestionDto normalQuestionDto, List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
+    private boolean checkWithAllQuestionsFromDB(RequestMakeMultipleChoiceQuestionDto normalQuestionDto, List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
         for(MajorMultipleChoiceQuestion majorMultipleChoiceQuestion : majorMultipleChoiceQuestions){
             if(duplicateQuestionDetector.isQuestionDuplicate(majorMultipleChoiceQuestion.getContent(), normalQuestionDto.getContent()))
                 return false;

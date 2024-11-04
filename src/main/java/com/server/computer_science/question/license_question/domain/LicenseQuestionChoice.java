@@ -1,7 +1,7 @@
 package com.server.computer_science.question.license_question.domain;
 
 import com.server.computer_science.question.common.domain.QuestionChoice;
-import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorQuestionChoiceDto;
+import com.server.computer_science.question.major_question.admin.dto.RequestMakeQuestionChoiceDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -21,7 +21,7 @@ public class LicenseQuestionChoice extends QuestionChoice {
     private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
 
     public static LicenseQuestionChoice from(
-            RequestMakeMajorQuestionChoiceDto dto,
+            RequestMakeQuestionChoiceDto dto,
             LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion) {
         LicenseQuestionChoice questionChoice =  LicenseQuestionChoice.builder()
                 .text(dto.getText())
