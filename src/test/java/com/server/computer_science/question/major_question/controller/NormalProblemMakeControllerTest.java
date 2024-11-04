@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @WebMvcTest(AdminMajorQuestionController.class)
 @AutoConfigureRestDocs
 @AutoConfigureMockMvc
-class NormalProblemMakeControllerTest {
+class MajorQuestionControllerTest {
 
     private final String tag = "단답형 문제";
     @Autowired

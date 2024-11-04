@@ -11,6 +11,67 @@ plugins {
 
 	//OpenApi3 to Swagger 플러그인
 	id 'org.hidetake.swagger.generator' version '2.19.2'
+	id 'jacoco'
+}
+jacoco {
+	toolVersion = "0.8.10" // https://www.jacoco.org/jacoco/trunk/doc/changes.html
+}
+jacocoTestReport {
+	dependsOn test
+	reports {
+		html.required = true
+		xml.required = true
+	}
+	afterEvaluate {
+		classDirectories.setFrom(
+				// 그 외의 매칭되는 클래스도 제외 대상
+				files(classDirectories.files.collect {
+					fileTree(dir: it, excludes: [
+							"com.server.computer_science.**.**",
+							"**/*Application*",
+							"**/*Config*",
+							"**/domain",
+//							"**/*Dto*",
+//							"**/*Request*",
+//							"**/*Response*",
+							"**/*Interceptor*",
+							"**/*Exception*"
+					])
+				})
+		)
+	}
+	// 리포트 생성 후 커버리지 체크
+	finalizedBy jacocoTestCoverageVerification
+}
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			// rule 활성화
+			enabled = true
+
+			// 클래스 단위로 룰 체크
+			element = 'CLASS'
+
+			// 라인 커버리지를 최소 80% 만족
+			limit {
+				counter = 'LINE'
+				value = 'COVEREDRATIO'
+				minimum = 0.80
+			}
+
+			// 마찬가지로 제거 대상 지정
+			excludes = [
+					"com.server.computer_science.**.**",
+					"**.*Application*",
+					"**.*Config*",
+//					"**.*Dto*",
+//					"**.*Request*",
+//					"**.*Response*",
+					"**.*Interceptor*",
+					"**.*Exception*"
+			]
+		}
+	}
 }
 
 /**
@@ -138,3 +199,9 @@ bootJar {
 //	from file("build/docs/asciidoc")
 //	into file("src/main/resources/static/docs")
 //}
+tasks.named('test') {
+	outputs.dir snippetsDir
+	useJUnitPlatform()
+	// test 수행 이후 리포트 생성
+	finalizedBy jacocoTestReport
+}
