@@ -30,7 +30,7 @@ class AdminMajorQuestionViewControllerTest extends ControllerTest {
 
     @Test
     @DisplayName("전공 문제 update 페이지 View")
-    void testUpdateQuestionPage() throws Exception {
+    void updateMajorQuestionPage() throws Exception {
         // Given
         List<ResponseClassifiedMultipleQuestionDto> classifiedQuestions = new ArrayList<>(); // 테스트 데이터 예시
         when(majorQuestionClassifiedGetService.getClassifiedAllMajorQuestions())
