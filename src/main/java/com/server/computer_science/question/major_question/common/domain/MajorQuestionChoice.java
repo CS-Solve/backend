@@ -2,7 +2,7 @@ package com.server.computer_science.question.major_question.common.domain;
 
 
 import com.server.computer_science.question.common.domain.QuestionChoice;
-import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorQuestionChoiceDto;
+import com.server.computer_science.question.major_question.admin.dto.RequestMakeQuestionChoiceDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -22,7 +22,7 @@ public class MajorQuestionChoice extends QuestionChoice {
     @JoinColumn(name = "major_multiple_choice_question_id")
     private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
-    public static MajorQuestionChoice fromNormalQuestion(RequestMakeMajorQuestionChoiceDto dto, MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {
+    public static MajorQuestionChoice fromMajorQuestion(RequestMakeQuestionChoiceDto dto, MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {
         MajorQuestionChoice majorQuestionChoice =  MajorQuestionChoice.builder()
                 .text(dto.getText())
                 .selectedCount(0)

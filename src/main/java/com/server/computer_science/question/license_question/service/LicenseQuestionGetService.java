@@ -1,16 +1,16 @@
 package com.server.computer_science.question.license_question.service;
 
+import com.server.computer_science.question.common.domain.QuestionCategory;
 import com.server.computer_science.question.license_question.domain.LicenseMultipleChoiceQuestion;
 import com.server.computer_science.question.license_question.repository.LicenseMultipleChoiceQuestionRepository;
 import com.server.computer_science.question.major_question.common.service.QuestionClassifyByCategoryService;
-import com.server.computer_science.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -19,14 +19,11 @@ public class LicenseQuestionGetService {
     private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
     private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 
-    public List<ResponseClassifiedMultipleQuestionDto> getClassifiedLicenseNormalQuestion(Long sessionId) {
+    public Map<QuestionCategory,List<LicenseMultipleChoiceQuestion>> getClassifiedLicenseMultipleChoiceQuestion(Long sessionId) {
         List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository.findAllByLicenseSessionIdFetchChoices(sessionId);
         for(LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion : licenseMultipleChoiceQuestions){
             Collections.shuffle(licenseMultipleChoiceQuestion.getQuestionChoices());
         }
-        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions)
-                .entrySet().stream()
-                .map(entry-> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(),entry.getValue()))
-                .collect(Collectors.toList());
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions);
     }
 }

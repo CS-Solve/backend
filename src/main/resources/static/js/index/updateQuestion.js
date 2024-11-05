@@ -1,5 +1,5 @@
 function toggleApprove(questionId) {
-    fetch(`/admin/question/normal/toggle-approve/${questionId}`, {
+    fetch(`/admin/question/major/${questionId}/toggle-approve`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -20,7 +20,7 @@ function toggleApprove(questionId) {
 }
 
 function toggleCanBeMultiple(questionId) {
-    fetch(`/admin/question/normal/toggle-multiple/${questionId}`, {
+    fetch(`/admin/question/major/${questionId}/toggle-multiple`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ function toggleCategory(categoryName) {
 
 function deleteQuestion(questionId) {
     if (confirm("정말로 이 질문을 삭제하시겠습니까?")) {
-        fetch(`/admin/question/normal/${questionId}`, {
+        fetch(`/admin/question/major/${questionId}`, {
             method: 'DELETE',
         })
             .then(response => {
@@ -70,7 +70,7 @@ function updateDifficulty(selectElement) {
     const questionId = selectElement.getAttribute('data-question-id');
     const newDifficulty = selectElement.value;
 
-    fetch(`/admin/question/normal/${questionId}/difficulty`, {
+    fetch(`/admin/question/major/${questionId}/difficulty`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -193,7 +193,7 @@ function saveOverlayChanges() {
 }
 
 function updateNormalTextField(questionId, field, newValue) {
-    return fetch(`/admin/question/normal/${questionId}/${field}`, {
+    return fetch(`/admin/question/major/${questionId}/${field}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'

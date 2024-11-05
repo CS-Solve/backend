@@ -12,4 +12,10 @@ import lombok.NoArgsConstructor;
 @Getter
 public class RequestChangeContentDto {
     private String content;
+
+    public static RequestChangeContentDto forTest(){
+        return RequestChangeContentDto.builder()
+                .content("test")
+                .build();
+    }
 }

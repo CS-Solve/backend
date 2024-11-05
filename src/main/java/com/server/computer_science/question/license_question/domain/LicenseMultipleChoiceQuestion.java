@@ -2,7 +2,9 @@ package com.server.computer_science.question.license_question.domain;
 
 import com.server.computer_science.question.common.domain.ChoiceProvider;
 import com.server.computer_science.question.common.domain.Question;
-import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
+import com.server.computer_science.question.common.domain.QuestionCategory;
+import com.server.computer_science.question.common.domain.QuestionLevel;
+import com.server.computer_science.question.major_question.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -34,7 +36,7 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoicePro
         this.questionChoices = new ArrayList<>();
     }
 
-    public static LicenseMultipleChoiceQuestion makeWithDto(RequestMakeMajorMultipleChoiceQuestionDto dto, LicenseSession licenseSession, LicenseCategory licenseCategory){
+    public static LicenseMultipleChoiceQuestion makeWithDto(RequestMakeMultipleChoiceQuestionDto dto, LicenseSession licenseSession, LicenseCategory licenseCategory){
         LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.builder()
                 .content(dto.getContent())
                 .questionCategory(dto.getQuestionCategory())
@@ -43,6 +45,22 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoicePro
                 .imageUrl(null)
                 .licenseSession(licenseSession)
                 .licenseCategory(licenseCategory)
+                .build();
+        licenseMultipleChoiceQuestion.initDefaults();
+        return licenseMultipleChoiceQuestion;
+    }
+    public static LicenseMultipleChoiceQuestion makeForTest(String test){
+        LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.builder()
+                .content(test)
+                .questionCategory(QuestionCategory.ALGORITHM)
+                .questionLevel(QuestionLevel.LOW)
+                .description(test)
+                .imageUrl(null)
+                .licenseSession(LicenseSession.builder()
+                        .licenseCategory(LicenseCategory.SQLD)
+                        .content(test)
+                        .build())
+                .licenseCategory(LicenseCategory.SQLD)
                 .build();
         licenseMultipleChoiceQuestion.initDefaults();
         return licenseMultipleChoiceQuestion;

@@ -5,7 +5,7 @@ import com.server.computer_science.question.common.domain.ChoiceProvider;
 import com.server.computer_science.question.common.domain.Question;
 import com.server.computer_science.question.common.domain.QuestionCategory;
 import com.server.computer_science.question.common.domain.QuestionLevel;
-import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
+import com.server.computer_science.question.major_question.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -27,7 +27,7 @@ public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvi
     @OneToMany(mappedBy = "majorMultipleChoiceQuestion",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MajorQuestionChoice> questionChoices;
 
-    public static MajorMultipleChoiceQuestion makeWithDto(RequestMakeMajorMultipleChoiceQuestionDto dto){
+    public static MajorMultipleChoiceQuestion makeWithDto(RequestMakeMultipleChoiceQuestionDto dto){
         MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.builder()
                 .content(dto.getContent())
                 .questionCategory(dto.getQuestionCategory())
@@ -60,6 +60,7 @@ public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvi
                 .content("testQuest")
                 .questionCategory(QuestionCategory.COMPUTER_ARCHITECTURE)
                 .questionLevel(QuestionLevel.LOW)
+                .questionChoices(new ArrayList<>())
                 .description("testDescription")
                 .build();
     }

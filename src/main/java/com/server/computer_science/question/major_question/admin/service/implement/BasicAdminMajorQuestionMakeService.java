@@ -4,8 +4,7 @@ import com.server.computer_science.question.common.dto.response.ResponseQuestion
 import com.server.computer_science.question.common.service.Implements.QuestionChoiceService;
 import com.server.computer_science.question.major_question.admin.service.AdminMajorQuestionMakeService;
 import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
-import com.server.computer_science.question.major_question.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
-import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
+import com.server.computer_science.question.major_question.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import com.server.computer_science.question.major_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.major_question.common.repository.MajorQuestionRepository;
 import com.server.computer_science.question.major_question.admin.service.DuplicateQuestionDetector;
@@ -20,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMakeService {
+
     private final MajorQuestionRepository majorQuestionRepository;
     private final QuestionChoiceService questionChoiceService;
     private final DuplicateQuestionDetector duplicateQuestionDetector;
@@ -28,41 +28,43 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
      * 리스트로 생성
      */
     @Override
-    public List<ResponseQuestionDto> makeNormalQuestions(List<RequestMakeMajorMultipleChoiceQuestionDto> requestNormalQuestionDtos) {
-        List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorQuestionRepository.findAll();
-        return requestNormalQuestionDtos
-                .stream()
-                .filter(normalQuestionDto -> checkWithAllQuestionsFromDB(normalQuestionDto, majorMultipleChoiceQuestions))
-                .map(this::makeNormalQuiz)
+    public List<MajorMultipleChoiceQuestion> makeMultipleChoiceQuestions(List<RequestMakeMultipleChoiceQuestionDto> requestDtos) {
+        // 중복되지 않은 질문을 필터링하여 저장
+        return requestDtos.stream()
+                .filter(this::isNotDuplicateQuestion)
+                .map(this::saveMajorMultipleChoiceQuestion)
                 .collect(Collectors.toList());
     }
 
-
-    private ResponseQuestionDto makeNormalQuiz(RequestMakeMajorMultipleChoiceQuestionDto requestNormalQuestionDto) {
-        MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeWithDto(requestNormalQuestionDto);
-        majorQuestionRepository.save(majorMultipleChoiceQuestion);
-        questionChoiceService.saveWith(requestNormalQuestionDto, majorMultipleChoiceQuestion);
-        return ResponseQuestionDto.forAdmin(majorMultipleChoiceQuestion);
-    }
-
-    /*
-    단일 생성
+    /**
+     * 단일 생성
      */
     @Override
-    public ResponseQuestionDto makeNormalQuestion(RequestMakeMajorMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException {
-        List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorQuestionRepository.findAll();
-        if(checkWithAllQuestionsFromDB(requestNormalQuestionDto, majorMultipleChoiceQuestions)){
+    public MajorMultipleChoiceQuestion makeMultipleChoiceQuestion(RequestMakeMultipleChoiceQuestionDto requestDto) throws DuplicateQuestionException {
+        if (!isNotDuplicateQuestion(requestDto)) {
             throw new DuplicateQuestionException();
         }
-        return makeNormalQuiz(requestNormalQuestionDto);
-    }
-    private boolean checkWithAllQuestionsFromDB(RequestMakeMajorMultipleChoiceQuestionDto normalQuestionDto, List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
-        for(MajorMultipleChoiceQuestion majorMultipleChoiceQuestion : majorMultipleChoiceQuestions){
-            if(duplicateQuestionDetector.isQuestionDuplicate(majorMultipleChoiceQuestion.getContent(), normalQuestionDto.getContent()))
-                return false;
-        }
-        return true;
+        return saveMajorMultipleChoiceQuestion(requestDto);
     }
 
+    /**
+     * 중복되지 않은 질문인지 확인하는 메서드
+     * 매번 DB에서 새롭게 조회 후 검증한다.(DTO 자체의 중복된 데이터)
+     */
+    private boolean isNotDuplicateQuestion(RequestMakeMultipleChoiceQuestionDto requestDto) {
+        return majorQuestionRepository.findAll().stream()
+                .noneMatch(existingQuestion -> duplicateQuestionDetector.isQuestionDuplicate(
+                        existingQuestion.getContent(), requestDto.getContent()));
+    }
 
+    /**
+     * 새로운 질문을 저장하고 선택지를 저장하는 메서드
+     */
+    private MajorMultipleChoiceQuestion saveMajorMultipleChoiceQuestion(RequestMakeMultipleChoiceQuestionDto requestDto) {
+        MajorMultipleChoiceQuestion question = MajorMultipleChoiceQuestion.makeWithDto(requestDto);
+        majorQuestionRepository.save(question);
+        questionChoiceService.saveWith(requestDto, question);
+        return question;
+    }
 }
+
