@@ -18,12 +18,14 @@ import com.server.computerscience.question.major.admin.dto.RequestMakeMultipleCh
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @SuperBuilder
 @NoArgsConstructor
+@ToString
 public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvider {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -72,20 +74,6 @@ public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvi
 			.questionChoices(new ArrayList<>())
 			.description("testDescription")
 			.build();
-	}
-
-	@Override
-	public String toString() {
-		return "NormalQuestion{" +
-			"questionChoices=" + questionChoices +
-			", content='" + content + '\'' +
-			", questionCategory=" + questionCategory +
-			", questionLevel=" + questionLevel +
-			", description='" + description + '\'' +
-			", imageUrl='" + imageUrl + '\'' +
-			", ifApproved=" + ifApproved +
-			", canBeShortAnswered=" + canBeShortAnswered +
-			'}';
 	}
 
 	/**

@@ -6,9 +6,11 @@ import com.server.computerscience.question.license.domain.LicenseSession;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @NoArgsConstructor
+@ToString
 public class ResponseLicenseSessionDto {
 	private Long id;
 	private String content;
@@ -29,12 +31,4 @@ public class ResponseLicenseSessionDto {
 		this.licenseCategory = licenseCategory;
 	}
 
-	@Override
-	public String toString() {
-		return "ResponseLicenseSessionDto{" +
-			"id=" + id +
-			", content='" + content + '\'' +
-			", licenseCategory=" + licenseCategory +
-			'}';
-	}
 }

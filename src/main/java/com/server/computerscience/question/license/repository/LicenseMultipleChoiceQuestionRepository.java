@@ -13,14 +13,14 @@ import com.server.computerscience.question.license.domain.LicenseMultipleChoiceQ
 @Repository
 public interface LicenseMultipleChoiceQuestionRepository extends JpaRepository<LicenseMultipleChoiceQuestion, Long> {
 
-	@Query("SELECT DISTINCT lnq FROM LicenseMultipleChoiceQuestion  lnq " +
-		"LEFT JOIN FETCH lnq.questionChoices " +
-		"WHERE lnq.licenseSession.id = :licenseSessionId ")
+	@Query("SELECT DISTINCT lnq FROM LicenseMultipleChoiceQuestion  lnq "
+		+ "LEFT JOIN FETCH lnq.questionChoices "
+		+ "WHERE lnq.licenseSession.id = :licenseSessionId ")
 	List<LicenseMultipleChoiceQuestion> findAllByLicenseSessionIdFetchChoices(
 		@Param("licenseSessionId") Long licenseSessionId);
 
-	@Query("SELECT lnq FROM LicenseMultipleChoiceQuestion  lnq " +
-		"LEFT JOIN FETCH lnq.questionChoices " +
-		"WHERE lnq.id = :questionId ")
+	@Query("SELECT lnq FROM LicenseMultipleChoiceQuestion  lnq "
+		+ "LEFT JOIN FETCH lnq.questionChoices "
+		+ "WHERE lnq.id = :questionId ")
 	Optional<LicenseMultipleChoiceQuestion> findByIdFetchChoices(@Param("questionId") Long questionId);
 }

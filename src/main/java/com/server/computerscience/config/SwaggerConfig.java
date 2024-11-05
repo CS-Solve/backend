@@ -41,7 +41,8 @@ public class SwaggerConfig {
 	}
 
 	@Bean
-	public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier webEndpointsSupplier
+	public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(
+		WebEndpointsSupplier webEndpointsSupplier
 		, ServletEndpointsSupplier servletEndpointsSupplier
 		, ControllerEndpointsSupplier controllerEndpointsSupplier
 		, EndpointMediaTypes endpointMediaTypes
