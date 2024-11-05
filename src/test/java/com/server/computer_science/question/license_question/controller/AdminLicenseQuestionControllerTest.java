@@ -10,7 +10,7 @@ import com.server.computer_science.question.license_question.domain.LicenseCateg
 import com.server.computer_science.question.license_question.domain.LicenseMultipleChoiceQuestion;
 import com.server.computer_science.question.license_question.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import com.server.computer_science.question.license_question.service.AdminLicenseMuiltipleChoiceQuestionUpdateService;
-import com.server.computer_science.question.license_question.service.LicenseQuestionMakeService;
+import com.server.computer_science.question.license_question.service.AdminLicenseQuestionMakeService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 class AdminLicenseQuestionControllerTest extends ControllerTest {
     private final String tag = "자격증 문제";
     @MockBean
-    private LicenseQuestionMakeService licenseQuestionMakeService;
+    private AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
     @MockBean
     private AdminLicenseMuiltipleChoiceQuestionUpdateService adminLicenseMuiltipleChoiceQuestionUpdateService;
 
@@ -60,7 +60,7 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
     void makeLicenseQuestion() throws Exception {
         final String path = baseApiUrl;
         final String document_Name ="성공";
-        Mockito.when(licenseQuestionMakeService.makeLicenseNormalQuestion(any())).thenReturn(responseQuestionDtos);
+        Mockito.when(adminLicenseQuestionMakeService.makeLicenseNormalQuestion(any())).thenReturn(responseQuestionDtos);
 
         mockMvc.perform(RestDocumentationRequestBuilders.post(path)
                         .contentType(MediaType.APPLICATION_JSON)

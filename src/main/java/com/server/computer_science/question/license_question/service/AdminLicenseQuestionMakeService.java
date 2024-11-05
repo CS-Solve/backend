@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class LicenseQuestionMakeService {
+public class AdminLicenseQuestionMakeService {
     private final LicenseSessionService licenseSessionService;
     private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
     private final QuestionChoiceService questionChoiceService;

@@ -3,7 +3,7 @@ package com.server.computer_science.question.license_question.controller;
 
 import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
 import com.server.computer_science.question.license_question.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
-import com.server.computer_science.question.license_question.service.LicenseQuestionMakeService;
+import com.server.computer_science.question.license_question.service.AdminLicenseQuestionMakeService;
 import com.server.computer_science.question.license_question.service.AdminLicenseMuiltipleChoiceQuestionUpdateService;
 import com.server.computer_science.question.common.dto.request.RequestChangeContentDto;
 import com.server.computer_science.question.common.dto.request.RequestChangeDescriptionDto;
@@ -21,19 +21,19 @@ import java.util.List;
 @Api(tags ={"자격증 문제 - ADMIN"})
 @RequiredArgsConstructor
 public class AdminLicenseQuestionController {
-    private final LicenseQuestionMakeService licenseQuestionMakeService;
+    private final AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
     private final AdminLicenseMuiltipleChoiceQuestionUpdateService adminLicenseMuiltipleChoiceQuestionUpdateService;
 
     @ApiOperation("단답형 문제 세션으로 생성")
     @PostMapping
     public ResponseEntity<List<ResponseQuestionDto>> makeLicenseQuestionOfSession(@RequestBody RequestMakeLicenseMultipleChoiceQuestionDto requestMakeLicenseMultipleChoiceQuestionDto){
-        return ResponseEntity.ok(licenseQuestionMakeService.makeLicenseNormalQuestion(requestMakeLicenseMultipleChoiceQuestionDto));
+        return ResponseEntity.ok(adminLicenseQuestionMakeService.makeLicenseNormalQuestion(requestMakeLicenseMultipleChoiceQuestionDto));
     }
 
     @ApiOperation("단답형 문제 이미지 업로드")
     @PatchMapping("/{id}/image")
     public ResponseEntity<String>  updateLicenseQuestionWithImage(@PathVariable("id") Long licenseQuestionId, @RequestPart(value="image") MultipartFile file){
-        return ResponseEntity.ok(licenseQuestionMakeService.updateLicenseQuestionWithImage(licenseQuestionId,file));
+        return ResponseEntity.ok(adminLicenseQuestionMakeService.updateLicenseQuestionWithImage(licenseQuestionId,file));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - 문제 지문 업데이트")
