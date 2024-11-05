@@ -1,0 +1,32 @@
+# .editorconfig 파일의 최상위 위치를 설정하여 상위 디렉터리에서 추가적인 .editorconfig를 찾지 않도록 합니다.
+root = true
+
+# [*] 섹션은 모든 파일에 적용되는 기본 설정을 정의합니다.
+[*]
+# 파일 인코딩을 UTF-8로 지정하여 모든 파일이 UTF-8 인코딩을 사용하도록 합니다.
+charset = utf-8
+
+# 줄 끝 스타일을 LF(Line Feed)로 설정합니다. (주로 Linux 및 macOS에서 사용)
+end_of_line = lf
+
+# 파일 끝에 항상 새 줄을 추가하도록 설정합니다. POSIX 표준에 따라 파일 마지막 줄에 새 줄이 있는 것이 일반적입니다.
+insert_final_newline = true
+
+# 특정 파일 확장자에 대한 설정 예시: Windows 배치 파일(.bat)의 줄 끝 스타일을 CRLF로 설정합니다.
+[*.bat]
+end_of_line = crlf
+
+# [*.java] 섹션은 Java 파일에만 적용되는 설정을 정의합니다.
+[*.java]
+# 들여쓰기를 탭(tab) 스타일로 지정하여, 탭을 사용해 들여쓰기를 합니다.
+indent_style = tab
+
+# 탭 폭과 들여쓰기 크기를 4칸으로 지정하여, 탭 한 번에 4칸의 들여쓰기를 합니다.
+indent_size = 4
+tab_width = 4
+
+# 모든 파일에서 줄 끝의 불필요한 공백을 자동으로 제거합니다.
+trim_trailing_whitespace = true
+
+# 최대 줄 길이를 120자로 제한하여 코드의 가독성을 높입니다.
+max_line_length = 120

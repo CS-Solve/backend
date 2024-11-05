@@ -24,7 +24,4 @@ class BasicDuplicateQuestionDetectorTest {
         String newString = "문장유사도검사";
         Assertions.assertTrue(basicDuplicateQuestionDetector.isQuestionDuplicate(originalString, newString));
     }
-
-
-
 }
