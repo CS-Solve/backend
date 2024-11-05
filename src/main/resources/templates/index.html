@@ -5,45 +5,59 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QBBR8GH8H9"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-QBBR8GH8H9');
     </script>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KRXZFS2Q');</script>
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-KRXZFS2Q');</script>
     <!-- End Google Tag Manager -->
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS 전공 및 자격증 기출 문제 모음 | 컴싸 </title>
     <link rel="icon" type="image/svg+xml" th:href="|${baseUrl}/img/mainLogo.svg|">
 
     <meta name="description" content="CS(컴퓨터 사이언스) 문제를 풀며 개념을 복습하고 면접에 대비해보세요. 다양한 분야의 CS 전공 문제 모음과 해설을 제공합니다.">
 
-    <link rel="stylesheet" th:href="|${baseUrl}/css/globals.css|" />
-    <link rel="stylesheet" th:href="|${baseUrl}/css/index/styleguide.css|" />
-    <link rel="stylesheet" th:href="|${baseUrl}/css/index/style.css|" />
-    <link rel="stylesheet" th:href="|${baseUrl}/css/global-index/style.css|" />
+    <link rel="stylesheet" th:href="|${baseUrl}/css/globals.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/index/styleguide.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/index/style.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/global-index/style.css|"/>
     <script th:src="|${baseUrl}/js/index/chooseQuestionType.js|"></script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRXZFS2Q"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRXZFS2Q"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 <!-- End Google Tag Manager (noscript) -->
 <div class="screen">
     <div class="big-box">
-        <h1 class ="siteDescription">CS 전공 및 자격증 기출 문제 모음 </h1>
+        <h1 class="siteDescription">CS 전공 및 자격증 기출 문제 모음 </h1>
         <div class="main-logo-box">
             <img th:src="|${baseUrl}/img/mainLogo.svg|" alt="CS Solver Logo" class="logo-image">
             <link href="https://fonts.googleapis.com/css2?family=Cambay&display=swap" rel="stylesheet">
-            <h2 class ="mainTitle">Com Ssa</h2>
+            <h2 class="mainTitle">Com Ssa</h2>
         </div>
-        <form th:action="@{/question/major}" method="get" class ="mainForm">
+        <form th:action="@{/question/major}" method="get" class="mainForm">
             <div class="main-box">
                 <p class="question-title-box">
                     <span class="choice-left" onclick="window.location.href='/'">전공 개념</span>
@@ -56,8 +70,10 @@
                         <div class="scroll-box">
                             <div class="categories" th:each="category, iterStat : ${categories}">
                                 <div class="each-category">
-                                    <input type="checkbox" th:id="${'category-' + iterStat.index}" th:value="${category}" name="categories" class="checkbox" />
-                                    <label th:for="${'category-' + iterStat.index}" class="text-wrapper-2" th:text="${category}"></label>
+                                    <input type="checkbox" th:id="${'category-' + iterStat.index}"
+                                           th:value="${category}" name="categories" class="checkbox"/>
+                                    <label th:for="${'category-' + iterStat.index}" class="text-wrapper-2"
+                                           th:text="${category}"></label>
                                 </div>
                             </div>
                         </div>
@@ -69,8 +85,10 @@
                         <div class="scroll-box">
                             <div class="levels">
                                 <div class="each-level" th:each="difficulty : ${levels}">
-                                    <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}" name="levels" class="checkbox" />
-                                    <label th:for="${'difficulty-' + difficultyStat.index}" class="check-box-text" th:text="${difficulty}"></label>
+                                    <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}"
+                                           th:value="${difficulty}" name="levels" class="checkbox"/>
+                                    <label th:for="${'difficulty-' + difficultyStat.index}" class="check-box-text"
+                                           th:text="${difficulty}"></label>
                                 </div>
                             </div>
                         </div>
@@ -78,10 +96,9 @@
                     </div>
                 </div>
                 <!-- 문제 유형을 Boolean으로 설정 -->
-                <input type="hidden" name="multipleChoice" id="questionType" value="" />
+                <input type="hidden" name="multipleChoice" id="questionType" value=""/>
 
             </div>
-
 
 
             <div class="start-button-container">

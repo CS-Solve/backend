@@ -16,9 +16,9 @@
     /* 세로 정렬 */
 }
 
-.screen .mainForm{
+.screen .mainForm {
     position: relative;
-    top:0;
+    top: 0;
     height: 90%;
 }
 
@@ -63,12 +63,12 @@
 }
 
 
-
 .screen .each-level {
     flex-grow: 1;
     text-align: center;
     width: 100%; /* 각 항목이 세로 정렬될 때 가로로 100% 너비를 차지 */
 }
+
 /* 스크롤 활성화 */
 .screen .scroll-box {
     display: flex;
@@ -81,14 +81,8 @@
     /* 테두리 및 시각적 효과 */
     border: 1px solid rgba(0, 0, 0, 0.1); /* 연한 회색 테두리 */
     border-radius: 8px; /* 모서리를 조금 더 부드럽게 */
-    box-shadow: inset 0px 10px 8px -8px rgba(0, 0, 0, 0.2), /* 위쪽 섀도우 */
-    inset 0px -10px 8px -8px rgba(0, 0, 0, 0.2); /* 아래쪽 섀도우 */
+    box-shadow: inset 0px 10px 8px -8px rgba(0, 0, 0, 0.2), /* 위쪽 섀도우 */ inset 0px -10px 8px -8px rgba(0, 0, 0, 0.2); /* 아래쪽 섀도우 */
 }
-
-
-
-
-
 
 
 /* 각 카테고리의 스타일 */
@@ -104,16 +98,12 @@
     overflow-y: auto; /* 세로 스크롤 가능 */
     overflow-x: hidden; /* 가로 스크롤 제거 */
 }
+
 .screen .each-level {
 
     text-align: center;
     width: 100%; /* 각 항목이 세로 정렬될 때 가로로 100% 너비를 차지 */
 }
-
-
-
-
-
 
 
 .screen .box {
@@ -143,10 +133,6 @@
 }
 
 
-
-
-
-
 .screen .description-box {
     display: flex;
     width: 71px;
@@ -164,8 +150,6 @@
     position: relative;
     flex: 0 0 auto;
 }
-
-
 
 
 /*.logo-container {*/

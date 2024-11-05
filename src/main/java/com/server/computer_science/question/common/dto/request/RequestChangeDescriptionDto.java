@@ -10,11 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 public class RequestChangeDescriptionDto {
-    private String description;
+	private String description;
 
-    public static RequestChangeDescriptionDto forTest(){
-        return RequestChangeDescriptionDto.builder()
-                .description("test")
-                .build();
-    }
+	public static RequestChangeDescriptionDto forTest() {
+		return RequestChangeDescriptionDto.builder()
+			.description("test")
+			.build();
+	}
 }

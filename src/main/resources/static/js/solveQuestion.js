@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function () {
     let selectedChoice = null;
     let selectedQuestion = null;
@@ -39,34 +38,35 @@ document.addEventListener('DOMContentLoaded', function () {
         // 세션 정보에 저장되어 있는 것들을 적용
         applyDataFromSessionStorage()
     }
-    function getStorageKey(category,index){
+
+    function getStorageKey(category, index) {
         return `${category}-${index}`;
     }
 
     /**
      * ex) 문제 채점 결과 등
      */
-    function applyDataFromSessionStorage(){
+    function applyDataFromSessionStorage() {
         const categories = document.querySelectorAll('.category');
         console.log(Array.from(questionList.querySelectorAll('.questionBarCategory')))
-        categories.forEach(categoryJson =>{
+        categories.forEach(categoryJson => {
             const categoryText = categoryJson.querySelector('.category-text').textContent.trim();
             const questionBoxes = categoryJson.querySelectorAll('.question-box');
-            questionBoxes.forEach((questionBox,index) =>{
-                const storedResult = sessionStorage.getItem(getStorageKey(categoryText,index));
-                if(storedResult!==null){
+            questionBoxes.forEach((questionBox, index) => {
+                const storedResult = sessionStorage.getItem(getStorageKey(categoryText, index));
+                if (storedResult !== null) {
                     const isCorrect = JSON.parse(storedResult)
                     /*
                     본문 문제 업데이트
                      */
-                    markQuestionResult(questionBox,isCorrect)
+                    markQuestionResult(questionBox, isCorrect)
 
                     /*
                     사이드바 업데이트
                      */
-                    const sideBarQuestion = findSidebarQuestion(categoryText,index);
-                    if(sideBarQuestion!==null) {
-                        makeSideBarQuestionColor(sideBarQuestion,isCorrect);
+                    const sideBarQuestion = findSidebarQuestion(categoryText, index);
+                    if (sideBarQuestion !== null) {
+                        makeSideBarQuestionColor(sideBarQuestion, isCorrect);
                     }
 
                 }
@@ -139,7 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
     // 문제 창에서 카테고리 이름,인덱스를 기준으로 질문 찾기
     function findQuestionInCategory(categoryText, questionIndex) {
         const category = Array.from(document.querySelectorAll('.category'))
@@ -162,7 +161,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const categoryTitle = e.target.closest('.questionBarCategory').querySelector('.questionBarCategoryTitleBox').textContent.trim();
             const questionIndex = e.target.dataset.questionIndex;
             const questionBox = findQuestionInCategory(categoryTitle, questionIndex);
-            if (questionBox) questionBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (questionBox) questionBox.scrollIntoView({behavior: 'smooth', block: 'start'});
         }
     }
 
@@ -174,14 +173,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const categoryTitle = category.querySelector('.category-text').textContent.trim();
 
 
-
         const sideBarQuestion = findSidebarQuestion(categoryTitle, questionIndex);
         if (sideBarQuestion) {
-            makeSideBarQuestionColor(sideBarQuestion,isCorrect);
-            sideBarQuestion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            makeSideBarQuestionColor(sideBarQuestion, isCorrect);
+            sideBarQuestion.scrollIntoView({behavior: 'smooth', block: 'start'});
         }
     }
-    function makeSideBarQuestionColor(sideBarQuestion,isCorrect){
+
+    function makeSideBarQuestionColor(sideBarQuestion, isCorrect) {
         sideBarQuestion.style.color = isCorrect ? 'green' : 'red';
         sideBarQuestion.style.borderLeft = isCorrect ? '3px solid green' : '3px solid red';
     }
@@ -194,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
             /*
             객관식 문제가 아닐때만 문제 선택을 활성화 한다.
              */
-        } else if (multipleChoice ===false && e.target.classList.contains('questionItem')) {
+        } else if (multipleChoice === false && e.target.classList.contains('questionItem')) {
             selectQuestion(e.target);
         }
     }
@@ -214,9 +213,10 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         selectedQuestion = question;
         selectedQuestion.classList.add('selected-question');
-       refreshAnswerAndDescription();
+        refreshAnswerAndDescription();
     }
-    function refreshAnswerAndDescription(){
+
+    function refreshAnswerAndDescription() {
         makeDescriptionForHtml()
         hideAnswerMessage();
         hideDescription();
@@ -224,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function toggleDescriptionVisibility() {
-        if(marked === false){
+        if (marked === false) {
 
         }
         if (descriptionContent.style.display === "none") {
@@ -250,13 +250,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 결과를 기록하는 공통 함수
     function updateQuestionResult(questionBox, isCorrect) {
-        markQuestionResult(questionBox,isCorrect)
+        markQuestionResult(questionBox, isCorrect)
         //현재 채점 결과를 세션 스토리지에 저장한다.
         const category = questionBox.closest('.category').querySelector('.category-text').textContent.trim();
         const index = questionBox.dataset.questionIndex;
-        const storageKey = getStorageKey(category,index);
-        sessionStorage.setItem(storageKey,JSON.stringify(isCorrect))
+        const storageKey = getStorageKey(category, index);
+        sessionStorage.setItem(storageKey, JSON.stringify(isCorrect))
     }
+
     function markQuestionResult(questionBox, isCorrect) {
         const questionResult = questionBox.querySelector('.questionResult');
 
@@ -312,15 +313,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
     function showAnswerMessage(message, isCorrect) {
         answerBox.style.display = 'flex';
         answerBox.classList.toggle('correct-answer', isCorrect);
         answerBox.classList.toggle('wrong-answer', !isCorrect);
         answerText.textContent = message;
     }
-    function hideAnswerMessage(){
-        answerBox.style.display='none';
+
+    function hideAnswerMessage() {
+        answerBox.style.display = 'none';
     }
 
     function makeDescriptionForHtml() {

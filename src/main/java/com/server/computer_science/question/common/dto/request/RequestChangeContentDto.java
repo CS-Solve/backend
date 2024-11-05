@@ -1,6 +1,5 @@
 package com.server.computer_science.question.common.dto.request;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,11 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @Getter
 public class RequestChangeContentDto {
-    private String content;
+	private String content;
 
-    public static RequestChangeContentDto forTest(){
-        return RequestChangeContentDto.builder()
-                .content("test")
-                .build();
-    }
+	public static RequestChangeContentDto forTest() {
+		return RequestChangeContentDto.builder()
+			.content("test")
+			.build();
+	}
 }

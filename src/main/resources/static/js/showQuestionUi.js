@@ -1,9 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const backButton = document.querySelector('.mainPageFrame');
 
     backButton.style.cursor = 'pointer'; // 마우스를 올리면 클릭할 수 있다는 느낌을 주기 위해 포인터 추가
 
-    backButton.addEventListener('click', function() {
+    backButton.addEventListener('click', function () {
         window.location.href = '/'; // 메인화면으로 이동
     });
 });
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const levelBoxes = document.querySelectorAll('.level-show-box');
 
     // 각 level-show-box에 대해 반복
-    levelBoxes.forEach(function(levelBox) {
+    levelBoxes.forEach(function (levelBox) {
         // 각 level-show-box의 data-level 속성에서 난이도 값 가져오기
         const level = levelBox.getAttribute('data-level');
 

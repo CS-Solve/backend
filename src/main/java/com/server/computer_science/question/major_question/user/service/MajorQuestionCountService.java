@@ -1,11 +1,12 @@
 package com.server.computer_science.question.major_question.user.service;
 
-import com.server.computer_science.question.major_question.user.dto.response.ResponseMajorQuestionClassCountDto;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.server.computer_science.question.major_question.user.dto.response.ResponseMajorQuestionClassCountDto;
 
 @Service
 public interface MajorQuestionCountService {
-    public List<ResponseMajorQuestionClassCountDto> getNormalQuestionCountByClass();
+	public List<ResponseMajorQuestionClassCountDto> getNormalQuestionCountByClass();
 }

@@ -5,44 +5,48 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-QBBR8GH8H9"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'G-QBBR8GH8H9');
     </script>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <title>CS 문제 | 운영체제, 네트워크, 자료구조, 컴퓨터구조, 데이터베이스 </title>
 
     <meta name="description" content="다양한 분야와 난이도의 CS (컴퓨터 사이언스) 문제를 풀어볼 수 있습니다. ">
 
-    <link rel="stylesheet" th:href="|${baseUrl}/css/global.css|" />
-    <link rel="stylesheet" th:href="|${baseUrl}/css/normal-question/style.css|" />
-    <script th:src="|${baseUrl}/js/solveQuestion.js|" ></script>
-    <script th:src="|${baseUrl}/js/showQuestionUi.js|" ></script>
-    <script th:src="|${baseUrl}/js/translateTextForHtml.js|" ></script>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/global.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/normal-question/style.css|"/>
+    <script th:src="|${baseUrl}/js/solveQuestion.js|"></script>
+    <script th:src="|${baseUrl}/js/showQuestionUi.js|"></script>
+    <script th:src="|${baseUrl}/js/translateTextForHtml.js|"></script>
 
 </head>
 <body>
 <div class="quiz">
     <!-- 상단 제목 -->
-<!--    <div class="logo-box">Com Ssa</div>-->
+    <!--    <div class="logo-box">Com Ssa</div>-->
 
 
     <div class="left-sidebar">
         <p>총 문제 수: <span id="totalQuestionsCount">0</span></p>
-<!--        <p>맞은 문제: <span id="correctQuestions">0</span></p>-->
-<!--        <p>틀린 문제: <span id="incorrectQuestions">0</span></p>-->
+        <!--        <p>맞은 문제: <span id="correctQuestions">0</span></p>-->
+        <!--        <p>틀린 문제: <span id="incorrectQuestions">0</span></p>-->
         <div class="question-bar">
             <div id="questionList"></div>
         </div>
     </div>
     <!-- 왼쪽 질문 리스트 박스 -->
-    <input type="hidden" id="multipleChoice" th:value="${multipleChoice}" />
+    <input type="hidden" id="multipleChoice" th:value="${multipleChoice}"/>
     <div class="left-box">
         <!-- 질문 리스트 반복 렌더링 -->
         <div class="category" th:each="category, iterStat : ${questions}">
             <div class="categoryTitleBox">
-                <div class="category-text" th:text ="${category.questionCategory.korean}">문제 분야</div>
+                <div class="category-text" th:text="${category.questionCategory.korean}">문제 분야</div>
             </div>
             <div class="question-box" th:each="question, iterStat : ${category.responseQuestionDtoList}"
                  th:data-question-index="${iterStat.index}">
@@ -89,18 +93,18 @@
         <!-- 해설 보기 -->
         <div class="description-box">
             <div class="frame-3">
-                <div class="text-wrapper-10" id="toggleDescription" >해설 보기 ▼</div>
+                <div class="text-wrapper-10" id="toggleDescription">해설 보기 ▼</div>
             </div>
             <!-- 해설 내용 -->
             <div class="description-content" id="descriptionContent" style="display: none;">
-                <p class = "descriptionText" id="descriptionText">해설 내용이 여기에 표시됩니다.</p>
+                <p class="descriptionText" id="descriptionText">해설 내용이 여기에 표시됩니다.</p>
             </div>
         </div>
     </div>
 
     <!-- 메인화면 버튼 -->
     <div class="mainPageFrame">
-        <img class="back-to" th:src="|${baseUrl}/img/back-to.svg|" />
+        <img class="back-to" th:src="|${baseUrl}/img/back-to.svg|"/>
         <div class="text-wrapper-8">메인화면</div>
     </div>
 </div>

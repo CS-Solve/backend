@@ -6,7 +6,8 @@
         <Property name="rolling-date-format">%d{yyyy-MM-dd}</Property>
         <Property name="backupsize">50m</Property>
 
-        <Property name="file_message_pattern">%d{MM-dd HH:mm:ss.sss} [%15.15t] %-5level %-40.40logger{1.} -- %msg%n</Property>
+        <Property name="file_message_pattern">%d{MM-dd HH:mm:ss.sss} [%15.15t] %-5level %-40.40logger{1.} -- %msg%n
+        </Property>
     </Properties>
 
     <Appenders>
@@ -21,7 +22,7 @@
                 <Pattern>${file_message_pattern}</Pattern>
             </PatternLayout>
             <Policies>
-                <SizeBasedTriggeringPolicy size="${backupsize}" />
+                <SizeBasedTriggeringPolicy size="${backupsize}"/>
                 <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
             </Policies>
             <DefaultRolloverStrategy max="20"/>
