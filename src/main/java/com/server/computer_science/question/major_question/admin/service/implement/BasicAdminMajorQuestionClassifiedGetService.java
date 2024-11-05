@@ -1,6 +1,7 @@
 package com.server.computer_science.question.major_question.admin.service.implement;
 
 
+import com.server.computer_science.question.common.domain.QuestionCategory;
 import com.server.computer_science.question.major_question.admin.service.AdminMajorQuestionClassifiedGetService;
 import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
 import com.server.computer_science.question.major_question.common.service.QuestionClassifyByCategoryService;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,13 +28,8 @@ public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQu
      * @return
      */
     @Override
-    public List<ResponseClassifiedMultipleQuestionDto> getClassifiedAllMajorQuestions() {
+    public Map<QuestionCategory,List<MajorMultipleChoiceQuestion>> getClassifiedAllMajorQuestions() {
         List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDBService.findAllFetchChoicesSortedByApproveAndShortAnswered();
-        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions)
-                .entrySet().stream()
-                .map(entry-> ResponseClassifiedMultipleQuestionDto.forAdmin(entry.getKey(),entry.getValue()))
-                .collect(Collectors.toList());
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
     }
-
-
 }

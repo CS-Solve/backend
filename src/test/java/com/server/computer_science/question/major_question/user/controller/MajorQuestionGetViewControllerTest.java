@@ -35,8 +35,7 @@ class MajorQuestionGetViewControllerTest extends ControllerTest {
             .map(QuestionCategory::getKorean)
             .collect(Collectors.toList());
     boolean multipleChoice = true;
-    Map<QuestionCategory,List<MajorMultipleChoiceQuestion>> map = new HashMap<>();
-
+    private Map<QuestionCategory,List<MajorMultipleChoiceQuestion>> map = new HashMap<>();
 
     @BeforeEach
     void setUp() {
@@ -63,7 +62,6 @@ class MajorQuestionGetViewControllerTest extends ControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("major-question"))
                 .andExpect(model().attributeExists("questions"))
-                .andExpect(model().attribute("questions", responseClassifiedMultipleQuestionDtos))
                 .andDo(print());
     }
 

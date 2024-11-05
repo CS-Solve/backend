@@ -40,12 +40,11 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
     @BeforeEach
     void setUp() {
         majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
-        MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
 
     }
 
     @Test
-    @DisplayName("모든 카테고리 선택 후 허용된 특정 문제 존재 확인")
+    @DisplayName("모든 카테고리 선택 후 허용된 객관식 문제 존재 확인")
     void getApprovedClassifiedMajorMultipleChoiceQuestions() {
         //given
         majorMultipleChoiceQuestion.toggleApproved();
@@ -63,6 +62,21 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
     }
 
     @Test
+    @DisplayName("모든 카테고리 선택 후 허용된 주관식 문제 존재 확인")
     void getApprovedClassifiedShortAnsweredMajorQuestions() {
+        majorMultipleChoiceQuestion.toggleApproved();
+        //문제 주관식 가능 여부 허용
+        majorMultipleChoiceQuestion.toggleCanBeShortAnswered();
+        majorQuestionRepository.save(majorMultipleChoiceQuestion);
+        RequestGetQuestionByCategoryAndLevelDto allQuestionRequestDto =
+                RequestGetQuestionByCategoryAndLevelDto.fromKorean(majorCategories,levels);
+
+        //when
+        Map<QuestionCategory,List<MajorMultipleChoiceQuestion>> questions =
+                basicMajorQuestionClassifiedGetService.getApprovedClassifiedShortAnsweredMajorQuestions(allQuestionRequestDto);
+        List<MajorMultipleChoiceQuestion> selectedCategoryQuestions = questions.get(majorMultipleChoiceQuestion.getQuestionCategory());
+
+        //then
+        Assertions.assertThat(selectedCategoryQuestions.get(0).isCanBeShortAnswered()).isTrue();
     }
 }

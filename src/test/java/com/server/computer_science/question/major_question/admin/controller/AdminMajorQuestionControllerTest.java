@@ -24,6 +24,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static org.mockito.ArgumentMatchers.any;
@@ -50,14 +51,14 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
         requestMakeMultipleChoiceQuestionDto = new RequestMakeMultipleChoiceQuestionDto();
     }
     @Test
-    void MakeMultiNormalQuestion() {
+    void MakeMultiMajorQuestion() {
     }
     @Test
     @DisplayName("전공 문제 조회")
     void getMajorMultipleChoiceQuestions() throws Exception {
         final String PATH = "/admin/question/major";
         final String document_Name ="성공";
-        Mockito.when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()).thenReturn(new ArrayList<>());
+        Mockito.when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()).thenReturn(new HashMap<>());
         mockMvc.perform(RestDocumentationRequestBuilders.get(PATH))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(print())
@@ -104,7 +105,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
     void MakeMajorMultipleChoiceQuestions() throws Exception {
         final String PATH = "/admin/question/major-single";
         final String document_Name ="성공";
-        Mockito.when(adminMajorQuestionMakeService.makeMultipleChoiceQuestion(any())).thenReturn(ResponseQuestionDto.forUser(majorMultipleChoiceQuestion,majorMultipleChoiceQuestion.getQuestionChoices()));
+        Mockito.when(adminMajorQuestionMakeService.makeMultipleChoiceQuestion(any())).thenReturn(majorMultipleChoiceQuestion);
         mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestMakeMultipleChoiceQuestionDto)))

@@ -9,18 +9,17 @@ import com.server.computer_science.question.major_question.admin.service.AdminMa
 import com.server.computer_science.question.major_question.admin.service.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.server.computer_science.question.major_question.common.exception.DuplicateQuestionException;
 import com.server.computer_science.question.major_question.admin.dto.RequestMakeMultipleChoiceQuestionDto;
-import com.server.computer_science.question.major_question.user.service.MajorQuestionClassifiedGetService;
 import com.server.computer_science.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computer_science.question.common.dto.response.ResponseQuestionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,20 +32,27 @@ public class AdminMajorQuestionController {
 
     @ApiOperation("단답형 문제 조회")
     @GetMapping("/question/major")
-    public List<ResponseClassifiedMultipleQuestionDto> getAllNormalQuestionForAdmin(){
-        return adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions();
+    public List<ResponseClassifiedMultipleQuestionDto> getAllMajorQuestionForAdmin(){
+        return adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()
+                .entrySet().stream()
+                .map(entry-> ResponseClassifiedMultipleQuestionDto.forAdmin(entry.getKey(),entry.getValue()))
+                .collect(Collectors.toList());
     }
 
     @ApiOperation("단답형 문제 리스트로 생성")
     @PostMapping(value = "/question/major-multi")
-    public ResponseEntity<List<ResponseQuestionDto>> MakeMultiNormalQuestion(@RequestBody List<RequestMakeMultipleChoiceQuestionDto> requestMakeMultipleChoiceQuestionDtos){
-        return ResponseEntity.ok(adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMultipleChoiceQuestionDtos));
+    public ResponseEntity<List<ResponseQuestionDto>> MakeMultiMajorQuestion(@RequestBody List<RequestMakeMultipleChoiceQuestionDto> requestMakeMultipleChoiceQuestionDtos){
+        return ResponseEntity.ok(adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMultipleChoiceQuestionDtos)
+                .stream()
+                .map(ResponseQuestionDto::forAdmin)
+                .collect(Collectors.toList()));
     }
 
     @ApiOperation("단답형 문제 단일로 생성")
     @PostMapping(value = "/question/major-single")
     public ResponseEntity<ResponseQuestionDto> MakeSingleNormalQuestion(@RequestBody RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto) throws DuplicateQuestionException {
-        return ResponseEntity.ok(adminMajorQuestionMakeService.makeMultipleChoiceQuestion(requestMakeMultipleChoiceQuestionDto));
+        return ResponseEntity.ok(
+                ResponseQuestionDto.forAdmin(adminMajorQuestionMakeService.makeMultipleChoiceQuestion(requestMakeMultipleChoiceQuestionDto)));
     }
 
     @ApiOperation("단답형 문제 상태 업데이트 - Approve 토글")
@@ -78,7 +84,7 @@ public class AdminMajorQuestionController {
 
     @ApiOperation("단답형 문제 삭제")
     @DeleteMapping(value ="/question/major/{id}")
-    public ResponseEntity<Void> deleteNormalQuestion(@PathVariable("id")Long questionId) {
+    public ResponseEntity<Void> deleteMajorQuestion(@PathVariable("id")Long questionId) {
         adminMajorMultipleChoiceQuestionUpdateService.deleteQuestion(questionId);
         return ResponseEntity.noContent().build();
     }
