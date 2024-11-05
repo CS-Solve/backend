@@ -32,7 +32,7 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 	private List<String> levels = Arrays.stream(QuestionLevel.values())
 		.map(QuestionLevel::getKorean)
 		.collect(Collectors.toList());
-	;
+
 	private List<String> majorCategories = Arrays.stream(QuestionCategory.values())
 		.filter(QuestionCategory::isCanBeShownInMajor)
 		.map(QuestionCategory::getKorean)

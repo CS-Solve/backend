@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class MajorMultipleChoiceQuestionDBService {
+public class MajorMultipleChoiceQuestionDbService {
 	private final MajorQuestionRepository majorQuestionRepository;
 
 	/**

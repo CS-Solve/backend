@@ -59,8 +59,8 @@ public class SwaggerConfig {
 		boolean shouldRegisterLinksMapping = this.shouldRegisterLinksMapping(webEndpointProperties, environment,
 			basePath);
 		return new WebMvcEndpointHandlerMapping(endpointMapping, webEndpoints, endpointMediaTypes,
-			corsProperties.toCorsConfiguration()
-			, new EndpointLinksResolver(allEndpoints, basePath), shouldRegisterLinksMapping, null);
+			corsProperties.toCorsConfiguration(),
+			new EndpointLinksResolver(allEndpoints, basePath), shouldRegisterLinksMapping, null);
 	}
 
 	private boolean shouldRegisterLinksMapping(WebEndpointProperties webEndpointProperties, Environment environment,

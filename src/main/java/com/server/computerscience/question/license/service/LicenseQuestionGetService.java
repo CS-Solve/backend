@@ -23,8 +23,9 @@ public class LicenseQuestionGetService {
 
 	public Map<QuestionCategory, List<LicenseMultipleChoiceQuestion>> getClassifiedLicenseMultipleChoiceQuestion(
 		Long sessionId) {
-		List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository.findAllByLicenseSessionIdFetchChoices(
-			sessionId);
+		List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository
+			.findAllByLicenseSessionIdFetchChoices(
+				sessionId);
 		for (LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion : licenseMultipleChoiceQuestions) {
 			Collections.shuffle(licenseMultipleChoiceQuestion.getQuestionChoices());
 		}

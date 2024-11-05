@@ -36,24 +36,21 @@ class AdminMajorQuestionClassifiedServiceTest extends ServiceIntegrationTest {
 		majorQuestionRepository.save(majorMultipleChoiceQuestion);
 
 		//when
-		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = basicAdminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions();
+		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = basicAdminMajorQuestionClassifiedGetService
+			.getClassifiedAllMajorQuestions();
 		List<MajorMultipleChoiceQuestion> selectedCategoryQuestion = questions.get(
 			majorMultipleChoiceQuestion.getQuestionCategory());
 
-        /*
-        문제를 허용하지 않더라도 조회 되어야함
-         */
-		//then
+		/*then
+		문제를 허용하지 않더라도 조회 되어야함
+		 */
 		Assertions.assertThat(selectedCategoryQuestion).contains(majorMultipleChoiceQuestion);
 	}
 
 	@Test
 	@DisplayName("관리자 조회시 문제 허용 여부에 따른 정렬 여부 확인")
 	void checkMajorQuestionIsSorted() {
-		//given
-        /*
-        허용된 문제를 먼저 저장
-         */
+
 		MajorMultipleChoiceQuestion approvedMajorQuestion = MajorMultipleChoiceQuestion.makeForTest();
 		approvedMajorQuestion.toggleApproved();
 		majorQuestionRepository.save(approvedMajorQuestion);
@@ -61,14 +58,15 @@ class AdminMajorQuestionClassifiedServiceTest extends ServiceIntegrationTest {
 		majorQuestionRepository.save(majorMultipleChoiceQuestion);
 
 		//when
-		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = basicAdminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions();
+		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = basicAdminMajorQuestionClassifiedGetService
+			.getClassifiedAllMajorQuestions();
 		List<MajorMultipleChoiceQuestion> selectedCategoryQuestion = questions.get(
 			majorMultipleChoiceQuestion.getQuestionCategory());
 
-        /*
-        허용되지 않는 문제부터 나오도록 정렬되어야함
-         */
-		//then
+		/*
+		then
+		허용되지 않는 문제부터 나오도록 정렬되어야함
+		 */
 		Assertions.assertThat(selectedCategoryQuestion)
 			.isSortedAccordingTo(Comparator.comparing(MajorMultipleChoiceQuestion::isIfApproved));
 	}

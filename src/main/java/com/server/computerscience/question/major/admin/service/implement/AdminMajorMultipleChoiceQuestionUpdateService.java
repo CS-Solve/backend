@@ -5,7 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.server.computerscience.question.common.service.QuestionUpdateService;
 import com.server.computerscience.question.major.common.domain.MajorMultipleChoiceQuestion;
-import com.server.computerscience.question.major.common.service.implement.MajorMultipleChoiceQuestionDBService;
+import com.server.computerscience.question.major.common.service.implement.MajorMultipleChoiceQuestionDbService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -14,18 +14,20 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class AdminMajorMultipleChoiceQuestionUpdateService
 	implements QuestionUpdateService<MajorMultipleChoiceQuestion> {
-	private final MajorMultipleChoiceQuestionDBService majorMultipleChoiceQuestionDBService;
+	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDBService;
 
 	public MajorMultipleChoiceQuestion toggleApproveNormalQuestion(Long questionId) {
-		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = majorMultipleChoiceQuestionDBService.findByIdFetchChoices(
-			questionId);
+		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = majorMultipleChoiceQuestionDBService
+			.findByIdFetchChoices(
+				questionId);
 		majorMultipleChoiceQuestion.toggleApproved();
 		return majorMultipleChoiceQuestion;
 	}
 
 	public MajorMultipleChoiceQuestion toggleCanBeShortAnswered(Long questionId) {
-		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = majorMultipleChoiceQuestionDBService.findByIdFetchChoices(
-			questionId);
+		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = majorMultipleChoiceQuestionDBService
+			.findByIdFetchChoices(
+				questionId);
 		majorMultipleChoiceQuestion.toggleCanBeShortAnswered();
 		return majorMultipleChoiceQuestion;
 	}

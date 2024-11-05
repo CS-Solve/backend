@@ -34,7 +34,8 @@ public class AdminLicenseQuestionMakeService {
 		LicenseSession licenseSession = licenseSessionService.getLicenseSession(
 			requestMakeLicenseMultipleChoiceQuestionDto.getLicenseSession(),
 			requestMakeLicenseMultipleChoiceQuestionDto.getLicenseCategory());
-		List<RequestMakeMultipleChoiceQuestionDto> questions = requestMakeLicenseMultipleChoiceQuestionDto.getQuestions();
+		List<RequestMakeMultipleChoiceQuestionDto> questions = requestMakeLicenseMultipleChoiceQuestionDto
+			.getQuestions();
 		return questions
 			.stream()
 			.map(q -> saveNormalLicenseQuestion(q, licenseSession,
@@ -54,8 +55,9 @@ public class AdminLicenseQuestionMakeService {
 
 	public String updateLicenseQuestionWithImage(Long licenseQuestionId, MultipartFile file) {
 		try {
-			LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = licenseMultipleChoiceQuestionRepository.findById(
-				licenseQuestionId).orElse(null);
+			LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = licenseMultipleChoiceQuestionRepository
+				.findById(
+					licenseQuestionId).orElse(null);
 			String imageUrl = fileUploadService.uploadImage(file, "license");
 			assert licenseMultipleChoiceQuestion != null;
 			licenseMultipleChoiceQuestion.updateImage(imageUrl);

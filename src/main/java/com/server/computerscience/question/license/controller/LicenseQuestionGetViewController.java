@@ -60,10 +60,9 @@ public class LicenseQuestionGetViewController {
 		return "license-question-update";
 	}
 
-
-    /*
-    임시 JSON 용
-     */
+	/**
+	 * 임시 JSON 용
+	 */
 	//    @GetMapping("/question/license/{sessionId}/rest")
 	//    @ResponseBody
 	//    public ResponseEntity<List<ResponseClassifiedMultipleQuestionDto>> getLicenseQuestionsJson(

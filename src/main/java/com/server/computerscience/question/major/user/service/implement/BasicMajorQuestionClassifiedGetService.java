@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.server.computerscience.question.common.domain.QuestionCategory;
 import com.server.computerscience.question.major.common.domain.MajorMultipleChoiceQuestion;
 import com.server.computerscience.question.major.common.service.QuestionClassifyByCategoryService;
-import com.server.computerscience.question.major.common.service.implement.MajorMultipleChoiceQuestionDBService;
+import com.server.computerscience.question.major.common.service.implement.MajorMultipleChoiceQuestionDbService;
 import com.server.computerscience.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import com.server.computerscience.question.major.user.service.MajorQuestionClassifiedGetService;
 
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService {
-	private final MajorMultipleChoiceQuestionDBService majorMultipleChoiceQuestionDbService;
+	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 
 	/**
@@ -29,9 +29,10 @@ public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClas
 	@Override
 	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedMajorMultipleChoiceQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService.findAllFetchChoicesByCategoriesAndLevelsApproved(
-			requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
-			requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
+		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
+			.findAllFetchChoicesByCategoriesAndLevelsApproved(
+				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
+				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
 		for (MajorMultipleChoiceQuestion majorMultipleChoiceQuestion : majorMultipleChoiceQuestions) {
 			Collections.shuffle(majorMultipleChoiceQuestion.getQuestionChoices());
 		}
@@ -44,9 +45,10 @@ public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClas
 	@Override
 	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedShortAnsweredMajorQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService.findAllFetchChoicesByCategoriesAndLevelsApprovedAndShortAnswered(
-			requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
-			requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
+		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
+			.findAllFetchChoicesByCategoriesAndLevelsApprovedAndShortAnswered(
+				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
+				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
 	}
 }

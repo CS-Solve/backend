@@ -3,7 +3,8 @@
 //import com.server.computer_science.question.common.domain.QuestionCategory;
 //import com.server.computer_science.question.common.domain.QuestionLevel;
 //import com.server.computer_science.question.major_question.common.domain.MajorMultipleChoiceQuestion;
-//import com.server.computer_science.question.major_question.common.service.implement.MajorMultipleChoiceQuestionDBService;
+//import com.server.computer_science.question.major_question.common.service.implement
+// .MajorMultipleChoiceQuestionDbService;
 //import com.server.computer_science.question.major_question.user.dto.response.ResponseMajorQuestionClassCountDto;
 //import com.server.computer_science.question.major_question.user.service.MajorQuestionCountService;
 //import lombok.RequiredArgsConstructor;
@@ -26,7 +27,8 @@
 //     */
 //    @Override
 //    public List<ResponseMajorQuestionClassCountDto> getNormalQuestionCountByClass() {
-//        List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDBService.findAllFetchChoices();
+//        List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDBService
+//        .findAllFetchChoices();
 //        Map<Pair<QuestionCategory, QuestionLevel>,Integer> counts = initateCountMap();
 //        for (MajorMultipleChoiceQuestion majorMultipleChoiceQuestion : majorMultipleChoiceQuestions) {
 //            for(Pair<QuestionCategory,QuestionLevel> pair : counts.keySet()){

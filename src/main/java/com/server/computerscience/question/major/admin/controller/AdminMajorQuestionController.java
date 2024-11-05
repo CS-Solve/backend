@@ -50,7 +50,7 @@ public class AdminMajorQuestionController {
 
 	@ApiOperation("단답형 문제 리스트로 생성")
 	@PostMapping(value = "/question/major-multi")
-	public ResponseEntity<List<ResponseQuestionDto>> MakeMultiMajorQuestion(
+	public ResponseEntity<List<ResponseQuestionDto>> makeMultiMajorQuestion(
 		@RequestBody List<RequestMakeMultipleChoiceQuestionDto> requestMakeMultipleChoiceQuestionDtos) {
 		return ResponseEntity.ok(
 			adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMultipleChoiceQuestionDtos)
@@ -61,7 +61,7 @@ public class AdminMajorQuestionController {
 
 	@ApiOperation("단답형 문제 단일로 생성")
 	@PostMapping(value = "/question/major-single")
-	public ResponseEntity<ResponseQuestionDto> MakeSingleNormalQuestion(
+	public ResponseEntity<ResponseQuestionDto> makeSingleNormalQuestion(
 		@RequestBody RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto) throws
 		DuplicateQuestionException {
 		return ResponseEntity.ok(
@@ -110,7 +110,7 @@ public class AdminMajorQuestionController {
 	}
 
 	@ExceptionHandler(DuplicateQuestionException.class)
-	public ResponseEntity<String> handleException(DuplicateQuestionException e) {
-		return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+	public ResponseEntity<String> handleException(DuplicateQuestionException exception) {
+		return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
 	}
 }

@@ -41,9 +41,9 @@ class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
 		MajorMultipleChoiceQuestion newMultipleChoiceQuestion = newQuestions.get(0);
 
 		//then
-        /*
-        DB 저장 확인
-         */
+		/*
+		DB 저장 확인
+		 */
 		Assertions.assertThat(majorQuestionRepository.findById(newMultipleChoiceQuestion.getId())).isNotNull();
 	}
 
@@ -60,11 +60,10 @@ class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
 		//when
 		List<MajorMultipleChoiceQuestion> newQuestions = basicAdminMajorQuestionMakeService.makeMultipleChoiceQuestions(
 			makeMultipleChoiceQuestionDtoList);
-
-		//then
-        /*
+		/*
+		then
         DB에 저장되어야하는 엔티티는 하나
-         */
+		 */
 		Assertions.assertThat(majorQuestionRepository.findAll().size()).isEqualTo(1);
 	}
 }

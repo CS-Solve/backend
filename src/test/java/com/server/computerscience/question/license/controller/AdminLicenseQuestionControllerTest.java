@@ -104,8 +104,8 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name,
+				resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 						.description("자격증")
@@ -132,8 +132,8 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name,
+				resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 						.description("자격증")
@@ -155,8 +155,8 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name,
+				resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 						.description("자격증")

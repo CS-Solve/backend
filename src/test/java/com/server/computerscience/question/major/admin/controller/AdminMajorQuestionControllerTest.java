@@ -51,7 +51,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 	}
 
 	@Test
-	void MakeMultiMajorQuestion() {
+	void makeMultiMajorQuestion() {
 	}
 
 	@Test
@@ -68,8 +68,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name, resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 						.description("단답형")
@@ -80,7 +79,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 
 	@Test
 	@DisplayName("전공 문제 단체 생성 - 성공")
-	void MakeSingleMajorMultipleChoiceQuestions() throws Exception {
+	void makeSingleMajorMultipleChoiceQuestions() throws Exception {
 		final String PATH = "/admin/question/major-multi";
 		final String document_Name = "성공";
 		Mockito.when(adminMajorQuestionMakeService.makeMultipleChoiceQuestions(any())).thenReturn(new ArrayList<>());
@@ -93,8 +92,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name, resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 						.description("단답형")
@@ -105,7 +103,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 
 	@Test
 	@DisplayName("전공 문제 단일 생성 - 성공")
-	void MakeMajorMultipleChoiceQuestions() throws Exception {
+	void makeMajorMultipleChoiceQuestions() throws Exception {
 		final String PATH = "/admin/question/major-single";
 		final String document_Name = "성공";
 		Mockito.when(adminMajorQuestionMakeService.makeMultipleChoiceQuestion(any()))
@@ -119,8 +117,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name, resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 						.description("단답형 문제")
@@ -131,7 +128,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 
 	@Test
 	@DisplayName("전공 문제 단일 생성 - 실패")
-	void MakeSingleMajorQuestionWithDuplicateError() throws Exception {
+	void makeSingleMajorQuestionWithDuplicateError() throws Exception {
 		final String PATH = "/admin/question/major-single";
 		final String document_Name = "실패 - 중복된 문제";
 		Mockito.doThrow(DuplicateQuestionException.class)
@@ -146,8 +143,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name, resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 
@@ -171,8 +167,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name, resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 						.description("단답형 문제 생성")
@@ -197,8 +192,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name, resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 						.description("단답형 문제")
@@ -223,8 +217,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name, resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 						.description("단답형 문제")
@@ -249,8 +242,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name, resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 						.description("단답형 문제")
@@ -272,8 +264,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				document_Name
 			))
 			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name
-				, resource(
+				document_Name, resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
 						.description("단답형 문제")

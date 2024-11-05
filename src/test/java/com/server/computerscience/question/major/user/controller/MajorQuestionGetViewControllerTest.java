@@ -35,7 +35,7 @@ class MajorQuestionGetViewControllerTest extends ControllerTest {
 	private List<String> levels = Arrays.stream(QuestionLevel.values())
 		.map(QuestionLevel::getKorean)
 		.collect(Collectors.toList());
-	;
+
 	private List<String> categories = Arrays.stream(QuestionCategory.values())
 		.filter(QuestionCategory::isCanBeShownInMajor)
 		.map(QuestionCategory::getKorean)

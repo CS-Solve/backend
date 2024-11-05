@@ -24,10 +24,10 @@ public class RequestMakeLicenseMultipleChoiceQuestionDto {
 	private LicenseCategory licenseCategory;
 
 	public static RequestMakeLicenseMultipleChoiceQuestionDto from(
-		String licenseSession
-		, LicenseCategory licenseCategory
-		, List<LicenseMultipleChoiceQuestion> questions
-		, Function<LicenseMultipleChoiceQuestion, List<LicenseQuestionChoice>> questionChoiceExtractor) {
+		String licenseSession,
+		LicenseCategory licenseCategory,
+		List<LicenseMultipleChoiceQuestion> questions,
+		Function<LicenseMultipleChoiceQuestion, List<LicenseQuestionChoice>> questionChoiceExtractor) {
 		return RequestMakeLicenseMultipleChoiceQuestionDto.builder()
 			.questions(
 				questions.stream()

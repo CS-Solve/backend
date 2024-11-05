@@ -9,14 +9,14 @@ import com.server.computerscience.question.common.domain.QuestionCategory;
 import com.server.computerscience.question.major.admin.service.AdminMajorQuestionClassifiedGetService;
 import com.server.computerscience.question.major.common.domain.MajorMultipleChoiceQuestion;
 import com.server.computerscience.question.major.common.service.QuestionClassifyByCategoryService;
-import com.server.computerscience.question.major.common.service.implement.MajorMultipleChoiceQuestionDBService;
+import com.server.computerscience.question.major.common.service.implement.MajorMultipleChoiceQuestionDbService;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQuestionClassifiedGetService {
-	private final MajorMultipleChoiceQuestionDBService majorMultipleChoiceQuestionDbService;
+	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 
 	/**

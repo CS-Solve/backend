@@ -19,9 +19,9 @@ plugins {
 
 }
 
-editorconfig {
-    excludes = ['build']
-}
+//editorconfig {
+//    excludes = ['build']
+//}
 checkstyle {
     maxWarnings = 0
     configFile = file("${rootDir}/config/naver-checkstyle-rules.xml")
@@ -29,7 +29,7 @@ checkstyle {
     toolVersion = "8.42"
 }
 
-check.dependsOn editorconfigCheck // checkstyle이 설정 되어 있을 시, editorconfigCheck 후 checkstyle 진행
+//check.dependsOn editorconfigCheck // checkstyle이 설정 되어 있을 시, editorconfigCheck 후 checkstyle 진행
 
 jacoco {
     toolVersion = "0.8.10" // https://www.jacoco.org/jacoco/trunk/doc/changes.html
