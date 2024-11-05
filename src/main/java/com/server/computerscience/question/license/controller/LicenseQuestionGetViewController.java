@@ -66,7 +66,8 @@ public class LicenseQuestionGetViewController {
      */
 	//    @GetMapping("/question/license/{sessionId}/rest")
 	//    @ResponseBody
-	//    public ResponseEntity<List<ResponseClassifiedMultipleQuestionDto>> getLicenseQuestionsJson(@PathVariable Long sessionId){
+	//    public ResponseEntity<List<ResponseClassifiedMultipleQuestionDto>> getLicenseQuestionsJson(
+	//    @PathVariable Long sessionId){
 	//        return ResponseEntity.ok(licenseQuestionGetService.getClassifiedLicenseNormalQuestion(sessionId));
 	//    }
 

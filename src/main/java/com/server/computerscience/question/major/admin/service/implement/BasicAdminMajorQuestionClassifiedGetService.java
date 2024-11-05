@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQuestionClassifiedGetService {
-	private final MajorMultipleChoiceQuestionDBService majorMultipleChoiceQuestionDBService;
+	private final MajorMultipleChoiceQuestionDBService majorMultipleChoiceQuestionDbService;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 
 	/**
@@ -26,7 +26,8 @@ public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQu
 	 */
 	@Override
 	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getClassifiedAllMajorQuestions() {
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDBService.findAllFetchChoicesSortedByApproveAndShortAnswered();
+		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
+			.findAllFetchChoicesSortedByApproveAndShortAnswered();
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
 	}
 }
