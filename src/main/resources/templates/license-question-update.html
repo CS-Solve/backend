@@ -61,7 +61,8 @@
 
             <!-- 해설 텍스트 -->
             <div class="editable-container">
-                <p th:text="${question.description}" class="description" th:attr="data-id=${question.id}, data-field='description'">설명</p>
+                <p th:text="${question.description}" class="description"
+                   th:attr="data-id=${question.id}, data-field='description'">설명</p>
             </div>
 
             <button type="button" th:onclick="|deleteQuestion(${question.id})|">

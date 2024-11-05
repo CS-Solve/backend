@@ -21,76 +21,76 @@ jobs:
       contents: read
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up JDK 11
-      uses: actions/setup-java@v4
-      with:
-        java-version: '11'
-        distribution: 'temurin'
+      - uses: actions/checkout@v4
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
 
-    - name: 💾 Cache Gradle & Spring
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.gradle/caches
-          ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-gradle-
+      - name: 💾 Cache Gradle & Spring
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
 
-    - name: Set YML
-      run: |
-        ls -l
-        mkdir -p src/main/resources
-        echo "${{ secrets.APPLICATION_DEPLOY}}" > src/main/resources/application-deploy.yml
-        echo "${{ secrets.APPLICATION_TEST }}" > src/main/resources/application-test.yml
-        
-        # Gradle wrapper 파일 실행 권한주기
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      - name: Set YML
+        run: |
+          ls -l
+          mkdir -p src/main/resources
+          echo "${{ secrets.APPLICATION_DEPLOY}}" > src/main/resources/application-deploy.yml
+          echo "${{ secrets.APPLICATION_TEST }}" > src/main/resources/application-test.yml
+          
+          # Gradle wrapper 파일 실행 권한주기
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
         # 애플리케이션을 Build 한다.
-    - name: 🔧 Build Spring server
-      run: |
-        chmod +x ./gradlew
-        ./gradlew clean build 
+      - name: 🔧 Build Spring server
+        run: |
+          chmod +x ./gradlew
+          ./gradlew clean build 
 
-      # 도커로 빌드한다.
-    - name: Docker build
-      run: |
-        cd /home/runner/work/backend/backend
-        docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
-        docker build --no-cache --platform linux/amd64/v8 -t app .
+        # 도커로 빌드한다.
+      - name: Docker build
+        run: |
+          cd /home/runner/work/backend/backend
+          docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
+          docker build --no-cache --platform linux/amd64/v8 -t app .
+          
+          docker tag app ${{secrets.DOCKER_USERNAME}}/cs-api:latest
+          docker push ${{secrets.DOCKER_USERNAME}}/cs-api:latest
 
-        docker tag app ${{secrets.DOCKER_USERNAME}}/cs-api:latest
-        docker push ${{secrets.DOCKER_USERNAME}}/cs-api:latest
+        # S3 버킷으로 정적 리소스 업로드
+      - name: Upload static assets to S3
+        run: |
+          # 일치하는 파일이 없을 경우 --delete로 자동 삭제된다
+          aws s3 sync ./src/main/resources/static s3://comssa-static --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.S3_IAM_KEY}}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_IAM_PASSWORD}}
+          AWS_REGION: "ap-northeast-2"
 
-      # S3 버킷으로 정적 리소스 업로드
-    - name: Upload static assets to S3
-      run: |
-        # 일치하는 파일이 없을 경우 --delete로 자동 삭제된다
-        aws s3 sync ./src/main/resources/static s3://comssa-static --delete
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.S3_IAM_KEY}}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_IAM_PASSWORD}}
-        AWS_REGION: "ap-northeast-2"
-
-    - name: deploy in cloud
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{secrets.USERNAME}}
-        key: ${{secrets.KEY}}
-        port: ${{secrets.PORT}}
-        script: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/cs-api:latest
-          docker tag ${{ secrets.DOCKER_USERNAME }}/cs-api:latest cs-api:latest
-          docker stop $(docker ps -a -q)
-
-          docker run -i -d  -p 8080:8080 cs-api:latest
-        
-
-          docker rm $(docker ps --filter 'status=exited' -a -q)
-          # 실행 중이지 않으 모든 컨테인 삭제
-          docker image prune -a -f
-          # 사용하지않은 모든 이미지 삭제
+      - name: deploy in cloud
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{secrets.USERNAME}}
+          key: ${{secrets.KEY}}
+          port: ${{secrets.PORT}}
+          script: |
+            docker pull ${{ secrets.DOCKER_USERNAME }}/cs-api:latest
+            docker tag ${{ secrets.DOCKER_USERNAME }}/cs-api:latest cs-api:latest
+            docker stop $(docker ps -a -q)
+            
+            docker run -i -d  -p 8080:8080 cs-api:latest
+            
+            
+            docker rm $(docker ps --filter 'status=exited' -a -q)
+            # 실행 중이지 않으 모든 컨테인 삭제
+            docker image prune -a -f
+            # 사용하지않은 모든 이미지 삭제

@@ -14,6 +14,7 @@
     justify-content: flex-start; /* 자식 요소들을 위에서부터 정렬 */
     overflow: hidden;
 }
+
 .screen .question-title-box {
     display: flex;
     justify-content: space-between;
@@ -33,9 +34,11 @@
     border-bottom: 2px solid #b0b0b0;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1); /* 소제목 느낌을 위한 그림자 */
 }
-.siteDescription{
+
+.siteDescription {
     font-size: 1.5vw;
 }
+
 /* 전공 CS와 자격증 사이 경계선 */
 .choice-left, .choice-right {
     padding: 1.2vh 2vw;
@@ -83,7 +86,7 @@
     white-space: nowrap;
 }
 
-.screen .mainTitle{
+.screen .mainTitle {
     font-size: 3vh;
     font-family: 'Cambay', sans-serif;
 }
@@ -97,11 +100,13 @@
 .screen .main-logo-box span {
     line-height: 1; /* 텍스트의 줄 높이를 조정 */
 }
+
 /* 모바일 화면을 위한 미디어 쿼리 */
 @media (max-width: 768px) {
-    .siteDescription{
+    .siteDescription {
         display: none;
     }
+
     /*.main-box{*/
     /*  position: relative;*/
     /*  height: 80vh; !important;*/
@@ -110,18 +115,20 @@
     /*  border-radius: 49px;*/
     /*  box-shadow: var(--m3-elevation-dark-3);*/
     /*}*/
-    .big-box{
+    .big-box {
         background-color: #eeeeee;
         top: 5%;
-        width: 90%; !important;
+        width: 90%;
+    !important;
         height: 90%;
         position: relative;
     }
-    .screen .choice-left, .screen .choice-right{
+
+    .screen .choice-left, .screen .choice-right {
         font-size: 5vw;
     }
 
-    .screen .standard{
+    .screen .standard {
         font-size: 5vw;
     }
 

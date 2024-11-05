@@ -75,7 +75,7 @@ function updateDifficulty(selectElement) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ difficulty: newDifficulty })
+        body: JSON.stringify({difficulty: newDifficulty})
     })
         .then(response => {
             if (!response.ok) {
@@ -98,7 +98,7 @@ function makeEditable(element, field, questionId) {
     input.value = originalText;
     input.style.width = '100%';
 
-    input.onkeydown = function(event) {
+    input.onkeydown = function (event) {
         if (event.key === 'Enter') {
             const newText = input.value;
             updateNormalTextField(questionId, field, newText);
@@ -116,15 +116,15 @@ function makeEditable(element, field, questionId) {
 let currentEditElement = null;
 
 // 페이지 로드 시 실행될 함수
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('.editable-container').forEach(container => {
-        container.addEventListener('dblclick', function(e) {
+        container.addEventListener('dblclick', function (e) {
             const editableElement = container.firstElementChild;
             showOverlayInput(editableElement);
         });
     });
 });
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // 저장된 스크롤 위치가 있다면 해당 위치로 스크롤
     const savedScrollPosition = localStorage.getItem('scrollPosition');
     if (savedScrollPosition) {
@@ -198,7 +198,7 @@ function updateNormalTextField(questionId, field, newValue) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ [field]: newValue })
+        body: JSON.stringify({[field]: newValue})
     })
         .then(response => {
             if (!response.ok) {
@@ -207,7 +207,6 @@ function updateNormalTextField(questionId, field, newValue) {
             return response.json();
         });
 }
-
 
 
 // ... (나머지 코드는 그대로 유지) ...
