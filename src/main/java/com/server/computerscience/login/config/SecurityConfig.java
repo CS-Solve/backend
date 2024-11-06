@@ -27,7 +27,7 @@ public class SecurityConfig {
 			// OAuth2 로그인을 활성화합니다. 이 설정으로 사용자가 로그인 페이지로 리디렉션됩니다.
 			.oauth2Login()
 			.defaultSuccessUrl(
-				"/cognito",
+				"/",
 				true)
 			.and()
 

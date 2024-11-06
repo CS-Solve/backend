@@ -27,6 +27,17 @@
 
 </head>
 <body>
+<header class="header">
+    <div class="auth-container">
+            <span th:if="${#request.userPrincipal != null}">
+<!--                <span th:text="${#request.userPrincipal.name}">사용자</span>-->
+                <a href="/logout">로그아웃</a>
+            </span>
+        <span th:if="${#request.userPrincipal == null}">
+                <a href="/oauth2/authorization/cognito" class="login-button">로그인</a>
+            </span>
+    </div>
+</header>
 <div class="quiz">
     <!-- 상단 제목 -->
     <!--    <div class="logo-box">Com Ssa</div>-->

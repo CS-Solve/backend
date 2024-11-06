@@ -9,6 +9,7 @@ html,
 body {
     margin: 0px;
     height: 100%;
+
 }
 
 /* a blue color as a generic focus style */
@@ -20,3 +21,32 @@ button:focus-visible {
 a {
     text-decoration: none;
 }
+
+/* 로그인/로그아웃 버튼을 포함한 auth-container */
+header .auth-container {
+    position: fixed;
+    top: 2vh;
+    right: 2vw;
+    font-size: 1.5vh; /* 상대 크기 사용 */
+    background-color: #ffffff;
+    padding: 1vh 2vw; /* 상대 크기 사용 */
+    /*border-radius: 2vh; !* 부드러운 모서리 *!*/
+    box-shadow: 0 0.5vh 1vh rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* 상단에 고정 */
+    display: flex;
+    align-items: center;
+}
+
+/* 링크 스타일 */
+header .auth-container a {
+    display: flex;
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1.5vh; /* 상대 크기 사용 */
+}
+
+header .auth-container a:hover {
+    color: #0056b3;
+}
+

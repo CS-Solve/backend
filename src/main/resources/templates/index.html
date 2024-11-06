@@ -36,7 +36,7 @@
 
     <meta name="description" content="CS(컴퓨터 사이언스) 문제를 풀며 개념을 복습하고 면접에 대비해보세요. 다양한 분야의 CS 전공 문제 모음과 해설을 제공합니다.">
 
-    <link rel="stylesheet" th:href="|${baseUrl}/css/globals.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/global.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/index/styleguide.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/index/style.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/global-index/style.css|"/>
@@ -49,6 +49,17 @@
             height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
+<header class="header">
+    <div class="auth-container">
+            <span th:if="${#request.userPrincipal != null}">
+<!--                <span th:text="${#request.userPrincipal.name}">사용자</span>-->
+                <a href="/logout">로그아웃</a>
+            </span>
+        <span th:if="${#request.userPrincipal == null}">
+                <a href="/oauth2/authorization/cognito" class="login-button">로그인</a>
+            </span>
+    </div>
+</header>
 <div class="screen">
     <div class="big-box">
         <h1 class="siteDescription">CS 전공 및 자격증 기출 문제 모음 </h1>
@@ -57,6 +68,8 @@
             <link href="https://fonts.googleapis.com/css2?family=Cambay&display=swap" rel="stylesheet">
             <h2 class="mainTitle">Com Ssa</h2>
         </div>
+
+
         <form th:action="@{/question/major}" method="get" class="mainForm">
             <div class="main-box">
                 <p class="question-title-box">
