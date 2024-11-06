@@ -17,8 +17,9 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-/src/main/resources/application-local.yml
-/src/main/resources/application-deploy.yml
+/src/main/resources/application-local*.yml
+/src/main/resources/application-deploy*.yml
+/src/main/resources/application-deploy-oauth.yml
 /src/main/resources/application-test.yml
 /pinpoint-agent-2.2.3-NCP/logs/ComSsa-local-Id/pinpoint.log
 /src/main/resources/templates/normal-question-update.html
