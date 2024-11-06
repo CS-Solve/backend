@@ -26,6 +26,12 @@ public class LicenseQuestionChoice extends QuestionChoice {
 	@JoinColumn(name = "license_multiple_choice_question_id")
 	private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
 
+	public LicenseQuestionChoice(String text, int selectedCount, boolean answerStatus,
+		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion) {
+		super(text, selectedCount, answerStatus);
+		this.licenseMultipleChoiceQuestion = licenseMultipleChoiceQuestion;
+	}
+
 	public static LicenseQuestionChoice from(
 		RequestMakeQuestionChoiceDto dto,
 		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion) {
@@ -37,11 +43,5 @@ public class LicenseQuestionChoice extends QuestionChoice {
 			.build();
 		licenseMultipleChoiceQuestion.getQuestionChoices().add(questionChoice);
 		return questionChoice;
-	}
-
-	public LicenseQuestionChoice(String text, int selectedCount, boolean answerStatus,
-		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion) {
-		super(text, selectedCount, answerStatus);
-		this.licenseMultipleChoiceQuestion = licenseMultipleChoiceQuestion;
 	}
 }

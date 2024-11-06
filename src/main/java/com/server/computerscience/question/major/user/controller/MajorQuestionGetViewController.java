@@ -21,10 +21,9 @@ import lombok.RequiredArgsConstructor;
 public class MajorQuestionGetViewController {
 
 	private final BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
-
+	private final String baseUrl = "baseUrl";
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
-	private final String baseUrl = "baseUrl";
 
 	@AddLoginStatusAttribute
 	@GetMapping("/question/major")

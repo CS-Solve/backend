@@ -29,23 +29,16 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 public class LicenseMultipleChoiceQuestion extends Question implements ChoiceProvider {
+	@Enumerated(value = EnumType.STRING)
+	protected LicenseCategory licenseCategory;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
-
 	@ManyToOne
 	@JoinColumn(name = "license_session_id")
 	private LicenseSession licenseSession;
-	@Enumerated(value = EnumType.STRING)
-	protected LicenseCategory licenseCategory;
-
 	@OneToMany(mappedBy = "licenseMultipleChoiceQuestion", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<LicenseQuestionChoice> questionChoices;
-
-	@Override
-	public void initDefaults() {
-		this.questionChoices = new ArrayList<>();
-	}
 
 	public static LicenseMultipleChoiceQuestion makeWithDto(RequestMakeMultipleChoiceQuestionDto dto,
 		LicenseSession licenseSession, LicenseCategory licenseCategory) {
@@ -77,6 +70,11 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoicePro
 			.build();
 		licenseMultipleChoiceQuestion.initDefaults();
 		return licenseMultipleChoiceQuestion;
+	}
+
+	@Override
+	public void initDefaults() {
+		this.questionChoices = new ArrayList<>();
 	}
 
 	/**

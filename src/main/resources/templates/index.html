@@ -30,11 +30,11 @@
     })(window, document, 'script', 'dataLayer', 'GTM-KRXZFS2Q');</script>
     <!-- End Google Tag Manager -->
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>CS 전공 및 자격증 기출 문제 모음 | 컴싸 </title>
-    <link rel="icon" type="image/svg+xml" th:href="|${baseUrl}/img/mainLogo.svg|">
+    <link rel="icon" th:href="|${baseUrl}/img/mainLogo.svg|" type="image/svg+xml">
 
-    <meta name="description" content="CS(컴퓨터 사이언스) 문제를 풀며 개념을 복습하고 면접에 대비해보세요. 다양한 분야의 CS 전공 문제 모음과 해설을 제공합니다.">
+    <meta content="CS(컴퓨터 사이언스) 문제를 풀며 개념을 복습하고 면접에 대비해보세요. 다양한 분야의 CS 전공 문제 모음과 해설을 제공합니다." name="description">
 
     <link rel="stylesheet" th:href="|${baseUrl}/css/global.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/index/styleguide.css|"/>
@@ -45,8 +45,9 @@
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRXZFS2Q"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    <iframe height="0"
+            src="https://www.googletagmanager.com/ns.html?id=GTM-KRXZFS2Q" style="display:none;visibility:hidden"
+            width="0"></iframe>
 </noscript>
 <!-- End Google Tag Manager (noscript) -->
 <header class="header">
@@ -56,7 +57,7 @@
                 <a href="/logout">로그아웃</a>
             </span>
         <span th:if="${!isLogin}">
-                <a href="/oauth2/authorization/cognito" class="login-button">로그인</a>
+                <a class="login-button" href="/oauth2/authorization/cognito">로그인</a>
             </span>
     </div>
 </header>
@@ -64,13 +65,13 @@
     <div class="big-box">
         <h1 class="siteDescription">CS 전공 및 자격증 기출 문제 모음 </h1>
         <div class="main-logo-box">
-            <img th:src="|${baseUrl}/img/mainLogo.svg|" alt="CS Solver Logo" class="logo-image">
+            <img alt="CS Solver Logo" class="logo-image" th:src="|${baseUrl}/img/mainLogo.svg|">
             <link href="https://fonts.googleapis.com/css2?family=Cambay&display=swap" rel="stylesheet">
             <h2 class="mainTitle">Com Ssa</h2>
         </div>
 
 
-        <form th:action="@{/question/major}" method="get" class="mainForm">
+        <form class="mainForm" method="get" th:action="@{/question/major}">
             <div class="main-box">
                 <p class="question-title-box">
                     <span class="choice-left" onclick="window.location.href='/'">전공 개념</span>
@@ -83,24 +84,26 @@
                         <div class="scroll-box">
                             <div class="categories" th:each="category, iterStat : ${categories}">
                                 <div class="each-category">
-                                    <input type="checkbox" th:id="${'category-' + iterStat.index}"
-                                           th:value="${category}" name="categories" class="checkbox"/>
-                                    <label th:for="${'category-' + iterStat.index}" class="text-wrapper-2"
+                                    <input class="checkbox" name="categories"
+                                           th:id="${'category-' + iterStat.index}" th:value="${category}"
+                                           type="checkbox"/>
+                                    <label class="text-wrapper-2" th:for="${'category-' + iterStat.index}"
                                            th:text="${category}"></label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <img th:src="|${baseUrl}/img/line-4.svg|" class="line-4">
+                    <img class="line-4" th:src="|${baseUrl}/img/line-4.svg|">
                     <!-- 난이도 선택 -->
                     <div class="level-big-box side-box">
                         <h2 class="standard">난이도</h2>
                         <div class="scroll-box">
                             <div class="levels">
                                 <div class="each-level" th:each="difficulty : ${levels}">
-                                    <input type="checkbox" th:id="${'difficulty-' + difficultyStat.index}"
-                                           th:value="${difficulty}" name="levels" class="checkbox"/>
-                                    <label th:for="${'difficulty-' + difficultyStat.index}" class="check-box-text"
+                                    <input class="checkbox" name="levels"
+                                           th:id="${'difficulty-' + difficultyStat.index}" th:value="${difficulty}"
+                                           type="checkbox"/>
+                                    <label class="check-box-text" th:for="${'difficulty-' + difficultyStat.index}"
                                            th:text="${difficulty}"></label>
                                 </div>
                             </div>
@@ -109,16 +112,16 @@
                     </div>
                 </div>
                 <!-- 문제 유형을 Boolean으로 설정 -->
-                <input type="hidden" name="multipleChoice" id="questionType" value=""/>
+                <input id="questionType" name="multipleChoice" type="hidden" value=""/>
 
             </div>
 
 
             <div class="start-button-container">
-                <button type="submit" class="start-left-box" onclick="makeMultipleChoice(true)">
+                <button class="start-left-box" onclick="makeMultipleChoice(true)" type="submit">
                     <span class="start-button-text">객관식</span>
                 </button>
-                <button type="submit" class="start-right-box" onclick="makeMultipleChoice(false)">
+                <button class="start-right-box" onclick="makeMultipleChoice(false)" type="submit">
                     <span class="start-button-text">주관식</span>
                 </button>
             </div>

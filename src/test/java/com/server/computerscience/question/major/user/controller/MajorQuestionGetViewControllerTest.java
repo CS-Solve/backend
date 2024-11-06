@@ -29,18 +29,17 @@ import com.server.computerscience.question.major.user.service.implement.BasicMaj
 @WebMvcTest(MajorQuestionGetViewController.class)
 @DisplayName("단위 테스트 - 전공 문제 View Controller")
 class MajorQuestionGetViewControllerTest extends ControllerTest {
+	boolean multipleChoice = true;
 	@MockBean
 	private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
 	private List<ResponseClassifiedMultipleQuestionDto> responseClassifiedMultipleQuestionDtos;
 	private List<String> levels = Arrays.stream(QuestionLevel.values())
 		.map(QuestionLevel::getKorean)
 		.collect(Collectors.toList());
-
 	private List<String> categories = Arrays.stream(QuestionCategory.values())
 		.filter(QuestionCategory::isCanBeShownInMajor)
 		.map(QuestionCategory::getKorean)
 		.collect(Collectors.toList());
-	boolean multipleChoice = true;
 	private Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> map = new HashMap<>();
 
 	@BeforeEach

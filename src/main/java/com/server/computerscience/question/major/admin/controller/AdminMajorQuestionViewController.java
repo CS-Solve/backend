@@ -15,11 +15,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminMajorQuestionViewController {
 
+	private final String baseUrl = "baseUrl";
+	private final AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
-	private final String baseUrl = "baseUrl";
-
-	private final AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
 
 	@GetMapping("/question/update")
 	public String updateQuestionPage(Model model) {

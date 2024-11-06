@@ -28,6 +28,12 @@ public class MajorQuestionChoice extends QuestionChoice {
 	@JoinColumn(name = "major_multiple_choice_question_id")
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
+	public MajorQuestionChoice(String text, int selectedCount, boolean answerStatus,
+		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {
+		super(text, selectedCount, answerStatus);
+		this.majorMultipleChoiceQuestion = majorMultipleChoiceQuestion;
+	}
+
 	public static MajorQuestionChoice fromMajorQuestion(RequestMakeQuestionChoiceDto dto,
 		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {
 		MajorQuestionChoice majorQuestionChoice = MajorQuestionChoice.builder()
@@ -38,12 +44,6 @@ public class MajorQuestionChoice extends QuestionChoice {
 			.build();
 		majorMultipleChoiceQuestion.getQuestionChoices().add(majorQuestionChoice);
 		return majorQuestionChoice;
-	}
-
-	public MajorQuestionChoice(String text, int selectedCount, boolean answerStatus,
-		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {
-		super(text, selectedCount, answerStatus);
-		this.majorMultipleChoiceQuestion = majorMultipleChoiceQuestion;
 	}
 
 }

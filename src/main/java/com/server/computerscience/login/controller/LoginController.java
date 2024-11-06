@@ -18,9 +18,9 @@ public class LoginController {
 	public ResponseEntity<ResponseAccessTokenDto> getAccessToken(
 		Authentication authentication, Model model
 	) {
-
-		if (authentication.isAuthenticated())
+		if (authentication.isAuthenticated()) {
 			model.addAttribute("principal", authentication.getPrincipal());
+		}
 		return ResponseEntity.ok(ResponseAccessTokenDto.from("hi"));
 	}
 }

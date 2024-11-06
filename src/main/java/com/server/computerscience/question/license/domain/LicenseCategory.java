@@ -14,14 +14,14 @@ public enum LicenseCategory {
 		this.korean = korean;
 	}
 
-	public String getKorean() {
-		return korean;
-	}
-
 	public static Optional<LicenseCategory> fromKorean(String korean) {
 		return Arrays.stream(LicenseCategory.values())
 			.filter(category -> category.getKorean().equals(korean))
 			.findFirst();
+	}
+
+	public String getKorean() {
+		return korean;
 	}
 
 }

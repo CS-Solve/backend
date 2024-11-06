@@ -23,10 +23,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MainViewController {
 	private final QuestionSelectorService questionSelectorService;
-
+	private final String baseUrl = "baseUrl";
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
-	private final String baseUrl = "baseUrl";
 
 	@AddLoginStatusAttribute
 	@GetMapping("/")

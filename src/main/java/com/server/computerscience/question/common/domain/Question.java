@@ -21,6 +21,15 @@ public abstract class Question {
 	protected String description;
 	protected String imageUrl;
 
+	public Question(String content, QuestionCategory questionCategory, QuestionLevel questionLevel, String description,
+		String imageUrl) {
+		this.content = content;
+		this.questionCategory = questionCategory;
+		this.questionLevel = questionLevel;
+		this.description = description;
+		this.imageUrl = imageUrl;
+	}
+
 	public abstract Long getId();
 
 	public void changeDescription(String description) {
@@ -36,13 +45,4 @@ public abstract class Question {
 	}
 
 	public abstract void initDefaults();
-
-	public Question(String content, QuestionCategory questionCategory, QuestionLevel questionLevel, String description,
-		String imageUrl) {
-		this.content = content;
-		this.questionCategory = questionCategory;
-		this.questionLevel = questionLevel;
-		this.description = description;
-		this.imageUrl = imageUrl;
-	}
 }
