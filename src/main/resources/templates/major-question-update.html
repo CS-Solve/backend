@@ -13,25 +13,25 @@
 
 <!-- 카테고리별 질문 목록을 렌더링 -->
 <div th:each="classifiedQuestion : ${classifiedQuestions}">
-    <h2 th:text="${classifiedQuestion.questionCategory}"
+    <h2 style="cursor: pointer; color: #2980b9;"
         th:attr="onclick=|toggleCategory('${classifiedQuestion.questionCategory}')|"
-        style="cursor: pointer; color: #2980b9;">카테고리 이름</h2>
+        th:text="${classifiedQuestion.questionCategory}">카테고리 이름</h2>
 
     <!-- 질문 목록 -->
     <div th:id="'questions-'+${classifiedQuestion.questionCategory}">
-        <div th:id="'question-'+${question.id}" th:each="question : ${classifiedQuestion.responseQuestionDtoList}"
-             class="question-container">
+        <div class="question-container" th:each="question : ${classifiedQuestion.responseQuestionDtoList}"
+             th:id="'question-'+${question.id}">
             <!-- 문제 텍스트 -->
             <div class="editable-container">
-                <h3 th:text="${question.content}" class="questionTitle"
-                    th:attr="data-id=${question.id}, data-field='content'">질문</h3>
+                <h3 class="questionTitle" th:attr="data-id=${question.id}, data-field='content'"
+                    th:text="${question.content}">질문</h3>
             </div>
 
             <!-- 문제 난이도 드롭다운 -->
-            <select th:attr="data-question-id=${question.id}" onchange="updateDifficulty(this)">
-                <option value="LOW" th:selected="${question.questionLevel == 'LOW'}">하</option>
-                <option value="MEDIUM" th:selected="${question.questionLevel == 'MEDIUM'}">중</option>
-                <option value="HIGH" th:selected="${question.questionLevel == 'HIGH'}">상</option>
+            <select onchange="updateDifficulty(this)" th:attr="data-question-id=${question.id}">
+                <option th:selected="${question.questionLevel == 'LOW'}" value="LOW">하</option>
+                <option th:selected="${question.questionLevel == 'MEDIUM'}" value="MEDIUM">중</option>
+                <option th:selected="${question.questionLevel == 'HIGH'}" value="HIGH">상</option>
             </select>
 
             <!-- 선택지 목록 -->
@@ -45,32 +45,34 @@
 
             <!-- 해설 텍스트 -->
             <div class="editable-container">
-                <p th:text="${question.description}" class="description"
-                   th:attr="data-id=${question.id}, data-field='description'">설명</p>
+                <p class="description" th:attr="data-id=${question.id}, data-field='description'"
+                   th:text="${question.description}">설명</p>
             </div>
 
             <!-- approve 토글 -->
             <label for="approve">허용:</label>
-            <input type="checkbox" th:checked="${question.ifApproved}"
+            <input onclick="toggleApprove(this.getAttribute('data-question-id'))"
                    th:attr="data-question-id=${question.id}"
-                   onclick="toggleApprove(this.getAttribute('data-question-id'))"/>
+                   th:checked="${question.ifApproved}"
+                   type="checkbox"/>
             <br/>
 
             <!-- canBeMultiple 토글 -->
             <label for="canBeShortAnswered">주관식 문제 가능:</label>
-            <input type="checkbox" th:checked="${question.canBeShortAnswered}"
+            <input onclick="toggleCanBeMultiple(this.getAttribute('data-question-id'))"
                    th:attr="data-question-id=${question.id}"
-                   onclick="toggleCanBeMultiple(this.getAttribute('data-question-id'))"/>
+                   th:checked="${question.canBeShortAnswered}"
+                   type="checkbox"/>
             <br/>
 
-            <button type="button" th:onclick="|deleteQuestion(${question.id})|">
+            <button th:onclick="|deleteQuestion(${question.id})|" type="button">
                 질문 삭제
             </button>
         </div>
     </div>
 </div>
 
-<div id="overlay-input" class="overlay-input" style="display: none;">
+<div class="overlay-input" id="overlay-input" style="display: none;">
     <textarea id="overlay-textarea"></textarea>
     <button onclick="saveOverlayChanges()">저장</button>
     <button onclick="cancelOverlayChanges()">취소</button>

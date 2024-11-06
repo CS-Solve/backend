@@ -34,13 +34,12 @@ import com.server.computerscience.question.license.service.AdminLicenseQuestionM
 @DisplayName("단위 테스트 - 자격증 Admin Controller")
 class AdminLicenseQuestionControllerTest extends ControllerTest {
 	private final String tag = "자격증 문제";
+	private final String baseApiUrl = "/admin/question/license";
+	private final String idUrl = "/1";
 	@MockBean
 	private AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
 	@MockBean
 	private AdminLicenseMuiltipleChoiceQuestionUpdateService adminLicenseMuiltipleChoiceQuestionUpdateService;
-
-	private final String baseApiUrl = "/admin/question/license";
-	private final String idUrl = "/1";
 	private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
 	private List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions;
 	private ResponseQuestionDto responseQuestionDto;

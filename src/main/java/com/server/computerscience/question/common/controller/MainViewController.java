@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.server.computerscience.login.aspect.AddLoginStatusAttribute;
 import com.server.computerscience.question.common.service.QuestionSelectorService;
 import com.server.computerscience.question.license.domain.LicenseCategory;
 import com.server.computerscience.question.license.dto.response.ResponseLicenseSessionDto;
@@ -22,11 +23,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MainViewController {
 	private final QuestionSelectorService questionSelectorService;
-
+	private final String baseUrl = "baseUrl";
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
-	private final String baseUrl = "baseUrl";
 
+	@AddLoginStatusAttribute
 	@GetMapping("/")
 	public String showMainPage(Model model) {
 		List<String> categories = questionSelectorService.getCategories();
@@ -37,6 +38,7 @@ public class MainViewController {
 		return "index";
 	}
 
+	@AddLoginStatusAttribute
 	@GetMapping("/license")
 	public String showLicensePage(Model model) {
 		List<ResponseLicensesDto> licenseCategories = questionSelectorService.getLicenseCategories()
@@ -45,6 +47,7 @@ public class MainViewController {
 			.collect(Collectors.toList());
 		model.addAttribute("licenseCategories", licenseCategories);
 		model.addAttribute(baseUrl, resourceBaseUrl);
+
 		return "license-index";
 	}
 

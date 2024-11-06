@@ -19,6 +19,12 @@ public class ResponseClassifiedMultipleQuestionDto {
 	private QuestionCategory questionCategory;
 	private List<ResponseQuestionDto> responseQuestionDtoList;
 
+	public ResponseClassifiedMultipleQuestionDto(QuestionCategory questionCategory,
+		List<ResponseQuestionDto> responseQuestionDtoList) {
+		this.questionCategory = questionCategory;
+		this.responseQuestionDtoList = responseQuestionDtoList;
+	}
+
 	/**
 	 * 유저 객관식 문제 전용
 	 */
@@ -49,11 +55,5 @@ public class ResponseClassifiedMultipleQuestionDto {
 					.collect(Collectors.toList())
 			)
 			.build();
-	}
-
-	public ResponseClassifiedMultipleQuestionDto(QuestionCategory questionCategory,
-		List<ResponseQuestionDto> responseQuestionDtoList) {
-		this.questionCategory = questionCategory;
-		this.responseQuestionDtoList = responseQuestionDtoList;
 	}
 }

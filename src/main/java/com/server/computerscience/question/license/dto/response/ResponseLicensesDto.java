@@ -12,16 +12,16 @@ public class ResponseLicensesDto {
 	private String korean;
 	private String originalName;
 
+	@Builder
+	public ResponseLicensesDto(String korean, String originalName) {
+		this.korean = korean;
+		this.originalName = originalName;
+	}
+
 	public static ResponseLicensesDto from(LicenseCategory licenseCategory) {
 		return ResponseLicensesDto.builder()
 			.korean(licenseCategory.getKorean())
 			.originalName(licenseCategory.name())
 			.build();
-	}
-
-	@Builder
-	public ResponseLicensesDto(String korean, String originalName) {
-		this.korean = korean;
-		this.originalName = originalName;
 	}
 }

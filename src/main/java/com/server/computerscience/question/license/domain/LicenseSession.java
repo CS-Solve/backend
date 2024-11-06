@@ -20,14 +20,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LicenseSession {
 
+	@Enumerated(value = EnumType.STRING)
+	protected LicenseCategory licenseCategory;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	private String content;
-
-	@Enumerated(value = EnumType.STRING)
-	protected LicenseCategory licenseCategory;
-
 	@OneToMany(mappedBy = "licenseSession", cascade = CascadeType.PERSIST, orphanRemoval = false)
 	private List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions;
 

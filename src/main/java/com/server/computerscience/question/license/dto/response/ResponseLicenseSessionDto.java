@@ -16,19 +16,19 @@ public class ResponseLicenseSessionDto {
 	private String content;
 	private LicenseCategory licenseCategory;
 
+	@Builder
+	public ResponseLicenseSessionDto(Long id, String content, LicenseCategory licenseCategory) {
+		this.id = id;
+		this.content = content;
+		this.licenseCategory = licenseCategory;
+	}
+
 	public static ResponseLicenseSessionDto from(LicenseSession licenseSession) {
 		return ResponseLicenseSessionDto.builder()
 			.id(licenseSession.getId())
 			.content(licenseSession.getContent())
 			.licenseCategory(licenseSession.getLicenseCategory())
 			.build();
-	}
-
-	@Builder
-	public ResponseLicenseSessionDto(Long id, String content, LicenseCategory licenseCategory) {
-		this.id = id;
-		this.content = content;
-		this.licenseCategory = licenseCategory;
 	}
 
 }

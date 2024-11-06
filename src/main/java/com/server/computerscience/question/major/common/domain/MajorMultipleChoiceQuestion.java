@@ -27,12 +27,11 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @ToString
 public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvider {
+	public boolean canBeShortAnswered;
+	public boolean ifApproved;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
-	public boolean canBeShortAnswered;
-	public boolean ifApproved;
-
 	@OneToMany(mappedBy = "majorMultipleChoiceQuestion", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MajorQuestionChoice> questionChoices;
 
@@ -46,6 +45,16 @@ public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvi
 			.build();
 		majorMultipleChoiceQuestion.initDefaults();
 		return majorMultipleChoiceQuestion;
+	}
+
+	public static MajorMultipleChoiceQuestion makeForTest() {
+		return MajorMultipleChoiceQuestion.builder()
+			.content("testQuest")
+			.questionCategory(QuestionCategory.COMPUTER_ARCHITECTURE)
+			.questionLevel(QuestionLevel.LOW)
+			.questionChoices(new ArrayList<>())
+			.description("testDescription")
+			.build();
 	}
 
 	public void initDefaults() {
@@ -64,16 +73,6 @@ public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvi
 
 	public boolean isFit(QuestionCategory questionCategory, QuestionLevel questionLevel) {
 		return this.questionCategory.equals(questionCategory) && this.questionLevel.equals(questionLevel);
-	}
-
-	public static MajorMultipleChoiceQuestion makeForTest() {
-		return MajorMultipleChoiceQuestion.builder()
-			.content("testQuest")
-			.questionCategory(QuestionCategory.COMPUTER_ARCHITECTURE)
-			.questionLevel(QuestionLevel.LOW)
-			.questionChoices(new ArrayList<>())
-			.description("testDescription")
-			.build();
 	}
 
 	/**

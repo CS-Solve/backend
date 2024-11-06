@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.server.computerscience.login.aspect.AddLoginStatusAttribute;
 import com.server.computerscience.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computerscience.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import com.server.computerscience.question.major.user.service.implement.BasicMajorQuestionClassifiedGetService;
@@ -20,11 +21,11 @@ import lombok.RequiredArgsConstructor;
 public class MajorQuestionGetViewController {
 
 	private final BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
-
+	private final String baseUrl = "baseUrl";
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
-	private final String baseUrl = "baseUrl";
 
+	@AddLoginStatusAttribute
 	@GetMapping("/question/major")
 	public String getNormalQuestions(@RequestParam(required = false) List<String> levels,
 		@RequestParam(required = false) List<String> categories,
@@ -47,6 +48,7 @@ public class MajorQuestionGetViewController {
 		}
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("multipleChoice", multipleChoice);
+
 		return "major-question"; // 문제를 보여줄 페이지의 이름
 	}
 }

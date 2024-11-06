@@ -14,6 +14,14 @@ public class ResponseMajorQuestionClassCountDto {
 	private QuestionLevel questionLevel;
 	private int count;
 
+	@Builder
+	public ResponseMajorQuestionClassCountDto(QuestionCategory questionCategory, QuestionLevel questionLevel,
+		int count) {
+		this.questionCategory = questionCategory;
+		this.questionLevel = questionLevel;
+		this.count = count;
+	}
+
 	public static ResponseMajorQuestionClassCountDto of(QuestionCategory questionCategory, QuestionLevel questionLevel,
 		int count) {
 		return ResponseMajorQuestionClassCountDto.builder()
@@ -21,13 +29,5 @@ public class ResponseMajorQuestionClassCountDto {
 			.questionCategory(questionCategory)
 			.count(count)
 			.build();
-	}
-
-	@Builder
-	public ResponseMajorQuestionClassCountDto(QuestionCategory questionCategory, QuestionLevel questionLevel,
-		int count) {
-		this.questionCategory = questionCategory;
-		this.questionLevel = questionLevel;
-		this.count = count;
 	}
 }

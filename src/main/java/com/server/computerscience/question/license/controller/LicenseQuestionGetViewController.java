@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.server.computerscience.login.aspect.AddLoginStatusAttribute;
 import com.server.computerscience.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computerscience.question.license.dto.response.ResponseLicenseSessionDto;
 import com.server.computerscience.question.license.service.LicenseQuestionGetService;
@@ -23,10 +24,11 @@ public class LicenseQuestionGetViewController {
 
 	private final LicenseQuestionGetService licenseQuestionGetService;
 	private final LicenseSessionService licenseSessionService;
+	private final String baseUrl = "baseUrl";
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
-	private final String baseUrl = "baseUrl";
 
+	@AddLoginStatusAttribute
 	@GetMapping("/question/license/{sessionId}")
 	public String getLicenseQuestionsBySession(
 		@PathVariable Long sessionId,
@@ -40,6 +42,7 @@ public class LicenseQuestionGetViewController {
 			.entrySet().stream()
 			.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
 			.collect(Collectors.toList()));
+
 		return "license-question";
 	}
 

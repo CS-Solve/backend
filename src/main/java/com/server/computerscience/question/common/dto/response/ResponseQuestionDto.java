@@ -27,6 +27,16 @@ public class ResponseQuestionDto {
 	private QuestionLevel questionLevel;
 	private List<ResponseQuestionChoiceDto> questionChoices;
 
+	public ResponseQuestionDto(Long id, String content, QuestionCategory questionCategory, QuestionLevel questionLevel,
+		List<ResponseQuestionChoiceDto> questionChoices, String description) {
+		this.id = id;
+		this.content = content;
+		this.questionCategory = questionCategory;
+		this.questionLevel = questionLevel;
+		this.questionChoices = questionChoices;
+		this.description = description;
+	}
+
 	public static <T extends Question> ResponseQuestionDto.ResponseQuestionDtoBuilder<?, ?> common(
 		T question,
 		List<? extends QuestionChoice> choiceExtractor) {
@@ -80,15 +90,5 @@ public class ResponseQuestionDto {
 	public static ResponseQuestionDto forAdmin(LicenseMultipleChoiceQuestion question) {
 		return common(question, question.getQuestionChoices())
 			.build();
-	}
-
-	public ResponseQuestionDto(Long id, String content, QuestionCategory questionCategory, QuestionLevel questionLevel,
-		List<ResponseQuestionChoiceDto> questionChoices, String description) {
-		this.id = id;
-		this.content = content;
-		this.questionCategory = questionCategory;
-		this.questionLevel = questionLevel;
-		this.questionChoices = questionChoices;
-		this.description = description;
 	}
 }
