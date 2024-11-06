@@ -3,12 +3,12 @@ package com.server.computerscience.question.license.controller;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.server.computerscience.login.aspect.AddLoginStatusAttribute;
 import com.server.computerscience.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computerscience.question.license.dto.response.ResponseLicenseSessionDto;
 import com.server.computerscience.question.license.service.LicenseQuestionGetService;
@@ -28,11 +28,11 @@ public class LicenseQuestionGetViewController {
 	private String resourceBaseUrl;
 	private final String baseUrl = "baseUrl";
 
+	@AddLoginStatusAttribute
 	@GetMapping("/question/license/{sessionId}")
 	public String getLicenseQuestionsBySession(
 		@PathVariable Long sessionId,
-		Model model,
-		Authentication auth
+		Model model
 	) {
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("multipleChoice", true);
@@ -43,11 +43,6 @@ public class LicenseQuestionGetViewController {
 			.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
 			.collect(Collectors.toList()));
 
-		if (auth != null && auth.isAuthenticated()) {
-			model.addAttribute("isLogin", true);
-		} else {
-			model.addAttribute("isLogin", false);
-		}
 		return "license-question";
 	}
 

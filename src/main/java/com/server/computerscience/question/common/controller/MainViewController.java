@@ -5,13 +5,13 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.server.computerscience.login.aspect.AddLoginStatusAttribute;
 import com.server.computerscience.question.common.service.QuestionSelectorService;
 import com.server.computerscience.question.license.domain.LicenseCategory;
 import com.server.computerscience.question.license.dto.response.ResponseLicenseSessionDto;
@@ -28,24 +28,20 @@ public class MainViewController {
 	private String resourceBaseUrl;
 	private final String baseUrl = "baseUrl";
 
+	@AddLoginStatusAttribute
 	@GetMapping("/")
-	public String showMainPage(Model model, Authentication auth) {
+	public String showMainPage(Model model) {
 		List<String> categories = questionSelectorService.getCategories();
 		List<String> levels = questionSelectorService.getLevels();
 		model.addAttribute("categories", categories);
 		model.addAttribute("levels", levels);
 		model.addAttribute(baseUrl, resourceBaseUrl);
-
-		if (auth != null && auth.isAuthenticated()) {
-			model.addAttribute("isLogin", true);
-		} else {
-			model.addAttribute("isLogin", false);
-		}
 		return "index";
 	}
 
+	@AddLoginStatusAttribute
 	@GetMapping("/license")
-	public String showLicensePage(Model model, Authentication auth) {
+	public String showLicensePage(Model model) {
 		List<ResponseLicensesDto> licenseCategories = questionSelectorService.getLicenseCategories()
 			.stream()
 			.map(ResponseLicensesDto::from)
@@ -53,11 +49,6 @@ public class MainViewController {
 		model.addAttribute("licenseCategories", licenseCategories);
 		model.addAttribute(baseUrl, resourceBaseUrl);
 
-		if (auth != null && auth.isAuthenticated()) {
-			model.addAttribute("isLogin", true);
-		} else {
-			model.addAttribute("isLogin", false);
-		}
 		return "license-index";
 	}
 

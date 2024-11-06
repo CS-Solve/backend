@@ -4,12 +4,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.server.computerscience.login.aspect.AddLoginStatusAttribute;
 import com.server.computerscience.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computerscience.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import com.server.computerscience.question.major.user.service.implement.BasicMajorQuestionClassifiedGetService;
@@ -26,12 +26,12 @@ public class MajorQuestionGetViewController {
 	private String resourceBaseUrl;
 	private final String baseUrl = "baseUrl";
 
+	@AddLoginStatusAttribute
 	@GetMapping("/question/major")
 	public String getNormalQuestions(@RequestParam(required = false) List<String> levels,
 		@RequestParam(required = false) List<String> categories,
 		@RequestParam(required = false) Boolean multipleChoice,
-		Model model,
-		Authentication auth) {
+		Model model) {
 		if (multipleChoice) {
 			model.addAttribute("questions", basicMajorQuestionClassifiedGetService
 				.getApprovedClassifiedMajorMultipleChoiceQuestions(
@@ -49,11 +49,7 @@ public class MajorQuestionGetViewController {
 		}
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("multipleChoice", multipleChoice);
-		if (auth != null && auth.isAuthenticated()) {
-			model.addAttribute("isLogin", true);
-		} else {
-			model.addAttribute("isLogin", false);
-		}
+
 		return "major-question"; // 문제를 보여줄 페이지의 이름
 	}
 }
