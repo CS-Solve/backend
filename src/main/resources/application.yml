@@ -14,9 +14,5 @@ management:
     web:
       exposure:
         include: health,info,metrics,caches
-logging:
-  level:
-    org.springframework.transaction.interceptor: trace
-    com.zaxxer.hikari.HikariConfig: DEBUG
-    com.zaxxer.hikari: TRACE
+
 
