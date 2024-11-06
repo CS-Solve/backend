@@ -19,7 +19,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.server.computerscience.ControllerTest;
+import com.server.computerscience.ViewControllerTest;
 import com.server.computerscience.question.common.domain.QuestionCategory;
 import com.server.computerscience.question.common.domain.QuestionLevel;
 import com.server.computerscience.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
@@ -28,7 +28,7 @@ import com.server.computerscience.question.major.user.service.implement.BasicMaj
 
 @WebMvcTest(MajorQuestionGetViewController.class)
 @DisplayName("단위 테스트 - 전공 문제 View Controller")
-class MajorQuestionGetViewControllerTest extends ControllerTest {
+class MajorQuestionGetViewControllerTest extends ViewControllerTest {
 	boolean multipleChoice = true;
 	@MockBean
 	private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;

@@ -17,7 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.server.computerscience.ControllerTest;
+import com.server.computerscience.ViewControllerTest;
 import com.server.computerscience.question.common.domain.QuestionCategory;
 import com.server.computerscience.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computerscience.question.license.domain.LicenseCategory;
@@ -28,7 +28,7 @@ import com.server.computerscience.question.license.service.LicenseSessionService
 
 @DisplayName("단위 테스트 - 자격증 Get View Controller")
 @WebMvcTest(LicenseQuestionGetViewController.class)
-class LicenseQuestionGetViewControllerTest extends ControllerTest {
+class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 
 	@MockBean
 	private LicenseQuestionGetService licenseQuestionGetService;
