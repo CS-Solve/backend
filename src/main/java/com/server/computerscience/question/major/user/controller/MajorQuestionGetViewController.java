@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +30,8 @@ public class MajorQuestionGetViewController {
 	public String getNormalQuestions(@RequestParam(required = false) List<String> levels,
 		@RequestParam(required = false) List<String> categories,
 		@RequestParam(required = false) Boolean multipleChoice,
-		Model model) {
+		Model model,
+		Authentication auth) {
 		if (multipleChoice) {
 			model.addAttribute("questions", basicMajorQuestionClassifiedGetService
 				.getApprovedClassifiedMajorMultipleChoiceQuestions(
@@ -47,6 +49,11 @@ public class MajorQuestionGetViewController {
 		}
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("multipleChoice", multipleChoice);
+		if (auth != null && auth.isAuthenticated()) {
+			model.addAttribute("isLogin", true);
+		} else {
+			model.addAttribute("isLogin", false);
+		}
 		return "major-question"; // 문제를 보여줄 페이지의 이름
 	}
 }

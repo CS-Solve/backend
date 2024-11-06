@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,23 +29,35 @@ public class MainViewController {
 	private final String baseUrl = "baseUrl";
 
 	@GetMapping("/")
-	public String showMainPage(Model model) {
+	public String showMainPage(Model model, Authentication auth) {
 		List<String> categories = questionSelectorService.getCategories();
 		List<String> levels = questionSelectorService.getLevels();
 		model.addAttribute("categories", categories);
 		model.addAttribute("levels", levels);
 		model.addAttribute(baseUrl, resourceBaseUrl);
+
+		if (auth != null && auth.isAuthenticated()) {
+			model.addAttribute("isLogin", true);
+		} else {
+			model.addAttribute("isLogin", false);
+		}
 		return "index";
 	}
 
 	@GetMapping("/license")
-	public String showLicensePage(Model model) {
+	public String showLicensePage(Model model, Authentication auth) {
 		List<ResponseLicensesDto> licenseCategories = questionSelectorService.getLicenseCategories()
 			.stream()
 			.map(ResponseLicensesDto::from)
 			.collect(Collectors.toList());
 		model.addAttribute("licenseCategories", licenseCategories);
 		model.addAttribute(baseUrl, resourceBaseUrl);
+
+		if (auth != null && auth.isAuthenticated()) {
+			model.addAttribute("isLogin", true);
+		} else {
+			model.addAttribute("isLogin", false);
+		}
 		return "license-index";
 	}
 

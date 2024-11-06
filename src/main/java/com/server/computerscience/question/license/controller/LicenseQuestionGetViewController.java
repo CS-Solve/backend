@@ -3,6 +3,7 @@ package com.server.computerscience.question.license.controller;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,8 @@ public class LicenseQuestionGetViewController {
 	@GetMapping("/question/license/{sessionId}")
 	public String getLicenseQuestionsBySession(
 		@PathVariable Long sessionId,
-		Model model
+		Model model,
+		Authentication auth
 	) {
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("multipleChoice", true);
@@ -40,6 +42,12 @@ public class LicenseQuestionGetViewController {
 			.entrySet().stream()
 			.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
 			.collect(Collectors.toList()));
+
+		if (auth != null && auth.isAuthenticated()) {
+			model.addAttribute("isLogin", true);
+		} else {
+			model.addAttribute("isLogin", false);
+		}
 		return "license-question";
 	}
 

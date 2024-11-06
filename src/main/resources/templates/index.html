@@ -51,11 +51,11 @@
 <!-- End Google Tag Manager (noscript) -->
 <header class="header">
     <div class="auth-container">
-            <span th:if="${#request.userPrincipal != null}">
+            <span th:if="${isLogin}">
 <!--                <span th:text="${#request.userPrincipal.name}">사용자</span>-->
                 <a href="/logout">로그아웃</a>
             </span>
-        <span th:if="${#request.userPrincipal == null}">
+        <span th:if="${!isLogin}">
                 <a href="/oauth2/authorization/cognito" class="login-button">로그인</a>
             </span>
     </div>

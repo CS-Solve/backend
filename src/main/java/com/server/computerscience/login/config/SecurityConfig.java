@@ -30,7 +30,6 @@ public class SecurityConfig {
 				"/",
 				true)
 			.and()
-
 			// 로그아웃 기능을 활성화하고, 로그아웃 성공 후 "/"로 리디렉션되도록 설정합니다.
 			.logout()
 			.logoutSuccessUrl("/");
