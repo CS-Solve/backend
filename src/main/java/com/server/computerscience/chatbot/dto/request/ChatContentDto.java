@@ -1,6 +1,6 @@
 package com.server.computerscience.chatbot.dto.request;
 
-import com.server.computerscience.chatbot.domain.ChatGptContentType;
+import com.server.computerscience.chatbot.domain.ChatContentType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,12 +13,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ChatGptContentDto {
+public class ChatContentDto {
 	private String type;
 	private String text;
 
-	public static ChatGptContentDto from(ChatGptContentType type, String text) {
-		return ChatGptContentDto.builder()
+	public static ChatContentDto from(ChatContentType type, String text) {
+		return ChatContentDto.builder()
 			.text(text)
 			.type(type.getLower())
 			.build();

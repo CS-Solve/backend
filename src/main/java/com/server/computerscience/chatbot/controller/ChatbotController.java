@@ -25,6 +25,6 @@ public class ChatbotController {
 		@RequestBody ChatBotRequestDto chatBotRequestDto,
 		@AuthenticationPrincipal OAuth2User user
 	) {
-		return ResponseEntity.ok(ChatBotResponseDto.from(chatbotService.chat(chatBotRequestDto, user)));
+		return ResponseEntity.ok(ChatBotResponseDto.from(chatbotService.talkToAssistant(chatBotRequestDto, user)));
 	}
 }
