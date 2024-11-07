@@ -154,15 +154,6 @@
 }
 
 
-.screen .description-box {
-    display: flex;
-    width: 71px;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    position: relative;
-}
-
 .screen .view-7 {
     display: inline-flex;
     align-items: center;
