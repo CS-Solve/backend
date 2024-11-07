@@ -77,6 +77,9 @@
                     </div>
                     <div class="questions">
                         <p class="questionItem" th:text="${question.content}">
+                        <div th:if="${question.imageUrl != null}">
+                            <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
+                        </div>
                         </p>
                         <div class="choice-list" th:if="${multipleChoice}">
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
