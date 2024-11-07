@@ -7,6 +7,6 @@ import com.server.computerscience.question.common.domain.QuestionCategory;
 import com.server.computerscience.question.major.common.domain.MajorMultipleChoiceQuestion;
 
 public interface AdminMajorQuestionClassifiedGetService {
-	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getClassifiedAllMajorQuestions();
+	Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getClassifiedAllMajorQuestions();
 
 }

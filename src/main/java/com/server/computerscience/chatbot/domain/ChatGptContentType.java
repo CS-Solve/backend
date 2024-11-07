@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum ChatGptContentType {
 	TEXT("text");
-	private String lower;
+	private final String lower;
 
 	ChatGptContentType(String lower) {
 		this.lower = lower;

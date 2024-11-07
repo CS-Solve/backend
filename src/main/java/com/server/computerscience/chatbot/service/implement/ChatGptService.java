@@ -1,6 +1,6 @@
 package com.server.computerscience.chatbot.service.implement;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -22,7 +22,7 @@ public class ChatGptService implements ChatbotService {
 	@Override
 	public String chat(ChatBotRequestDto chatBotRequestDto) {
 		ChatGptRestRequestDto chatGptRestRequestDto = ChatGptRestRequestDto.from(model,
-			Arrays.asList(chatBotRequestDto.getPrompt()));
+			Collections.singletonList(chatBotRequestDto.getPrompt()));
 		ChatGptResponseDto chatGptResponseDto = restTemplate.postForObject(
 			payingApiUrl,
 			chatGptRestRequestDto,
