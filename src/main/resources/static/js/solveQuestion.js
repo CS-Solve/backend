@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (marked === false) {
 
         }
-        if (descriptionContent.style.display === "none") {
+        if (descriptionText.style.display === "none") {
             showDescription();
         } else {
             hideDescription();
@@ -334,12 +334,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
     function showDescription() {
-        descriptionContent.style.display = "block";
-        toggleButton.textContent = "해설 숨기기 ▲";
+        descriptionText.style.display = "block";
+        toggleButton.textContent = "해설 숨기기 ▼";
     }
 
     function hideDescription() {
-        descriptionContent.style.display = "none";
+        descriptionText.style.display = "none";
         toggleButton.textContent = "해설 보기 ▼";
     }
 });

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.computerscience.chatbot.dto.request.ChatBotRequestDto;
+import com.server.computerscience.chatbot.dto.response.ChatBotResponseDto;
 import com.server.computerscience.chatbot.service.ChatbotService;
 
 import io.swagger.annotations.Api;
@@ -18,9 +19,9 @@ public class ChatbotController {
 	private final ChatbotService chatbotService;
 
 	@PostMapping("/chat/text")
-	public ResponseEntity<String> chat(
+	public ResponseEntity<ChatBotResponseDto> chat(
 		@RequestBody ChatBotRequestDto chatBotRequestDto
 	) {
-		return ResponseEntity.ok(chatbotService.chat(chatBotRequestDto));
+		return ResponseEntity.ok(ChatBotResponseDto.from(chatbotService.chat(chatBotRequestDto)));
 	}
 }

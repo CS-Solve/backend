@@ -27,7 +27,6 @@ public class ChatGptService implements ChatbotService {
 			payingApiUrl,
 			chatGptRestRequestDto,
 			ChatGptResponseDto.class);
-		System.out.println(chatGptResponseDto);
 		return chatGptResponseDto.getChoices().get(0).getMessage().getContent();
 	}
 }
