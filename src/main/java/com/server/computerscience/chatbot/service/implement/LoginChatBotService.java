@@ -15,14 +15,14 @@ public class LoginChatBotService implements ChatbotService {
 	private final ChatManageService chatManageService;
 	private final String NOT_LOGIN = "로그인이 필요합니다.";
 	@Value("${spring.security.oauth2.client.provider.cognito.user-name-attribute}")
-	private String USER_IDENTIFIER;
+	private String userIdentifier;
 
 	@Override
 	public String talkToAssistant(ChatBotRequestDto chatBotRequestDto, OAuth2User user) {
 		if (user == null) {
 			return NOT_LOGIN;
 		}
-		String userId = (String)user.getAttributes().get(USER_IDENTIFIER);
+		String userId = (String)user.getAttributes().get(userIdentifier);
 		return chatManageService.respond(userId, chatBotRequestDto);
 	}
 }

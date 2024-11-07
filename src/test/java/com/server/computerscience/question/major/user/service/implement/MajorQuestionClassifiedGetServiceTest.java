@@ -29,11 +29,11 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
-	private List<String> levels = Arrays.stream(QuestionLevel.values())
+	private final List<String> levels = Arrays.stream(QuestionLevel.values())
 		.map(QuestionLevel::getKorean)
 		.collect(Collectors.toList());
 
-	private List<String> majorCategories = Arrays.stream(QuestionCategory.values())
+	private final List<String> majorCategories = Arrays.stream(QuestionCategory.values())
 		.filter(QuestionCategory::isCanBeShownInMajor)
 		.map(QuestionCategory::getKorean)
 		.collect(Collectors.toList());
