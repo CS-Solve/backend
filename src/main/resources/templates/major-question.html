@@ -71,6 +71,7 @@
                         <div class="level-show-box" id="levelBox" th:data-level="${question.questionLevel.korean}">
                             <div class="level-show-text" th:text="${question.questionLevel.korean}"></div>
                         </div>
+                        d
                         <div class="questionResult"></div> <!-- 정답/오답 여부를 여기에 표시 -->
                     </div>
                     <div class="questions">
@@ -121,9 +122,10 @@
                     <!-- 메시지들이 여기에 추가됩니다. -->
                 </div>
                 <div class="chatbot-input">
-                    <input type="text" id="chatbotInput" placeholder="질문을 입력하세요...">
+                    <textarea id="chatbotInput" placeholder="질문을 입력하세요..." rows="3"></textarea>
                     <button onclick="sendMessage()">전송</button>
                 </div>
+
             </div>
         </div>
     </div>

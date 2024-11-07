@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("chatbotInput");
 
-    // 엔터 키로 메시지 전송
+    // 엔터 키 이벤트 처리
     input.addEventListener("keypress", function (event) {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" && !event.shiftKey) {
             event.preventDefault(); // 기본 엔터 동작 방지
             sendMessage();
         }
