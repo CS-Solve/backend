@@ -11,9 +11,9 @@ import com.server.computerscience.question.major.common.exception.DuplicateQuest
 @Service
 public interface AdminMajorQuestionMakeService {
 
-	public List<MajorMultipleChoiceQuestion> makeMultipleChoiceQuestions(
+	List<MajorMultipleChoiceQuestion> makeMultipleChoiceQuestions(
 		List<RequestMakeMultipleChoiceQuestionDto> requestNormalQuestionDto);
 
-	public MajorMultipleChoiceQuestion makeMultipleChoiceQuestion(
+	MajorMultipleChoiceQuestion makeMultipleChoiceQuestion(
 		RequestMakeMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException;
 }

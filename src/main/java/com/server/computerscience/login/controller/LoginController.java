@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.server.computerscience.login.dto.ResponseAccessTokenDto;
 
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 
 @RestController
+@Api(tags = {"로그인"})
 @RequiredArgsConstructor
 public class LoginController {
 

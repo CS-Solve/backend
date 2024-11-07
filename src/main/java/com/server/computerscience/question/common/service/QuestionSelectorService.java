@@ -9,11 +9,11 @@ import com.server.computerscience.question.license.domain.LicenseSession;
 
 @Service
 public interface QuestionSelectorService {
-	public List<String> getCategories();
+	List<String> getCategories();
 
-	public List<String> getLevels();
+	List<String> getLevels();
 
-	public List<LicenseCategory> getLicenseCategories();
+	List<LicenseCategory> getLicenseCategories();
 
-	public List<LicenseSession> getLicenseSessions(LicenseCategory licenseCategory);
+	List<LicenseSession> getLicenseSessions(LicenseCategory licenseCategory);
 }

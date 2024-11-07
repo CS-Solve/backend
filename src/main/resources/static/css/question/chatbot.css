@@ -1,0 +1,133 @@
+.description-box {
+    width: 100%;
+    height: 100%; /* 전체 높이의 30% */
+    padding: 1%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.descriptionToggle {
+    display: flex;
+    height: 38px;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 2%;
+    background-color: #e6e6e6;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.text-wrapper-10 {
+    font-weight: bold;
+    position: relative;
+    width: fit-content;
+    margin-top: -2px;
+    font-family: "NanumSquare Neo OTF-cBd", Helvetica;
+    font-size: 20px;
+    line-height: 40px;
+    color: #000000;
+}
+
+.description-container {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    width: 100%; /* 가로폭 최대화 */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f4f9;
+    height: 30%; /* 설명창 높이 고정 */
+    padding: 1%;
+}
+
+.description-content {
+    padding: 1%;
+    background-color: #ffffff;
+    border-top: 1px solid #ddd;
+}
+
+.chatbot-container {
+    margin-top: 2%;
+    width: 100%;
+    height: 55%; /* 고정된 높이 */
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f4f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    /*overflow: hidden;*/
+    box-sizing: border-box;
+}
+
+.chatbot-messages {
+    height: 40vh;
+    padding: 2%;
+    overflow-y: scroll; /* 스크롤 활성화 */
+    border-bottom: 1px solid #ddd;
+}
+
+.chatbot-input {
+    height: 20%; /* 높이를 전체의 20%로 고정 */
+    display: flex;
+    padding: 2%;
+    background-color: #f2f2f2;
+    border-top: 1px solid #ddd;
+    align-items: center;
+}
+
+
+.chatbot-input textarea {
+    flex: 1;
+    padding: 1%;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+    overflow-y: auto;
+    height: 100%; /* 100% 높이로 설정 */
+    max-height: 80px;
+    box-sizing: border-box;
+}
+
+.chatbot-input button {
+    width: 20%; /* 버튼의 너비를 %로 설정 */
+    margin-left: 2%;
+    padding: 1% 2%;
+    font-size: 14px;
+    border: none;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* 메시지 스타일 */
+.message {
+    margin: 2%;
+    padding: 2%;
+    border-radius: 8px;
+    max-width: 98%; /* 말풍선 최대 너비 */
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* 오른쪽 정렬: 사용자 메시지 */
+.message.user {
+    background-color: #e6efff;
+    align-self: flex-end;
+    text-align: right;
+}
+
+/* 왼쪽 정렬: 봇 메시지 */
+.message.bot {
+    background-color: #ffffff;
+    align-self: flex-start;
+    text-align: left;
+}

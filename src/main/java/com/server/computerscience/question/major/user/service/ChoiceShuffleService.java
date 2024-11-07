@@ -9,6 +9,6 @@ import com.server.computerscience.question.major.common.domain.MajorQuestionChoi
 @Service
 public interface ChoiceShuffleService {
 
-	public void shuffle(List<MajorQuestionChoice> majorQuestionChoices);
+	void shuffle(List<MajorQuestionChoice> majorQuestionChoices);
 
 }

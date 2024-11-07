@@ -32,7 +32,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@Api(tags = {"단답형 문제 - ADMIN"})
+@Api(tags = {"전공 문제 - ADMIN"})
 @RequestMapping("/admin")
 public class AdminMajorQuestionController {
 	private final AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;

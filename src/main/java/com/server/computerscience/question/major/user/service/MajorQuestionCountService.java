@@ -8,5 +8,5 @@ import com.server.computerscience.question.major.user.dto.response.ResponseMajor
 
 @Service
 public interface MajorQuestionCountService {
-	public List<ResponseMajorQuestionClassCountDto> getNormalQuestionCountByClass();
+	List<ResponseMajorQuestionClassCountDto> getNormalQuestionCountByClass();
 }

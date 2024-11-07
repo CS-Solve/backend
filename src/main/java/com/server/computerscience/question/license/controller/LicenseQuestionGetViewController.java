@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.server.computerscience.login.aspect.AddLoginStatusAttribute;
 import com.server.computerscience.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
-import com.server.computerscience.question.license.dto.response.ResponseLicenseSessionDto;
+import com.server.computerscience.question.license.domain.LicenseSession;
 import com.server.computerscience.question.license.service.LicenseQuestionGetService;
 import com.server.computerscience.question.license.service.LicenseSessionService;
 
@@ -34,16 +34,21 @@ public class LicenseQuestionGetViewController {
 		@PathVariable Long sessionId,
 		Model model
 	) {
+		LicenseSession licenseSession = licenseSessionService.getLicenseSessionById(sessionId);
+
+		String sessionInform =
+			licenseSession.getLicenseCategory().getKorean() + " 기출 문제 - " + licenseSession.getContent();
 		model.addAttribute(baseUrl, resourceBaseUrl);
-		model.addAttribute("multipleChoice", true);
-		model.addAttribute("licenseSession",
-			ResponseLicenseSessionDto.from(licenseSessionService.getLicenseSessionById(sessionId)));
+		model.addAttribute("title", sessionInform);
+		model.addAttribute("description", "CS 전공과 관련된 자격증 기출 문제를 풀어볼 수 있습니다.");
+		model.addAttribute("questionSession", sessionInform
+			+ " / 복원 문제는 오류가 있을 수 있습니다.");
 		model.addAttribute("questions", licenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 			.entrySet().stream()
 			.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
 			.collect(Collectors.toList()));
-
-		return "license-question";
+		model.addAttribute("multipleChoice", true);
+		return "question";
 	}
 
 	/*

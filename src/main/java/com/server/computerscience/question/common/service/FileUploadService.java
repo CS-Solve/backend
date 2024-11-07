@@ -7,5 +7,5 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public interface FileUploadService {
-	public String uploadImage(MultipartFile file, String dirName) throws IOException;
+	String uploadImage(MultipartFile file, String dirName) throws IOException;
 }

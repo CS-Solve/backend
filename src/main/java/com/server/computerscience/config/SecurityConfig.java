@@ -1,4 +1,4 @@
-package com.server.computerscience.login.config;
+package com.server.computerscience.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,9 +14,9 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-			.csrf()
+			.csrf().disable()
 			// CSRF 보호를 활성화합니다. 이 설정은 보안 강화에 도움이 됩니다.
-			.and()
+			// .and()
 			.authorizeRequests(authz -> authz
 				// .mvcMatchers("/")
 				// 메인 페이지("/")에 대해 모든 사용자가 접근할 수 있도록 허용합니다.
