@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class ChatCacheService {
 	private static final String CHAT_MESSAGE = "chatMessages";
 	private static final String CHAT_USED_CHANCE = "chatRemainChance";
-	private static final int MAX_MESSAGES_SIZE = 10;
+
 	private final CacheManager cacheManager;
 
 	/**
@@ -35,10 +35,10 @@ public class ChatCacheService {
 	}
 
 	@CachePut(value = CHAT_MESSAGE, key = "#userId")
-	public List<ChatMessageDto> saveChatMessage(String userId, ChatMessageDto chatMessageDto) {
+	public List<ChatMessageDto> saveChatMessage(String userId, ChatMessageDto chatMessageDto, int maxMessageSize) {
 		List<ChatMessageDto> chatMessages = getChatMessages(userId); // 캐시에서 가져오기
 		chatMessages.add(chatMessageDto);
-		if (chatMessages.size() > MAX_MESSAGES_SIZE) {
+		if (chatMessages.size() > maxMessageSize) {
 			chatMessages.remove(0);
 		}
 		return chatMessages;

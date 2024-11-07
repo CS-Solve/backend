@@ -13,7 +13,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ChatManageService {
-	private static final int MAX_CHAT_CHANCE = 20;
+	private static final int MAX_CHAT_CHANCE = 30;
+	private static final int MAX_MESSAGES_SIZE = 15;
 	private final String NO_MORE_CHANCE = "채팅 기회를 모두 소모하셨습니다. 1시간마다 초기화됩니다.";
 	private final ChatCacheService chatCacheService;
 	private final ChatGptService chatGptService;
@@ -37,12 +38,12 @@ public class ChatManageService {
 
 	private List<ChatMessageDto> beforeRespond(String userId, ChatBotRequestDto chatBotRequestDto) {
 		ChatMessageDto chatMessageFromUser = ChatMessageDto.from(chatBotRequestDto.getPrompt(), ChatRole.USER);
-		return chatCacheService.saveChatMessage(userId, chatMessageFromUser);
+		return chatCacheService.saveChatMessage(userId, chatMessageFromUser, MAX_MESSAGES_SIZE);
 	}
 
 	private void afterRespond(String userId, String answer, List<ChatMessageDto> chatMessages) {
 		ChatMessageDto chatMessageFromAssistant = ChatMessageDto.from(answer, ChatRole.ASSISTANT);
-		chatCacheService.saveChatMessage(userId, chatMessageFromAssistant);
+		chatCacheService.saveChatMessage(userId, chatMessageFromAssistant, MAX_MESSAGES_SIZE);
 		chatCacheService.increaseUsedChance(userId);
 	}
 }
