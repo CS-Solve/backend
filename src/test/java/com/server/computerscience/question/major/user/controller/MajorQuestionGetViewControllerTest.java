@@ -66,7 +66,7 @@ class MajorQuestionGetViewControllerTest extends ViewControllerTest {
 				.param("categories", categories.toArray(new String[0]))
 				.param("multipleChoice", String.valueOf(multipleChoice)))
 			.andExpect(status().isOk())
-			.andExpect(view().name("major-question"))
+			.andExpect(view().name("question"))
 			.andExpect(model().attributeExists("questions"))
 			.andDo(print());
 	}
