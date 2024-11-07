@@ -14,13 +14,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ChatManageService {
 	private final String NO_MORE_CHANCE = "채팅 기회를 모두 소모하셨습니다.(1시간 마다 초기화)";
+	private static final int MAX_CHAT_CHANCE = 20;
 	private final ChatCacheService chatCacheService;
 	private final ChatGptService chatGptService;
 
 	public String respond(String userId, ChatBotRequestDto chatBotRequestDto) {
-		if (!chatCacheService.canChat(userId)) {
+		if (chatCacheService.getUsedChance(userId) >= MAX_CHAT_CHANCE) {
 			return NO_MORE_CHANCE;
 		}
+		System.out.println(userId);
 		/**
 		 * User가 가지고 있는 이전 대화 기록을 가져온다.
 		 */
@@ -32,7 +34,7 @@ public class ChatManageService {
 		 */
 		String answer = chatGptService.chat(chatMessages);
 		afterRespond(userId, answer, chatMessages);
-		System.out.println(answer);
+		System.out.println(chatCacheService.getUsedChance(userId));
 
 		return answer;
 	}
@@ -40,13 +42,13 @@ public class ChatManageService {
 	private List<ChatMessageDto> beforeRespond(String userId, ChatBotRequestDto chatBotRequestDto) {
 		List<ChatMessageDto> chatMessages = chatCacheService.getChatMessages(userId);
 		ChatMessageDto chatMessageFromUser = ChatMessageDto.from(chatBotRequestDto.getPrompt(), ChatRole.USER);
-		chatMessages.add(chatMessageFromUser);
+		chatCacheService.saveChatMessage(userId, chatMessageFromUser);
 		return chatMessages;
 	}
 
 	private void afterRespond(String userId, String answer, List<ChatMessageDto> chatMessages) {
 		ChatMessageDto chatMessageFromAssistant = ChatMessageDto.from(answer, ChatRole.ASSISTANT);
-		chatMessages.add(chatMessageFromAssistant);
+		chatCacheService.saveChatMessage(userId, chatMessageFromAssistant);
 		chatCacheService.increaseUsedChance(userId);
 	}
 }
