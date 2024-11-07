@@ -1,6 +1,6 @@
 .description-box {
     width: 100%;
-    height: 100%; /* 전체 높이의 30% */
+    height: 65vh; /* 전체 높이의 30% */
     padding: 1%;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -43,8 +43,9 @@
     display: flex;
     flex-direction: column;
     background-color: #f4f4f9;
-    height: 30%; /* 설명창 높이 고정 */
+    height: 15vh; /* 설명창 높이 고정 */
     padding: 1%;
+    overflow-y: scroll;
 }
 
 .description-content {
@@ -56,7 +57,7 @@
 .chatbot-container {
     margin-top: 2%;
     width: 100%;
-    height: 55%; /* 고정된 높이 */
+    height: 60%; /* 고정된 높이 */
     display: flex;
     flex-direction: column;
     background-color: #f4f4f9;
