@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.server.computerscience.chatbot.dto.request.ChatMessageDto;
@@ -63,6 +64,16 @@ public class ChatCacheService {
 	public int increaseUsedChance(String userId) {
 		int currentUsedChance = getUsedChance(userId);
 		return currentUsedChance + 1; // 현재 사용 횟수에 1 추가
+	}
+
+	/**
+	 * 매 시간마다 모든 사용자에 대한 사용 횟수 캐시를 삭제하는 메서드
+	 */
+	@Scheduled(cron = "0 0 * * * *") // 매 시간 정각에 실행
+	@CacheEvict(value = CHAT_USED_CHANCE, allEntries = true)
+	public void clearAllUsedChances() {
+		// 모든 사용자에 대한 사용 횟수 캐시를 삭제합니다.
+		System.out.println("모든 사용자에 대한 사용 횟수 캐시를 삭제했습니다.");
 	}
 
 }
