@@ -1,5 +1,3 @@
-import {formatText} from './translateTextForHtml.js'
-
 document.addEventListener('DOMContentLoaded', function () {
     let selectedChoice = null;
     let selectedQuestion = null;
@@ -344,6 +342,16 @@ document.addEventListener('DOMContentLoaded', function () {
     function hideDescription() {
         descriptionText.style.display = "none";
         toggleButton.textContent = "해설 보기 ▼";
+    }
+
+    function formatText(text) {
+        // 줄 바꿈을 <br/>로 변환
+        let formattedText = text.replace(/\n/g, '<br/>');
+
+        // **로 둘러싸인 단어를 굵게 표시
+        formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; font-size: 1em;">$1</span>');
+
+        return formattedText;
     }
 
 

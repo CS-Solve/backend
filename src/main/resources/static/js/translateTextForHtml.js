@@ -12,17 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// 텍스트 포맷팅 함수
-export function formatText(text) {
-    // 줄 바꿈을 <br/>로 변환
-    let formattedText = text.replace(/\n/g, '<br/>');
-
-    // **로 둘러싸인 단어를 굵게 표시
-    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; font-size: 1em;">$1</span>');
-
-    return formattedText;
-}
-
 
 /*
 동적으로 추가되는 것에는 JS로 직접 해야함.처음 초기화된 것에만 eventListener가 적용됨
