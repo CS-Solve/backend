@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ChatManageService {
-	private final String NO_MORE_CHANCE = "채팅 기회를 모두 소모하셨습니다. 1시간 마다 초기화됩니다.";
 	private static final int MAX_CHAT_CHANCE = 20;
+	private final String NO_MORE_CHANCE = "채팅 기회를 모두 소모하셨습니다. 1시간마다 초기화됩니다.";
 	private final ChatCacheService chatCacheService;
 	private final ChatGptService chatGptService;
 

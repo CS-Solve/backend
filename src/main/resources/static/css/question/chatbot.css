@@ -38,11 +38,11 @@
     margin-top: 2%;
     margin-bottom: 2%;
     width: 100%; /* 가로폭 최대화 */
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    background-color: #f4f4f9;
+    background-color: #ffffff;
     height: 15vh; /* 설명창 높이 고정 */
     padding: 1%;
     overflow-y: scroll;
@@ -60,8 +60,8 @@
     height: 60%; /* 고정된 높이 */
     display: flex;
     flex-direction: column;
-    background-color: #f4f4f9;
-    border: 1px solid #ddd;
+    background-color: #ffffff;
+    /*border: 1px solid #ddd;*/
     border-radius: 8px;
     /*overflow: hidden;*/
     box-sizing: border-box;

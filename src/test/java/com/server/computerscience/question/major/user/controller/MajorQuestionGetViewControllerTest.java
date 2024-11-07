@@ -30,10 +30,6 @@ import com.server.computerscience.question.major.user.service.implement.BasicMaj
 @WebMvcTest(MajorQuestionGetViewController.class)
 @DisplayName("단위 테스트 - 전공 문제 View Controller")
 class MajorQuestionGetViewControllerTest extends ViewControllerTest {
-	boolean multipleChoice = true;
-	@MockBean
-	private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
-	private List<ResponseClassifiedMultipleQuestionDto> responseClassifiedMultipleQuestionDtos;
 	private final List<String> levels = Arrays.stream(QuestionLevel.values())
 		.map(QuestionLevel::getKorean)
 		.collect(Collectors.toList());
@@ -42,6 +38,10 @@ class MajorQuestionGetViewControllerTest extends ViewControllerTest {
 		.map(QuestionCategory::getKorean)
 		.collect(Collectors.toList());
 	private final Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> map = new HashMap<>();
+	boolean multipleChoice = true;
+	@MockBean
+	private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
+	private List<ResponseClassifiedMultipleQuestionDto> responseClassifiedMultipleQuestionDtos;
 
 	@BeforeEach
 	void setUp() {
