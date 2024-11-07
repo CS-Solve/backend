@@ -26,6 +26,7 @@ public class LoginAspect {
 			if (arg instanceof Model) {
 				Model model = (Model)arg;
 				// 인증 상태 확인 및 isLogin 속성 추가
+				// cognito 요청을 하면 자동으로 저장 됨.
 				Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 				boolean isAuthenticated =
 					auth != null && auth.isAuthenticated() && !(auth instanceof AnonymousAuthenticationToken);
