@@ -1,3 +1,5 @@
+import {formatText} from './translateTextForHtml.js'
+
 document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("chatbotInput");
 
@@ -41,7 +43,10 @@ function addMessageToChat(role, text) {
     const messageContainer = document.getElementById('chatbotMessages');
     const message = document.createElement("div");
     message.classList.add("message", role);
-    message.innerText = text;
+
+    // formatText 함수를 사용하여 HTML 포맷팅을 한 후 innerHTML에 설정
+    message.innerHTML = formatText(text); // 여기에서 innerHTML 사용
+
     messageContainer.appendChild(message);
 
     // 마지막 메시지로 스크롤하기 위해 scrollIntoView 사용

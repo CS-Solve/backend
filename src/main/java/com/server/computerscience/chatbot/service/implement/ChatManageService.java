@@ -32,6 +32,7 @@ public class ChatManageService {
 		 */
 		String answer = chatGptService.chat(chatMessages);
 		afterRespond(userId, answer, chatMessages);
+		System.out.println(answer);
 
 		return answer;
 	}

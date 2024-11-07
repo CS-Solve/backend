@@ -1,3 +1,5 @@
+import {formatText} from './translateTextForHtml.js'
+
 document.addEventListener('DOMContentLoaded', function () {
     let selectedChoice = null;
     let selectedQuestion = null;
@@ -329,7 +331,8 @@ document.addEventListener('DOMContentLoaded', function () {
         주관식이냐, 객관식이냐에 출력 내용을 구분한다.
          */
         const description = selectedChoice ? selectedChoice.closest('.each-question').getAttribute('data-description') : selectedQuestion.closest('.each-question').getAttribute('data-description');
-        descriptionText.innerHTML = description.replace(/\n/g, '<br/>');
+        // formatText 함수를 호출하여 포맷팅된 텍스트를 얻음
+        descriptionText.innerHTML = formatText(description);
     }
 
 
@@ -342,4 +345,6 @@ document.addEventListener('DOMContentLoaded', function () {
         descriptionText.style.display = "none";
         toggleButton.textContent = "해설 보기 ▼";
     }
+
+
 });
