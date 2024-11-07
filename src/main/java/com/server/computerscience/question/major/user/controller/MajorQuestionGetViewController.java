@@ -44,7 +44,7 @@ public class MajorQuestionGetViewController {
 				.getApprovedClassifiedShortAnsweredMajorQuestions(
 					RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels));
 		}
-		String title = "CS 문제 - " + questions.keySet().stream()
+		String title = "CS 전공 문제 - " + questions.keySet().stream()
 			.map(QuestionCategory::getKorean) // 각 엔트리의 `getKorean()` 호출
 			.collect(Collectors.joining(", "));
 		model.addAttribute(baseUrl, resourceBaseUrl);

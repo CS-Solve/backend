@@ -43,5 +43,7 @@ function addMessageToChat(role, text) {
     message.classList.add("message", role);
     message.innerText = text;
     messageContainer.appendChild(message);
-    messageContainer.scrollTop = messageContainer.scrollHeight; // 최신 메시지로 스크롤
+
+    // 마지막 메시지로 스크롤하기 위해 scrollIntoView 사용
+    message.scrollIntoView({behavior: "smooth", block: "end"});
 }

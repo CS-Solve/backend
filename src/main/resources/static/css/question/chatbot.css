@@ -5,7 +5,6 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #ffffff;
-    /*overflow-y: auto; !* 스크롤 가능하도록 설정 *!*/
 }
 
 .descriptionToggle {
@@ -17,7 +16,6 @@
     align-self: stretch;
     width: 100%;
     border-radius: 8px;
-
     cursor: pointer;
     padding: 2%;
     background-color: #e6e6e6;
@@ -32,10 +30,7 @@
     margin-top: -2px;
     font-family: "NanumSquare Neo OTF-cBd", Helvetica;
     font-size: 20px;
-    letter-spacing: 0;
     line-height: 40px;
-    white-space: nowrap;
-    font-weight: 400;
     color: #000000;
 }
 
@@ -48,9 +43,8 @@
     display: flex;
     flex-direction: column;
     background-color: #f4f4f9;
-    height: 30%; /* 챗봇창을 전체 높이의 60%로 고정 */
-    overflow-y: auto;
-    padding: 1%; /* 테두리와 텍스트 간격 설정 */
+    height: 30%; /* 설명창 높이 고정 */
+    padding: 1%;
 }
 
 .description-content {
@@ -61,30 +55,33 @@
 
 .chatbot-container {
     margin-top: 2%;
-    width: 100%; /* 가로폭 최대화 */
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    width: 100%;
+    height: 55%; /* 고정된 높이 */
     display: flex;
     flex-direction: column;
     background-color: #f4f4f9;
-    height: 55%; /* 챗봇창을 전체 높이의 60%로 고정 */
-    overflow: hidden;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    /*overflow: hidden;*/
+    box-sizing: border-box;
 }
 
 .chatbot-messages {
-    flex: 1; /* 채팅 메시지 창이 나머지 공간을 차지하도록 설정 */
-    overflow-y: auto;
+    height: 40vh;
     padding: 2%;
-
+    overflow-y: scroll; /* 스크롤 활성화 */
     border-bottom: 1px solid #ddd;
 }
 
 .chatbot-input {
+    height: 20%; /* 높이를 전체의 20%로 고정 */
     display: flex;
     padding: 2%;
     background-color: #f2f2f2;
     border-top: 1px solid #ddd;
+    align-items: center;
 }
+
 
 .chatbot-input textarea {
     flex: 1;
@@ -92,13 +89,15 @@
     font-size: 14px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    resize: none; /* 사용자가 크기를 조절하지 못하도록 설정 */
-    overflow-y: auto; /* 내용이 넘치면 스크롤 가능 */
-    height: auto; /* 높이 자동 조정 */
-    max-height: 80px; /* 최대 높이 설정 (3줄 정도) */
+    resize: none;
+    overflow-y: auto;
+    height: 100%; /* 100% 높이로 설정 */
+    max-height: 80px;
+    box-sizing: border-box;
 }
 
 .chatbot-input button {
+    width: 20%; /* 버튼의 너비를 %로 설정 */
     margin-left: 2%;
     padding: 1% 2%;
     font-size: 14px;
@@ -109,16 +108,14 @@
     border-radius: 4px;
 }
 
-
 /* 메시지 스타일 */
 .message {
     margin: 2%;
     padding: 2%;
     border-radius: 8px;
-    max-width: 99%; /* 말풍선 최대 너비 */
+    max-width: 98%; /* 말풍선 최대 너비 */
     line-height: 1.4;
     word-break: break-word;
-    position: relative;
 }
 
 /* 오른쪽 정렬: 사용자 메시지 */
