@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.server.computerscience.ServiceIntegrationTest;
 import com.server.computerscience.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import com.server.computerscience.question.major.common.domain.MajorMultipleChoiceQuestion;
-import com.server.computerscience.question.major.common.repository.MajorQuestionRepository;
+import com.server.computerscience.question.major.common.repository.MajorMultipleChoiceQuestionRepository;
 
 @DisplayName("전공 문제 - Admin Get Service 계층 이하 통합 테스트")
 class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
@@ -19,7 +19,7 @@ class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
 	@Autowired
 	private BasicAdminMajorQuestionMakeService basicAdminMajorQuestionMakeService;
 	@Autowired
-	private MajorQuestionRepository majorQuestionRepository;
+	private MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
 	@BeforeEach
@@ -44,7 +44,8 @@ class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
 		/*
 		DB 저장 확인
 		 */
-		Assertions.assertThat(majorQuestionRepository.findById(newMultipleChoiceQuestion.getId())).isNotNull();
+		Assertions.assertThat(majorMultipleChoiceQuestionRepository.findById(newMultipleChoiceQuestion.getId()))
+			.isNotNull();
 	}
 
 	@Test
@@ -64,6 +65,6 @@ class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
 		then
         DB에 저장되어야하는 엔티티는 하나
 		 */
-		Assertions.assertThat(majorQuestionRepository.findAll().size()).isEqualTo(1);
+		Assertions.assertThat(majorMultipleChoiceQuestionRepository.findAll().size()).isEqualTo(1);
 	}
 }

@@ -13,14 +13,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.server.computerscience.ServiceIntegrationTest;
 import com.server.computerscience.question.common.domain.QuestionCategory;
 import com.server.computerscience.question.major.common.domain.MajorMultipleChoiceQuestion;
-import com.server.computerscience.question.major.common.repository.MajorQuestionRepository;
+import com.server.computerscience.question.major.common.repository.MajorMultipleChoiceQuestionRepository;
 
 @DisplayName("전공 문제 - Admin Get Service 계층 이하 통합 테스트")
 class AdminMajorQuestionClassifiedServiceTest extends ServiceIntegrationTest {
 	@Autowired
 	private BasicAdminMajorQuestionClassifiedGetService basicAdminMajorQuestionClassifiedGetService;
 	@Autowired
-	private MajorQuestionRepository majorQuestionRepository;
+	private MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
@@ -33,7 +33,7 @@ class AdminMajorQuestionClassifiedServiceTest extends ServiceIntegrationTest {
 	@DisplayName("관리자 조회시 비허용 문제 존재 여부 조회")
 	void checkMajorQuestionIsApproved() {
 		//given
-		majorQuestionRepository.save(majorMultipleChoiceQuestion);
+		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
 
 		//when
 		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = basicAdminMajorQuestionClassifiedGetService
@@ -53,9 +53,9 @@ class AdminMajorQuestionClassifiedServiceTest extends ServiceIntegrationTest {
 
 		MajorMultipleChoiceQuestion approvedMajorQuestion = MajorMultipleChoiceQuestion.makeForTest();
 		approvedMajorQuestion.toggleApproved();
-		majorQuestionRepository.save(approvedMajorQuestion);
+		majorMultipleChoiceQuestionRepository.save(approvedMajorQuestion);
 
-		majorQuestionRepository.save(majorMultipleChoiceQuestion);
+		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
 
 		//when
 		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = basicAdminMajorQuestionClassifiedGetService

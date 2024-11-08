@@ -13,7 +13,7 @@ import com.server.computerscience.question.common.domain.QuestionLevel;
 import com.server.computerscience.question.major.common.domain.MajorMultipleChoiceQuestion;
 
 @Repository
-public interface MajorQuestionRepository extends JpaRepository<MajorMultipleChoiceQuestion, Long> {
+public interface MajorMultipleChoiceQuestionRepository extends JpaRepository<MajorMultipleChoiceQuestion, Long> {
 	/**
 	 * 허용되지 않은 문제까지 조회
 	 */
@@ -43,6 +43,11 @@ public interface MajorQuestionRepository extends JpaRepository<MajorMultipleChoi
 		+ "LEFT JOIN FETCH nq.questionChoices "
 		+ "WHERE nq.canBeShortAnswered = true")
 	List<MajorMultipleChoiceQuestion> findFetchChoicesShortAnswered();
+
+	@Query("SELECT DISTINCT nq FROM MajorMultipleChoiceQuestion nq "
+		+ "LEFT JOIN FETCH nq.questionChoices "
+		+ "WHERE nq.questionCategory IN :questionCategories ")
+	List<MajorMultipleChoiceQuestion> findAllByQuestionCategoriesFetchChoices(@Param("questionCategories") List<QuestionCategory> questionCategories);
 
 	/**
 	 * 허용된 문제들만 조회 (ifApproved가 true인 경우)
