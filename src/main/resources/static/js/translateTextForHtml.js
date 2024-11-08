@@ -18,16 +18,15 @@ document.addEventListener("DOMContentLoaded", function () {
         mutationsList.forEach(function (mutation) {
             mutation.addedNodes.forEach(function (node) {
                 if (node.nodeType === Node.ELEMENT_NODE) {
-                    classesToFormat.some(classNames => {
-                        if (node.classList.contains(...classNames.split(' '))) {
+                    classesToFormat.forEach(classNames => {
+                        const classList = classNames.split(' '); // 클래스 이름을 공백으로 나누어 배열로 만듭니다.
+                        if (classList.every(className => node.classList.contains(className))) { // 모든 클래스를 체크합니다.
                             if (classNames === 'message user') {
                                 formatTextWithLineBreakOnly(node);
                             } else {
                                 formatElementText(node);
                             }
-                            return true;
                         }
-                        return false;
                     });
                 }
             });
@@ -40,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // 포맷팅 함수
 function formatElementText(element) {
+    console.log("in!!" + element)
     let formattedText = element.textContent.replace(/\n/g, '<br/>');
 
     // #으로 시작하는 텍스트를 대제목과 소제목으로 변환
@@ -52,6 +52,7 @@ function formatElementText(element) {
 
     element.innerHTML = formattedText;
 }
+
 
 // message.user와 같이 줄바꿈만 적용
 function formatTextWithLineBreakOnly(element) {
