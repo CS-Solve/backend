@@ -60,7 +60,7 @@ public class ChatGptService {
 	public ChatGptFileUploadResponseDto sendFileUploadMessage(List<ChatMessageDto> chatMessages) {
 		List<ChatGptRequestFileUploadDto> dataForFile = makeFileUploadDto(chatMessages);
 		// 메모리 내 ByteArrayResource로 변환
-		ByteArrayResource resource = fileConvertService.convertToByteArrayResource(dataForFile);
+		ByteArrayResource resource = fileConvertService.dataToChatGptJson(dataForFile);
 		MultiValueMap<String, Object> body = makeBodyForFileUpload(resource);
 
 		return restTemplateService.sendPostRequest(
