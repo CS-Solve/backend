@@ -23,8 +23,13 @@ public class ExternalSenderQuestion implements ExternalQuestionService {
 
 	@Override
 	public ChatGptFileUploadResponseDto sendQuestionToExternal(RequestQuestionCommandDto requestQuestionCommandDto) {
+		/**
+		 * 카테고리에 해당된 모든 문제를 가져온다.
+		 */
 		List<? extends Question> question = questionSelectorService.getAllQuestions(requestQuestionCommandDto.getQuestionCategories(),
 			requestQuestionCommandDto.isMultipleChoice());
-		return chatManageService.talkForBatch(questionToChatGptContentMapper.getContentsFromQuestion(question));
+
+		return chatManageService.talkForBatch(questionToChatGptContentMapper.getContentsFromQuestion(question),
+			requestQuestionCommandDto.getCommand());
 	}
 }

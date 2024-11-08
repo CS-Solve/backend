@@ -1,6 +1,6 @@
 package com.server.computerscience.chatbot.service.implement;
 
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -50,8 +50,9 @@ public class ChatManageService {
 		chatCacheService.increaseUsedChance(userId);
 	}
 
-	public ChatGptFileUploadResponseDto talkForBatch(List<ChatContentDto> chatMessages) {
+	public ChatGptFileUploadResponseDto talkForBatch(List<ChatContentDto> chatMessages, String command) {
+		ChatMessageDto commandMessage = ChatMessageDto.from(command, ChatRole.SYSTEM);
 		ChatMessageDto chatMessage = ChatMessageDto.from(chatMessages, ChatRole.USER);
-		return chatGptService.sendFileUploadMessage(Collections.singletonList(chatMessage));
+		return chatGptService.sendFileUploadMessage(Arrays.asList(commandMessage, chatMessage));
 	}
 }

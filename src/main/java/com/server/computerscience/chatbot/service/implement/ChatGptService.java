@@ -3,17 +3,15 @@ package com.server.computerscience.chatbot.service.implement;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.computerscience.chatbot.config.RestTemplateService;
 import com.server.computerscience.chatbot.dto.request.ChatGptBatchRequestDto;
 import com.server.computerscience.chatbot.dto.request.ChatGptRequestFileUploadDto;
@@ -41,17 +39,20 @@ public class ChatGptService {
 	public String sendChatMessage(List<ChatMessageDto> chatMessages) {
 		ChatGptRestRequestDto chatGptRestRequestDto = ChatGptRestRequestDto.from(model,
 			chatMessages);
-		ResponseEntity<ChatGptResponseDto> response = restTemplateService.sendPostRequest(
-			BASE_URL + advancedChatApiUrl,
-			secretKey,
-			MediaType.APPLICATION_JSON,
-			chatGptRestRequestDto,
-			ChatGptResponseDto.class
-		);
-		return response.getBody().getFirstChoiceContent();
+		return Objects.requireNonNull(restTemplateService.sendPostRequest(
+				BASE_URL + advancedChatApiUrl,
+				secretKey,
+				MediaType.APPLICATION_JSON,
+				chatGptRestRequestDto,
+				ChatGptResponseDto.class
+			).getBody())
+			.getFirstChoiceContent();
 	}
 
 	public ChatGptFileUploadResponseDto sendFileUploadMessage(List<ChatMessageDto> chatMessages) {
+		for (ChatMessageDto chatMessage : chatMessages) {
+			System.out.println(chatMessage);
+		}
 		ChatGptRestRequestDto chatGptRestRequestDto = ChatGptRestRequestDto.from(model, chatMessages);
 		ChatGptRequestFileUploadDto chatGptRequestFileUploadDto = ChatGptRequestFileUploadDto.from(
 			chatGptRestRequestDto,
@@ -59,14 +60,6 @@ public class ChatGptService {
 			"POST",
 			advancedChatApiUrl
 		);
-		ObjectMapper objectMapper = new ObjectMapper();
-		try {
-			System.out.println(objectMapper.writeValueAsString(chatGptRequestFileUploadDto));
-
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
-
 		List<ChatGptRequestFileUploadDto> dataForFile = Arrays.asList(chatGptRequestFileUploadDto);
 		// 메모리 내 ByteArrayResource로 변환
 		ByteArrayResource resource = fileConvertService.convertToByteArrayResource(dataForFile);
@@ -75,24 +68,22 @@ public class ChatGptService {
 		body.add("file", resource);
 		body.add("purpose", "batch");
 
-		ResponseEntity<ChatGptFileUploadResponseDto> response = restTemplateService.sendPostRequest(
+		return restTemplateService.sendPostRequest(
 			BASE_URL + fileUploadUrl,
 			secretKey,
 			MediaType.MULTIPART_FORM_DATA,
 			body,
 			ChatGptFileUploadResponseDto.class
-		);
-		return response.getBody();
+		).getBody();
 	}
 
 	public ChatGptBatchResponseDto sendBatchMessage(ChatGptBatchRequestDto chatGptBatchRequestDto) {
-		ResponseEntity<ChatGptBatchResponseDto> response = restTemplateService.sendPostRequest(
+		return restTemplateService.sendPostRequest(
 			BASE_URL + batchCreateUrl,
 			secretKey,
 			MediaType.APPLICATION_JSON,
 			chatGptBatchRequestDto,
 			ChatGptBatchResponseDto.class
-		);
-		return response.getBody();
+		).getBody();
 	}
 }
