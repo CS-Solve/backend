@@ -38,10 +38,10 @@ public class FileConvertService {
 	}
 
 	public ByteArrayResource convertToByteArrayResource(List<ChatGptRequestFileUploadDto> dataForFile) {
-		try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			 OutputStreamWriter writer = new OutputStreamWriter(outputStream)) {
-
-			// 각 객체를 JSON 형식으로 변환하여 한 줄씩 추가
+		try (
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			OutputStreamWriter writer = new OutputStreamWriter(outputStream)
+		) {
 			for (ChatGptRequestFileUploadDto dto : dataForFile) {
 				String jsonLine = objectMapper.writeValueAsString(dto);
 				writer.write(jsonLine);
@@ -60,4 +60,5 @@ public class FileConvertService {
 			return null;
 		}
 	}
+
 }

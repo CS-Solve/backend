@@ -26,7 +26,8 @@ public class ExternalSenderQuestion implements ExternalQuestionService {
 		/**
 		 * 카테고리에 해당된 모든 문제를 가져온다.
 		 */
-		List<? extends Question> question = questionSelectorService.getAllQuestions(requestQuestionCommandDto.getQuestionCategories(),
+		List<? extends Question> question = questionSelectorService.getAllQuestions(requestQuestionCommandDto
+				.getQuestionCategories(),
 			requestQuestionCommandDto.isMultipleChoice());
 
 		return chatManageService.talkForBatch(questionToChatGptContentMapper.getContentsFromQuestion(question),

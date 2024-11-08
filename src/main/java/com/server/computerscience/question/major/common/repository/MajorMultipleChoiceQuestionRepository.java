@@ -47,7 +47,9 @@ public interface MajorMultipleChoiceQuestionRepository extends JpaRepository<Maj
 	@Query("SELECT DISTINCT nq FROM MajorMultipleChoiceQuestion nq "
 		+ "LEFT JOIN FETCH nq.questionChoices "
 		+ "WHERE nq.questionCategory IN :questionCategories ")
-	List<MajorMultipleChoiceQuestion> findAllByQuestionCategoriesFetchChoices(@Param("questionCategories") List<QuestionCategory> questionCategories);
+	List<MajorMultipleChoiceQuestion> findAllByQuestionCategoriesFetchChoices(
+		@Param("questionCategories") List<QuestionCategory> questionCategories
+	);
 
 	/**
 	 * 허용된 문제들만 조회 (ifApproved가 true인 경우)

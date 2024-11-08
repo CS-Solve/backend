@@ -77,8 +77,9 @@ public class MajorMultipleChoiceQuestionDbService {
 	// 카테고리, 레벨로 조회 - 선택지까지, 주관식만
 	public List<MajorMultipleChoiceQuestion> findAllFetchChoicesByCategoriesAndLevelsApprovedAndShortAnswered(
 		List<QuestionCategory> categories, List<QuestionLevel> questionLevels) {
-		return majorMultipleChoiceQuestionRepository.findFetchChoicesWithCategoriesAndLevelsAndIfApprovedAndCanBeShortAnswered(
-			categories, questionLevels);
+		return majorMultipleChoiceQuestionRepository
+			.findFetchChoicesWithCategoriesAndLevelsAndIfApprovedAndCanBeShortAnswered(
+				categories, questionLevels);
 	}
 
 }
