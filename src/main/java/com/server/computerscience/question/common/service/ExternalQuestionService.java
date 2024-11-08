@@ -7,5 +7,5 @@ import com.server.computerscience.question.common.dto.request.RequestQuestionCom
 
 @Service
 public interface ExternalQuestionService {
-	public ChatGptFileUploadResponseDto sendQuestionToExternal(RequestQuestionCommandDto requestQuestionCommandDto);
+	ChatGptFileUploadResponseDto sendQuestionToExternal(RequestQuestionCommandDto requestQuestionCommandDto);
 }

@@ -32,7 +32,7 @@ public class ExternalQuestionController {
 	) {
 		return ResponseEntity.ok(externalQuestionService.sendQuestionToExternal(requestQuestionCommandDto));
 	}
-	
+
 	@PostMapping("/chat-gpt/batch")
 	public ResponseEntity<ChatGptBatchResponseDto> createBatchToChatGpt(
 		@RequestBody ChatGptBatchRequestDto requestBatchDto
