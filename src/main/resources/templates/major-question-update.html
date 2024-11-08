@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>일반 질문 업데이트</title>
+
     <script th:src="|${baseUrl}/js/index/updateQuestion.js|"></script>
     <script th:src="|${baseUrl}/js/translateTextForHtml.js|"></script>
     <link rel="stylesheet" th:href="|${baseUrl}/css/normal-question-update/style.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/global.css|"/>
 </head>
 <body>
 
@@ -23,7 +25,7 @@
              th:id="'question-'+${question.id}">
             <!-- 문제 텍스트 -->
             <div class="editable-container">
-                <h3 class="questionTitle" th:attr="data-id=${question.id}, data-field='content'"
+                <h3 class="questionItem" th:attr="data-id=${question.id}, data-field='content'"
                     th:text="${question.content}">질문</h3>
             </div>
 
@@ -45,7 +47,7 @@
 
             <!-- 해설 텍스트 -->
             <div class="editable-container">
-                <p class="description" th:attr="data-id=${question.id}, data-field='description'"
+                <p class="descriptionText" th:attr="data-id=${question.id}, data-field='description'"
                    th:text="${question.description}">설명</p>
             </div>
 

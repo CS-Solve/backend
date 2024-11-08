@@ -48,6 +48,11 @@
     overflow-y: scroll;
 }
 
+.descriptionText {
+    line-height: 1.4; /* 줄 간격 설정 */
+    margin-bottom: 2%; /* 메시지 간의 간격 */
+}
+
 .description-content {
     padding: 1%;
     background-color: #ffffff;
