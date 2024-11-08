@@ -22,6 +22,7 @@ public class ChatMessageDto {
 	private List<ChatContentDto> content;
 
 	public static ChatMessageDto from(String text, ChatRole role) {
+		
 		return ChatMessageDto.builder()
 			.role(role.getLower())
 			.content(Collections.singletonList(ChatContentDto.from(ChatContentType.TEXT, text)))

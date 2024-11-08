@@ -22,12 +22,14 @@ import com.server.computerscience.question.major.admin.dto.RequestMakeMultipleCh
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @SuperBuilder
 @NoArgsConstructor
+@ToString
 public class LicenseMultipleChoiceQuestion extends Question implements ChoiceProvider {
 	@Enumerated(value = EnumType.STRING)
 	protected LicenseCategory licenseCategory;

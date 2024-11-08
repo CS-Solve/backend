@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.server.computerscience.chatbot.dto.request.ChatContentDto;
 import com.server.computerscience.chatbot.dto.request.ChatGptRestRequestDto;
 import com.server.computerscience.chatbot.dto.request.ChatMessageDto;
 import com.server.computerscience.chatbot.dto.response.ChatGptResponseDto;
@@ -26,5 +27,10 @@ public class ChatGptService {
 			chatGptRestRequestDto,
 			ChatGptResponseDto.class);
 		return chatGptResponseDto.getChoices().get(0).getMessage().getContent();
+	}
+
+	public void batchSend(List<ChatContentDto> chatMessages) {
+		System.out.println(chatMessages);
+
 	}
 }

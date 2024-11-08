@@ -12,12 +12,14 @@ import com.server.computerscience.question.major.admin.dto.RequestMakeQuestionCh
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @SuperBuilder
+@ToString
 public class LicenseQuestionChoice extends QuestionChoice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
