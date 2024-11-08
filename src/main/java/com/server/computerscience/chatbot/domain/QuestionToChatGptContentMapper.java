@@ -15,14 +15,12 @@ public class QuestionToChatGptContentMapper {
 
 	public List<ChatContentDto> getContentsFromQuestion(List<? extends Question> questions) {
 		List<ChatContentDto> chatContentDtos = new ArrayList<>();
-
 		for (Question question : questions) {
 			ChatContentDto chatContentDto = createChatContentDtoForChatGpt(question);
 			if (chatContentDto != null) {
 				chatContentDtos.add(chatContentDto);
 			}
 		}
-
 		return chatContentDtos;
 	}
 
@@ -31,13 +29,13 @@ public class QuestionToChatGptContentMapper {
 			LicenseMultipleChoiceQuestion licenseQuestion = (LicenseMultipleChoiceQuestion)question;
 			return ChatContentDto.from(
 				ChatContentType.TEXT,
-				licenseQuestion + licenseQuestion.getQuestionChoices().toString()
+				licenseQuestion.toString()
 			);
 		} else if (question instanceof MajorMultipleChoiceQuestion) {
 			MajorMultipleChoiceQuestion majorQuestion = (MajorMultipleChoiceQuestion)question;
 			return ChatContentDto.from(
 				ChatContentType.TEXT,
-				majorQuestion + majorQuestion.getQuestionChoices().toString()
+				majorQuestion.toString()
 			);
 		}
 		return null; // 지원되지 않는 Question 타입인 경우 null 반환

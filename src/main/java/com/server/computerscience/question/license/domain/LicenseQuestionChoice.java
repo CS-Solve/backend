@@ -12,26 +12,24 @@ import com.server.computerscience.question.major.admin.dto.RequestMakeQuestionCh
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @NoArgsConstructor
 @SuperBuilder
-@ToString
 public class LicenseQuestionChoice extends QuestionChoice {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@ManyToOne
 	@JoinColumn(name = "license_multiple_choice_question_id")
-	private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
+	private LicenseMultipleChoiceQuestion question;
 
 	public LicenseQuestionChoice(String text, int selectedCount, boolean answerStatus,
-		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion) {
+		LicenseMultipleChoiceQuestion question) {
 		super(text, selectedCount, answerStatus);
-		this.licenseMultipleChoiceQuestion = licenseMultipleChoiceQuestion;
+		this.question = question;
 	}
 
 	public static LicenseQuestionChoice from(
@@ -41,7 +39,7 @@ public class LicenseQuestionChoice extends QuestionChoice {
 			.text(dto.getText())
 			.selectedCount(0)
 			.answerStatus(dto.isAnswerStatus())
-			.licenseMultipleChoiceQuestion(licenseMultipleChoiceQuestion)
+			.question(licenseMultipleChoiceQuestion)
 			.build();
 		licenseMultipleChoiceQuestion.getQuestionChoices().add(questionChoice);
 		return questionChoice;

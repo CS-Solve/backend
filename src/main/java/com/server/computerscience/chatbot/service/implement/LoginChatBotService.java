@@ -23,6 +23,6 @@ public class LoginChatBotService implements ChatbotService {
 			return NOT_LOGIN;
 		}
 		String userId = (String)user.getAttributes().get(userIdentifier);
-		return chatManageService.respond(userId, chatBotRequestDto);
+		return chatManageService.talkForChat(userId, chatBotRequestDto);
 	}
 }

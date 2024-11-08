@@ -39,7 +39,7 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoicePro
 	@ManyToOne
 	@JoinColumn(name = "license_session_id")
 	private LicenseSession licenseSession;
-	@OneToMany(mappedBy = "licenseMultipleChoiceQuestion", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<LicenseQuestionChoice> questionChoices;
 
 	public static LicenseMultipleChoiceQuestion makeWithDto(RequestMakeMultipleChoiceQuestionDto dto,

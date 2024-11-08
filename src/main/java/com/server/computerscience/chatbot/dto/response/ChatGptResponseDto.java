@@ -19,6 +19,10 @@ public class ChatGptResponseDto {
 	private Usage usage;
 	private List<Choice> choices;
 
+	public String getFirstChoiceContent() {
+		return this.getChoices().get(0).getMessage().getContent();
+	}
+
 	@NoArgsConstructor
 	@AllArgsConstructor
 	@Getter
