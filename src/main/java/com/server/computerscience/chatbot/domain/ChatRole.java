@@ -3,11 +3,11 @@ package com.server.computerscience.chatbot.domain;
 import lombok.Getter;
 
 @Getter
-public enum ChatGptContentType {
-	TEXT("text");
+public enum ChatRole {
+	SYSTEM("system"), USER("user"), ASSISTANT("assistant");
 	private final String lower;
 
-	ChatGptContentType(String lower) {
+	ChatRole(String lower) {
 		this.lower = lower;
 	}
 }

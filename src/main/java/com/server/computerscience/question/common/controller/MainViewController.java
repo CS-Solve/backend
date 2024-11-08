@@ -1,5 +1,6 @@
 package com.server.computerscience.question.common.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,10 @@ public class MainViewController {
 			.collect(Collectors.toList());
 		model.addAttribute("licenseCategories", licenseCategories);
 		model.addAttribute(baseUrl, resourceBaseUrl);
+		model.addAttribute("description", Arrays.stream(LicenseCategory.values())
+			.map(LicenseCategory::getKorean)
+			.collect(Collectors.joining(", "))
+			+ " 기출과 같은 CS(컴퓨터 사이언스) 자격증 문제를 풀 수 있습니다.");
 
 		return "license-index";
 	}

@@ -77,6 +77,9 @@
                     </div>
                     <div class="questions">
                         <p class="questionItem" th:text="${question.content}">
+                        <div th:if="${question.imageUrl != null}">
+                            <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
+                        </div>
                         </p>
                         <div class="choice-list" th:if="${multipleChoice}">
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
@@ -138,7 +141,7 @@
     </div>
 </div>
 
-<footer style="position: absolute; bottom: 0; width: 100%; text-align: center; padding: 1em; background-color: #f2f4f7; font-size: 0.5vw; color: #333;">
+<footer style="position: absolute; bottom: 0; width: 100%; text-align: center; padding: 1em; background-color: #f2f4f7; font-size: 0.8vw; color: #333;">
     <p>건의 및 문의사항: <a href="https://open.kakao.com/o/sHIYrIXg" target="_blank">https://open.kakao.com/o/sHIYrIXg</a></p>
     <p>Email: <a href="mailto:solve.comssa@gmail.com">solve.comssa@gmail.com</a></p>
 </footer>

@@ -21,22 +21,18 @@ import com.server.computerscience.question.major.user.dto.request.RequestGetQues
 @DisplayName("전공 문제 - Service 계층 이하 통합 테스트")
 class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 
-	@Autowired
-	private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
-
-	@Autowired
-	private MajorQuestionRepository majorQuestionRepository;
-
-	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
-
-	private List<String> levels = Arrays.stream(QuestionLevel.values())
+	private final List<String> levels = Arrays.stream(QuestionLevel.values())
 		.map(QuestionLevel::getKorean)
 		.collect(Collectors.toList());
-
-	private List<String> majorCategories = Arrays.stream(QuestionCategory.values())
+	private final List<String> majorCategories = Arrays.stream(QuestionCategory.values())
 		.filter(QuestionCategory::isCanBeShownInMajor)
 		.map(QuestionCategory::getKorean)
 		.collect(Collectors.toList());
+	@Autowired
+	private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
+	@Autowired
+	private MajorQuestionRepository majorQuestionRepository;
+	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
 	@BeforeEach
 	void setUp() {

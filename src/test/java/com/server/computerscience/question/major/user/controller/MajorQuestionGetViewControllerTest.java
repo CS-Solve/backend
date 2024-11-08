@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,24 +30,25 @@ import com.server.computerscience.question.major.user.service.implement.BasicMaj
 @WebMvcTest(MajorQuestionGetViewController.class)
 @DisplayName("단위 테스트 - 전공 문제 View Controller")
 class MajorQuestionGetViewControllerTest extends ViewControllerTest {
+	private final List<String> levels = Arrays.stream(QuestionLevel.values())
+		.map(QuestionLevel::getKorean)
+		.collect(Collectors.toList());
+	private final List<String> categories = Arrays.stream(QuestionCategory.values())
+		.filter(QuestionCategory::isCanBeShownInMajor)
+		.map(QuestionCategory::getKorean)
+		.collect(Collectors.toList());
+	private final Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> map = new HashMap<>();
 	boolean multipleChoice = true;
 	@MockBean
 	private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
 	private List<ResponseClassifiedMultipleQuestionDto> responseClassifiedMultipleQuestionDtos;
-	private List<String> levels = Arrays.stream(QuestionLevel.values())
-		.map(QuestionLevel::getKorean)
-		.collect(Collectors.toList());
-	private List<String> categories = Arrays.stream(QuestionCategory.values())
-		.filter(QuestionCategory::isCanBeShownInMajor)
-		.map(QuestionCategory::getKorean)
-		.collect(Collectors.toList());
-	private Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> map = new HashMap<>();
 
 	@BeforeEach
 	void setUp() {
 		responseClassifiedMultipleQuestionDtos = new ArrayList<>();
 		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = Arrays.asList(majorMultipleChoiceQuestion);
+		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = Collections.singletonList(
+			majorMultipleChoiceQuestion);
 		ResponseClassifiedMultipleQuestionDto responseClassifiedMultipleQuestionDto =
 			ResponseClassifiedMultipleQuestionDto.forUser(majorMultipleChoiceQuestion.getQuestionCategory(),
 				majorMultipleChoiceQuestions);

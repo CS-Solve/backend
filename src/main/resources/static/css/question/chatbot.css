@@ -1,8 +1,8 @@
 .description-box {
     width: 100%;
-    height: 100%; /* 전체 높이의 30% */
+    height: 65vh; /* 전체 높이의 30% */
     padding: 1%;
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     border-radius: 8px;
     background-color: #ffffff;
 }
@@ -38,13 +38,14 @@
     margin-top: 2%;
     margin-bottom: 2%;
     width: 100%; /* 가로폭 최대화 */
-    border: 1px solid #ddd;
+    /*border: 1px solid #ddd;*/
     border-radius: 8px;
     display: flex;
     flex-direction: column;
-    background-color: #f4f4f9;
-    height: 30%; /* 설명창 높이 고정 */
+    background-color: #ffffff;
+    height: 15vh; /* 설명창 높이 고정 */
     padding: 1%;
+    overflow-y: scroll;
 }
 
 .description-content {
@@ -56,22 +57,16 @@
 .chatbot-container {
     margin-top: 2%;
     width: 100%;
-    height: 55%; /* 고정된 높이 */
+    height: 60%; /* 고정된 높이 */
     display: flex;
     flex-direction: column;
-    background-color: #f4f4f9;
-    border: 1px solid #ddd;
+    background-color: #ffffff;
+    /*border: 1px solid #ddd;*/
     border-radius: 8px;
     /*overflow: hidden;*/
     box-sizing: border-box;
 }
 
-.chatbot-messages {
-    height: 40vh;
-    padding: 2%;
-    overflow-y: scroll; /* 스크롤 활성화 */
-    border-bottom: 1px solid #ddd;
-}
 
 .chatbot-input {
     height: 20%; /* 높이를 전체의 20%로 고정 */
@@ -108,26 +103,39 @@
     border-radius: 4px;
 }
 
+/* 챗봇 메시지 컨테이너 */
+.chatbot-messages {
+    height: 40vh; /* 높이 설정 */
+    padding: 2%;
+    overflow-y: auto; /* 스크롤 활성화 */
+    display: flex; /* Flexbox 사용 */
+    flex-direction: column; /* 세로 방향 정렬 */
+    border-bottom: 1px solid #ddd; /* 하단 테두리 */
+}
+
 /* 메시지 스타일 */
 .message {
-    margin: 2%;
-    padding: 2%;
-    border-radius: 8px;
-    max-width: 98%; /* 말풍선 최대 너비 */
-    line-height: 1.4;
-    word-break: break-word;
+    margin-bottom: 2%; /* 메시지 간의 간격 */
+    padding: 2%; /* 패딩 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    width: fit-content; /* 내용에 맞게 너비 조정 */
+    max-width: 90%; /* 최대 너비 설정 */
+    line-height: 1.4; /* 줄 간격 설정 */
+    word-break: break-word; /* 긴 단어 줄 바꿈 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
 }
 
 /* 오른쪽 정렬: 사용자 메시지 */
 .message.user {
-    background-color: #e6efff;
-    align-self: flex-end;
-    text-align: right;
+    background-color: #e6efff; /* 사용자 메시지 배경색 */
+    align-self: flex-end; /* 오른쪽 정렬 */
 }
 
 /* 왼쪽 정렬: 봇 메시지 */
 .message.bot {
-    background-color: #ffffff;
-    align-self: flex-start;
-    text-align: left;
+    background-color: #ffffff; /* 봇 메시지 배경색 */
+    align-self: flex-start; /* 왼쪽 정렬 */
 }
+
+/* float 속성 제거 */
+

@@ -1,3 +1,5 @@
+// import {formatText} from './translateTextForHtml.js'
+
 document.addEventListener("DOMContentLoaded", function () {
     const input = document.getElementById("chatbotInput");
 
@@ -8,9 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
             sendMessage();
         }
     });
+
+
 });
 
-// API 요청 및 메시지 추가 함수
 function sendMessage() {
     const input = document.getElementById('chatbotInput');
     const messageText = input.value.trim();
@@ -36,14 +39,30 @@ function sendMessage() {
         });
 }
 
+// API 요청 및 메시지 추가 함수
+
 // 채팅 메시지 추가 함수
 function addMessageToChat(role, text) {
     const messageContainer = document.getElementById('chatbotMessages');
     const message = document.createElement("div");
     message.classList.add("message", role);
-    message.innerText = text;
+
+    // formatText 함수를 사용하여 HTML 포맷팅을 한 후 innerHTML에 설정
+    message.innerHTML = formatText(text); // 여기에서 innerHTML 사용
+
     messageContainer.appendChild(message);
 
     // 마지막 메시지로 스크롤하기 위해 scrollIntoView 사용
     message.scrollIntoView({behavior: "smooth", block: "end"});
+}
+
+// 텍스트 포맷팅 함수
+function formatText(text) {
+    // 줄 바꿈을 <br/>로 변환
+    let formattedText = text.replace(/\n/g, '<br/>');
+
+    // **로 둘러싸인 단어를 굵게 표시
+    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; font-size: 1em;">$1</span>');
+
+    return formattedText;
 }

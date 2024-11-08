@@ -186,6 +186,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
     implementation 'org.springframework.security:spring-security-oauth2-jose'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+    /*
+    캐싱 관련
+     */
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'com.github.ben-manes.caffeine:caffeine'
+
 }
 
 tasks.named('test') {

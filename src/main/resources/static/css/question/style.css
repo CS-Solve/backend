@@ -63,7 +63,7 @@
     width: 38%;
     gap: 21px;
     padding: 26px 30px;
-    background-color: #e6efff;
+    background-color: #ffffff;
     left: 60%; /* left-box 위치 + 너비 + 간격 */
 }
 
@@ -318,7 +318,7 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    padding: 15px;
+    padding: 10px;
     position: relative;
     border-radius: 8px;
     border: 13px solid; /* 테두리 설정 */
@@ -481,7 +481,7 @@
     gap: 11px;
     position: relative;
     align-self: stretch;
-    min-height: 10%;
+    min-height: 10vh;
     width: 100%;
     flex: 0 0 auto;
 }
