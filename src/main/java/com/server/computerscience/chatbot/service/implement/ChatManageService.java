@@ -1,12 +1,15 @@
 package com.server.computerscience.chatbot.service.implement;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import com.server.computerscience.chatbot.domain.ChatRole;
 import com.server.computerscience.chatbot.dto.request.ChatBotRequestDto;
+import com.server.computerscience.chatbot.dto.request.ChatContentDto;
 import com.server.computerscience.chatbot.dto.request.ChatMessageDto;
+import com.server.computerscience.chatbot.dto.response.ChatGptFileUploadResponseDto;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +22,7 @@ public class ChatManageService {
 	private final ChatCacheService chatCacheService;
 	private final ChatGptService chatGptService;
 
-	public String respond(String userId, ChatBotRequestDto chatBotRequestDto) {
+	public String talkForChat(String userId, ChatBotRequestDto chatBotRequestDto) {
 		if (chatCacheService.getUsedChance(userId) >= MAX_CHAT_CHANCE) {
 			return NO_MORE_CHANCE;
 		}
@@ -31,8 +34,8 @@ public class ChatManageService {
 		/**
 		 * 챗봇에게 받은 답변 또한 이전 대화 기록에 넣는다.
 		 */
-		String answer = chatGptService.chat(chatMessages);
-		afterRespond(userId, answer, chatMessages);
+		String answer = chatGptService.sendChatMessage(chatMessages);
+		afterRespond(userId, answer);
 		return answer;
 	}
 
@@ -41,9 +44,15 @@ public class ChatManageService {
 		return chatCacheService.saveChatMessage(userId, chatMessageFromUser, MAX_MESSAGES_SIZE);
 	}
 
-	private void afterRespond(String userId, String answer, List<ChatMessageDto> chatMessages) {
+	private void afterRespond(String userId, String answer) {
 		ChatMessageDto chatMessageFromAssistant = ChatMessageDto.from(answer, ChatRole.ASSISTANT);
 		chatCacheService.saveChatMessage(userId, chatMessageFromAssistant, MAX_MESSAGES_SIZE);
 		chatCacheService.increaseUsedChance(userId);
+	}
+
+	public ChatGptFileUploadResponseDto talkForBatch(List<ChatContentDto> chatMessages, String command) {
+		ChatMessageDto commandMessage = ChatMessageDto.from(command, ChatRole.SYSTEM);
+		ChatMessageDto chatMessage = ChatMessageDto.from(chatMessages, ChatRole.USER);
+		return chatGptService.sendFileUploadMessage(Arrays.asList(commandMessage, chatMessage));
 	}
 }

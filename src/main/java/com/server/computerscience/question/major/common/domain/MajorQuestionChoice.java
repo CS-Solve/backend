@@ -19,19 +19,18 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class MajorQuestionChoice extends QuestionChoice {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name = "major_multiple_choice_question_id")
-	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
+	private MajorMultipleChoiceQuestion question;
 
 	public MajorQuestionChoice(String text, int selectedCount, boolean answerStatus,
-		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {
+		MajorMultipleChoiceQuestion question) {
 		super(text, selectedCount, answerStatus);
-		this.majorMultipleChoiceQuestion = majorMultipleChoiceQuestion;
+		this.question = question;
 	}
 
 	public static MajorQuestionChoice fromMajorQuestion(RequestMakeQuestionChoiceDto dto,
@@ -40,10 +39,9 @@ public class MajorQuestionChoice extends QuestionChoice {
 			.text(dto.getText())
 			.selectedCount(0)
 			.answerStatus(dto.isAnswerStatus())
-			.majorMultipleChoiceQuestion(majorMultipleChoiceQuestion)
+			.question(majorMultipleChoiceQuestion)
 			.build();
 		majorMultipleChoiceQuestion.getQuestionChoices().add(majorQuestionChoice);
 		return majorQuestionChoice;
 	}
-
 }

@@ -23,7 +23,6 @@
     margin: 0;
     padding: 0;
     position: relative;
-    font-family: "NanumSquare Neo OTF-Bd", Helvetica; /* 좀 더 굵은 폰트 스타일 */
     color: #333333; /* 글씨를 약간 더 부드러운 검정으로 */
     font-size: 2vw;
     line-height: 4vh;
@@ -78,7 +77,6 @@
     transform: translateX(-50%); /* 수평 가운데 정렬 */
     display: flex;
     align-items: center;
-    /*font-family: "Markazi Text-Bold", Helvetica;*/
     font-weight: 700;
     color: #000000;
     text-align: center;
@@ -89,6 +87,7 @@
 .screen .mainTitle {
     font-size: 3vh;
     font-family: 'Cambay', sans-serif;
+
 }
 
 .screen .main-logo-box .logo-image {

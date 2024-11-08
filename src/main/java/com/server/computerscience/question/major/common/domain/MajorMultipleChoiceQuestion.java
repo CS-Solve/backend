@@ -32,7 +32,7 @@ public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvi
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
-	@OneToMany(mappedBy = "majorMultipleChoiceQuestion", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MajorQuestionChoice> questionChoices;
 
 	public static MajorMultipleChoiceQuestion makeWithDto(RequestMakeMultipleChoiceQuestionDto dto) {

@@ -29,7 +29,6 @@
     position: absolute;
     top: 5%;
     left: 10%;
-    font-family: "Markazi Text-Bold", Helvetica;
     font-weight: 700;
     color: #000000;
     font-size: 5vw;
@@ -112,7 +111,7 @@
     flex: 1;
     align-self: stretch;
     margin-top: -1px;
-    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+
     font-weight: 400;
     color: #000000;
     font-size: 20px;
@@ -178,7 +177,7 @@
 
     margin-top: -5px;
     margin-bottom: -7px;
-    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+
     font-weight: 400;
     color: #000000;
     font-size: 17px;
@@ -202,7 +201,6 @@
     height: 24px;
     top: -1px;
     left: 0;
-    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
     font-size: 12px;
     text-align: center;
     letter-spacing: 0.72px;
@@ -225,7 +223,7 @@
 .quiz .questionItem {
 
     margin-top: -1px;
-    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
+
     color: #000000;
     font-size: 20px;
     line-height: 30px;
@@ -254,7 +252,7 @@
 }
 
 .quiz .div-4 {
-    font-family: "NanumSquare Neo OTF-Regular", Helvetica;
+
     color: transparent;
     font-size: 17px;
     line-height: 32.6px;
@@ -322,7 +320,6 @@
     position: relative;
     border-radius: 8px;
     border: 13px solid; /* 테두리 설정 */
-    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
     font-size: 22px;
     letter-spacing: 0;
     line-height: 33px;
@@ -334,7 +331,6 @@
     overflow: hidden; /* 넘치는 텍스트는 잘리게 */
     text-overflow: ellipsis; /* 잘린 텍스트에 줄임표 추가 */
     max-width: 100%; /* 텍스트가 부모의 너비를 넘지 않도록 설정 */
-    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
     font-size: 16px;
     color: #333;
 }
@@ -355,7 +351,6 @@
     position: relative;
     width: fit-content;
     margin-top: -13px;
-    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
     font-weight: 400;
     color: #63a572;
     font-size: 22px;
@@ -369,7 +364,6 @@
     height: 24px;
     top: -1px;
     left: 6px;
-    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
     font-size: 12px;
     text-align: center;
     letter-spacing: 0.72px;
@@ -380,7 +374,7 @@
 }
 
 .quiz .choice-list {
-    font-family: "NanumSquare Neo OTF-bRg", Helvetica;
+    /**/
     color: #000000;
     font-size: 17px;
     line-height: 32.6px;
@@ -436,7 +430,6 @@
     position: absolute;
     top: -1px;
     left: 0;
-    font-family: "NanumSquare Neo OTF-bRg", Helvetica;
     font-size: 20px;
     text-align: center;
     letter-spacing: 0;
@@ -464,7 +457,6 @@
 .quiz .text-wrapper-8 {
     position: relative;
     width: fit-content;
-    font-family: "NanumSquare Neo OTF-cBd", Helvetica;
     font-size: 20px;
     text-align: center;
     letter-spacing: 0;
@@ -524,7 +516,6 @@
 채점 버튼
  */
 .quiz .check-button {
-    font-family: "NanumSquare Neo OTF-dEb", Helvetica;
     font-size: 100%;
     letter-spacing: 0;
     line-height: 40px;
@@ -604,7 +595,7 @@ Side bar
 }
 
 .left-sidebar p {
-    font-family: "NanumSquare Neo OTF", Helvetica;
+
     font-size: 0.8vw; /* 폰트 크기를 뷰포트 너비에 맞게 설정 */
     font-weight: 500; /* 폰트를 중간 두께로 설정 */
     color: #404040; /* 텍스트 색상을 조정 */
@@ -612,7 +603,7 @@ Side bar
 }
 
 .left-sidebar span {
-    font-family: "NanumSquare Neo OTF", Helvetica;
+
     font-size: 1.2vw; /* 숫자를 조금 더 강조 */
     font-weight: 700;
 }

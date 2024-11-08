@@ -22,12 +22,14 @@ import com.server.computerscience.question.major.admin.dto.RequestMakeMultipleCh
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @SuperBuilder
 @NoArgsConstructor
+@ToString
 public class LicenseMultipleChoiceQuestion extends Question implements ChoiceProvider {
 	@Enumerated(value = EnumType.STRING)
 	protected LicenseCategory licenseCategory;
@@ -37,7 +39,7 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoicePro
 	@ManyToOne
 	@JoinColumn(name = "license_session_id")
 	private LicenseSession licenseSession;
-	@OneToMany(mappedBy = "licenseMultipleChoiceQuestion", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<LicenseQuestionChoice> questionChoices;
 
 	public static LicenseMultipleChoiceQuestion makeWithDto(RequestMakeMultipleChoiceQuestionDto dto,

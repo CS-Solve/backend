@@ -1,4 +1,5 @@
 @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+@import url("//cdn.jsdelivr.net/npm/font-kopub@1.0");
 
 * {
     -webkit-font-smoothing: antialiased;
@@ -9,7 +10,7 @@ html,
 body {
     margin: 0px;
     height: 100%;
-
+    font-family: 'KoPub Dotum', 'KoPub Batang', sans-serif;
 }
 
 /* a blue color as a generic focus style */

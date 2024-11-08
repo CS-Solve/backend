@@ -12,7 +12,7 @@ import com.server.computerscience.question.major.admin.service.AdminMajorQuestio
 import com.server.computerscience.question.major.admin.service.DuplicateQuestionDetector;
 import com.server.computerscience.question.major.common.domain.MajorMultipleChoiceQuestion;
 import com.server.computerscience.question.major.common.exception.DuplicateQuestionException;
-import com.server.computerscience.question.major.common.repository.MajorQuestionRepository;
+import com.server.computerscience.question.major.common.repository.MajorMultipleChoiceQuestionRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMakeService {
 
-	private final MajorQuestionRepository majorQuestionRepository;
+	private final MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 	private final QuestionChoiceService questionChoiceService;
 	private final DuplicateQuestionDetector duplicateQuestionDetector;
 
@@ -55,7 +55,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	 * 매번 DB에서 새롭게 조회 후 검증한다.(DTO 자체의 중복된 데이터)
 	 */
 	private boolean isNotDuplicateQuestion(RequestMakeMultipleChoiceQuestionDto requestDto) {
-		return majorQuestionRepository.findAll().stream()
+		return majorMultipleChoiceQuestionRepository.findAll().stream()
 			.noneMatch(existingQuestion -> duplicateQuestionDetector.isQuestionDuplicate(
 				existingQuestion.getContent(), requestDto.getContent()));
 	}
@@ -66,7 +66,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	private MajorMultipleChoiceQuestion saveMajorMultipleChoiceQuestion(
 		RequestMakeMultipleChoiceQuestionDto requestDto) {
 		MajorMultipleChoiceQuestion question = MajorMultipleChoiceQuestion.makeWithDto(requestDto);
-		majorQuestionRepository.save(question);
+		majorMultipleChoiceQuestionRepository.save(question);
 		questionChoiceService.saveWith(requestDto, question);
 		return question;
 	}

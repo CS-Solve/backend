@@ -32,14 +32,14 @@ h2 {
 }
 
 /* 질문 텍스트 스타일 */
-.questionTitle {
+.questionItem {
     font-size: 1.2em;
     font-weight: bold;
     color: #34495e;
 }
 
 /* 해설 텍스트 스타일 (파란색) */
-.description {
+.descriptionText {
     font-size: 0.9em;
     margin-bottom: 15px;
     color: #2980b9; /* 파란색 */

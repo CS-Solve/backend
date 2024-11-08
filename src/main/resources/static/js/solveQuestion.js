@@ -348,6 +348,11 @@ document.addEventListener('DOMContentLoaded', function () {
         // 줄 바꿈을 <br/>로 변환
         let formattedText = text.replace(/\n/g, '<br/>');
 
+        // #으로 시작하는 텍스트를 대제목과 소제목으로 변환
+        formattedText = formattedText.replace(/^### (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.2em;">$1</span>');
+        formattedText = formattedText.replace(/^## (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.4em;">$1</span>');
+        formattedText = formattedText.replace(/^# (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.6em;">$1</span>');
+
         // **로 둘러싸인 단어를 굵게 표시
         formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; font-size: 1em;">$1</span>');
 

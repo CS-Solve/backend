@@ -4,12 +4,14 @@ import javax.persistence.MappedSuperclass;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 @Getter
 @SuperBuilder
 @NoArgsConstructor
 @MappedSuperclass
+@ToString(exclude = "question")
 public abstract class QuestionChoice {
 	private String text;
 	private int selectedCount;

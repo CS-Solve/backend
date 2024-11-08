@@ -15,7 +15,7 @@ import com.server.computerscience.ServiceIntegrationTest;
 import com.server.computerscience.question.common.domain.QuestionCategory;
 import com.server.computerscience.question.common.domain.QuestionLevel;
 import com.server.computerscience.question.major.common.domain.MajorMultipleChoiceQuestion;
-import com.server.computerscience.question.major.common.repository.MajorQuestionRepository;
+import com.server.computerscience.question.major.common.repository.MajorMultipleChoiceQuestionRepository;
 import com.server.computerscience.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 
 @DisplayName("전공 문제 - Service 계층 이하 통합 테스트")
@@ -31,7 +31,7 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 	@Autowired
 	private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
 	@Autowired
-	private MajorQuestionRepository majorQuestionRepository;
+	private MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
 	@BeforeEach
@@ -45,7 +45,7 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 	void getApprovedClassifiedMajorMultipleChoiceQuestions() {
 		//given
 		majorMultipleChoiceQuestion.toggleApproved();
-		majorQuestionRepository.save(majorMultipleChoiceQuestion);
+		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
 		RequestGetQuestionByCategoryAndLevelDto allQuestionRequestDto =
 			RequestGetQuestionByCategoryAndLevelDto.fromKorean(majorCategories, levels);
 
@@ -66,7 +66,7 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 		majorMultipleChoiceQuestion.toggleApproved();
 		//문제 주관식 가능 여부 허용
 		majorMultipleChoiceQuestion.toggleCanBeShortAnswered();
-		majorQuestionRepository.save(majorMultipleChoiceQuestion);
+		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
 		RequestGetQuestionByCategoryAndLevelDto allQuestionRequestDto =
 			RequestGetQuestionByCategoryAndLevelDto.fromKorean(majorCategories, levels);
 
