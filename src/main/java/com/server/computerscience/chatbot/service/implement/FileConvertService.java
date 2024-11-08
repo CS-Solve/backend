@@ -1,9 +1,11 @@
 package com.server.computerscience.chatbot.service.implement;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.List;
 
 import org.springframework.core.io.ByteArrayResource;
@@ -15,7 +17,6 @@ import com.server.computerscience.chatbot.dto.request.ChatGptRequestFileUploadDt
 @Service
 public class FileConvertService {
 	private final ObjectMapper objectMapper = new ObjectMapper();
-	private String jsonFileName = "uploadData";
 
 	public File convertToFile(List<ChatGptRequestFileUploadDto> dataForFile) {
 		File jsonlFile = new File("uploadData.jsonl");
@@ -37,21 +38,21 @@ public class FileConvertService {
 	}
 
 	public ByteArrayResource convertToByteArrayResource(List<ChatGptRequestFileUploadDto> dataForFile) {
-		try {
-			// JSON 데이터 작성
-			StringBuilder jsonContent = new StringBuilder();
-			ObjectMapper objectMapper = new ObjectMapper();
+		try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			 OutputStreamWriter writer = new OutputStreamWriter(outputStream)) {
+
+			// 각 객체를 JSON 형식으로 변환하여 한 줄씩 추가
 			for (ChatGptRequestFileUploadDto dto : dataForFile) {
 				String jsonLine = objectMapper.writeValueAsString(dto);
-				jsonContent.append(jsonLine).append("\n");
+				writer.write(jsonLine);
+				writer.write("\n"); // 줄 바꿈 추가
 			}
+			writer.flush(); // OutputStreamWriter 버퍼 비우기
 
-			// JSON 데이터를 ByteArrayResource로 변환
-			byte[] byteArray = jsonContent.toString().getBytes();
-			return new ByteArrayResource(byteArray) {
+			return new ByteArrayResource(outputStream.toByteArray()) {
 				@Override
 				public String getFilename() {
-					return jsonFileName;  // 파일 이름 지정
+					return "uploadData.jsonl";
 				}
 			};
 		} catch (IOException e) {
