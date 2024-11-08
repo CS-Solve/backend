@@ -13,9 +13,11 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import com.server.computerscience.chatbot.config.RestTemplateService;
+import com.server.computerscience.chatbot.dto.request.ChatGptBatchRequestDto;
 import com.server.computerscience.chatbot.dto.request.ChatGptRequestFileUploadDto;
 import com.server.computerscience.chatbot.dto.request.ChatGptRestRequestDto;
 import com.server.computerscience.chatbot.dto.request.ChatMessageDto;
+import com.server.computerscience.chatbot.dto.response.ChatGptBatchResponseDto;
 import com.server.computerscience.chatbot.dto.response.ChatGptFileUploadResponseDto;
 import com.server.computerscience.chatbot.dto.response.ChatGptResponseDto;
 
@@ -27,16 +29,17 @@ public class ChatGptService {
 	@Value("${openai.secret-key}")
 	private String secretKey;
 	private final String model = "gpt-4o-mini";
-	private final String payingApiUrl = "https://api.openai.com/v1/chat/completions";
+	private final String advancedChatApiUrl = "https://api.openai.com/v1/chat/completions";
 	private final String fileUploadUrl = "https://api.openai.com/v1/files";
+	private final String batchCreateUrl = "https://api.openai.com/v1/batches";
 	private final RestTemplateService restTemplateService;
 	private final FileConvertService fileConvertService;
 
-	public String sendMessage(List<ChatMessageDto> chatMessages) {
+	public String sendChatMessage(List<ChatMessageDto> chatMessages) {
 		ChatGptRestRequestDto chatGptRestRequestDto = ChatGptRestRequestDto.from(model,
 			chatMessages);
 		ResponseEntity<ChatGptResponseDto> response = restTemplateService.sendPostRequest(
-			payingApiUrl,
+			advancedChatApiUrl,
 			secretKey,
 			MediaType.APPLICATION_JSON,
 			chatGptRestRequestDto,
@@ -45,7 +48,7 @@ public class ChatGptService {
 		return response.getBody().getFirstChoiceContent();
 	}
 
-	public ChatGptFileUploadResponseDto sendBatchMessage(List<ChatMessageDto> chatMessages) {
+	public ChatGptFileUploadResponseDto sendFileUploadMessage(List<ChatMessageDto> chatMessages) {
 		ChatGptRestRequestDto chatGptRestRequestDto = ChatGptRestRequestDto.from(model, chatMessages);
 		ChatGptRequestFileUploadDto chatGptRequestFileUploadDto = ChatGptRequestFileUploadDto.from(
 			chatGptRestRequestDto,
@@ -69,6 +72,18 @@ public class ChatGptService {
 			MediaType.MULTIPART_FORM_DATA,
 			body,
 			ChatGptFileUploadResponseDto.class
+		);
+		return response.getBody();
+	}
+
+	public ChatGptBatchResponseDto sendBatchMessage(ChatGptBatchRequestDto chatGptBatchRequestDto) {
+		System.out.println(chatGptBatchRequestDto);
+		ResponseEntity<ChatGptBatchResponseDto> response = restTemplateService.sendPostRequest(
+			batchCreateUrl,
+			secretKey,
+			MediaType.APPLICATION_JSON,
+			chatGptBatchRequestDto,
+			ChatGptBatchResponseDto.class
 		);
 		return response.getBody();
 	}

@@ -34,7 +34,7 @@ public class ChatManageService {
 		/**
 		 * 챗봇에게 받은 답변 또한 이전 대화 기록에 넣는다.
 		 */
-		String answer = chatGptService.sendMessage(chatMessages);
+		String answer = chatGptService.sendChatMessage(chatMessages);
 		afterRespond(userId, answer);
 		return answer;
 	}
@@ -52,6 +52,6 @@ public class ChatManageService {
 
 	public ChatGptFileUploadResponseDto talkForBatch(List<ChatContentDto> chatMessages) {
 		ChatMessageDto chatMessage = ChatMessageDto.from(chatMessages, ChatRole.USER);
-		return chatGptService.sendBatchMessage(Collections.singletonList(chatMessage));
+		return chatGptService.sendFileUploadMessage(Collections.singletonList(chatMessage));
 	}
 }

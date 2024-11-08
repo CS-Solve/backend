@@ -9,14 +9,14 @@ import com.server.computerscience.chatbot.dto.response.ChatGptFileUploadResponse
 import com.server.computerscience.chatbot.service.implement.ChatManageService;
 import com.server.computerscience.question.common.domain.Question;
 import com.server.computerscience.question.common.dto.request.RequestQuestionCommandDto;
-import com.server.computerscience.question.common.service.QuestionExternalService;
+import com.server.computerscience.question.common.service.ExternalQuestionService;
 import com.server.computerscience.question.common.service.QuestionSelectorService;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class QuestionChatGptExternalService implements QuestionExternalService {
+public class ExternalSenderQuestion implements ExternalQuestionService {
 	private final QuestionSelectorService questionSelectorService;
 	private final QuestionToChatGptContentMapper questionToChatGptContentMapper;
 	private final ChatManageService chatManageService;
