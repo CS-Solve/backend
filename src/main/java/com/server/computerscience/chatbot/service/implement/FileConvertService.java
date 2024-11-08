@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,6 +15,7 @@ import com.server.computerscience.chatbot.dto.request.ChatGptRequestFileUploadDt
 @Service
 public class FileConvertService {
 	private final ObjectMapper objectMapper = new ObjectMapper();
+	private String jsonFileName = "uploadData";
 
 	public File convertToFile(List<ChatGptRequestFileUploadDto> dataForFile) {
 		File jsonlFile = new File("uploadData.jsonl");
@@ -32,5 +34,29 @@ public class FileConvertService {
 		}
 
 		return jsonlFile;
+	}
+
+	public ByteArrayResource convertToByteArrayResource(List<ChatGptRequestFileUploadDto> dataForFile) {
+		try {
+			// JSON 데이터 작성
+			StringBuilder jsonContent = new StringBuilder();
+			ObjectMapper objectMapper = new ObjectMapper();
+			for (ChatGptRequestFileUploadDto dto : dataForFile) {
+				String jsonLine = objectMapper.writeValueAsString(dto);
+				jsonContent.append(jsonLine).append("\n");
+			}
+
+			// JSON 데이터를 ByteArrayResource로 변환
+			byte[] byteArray = jsonContent.toString().getBytes();
+			return new ByteArrayResource(byteArray) {
+				@Override
+				public String getFilename() {
+					return jsonFileName;  // 파일 이름 지정
+				}
+			};
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 }

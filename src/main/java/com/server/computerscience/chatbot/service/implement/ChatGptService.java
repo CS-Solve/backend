@@ -1,12 +1,11 @@
 package com.server.computerscience.chatbot.service.implement;
 
-import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -56,11 +55,12 @@ public class ChatGptService {
 		);
 
 		List<ChatGptRequestFileUploadDto> dataForFile = Arrays.asList(chatGptRequestFileUploadDto);
-		File file = fileConvertService.convertToFile(dataForFile);
+		// 메모리 내 ByteArrayResource로 변환
+		ByteArrayResource resource = fileConvertService.convertToByteArrayResource(dataForFile);
 
 		// MultiValueMap to hold form data
 		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-		body.add("file", new FileSystemResource(file));
+		body.add("file", resource);
 		body.add("purpose", "batch");
 
 		ResponseEntity<ChatGptFileUploadResponseDto> response = restTemplateService.sendPostRequest(

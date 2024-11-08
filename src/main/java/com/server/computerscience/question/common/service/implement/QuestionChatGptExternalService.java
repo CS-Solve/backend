@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.server.computerscience.chatbot.domain.QuestionToChatGptContentMapper;
 import com.server.computerscience.chatbot.dto.response.ChatGptFileUploadResponseDto;
-import com.server.computerscience.chatbot.service.implement.ChatGptService;
 import com.server.computerscience.chatbot.service.implement.ChatManageService;
 import com.server.computerscience.question.common.domain.Question;
 import com.server.computerscience.question.common.dto.request.RequestQuestionCommandDto;
@@ -21,7 +20,6 @@ public class QuestionChatGptExternalService implements QuestionExternalService {
 	private final QuestionSelectorService questionSelectorService;
 	private final QuestionToChatGptContentMapper questionToChatGptContentMapper;
 	private final ChatManageService chatManageService;
-	private final ChatGptService chatGptService;
 
 	@Override
 	public ChatGptFileUploadResponseDto sendQuestionToExternal(RequestQuestionCommandDto requestQuestionCommandDto) {
