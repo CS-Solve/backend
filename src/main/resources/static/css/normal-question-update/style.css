@@ -39,7 +39,7 @@ h2 {
 }
 
 /* 해설 텍스트 스타일 (파란색) */
-.descriptionText {
+.descriptionUpdateText {
     font-size: 0.9em;
     margin-bottom: 15px;
     color: #2980b9; /* 파란색 */

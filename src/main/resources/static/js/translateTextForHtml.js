@@ -60,6 +60,7 @@ function formatElementText(element) {
         // **로 둘러싸인 단어를 굵게 표시
         formattedLine = formattedLine.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; font-size: 1em;">$1</span>');
 
+
         return formattedLine; // 포맷팅된 줄 반환
     });
 
