@@ -19,7 +19,8 @@ public enum QuestionCategory {
 	SQL_UTILIZE("SQL 기본 및 활용", false),
 	DATA_UNDERSTANDING("데이터의 이해", false),
 	DATA_ANALYSIS_PLANNING("데이터 분석 기회", false),
-	DATA_ANALYSIS("데이터 분석", false);
+	DATA_ANALYSIS("데이터 분석", false),
+	AWS_SAA("Solutions Architect Associate", false);
 
 	private final String korean;
 	private final boolean canBeShownInMajor;
