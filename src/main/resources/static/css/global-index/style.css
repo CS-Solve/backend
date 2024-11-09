@@ -131,9 +131,6 @@
         font-size: 5vw;
     }
 
-    .screen .each-level {
-        width: 100%; /* 세로 정렬 시 각 요소가 가로로 100% 너비 */
-    }
 
     /* 부모 요소가 스크롤을 지원할 수 있도록 높이 제약 */
     .level-big-box {
