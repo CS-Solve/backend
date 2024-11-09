@@ -5,11 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 초기 로딩된 요소에 대해 포맷팅 적용
     classesToFormat.forEach(classNames => {
         document.querySelectorAll(`.${classNames.replace(' ', '.')}`).forEach(element => {
-            if (classNames === 'message user') {
-                formatTextWithLineBreakOnly(element);
-            } else {
-                formatElementText(element);
-            }
+            formatElement(element, classNames);
         });
     });
 
@@ -18,16 +14,12 @@ document.addEventListener("DOMContentLoaded", function () {
         mutationsList.forEach(function (mutation) {
             mutation.addedNodes.forEach(function (node) {
                 if (node.nodeType === Node.ELEMENT_NODE) {
-                    classesToFormat.some(classNames => {
-                        if (node.classList.contains(...classNames.split(' '))) {
-                            if (classNames === 'message user') {
-                                formatTextWithLineBreakOnly(node);
-                            } else {
-                                formatElementText(node);
-                            }
-                            return true;
+                    classesToFormat.forEach(classNames => {
+                        const classList = classNames.split(' ');
+                        // 모든 클래스가 있는지 확인
+                        if (classList.every(className => node.classList.contains(className))) {
+                            formatElement(node, classNames);
                         }
-                        return false;
                     });
                 }
             });
@@ -39,19 +31,42 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // 포맷팅 함수
-function formatElementText(element) {
-    let formattedText = element.textContent.replace(/\n/g, '<br/>');
+function formatElement(element, classNames) {
 
-    // #으로 시작하는 텍스트를 대제목과 소제목으로 변환
-    formattedText = formattedText.replace(/^### (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.2em;">$1</span>');
-    formattedText = formattedText.replace(/^## (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.4em;">$1</span>');
-    formattedText = formattedText.replace(/^# (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.6em;">$1</span>');
-
-    // **로 둘러싸인 단어를 굵게 표시
-    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; font-size: 1em;">$1</span>');
-
-    element.innerHTML = formattedText;
+    if (classNames === 'message user') {
+        formatTextWithLineBreakOnly(element);
+    } else {
+        formatElementText(element);
+    }
 }
+
+function formatElementText(element) {
+    // element의 텍스트를 줄바꿈으로 나누어 배열로 저장
+    let lines = element.textContent.split('\n');
+
+    // 각 줄을 처리하여 포맷팅
+    let formattedLines = lines.map(line => {
+        let formattedLine = line;
+
+        // 줄의 시작 부분에서 #을 확인하여 대제목과 소제목으로 변환
+        if (formattedLine.startsWith('# ')) {
+            formattedLine = formattedLine.replace(/^# (.*)/, '<span style="font-weight: bold; font-size: 1.6em;">$1</span>');
+        } else if (formattedLine.startsWith('## ')) {
+            formattedLine = formattedLine.replace(/^## (.*)/, '<span style="font-weight: bold; font-size: 1.4em;">$1</span>');
+        } else if (formattedLine.startsWith('### ')) {
+            formattedLine = formattedLine.replace(/^### (.*)/, '<span style="font-weight: bold; font-size: 1.2em;">$1</span>');
+        }
+
+        // **로 둘러싸인 단어를 굵게 표시
+        formattedLine = formattedLine.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; font-size: 1em;">$1</span>');
+
+        return formattedLine; // 포맷팅된 줄 반환
+    });
+
+    // 포맷팅된 줄들을 다시 줄바꿈으로 연결
+    element.innerHTML = formattedLines.join('<br/>');
+}
+
 
 // message.user와 같이 줄바꿈만 적용
 function formatTextWithLineBreakOnly(element) {
