@@ -258,16 +258,21 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.setItem(storageKey, JSON.stringify(isCorrect))
     }
 
-    function markQuestionResult(questionBox, isCorrect) {
-        const questionResult = questionBox.querySelector('.questionResult');
+    function markQuestionResult(result, isCorrect) {
+        const questionResult = result.querySelector('.questionResult');
 
         // isCorrect가 null이거나 undefined인 경우 아무것도 표시하지 않음
         if (isCorrect === null || isCorrect === undefined) {
             return;
         }
-
         questionResult.dataset.result = isCorrect ? "true" : "false";
-        questionResult.textContent = isCorrect ? "O" : "X"; // O 또는 X 표시
+        markOXResult(questionResult, isCorrect);
+
+    }
+
+    function markOXResult(element, isCorrect) {
+        console.log(element);
+        element.textContent = isCorrect ? "O" : "X"; // O 또는 X 표시
     }
 
 
@@ -276,6 +281,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const questionBox = selectedChoice.closest('.question-box');
         const isCorrect = selectedChoice.getAttribute('data-answer-status') === 'true';
         const selectText = selectedChoice.getAttribute('data-choice-text');
+
+        /**
+         * 선택지 정답 표시
+         */
+        if (isCorrect) {
+            selectedChoice.style.color = 'green';
+        } else {
+            selectedChoice.style.color = 'red';
+        }
+
 
         if (!questionBox) {
             console.error('해당 문제 상자를 찾을 수 없습니다.');
