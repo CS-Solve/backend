@@ -8,7 +8,7 @@ function fetchSessions(category) {
             // 새 회차 리스트 추가
             sessions.forEach(session => {
                 const sessionDiv = document.createElement('div');
-                sessionDiv.className = 'each-level';
+                sessionDiv.className = 'each-session';
 
                 // 클릭 가능한 요소로 변경
                 const sessionLabel = document.createElement('span');

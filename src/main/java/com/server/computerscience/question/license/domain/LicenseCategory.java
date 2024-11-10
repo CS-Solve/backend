@@ -6,7 +6,8 @@ import java.util.Optional;
 public enum LicenseCategory {
 	SQLD("SQLD"),
 	ENGINEER("정보처리기사"),
-	ADSP("ADSP");
+	ADSP("ADSP"),
+	AWS_SAA("AWS SAA");
 
 	private final String korean;
 

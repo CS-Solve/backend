@@ -45,10 +45,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /**
      * ex) 문제 채점 결과 등
+     * 현재 문제 순서는 바뀌지 않기 때문에,
+     * 하지만 문제 순서를 바꾸게 된다면 그때는 문제 채점 결과를 서버에 저장해야한다.
      */
     function applyDataFromSessionStorage() {
         const categories = document.querySelectorAll('.category');
-        console.log(Array.from(questionList.querySelectorAll('.questionBarCategory')))
         categories.forEach(categoryJson => {
             const categoryText = categoryJson.querySelector('.category-text').textContent.trim();
             const questionBoxes = categoryJson.querySelectorAll('.question-box');
@@ -72,6 +73,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             })
         })
+        // 저장된 마지막 선택된 문제로 스크롤
+        const savedPosition = sessionStorage.getItem("lastSelectedQuestion");
+        if (savedPosition) {
+            const {category, index} = JSON.parse(savedPosition);
+
+            // categoryTitle과 questionIndex를 사용해 questionBox를 찾는 함수
+
+            const questionBox = findQuestionInCategory(category, index);
+            if (questionBox) {
+                questionBox.scrollIntoView({behavior: 'smooth', block: 'start'});
+            }
+        }
     }
 
     /*
@@ -204,7 +217,28 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         selectedChoice = choice;
         selectedChoice.classList.add('selected-choice');
+
+        let questionBox = selectedChoice.closest('.question-box');
+        saveQuestionPosition(questionBox);
+
         refreshAnswerAndDescription();
+
+    }
+
+    /*
+    선택된 문제의 위치를 세션에 기억시킨다
+     */
+    function saveQuestionPosition(questionBox) {
+        const category = questionBox.closest('.category').querySelector('.category-text').textContent.trim();
+        const index = questionBox.dataset.questionIndex;
+
+        // JSON 형태로 category와 index 저장
+        const questionPosition = {
+            category: category,
+            index: index
+        };
+
+        sessionStorage.setItem("lastSelectedQuestion", JSON.stringify(questionPosition));
     }
 
     function selectQuestion(question) {
@@ -213,6 +247,8 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         selectedQuestion = question;
         selectedQuestion.classList.add('selected-question');
+        saveOverlayChanges(selectedQuestion);
+
         refreshAnswerAndDescription();
     }
 
@@ -258,16 +294,21 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.setItem(storageKey, JSON.stringify(isCorrect))
     }
 
-    function markQuestionResult(questionBox, isCorrect) {
-        const questionResult = questionBox.querySelector('.questionResult');
+
+    function markQuestionResult(result, isCorrect) {
+        const questionResult = result.querySelector('.questionResult');
 
         // isCorrect가 null이거나 undefined인 경우 아무것도 표시하지 않음
         if (isCorrect === null || isCorrect === undefined) {
             return;
         }
-
         questionResult.dataset.result = isCorrect ? "true" : "false";
-        questionResult.textContent = isCorrect ? "O" : "X"; // O 또는 X 표시
+        markOXResult(questionResult, isCorrect);
+
+    }
+
+    function markOXResult(element, isCorrect) {
+        element.textContent = isCorrect ? "O" : "X"; // O 또는 X 표시
     }
 
 
@@ -276,6 +317,16 @@ document.addEventListener('DOMContentLoaded', function () {
         const questionBox = selectedChoice.closest('.question-box');
         const isCorrect = selectedChoice.getAttribute('data-answer-status') === 'true';
         const selectText = selectedChoice.getAttribute('data-choice-text');
+
+        /**
+         * 선택지 정답 표시
+         */
+        if (isCorrect) {
+            selectedChoice.style.color = 'green';
+        } else {
+            selectedChoice.style.color = 'red';
+        }
+
 
         if (!questionBox) {
             console.error('해당 문제 상자를 찾을 수 없습니다.');

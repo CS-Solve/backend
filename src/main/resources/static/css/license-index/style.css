@@ -63,12 +63,6 @@
 }
 
 
-.screen .each-level {
-    flex-grow: 1;
-    text-align: center;
-    width: 100%; /* 각 항목이 세로 정렬될 때 가로로 100% 너비를 차지 */
-}
-
 /* 스크롤 활성화 */
 .screen .scroll-box {
     display: flex;
@@ -99,8 +93,12 @@
     overflow-x: hidden; /* 가로 스크롤 제거 */
 }
 
-.screen .each-level {
-
+/**
+각 세션
+ */
+.each-session {
+    
+    padding: 10px;
     text-align: center;
     width: 100%; /* 각 항목이 세로 정렬될 때 가로로 100% 너비를 차지 */
 }

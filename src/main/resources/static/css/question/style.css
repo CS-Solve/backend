@@ -17,11 +17,11 @@
 /*}*/
 .quiz .session-box {
     position: absolute;
-    top: 5%;
-    height: 5%;
+    top: 2%;
+    height: 3%;
     width: 70%;
     text-align: center; /* 글자를 박스 가운데 정렬 */
-    font-size: calc(0.6 * 4vh); /* 박스 높이와 비례하는 글자 크기 설정 */
+    font-size: calc(0.6 * 3vh); /* 박스 높이와 비례하는 글자 크기 설정 */
     font-weight: 700;
 }
 
@@ -40,7 +40,6 @@
 .quiz .left-box, .quiz .right-box {
     display: flex;
     flex-direction: column;
-    height: 80%;
     gap: 28px;
     padding: 0px 10px;
     position: absolute;
@@ -51,7 +50,7 @@
 }
 
 .quiz .left-box {
-    width: 48%;
+    width: 44%;
     align-items: center;
     background-color: #ffffff;
     left: 10%;
@@ -59,11 +58,11 @@
 }
 
 .quiz .right-box {
-    width: 38%;
+    width: 44%;
     gap: 21px;
     padding: 26px 30px;
     background-color: #ffffff;
-    left: 60%; /* left-box 위치 + 너비 + 간격 */
+    left: 55%; /* left-box 위치 + 너비 + 간격 */
 }
 
 .quiz .right-box .child-element {
@@ -298,7 +297,6 @@
     box-shadow: var(--drop-shadow-300);
     position: relative;
     height: auto; /* 높이는 내용에 따라 자동으로 늘어남 */
-    margin-right: 20px; /* right-box와 20px 간격 유지 */
 }
 
 
@@ -473,7 +471,7 @@
     gap: 11px;
     position: relative;
     align-self: stretch;
-    min-height: 10vh;
+    min-height: 6vh;
     width: 100%;
     flex: 0 0 auto;
 }
@@ -524,7 +522,7 @@
     color: #ffffff;
     border: none;
     background: linear-gradient(135deg, #ff7f50, #ff6347); /* 그라데이션 효과 추가 */
-    height: 50%;
+    height: 70%;
     width: 30%;
     cursor: pointer;
     border-radius: 8px; /* 모서리를 둥글게 */
@@ -575,13 +573,14 @@
 Side bar
  */
 .left-sidebar, .right-box, .left-box {
-    top: 15%;
+    top: 10%;
+    height: 85%;
 }
 
 /* 사이드바 스타일 */
 .left-sidebar {
     width: 10%; /* 사이드바 너비를 퍼센트로 설정 */
-    height: 80%; /* 높이를 퍼센트로 설정 */
+    /* 높이를 퍼센트로 설정 */
     position: fixed;
     left: 0;
     background-color: #f4f4f9;

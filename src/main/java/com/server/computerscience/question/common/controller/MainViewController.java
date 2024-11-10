@@ -51,7 +51,7 @@ public class MainViewController {
 		model.addAttribute("description", Arrays.stream(LicenseCategory.values())
 			.map(LicenseCategory::getKorean)
 			.collect(Collectors.joining(", "))
-			+ " 기출과 같은 CS(컴퓨터 사이언스) 자격증 문제를 풀 수 있습니다.");
+			+ " 등 컴퓨터 사이언스(CS) 자격증 기출 문제를 풀어보세요. 기출 문제 풀이를 통해 자격증 대비가 가능합니다.");
 
 		return "license-index";
 	}
