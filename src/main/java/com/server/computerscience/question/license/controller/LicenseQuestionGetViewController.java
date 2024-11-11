@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.server.computerscience.login.aspect.AddLoginStatusAttribute;
 import com.server.computerscience.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computerscience.question.license.domain.LicenseSession;
-import com.server.computerscience.question.license.service.LicenseQuestionGetService;
+import com.server.computerscience.question.license.service.AdminLicenseQuestionGetService;
 import com.server.computerscience.question.license.service.LicenseSessionService;
+import com.server.computerscience.question.license.service.UserLicenseQuestionGetService;
 
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LicenseQuestionGetViewController {
 
-	private final LicenseQuestionGetService licenseQuestionGetService;
+	private final UserLicenseQuestionGetService userLicenseQuestionGetService;
+	private final AdminLicenseQuestionGetService adminLicenseQuestionGetService;
 	private final LicenseSessionService licenseSessionService;
 	private final String baseUrl = "baseUrl";
 	@Value("${resource.base-url}")
@@ -43,10 +45,11 @@ public class LicenseQuestionGetViewController {
 		model.addAttribute("description", "CS 전공과 관련된 자격증 기출 문제를 풀어볼 수 있습니다.");
 		model.addAttribute("questionSession", sessionInform
 			+ " / 복원 문제는 오류가 있을 수 있습니다.");
-		model.addAttribute("questions", licenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
-			.entrySet().stream()
-			.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
-			.collect(Collectors.toList()));
+		model.addAttribute("questions",
+			userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
+				.entrySet().stream()
+				.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
+				.collect(Collectors.toList()));
 		model.addAttribute("multipleChoice", true);
 		return "question";
 	}
@@ -63,7 +66,7 @@ public class LicenseQuestionGetViewController {
 		model.addAttribute("folderName", "license-index");
 		model.addAttribute("isLicenseQuestion", true);
 		model.addAttribute("classifiedQuestions",
-			licenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
+			adminLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 				.entrySet().stream()
 				.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));

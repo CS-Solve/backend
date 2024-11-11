@@ -16,8 +16,16 @@ public interface LicenseMultipleChoiceQuestionRepository extends JpaRepository<L
 
 	@Query("SELECT DISTINCT lnq FROM LicenseMultipleChoiceQuestion  lnq "
 		+ "LEFT JOIN FETCH lnq.questionChoices "
-		+ "WHERE lnq.licenseSession.id = :licenseSessionId ")
-	List<LicenseMultipleChoiceQuestion> findAllByLicenseSessionIdFetchChoices(
+		+ "WHERE lnq.licenseSession.id = :licenseSessionId "
+		+ "ORDER BY lnq.ifApproved")
+	List<LicenseMultipleChoiceQuestion> findAllByLicenseSessionIdFetchChoicesOrderByApproved(
+		@Param("licenseSessionId") Long licenseSessionId);
+
+	@Query("SELECT DISTINCT lnq FROM LicenseMultipleChoiceQuestion  lnq "
+		+ "LEFT JOIN FETCH lnq.questionChoices "
+		+ "WHERE lnq.licenseSession.id = :licenseSessionId "
+		+ "AND lnq.ifApproved = true")
+	List<LicenseMultipleChoiceQuestion> findAllByLicenseSessionIdFetchChoicesAndIfApproved(
 		@Param("licenseSessionId") Long licenseSessionId);
 
 	@Query("SELECT lnq FROM LicenseMultipleChoiceQuestion  lnq "
