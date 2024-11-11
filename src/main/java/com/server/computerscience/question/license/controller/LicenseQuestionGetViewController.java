@@ -60,12 +60,14 @@ public class LicenseQuestionGetViewController {
 		Model model
 	) {
 		model.addAttribute(baseUrl, resourceBaseUrl);
+		model.addAttribute("folderName", "license-index");
+		model.addAttribute("isLicenseQuestion", true);
 		model.addAttribute("classifiedQuestions",
 			licenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 				.entrySet().stream()
 				.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
-		return "license-question-update";
+		return "major-question-update";
 	}
 
 	/**

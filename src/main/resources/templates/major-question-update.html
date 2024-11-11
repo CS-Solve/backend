@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>일반 질문 업데이트</title>
 
-    <script th:src="|${baseUrl}/js/index/updateQuestion.js|"></script>
+    <script th:src="|${baseUrl}/js/${folderName}/updateQuestion.js|"></script>
     <script th:src="|${baseUrl}/js/translateTextForHtml.js|"></script>
-    <link rel="stylesheet" th:href="|${baseUrl}/css/normal-question-update/style.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/question-update/style.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/global.css|"/>
 </head>
 <body>
@@ -39,9 +39,11 @@
             <!-- 선택지 목록 -->
             <ul>
                 <li th:each="choice : ${question.questionChoices}">
-                    <span th:text="${choice.text}">선택지 텍스트</span>
+                    <div class="editable-container">
+                        <span th:text="${choice.content}">선택지 텍스트</span>
+                    </div>
                     (<span th:text="${choice.selectedCount}">0</span> 선택)
-                    <span th:if="${choice.answerStatus}" th:text="'[정답]'">정답</span>
+                    <span th:if="${choice.answerStatus} " th:color="blue" th:text="'[정답]'">정답</span>
                 </li>
             </ul>
 
@@ -51,21 +53,22 @@
                    th:text="${question.description}">설명</p>
             </div>
 
-            <!-- approve 토글 -->
-            <label for="approve">허용:</label>
-            <input onclick="toggleApprove(this.getAttribute('data-question-id'))"
-                   th:attr="data-question-id=${question.id}"
-                   th:checked="${question.ifApproved}"
-                   type="checkbox"/>
-            <br/>
+            <div th:if="${isMajorQuestion}">
+                <label for="approve">허용:</label>
+                <input onclick="toggleApprove(this.getAttribute('data-question-id'))"
+                       th:attr="data-question-id=${question.id}"
+                       th:checked="${question.ifApproved}"
+                       type="checkbox"/>
+                <br/>
 
-            <!-- canBeMultiple 토글 -->
-            <label for="canBeShortAnswered">주관식 문제 가능:</label>
-            <input onclick="toggleCanBeMultiple(this.getAttribute('data-question-id'))"
-                   th:attr="data-question-id=${question.id}"
-                   th:checked="${question.canBeShortAnswered}"
-                   type="checkbox"/>
-            <br/>
+                <!-- canBeMultiple 토글 -->
+                <label for="canBeShortAnswered">주관식 문제 가능:</label>
+                <input onclick="toggleCanBeMultiple(this.getAttribute('data-question-id'))"
+                       th:attr="data-question-id=${question.id}"
+                       th:checked="${question.canBeShortAnswered}"
+                       type="checkbox"/>
+                <br/>
+            </div>
 
             <button th:onclick="|deleteQuestion(${question.id})|" type="button">
                 질문 삭제
