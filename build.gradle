@@ -193,6 +193,16 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'com.github.ben-manes.caffeine:caffeine'
 
+
+    // @mwiede의 포크 버전 jsch 추가
+    implementation 'com.github.mwiede:jsch:0.2.21'
+
+//    // 기존 foo:bar 의존성에서 com.jcraft:jsch 제외
+//    implementation('foo:bar') {
+//        exclude group: 'com.jcraft', module: 'jsch'
+//    }
+
+
 }
 
 tasks.named('test') {
