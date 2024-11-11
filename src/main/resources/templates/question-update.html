@@ -15,9 +15,11 @@
 
 <!-- 카테고리별 질문 목록을 렌더링 -->
 <div th:each="classifiedQuestion : ${classifiedQuestions}">
-    <h2 style="cursor: pointer; color: #2980b9;"
+    <h2 style="cursor: pointer; color: #2980b9; font-size: 50px; "
         th:attr="onclick=|toggleCategory('${classifiedQuestion.questionCategory}')|"
-        th:text="${classifiedQuestion.questionCategory}">카테고리 이름</h2>
+        th:text="${classifiedQuestion.questionCategory}"
+        th:fontSize="300">
+        카테고리 이름</h2>
 
     <!-- 질문 목록 -->
     <div th:id="'questions-'+${classifiedQuestion.questionCategory}">
@@ -27,6 +29,18 @@
             <div class="editable-container">
                 <h3 class="questionItem" th:attr="data-id=${question.id}, data-field='content'"
                     th:text="${question.content}">질문</h3>
+            </div>
+
+            <!-- 이미지 업로드 및 표시 -->
+            <div class="image-upload-container">
+                <div th:if="${question.imageUrl != null}">
+                    <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
+                </div>
+                <label th:for="|image-upload-${question.id}|">이미지 업로드:</label>
+                <input onchange="uploadImage(this.getAttribute('question-id'), this)"
+                       th:attr="question-id=${question.id}"
+                       th:id="|image-upload-${question.id}|"
+                       type="file"/>
             </div>
 
             <!-- 문제 난이도 드롭다운 -->

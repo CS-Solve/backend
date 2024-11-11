@@ -2,7 +2,7 @@ package com.server.computerscience.question.common.domain;
 
 public enum QuestionLevel {
 
-	LOW("하"), MEDIUM("중"), HIGH("상");
+	LOW("하"), MEDIUM("중"), HIGH("상"), NONE("");
 	private final String korean;
 
 	QuestionLevel(String korean) {
