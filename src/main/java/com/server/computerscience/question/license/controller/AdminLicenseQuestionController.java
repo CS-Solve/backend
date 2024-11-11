@@ -86,4 +86,12 @@ public class AdminLicenseQuestionController {
 			requestChangeContentDto)));
 	}
 
+	@ApiOperation("단답형 선택지 업데이트 - 정답 여부 변경")
+	@PatchMapping(value = "/choice/{id}/toggle")
+	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
+		@PathVariable("id") Long licenseChoiceId) {
+		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(adminLicenseQuestionChoiceUpdateService.toggleAnswerStatus(
+			licenseChoiceId)));
+	}
+
 }

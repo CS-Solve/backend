@@ -32,4 +32,8 @@ public abstract class QuestionChoice {
 	public void changeContent(String content) {
 		this.content = content;
 	}
+
+	public void toggleAnswerStatus() {
+		this.answerStatus = !this.answerStatus;
+	}
 }

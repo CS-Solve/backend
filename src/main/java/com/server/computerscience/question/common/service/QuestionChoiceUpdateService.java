@@ -16,5 +16,11 @@ public interface QuestionChoiceUpdateService<T extends QuestionChoice> {
 		return questionChoice;
 	}
 
+	default T toggleAnswerStatus(Long questionChoiceId) {
+		T questionChoice = findById(questionChoiceId);
+		questionChoice.toggleAnswerStatus();
+		return questionChoice;
+	}
+
 	T findById(Long questionChoiceId);
 }
