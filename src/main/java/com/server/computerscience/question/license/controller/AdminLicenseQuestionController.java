@@ -99,8 +99,9 @@ public class AdminLicenseQuestionController {
 	@PatchMapping(value = "/choice/{id}/toggle")
 	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
 		@PathVariable("id") Long licenseChoiceId) {
-		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(adminLicenseQuestionChoiceUpdateService.toggleAnswerStatus(
-			licenseChoiceId)));
+		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(adminLicenseQuestionChoiceUpdateService
+			.toggleAnswerStatus(
+				licenseChoiceId)));
 	}
 
 }

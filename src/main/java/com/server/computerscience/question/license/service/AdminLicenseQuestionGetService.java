@@ -26,7 +26,8 @@ public class AdminLicenseQuestionGetService implements LicenseQuestionGetService
 	 * 허용 여부 순대로 섞는다
 	 */
 	@Override
-	public Map<QuestionCategory, List<LicenseMultipleChoiceQuestion>> getClassifiedLicenseMultipleChoiceQuestion(Long sessionId) {
+	public Map<QuestionCategory, List<LicenseMultipleChoiceQuestion>> getClassifiedLicenseMultipleChoiceQuestion(
+		Long sessionId) {
 		List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository
 			.findAllByLicenseSessionIdFetchChoicesOrderByApproved(sessionId);
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions);

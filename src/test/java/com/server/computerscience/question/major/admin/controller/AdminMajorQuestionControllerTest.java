@@ -157,7 +157,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 	void updateSingleMajorMultipleChoiceQuestionApprove() throws Exception {
 		final String PATH = "/admin/question/major/1/toggle-approve";
 		final String document_Name = "성공";
-		Mockito.when(adminMajorMultipleChoiceQuestionUpdateService.toggleApproveNormalQuestion(any()))
+		Mockito.when(adminMajorMultipleChoiceQuestionUpdateService.toggleApprove(any()))
 			.thenReturn(majorMultipleChoiceQuestion);
 		mockMvc.perform(RestDocumentationRequestBuilders.patch(PATH)
 				.contentType(MediaType.APPLICATION_JSON))

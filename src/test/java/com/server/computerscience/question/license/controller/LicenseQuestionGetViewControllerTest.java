@@ -23,6 +23,7 @@ import com.server.computerscience.question.common.dto.response.ResponseClassifie
 import com.server.computerscience.question.license.domain.LicenseCategory;
 import com.server.computerscience.question.license.domain.LicenseMultipleChoiceQuestion;
 import com.server.computerscience.question.license.domain.LicenseSession;
+import com.server.computerscience.question.license.service.AdminLicenseQuestionGetService;
 import com.server.computerscience.question.license.service.LicenseSessionService;
 import com.server.computerscience.question.license.service.UserLicenseQuestionGetService;
 
@@ -32,6 +33,8 @@ class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 
 	@MockBean
 	private UserLicenseQuestionGetService userLicenseQuestionGetService;
+	@MockBean
+	private AdminLicenseQuestionGetService adminLicenseQuestionGetService;
 	@MockBean
 	private LicenseSessionService licenseSessionService;
 	private LicenseSession licenseSession;
@@ -78,7 +81,7 @@ class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 
 	@Test
 	@DisplayName("업데이트")
-	void updatelicenseQuestionPage() throws Exception {
+	void updateLicenseQuestionPage() throws Exception {
 		final String PATH = "/admin/question/license/update/1";
 		Mockito.when(userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(any()))
 			.thenReturn(licenseMultipleChoiceQuestionsMap);
