@@ -38,13 +38,20 @@
 
             <!-- 선택지 목록 -->
             <ul>
-                <li th:each="choice : ${question.questionChoices}">
+                <li th:each="choice : ${question.questionChoices}"
+                    style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">
                     <div class="editable-container">
-                        <span th:attr="data-id=${choice.id}, data-field='choiceContent'"
-                              th:text="${choice.content}">선택지 텍스트</span>
+            <span th:attr="data-id=${choice.id}, data-field='choiceContent'"
+                  th:text="${choice.content}">선택지 텍스트</span>
                     </div>
                     (<span th:text="${choice.selectedCount}">0</span> 선택)
-                    <span th:if="${choice.answerStatus} " th:color="blue" th:text="'[정답]'">정답</span>
+
+                    <!-- 정답 여부 체크박스 -->
+                    <label for="answerStatus">정답 여부:</label>
+                    <input type="checkbox"
+                           th:checked="${choice.answerStatus}"
+                           th:attr="data-id=${choice.id}"
+                           onchange="confirmAnswerStatusChange(this)">
                 </li>
             </ul>
 

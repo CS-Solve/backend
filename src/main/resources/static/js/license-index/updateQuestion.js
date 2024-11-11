@@ -214,3 +214,42 @@ function removeImage(questionId) {
     // 제거 로직을 추가하거나 API를 확장하여 이미지 제거 기능 구현
     console.log("이미지 제거:", questionId);
 }
+
+/**
+ * 선택지 정답 상태 수정
+ */
+function confirmAnswerStatusChange(checkboxElement) {
+    const choiceId = checkboxElement.getAttribute('data-id');
+    const newAnswerStatus = checkboxElement.checked;
+
+    // 사용자에게 확인 메시지 띄우기
+    const confirmation = confirm("정답 여부를 변경하시겠습니까?");
+    if (confirmation) {
+        // 확인 버튼을 클릭하면 API 요청 보내기
+        updateAnswerStatus(choiceId, newAnswerStatus);
+    } else {
+        // 변경을 취소하고 체크박스를 원래 상태로 되돌리기
+        checkboxElement.checked = !newAnswerStatus;
+    }
+}
+
+function updateAnswerStatus(choiceId, newAnswerStatus) {
+    // API 요청 보내기 (PATCH 방식으로 요청)
+    return fetch(`/admin/question/license/choice/${choiceId}/toggle`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({answerStatus: newAnswerStatus})
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('정답 여부 업데이트 실패');
+            }
+            console.log('정답 여부가 성공적으로 업데이트되었습니다.');
+        })
+        .catch(error => {
+            console.error(error);
+            alert('정답 여부 업데이트에 실패했습니다. 다시 시도해주세요.');
+        });
+}
