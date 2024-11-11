@@ -84,7 +84,7 @@ class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 			.thenReturn(licenseMultipleChoiceQuestionsMap);
 
 		mockMvc.perform(MockMvcRequestBuilders.get(PATH))
-			.andExpect(view().name("license-question-update"))
+			.andExpect(view().name("question-update"))
 			.andExpect(model().attributeExists("classifiedQuestions"))
 			.andDo(print());
 	}
