@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.server.computerscience.question.common.dto.request.RequestChangeContentDto;
-import com.server.computerscience.question.common.dto.request.RequestChangeDescriptionDto;
 import com.server.computerscience.question.common.dto.response.ResponseQuestionChoiceDto;
 import com.server.computerscience.question.common.dto.response.ResponseQuestionDto;
 import com.server.computerscience.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
@@ -64,9 +63,9 @@ public class AdminLicenseQuestionController {
 	@PatchMapping(value = "/{id}/description")
 	public ResponseEntity<ResponseQuestionDto> changeDescription(
 		@PathVariable("id") Long questionId,
-		@RequestBody RequestChangeDescriptionDto changeDescriptionDto) {
+		@RequestBody RequestChangeContentDto requestChangeContentDto) {
 		return ResponseEntity.ok(ResponseQuestionDto.forAdmin(
-			adminLicenseMuiltipleChoiceQuestionUpdateService.changeDescription(questionId, changeDescriptionDto)));
+			adminLicenseMuiltipleChoiceQuestionUpdateService.changeDescription(questionId, requestChangeContentDto)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 문제 삭제")
@@ -78,7 +77,7 @@ public class AdminLicenseQuestionController {
 	}
 
 	@ApiOperation("단답형 선택지 업데이트 - 선택지 지문 업데이트")
-	@DeleteMapping(value = "/choice/{id}")
+	@PatchMapping(value = "/choice/{id}")
 	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
 		@PathVariable("id") Long licenseChoiceId,
 		@RequestBody RequestChangeContentDto requestChangeContentDto) {

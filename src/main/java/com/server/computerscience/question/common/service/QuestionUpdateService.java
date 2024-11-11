@@ -5,17 +5,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.server.computerscience.question.common.domain.Question;
 import com.server.computerscience.question.common.dto.request.RequestChangeContentDto;
-import com.server.computerscience.question.common.dto.request.RequestChangeDescriptionDto;
 
 @Service
 @Transactional
 public interface QuestionUpdateService<T extends Question> {
 
 	// 기본 구현이 필요한 메서드에 default 사용
-	default T changeDescription(Long questionId, RequestChangeDescriptionDto requestChangeDescriptionDto) {
+	default T changeDescription(Long questionId, RequestChangeContentDto requestChangeContentDto) {
 		T question = findById(questionId);
 		System.out.println(question);
-		question.changeDescription(requestChangeDescriptionDto.getDescription());
+		question.changeDescription(requestChangeContentDto.getContent());
 		return question;
 	}
 

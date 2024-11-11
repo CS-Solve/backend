@@ -40,7 +40,7 @@
             <ul>
                 <li th:each="choice : ${question.questionChoices}">
                     <div class="editable-container">
-                        <span th:attr="data-choice-id=${choice.id}, data-field='choiceContent'"
+                        <span th:attr="data-id=${choice.id}, data-field='choiceContent'"
                               th:text="${choice.content}">선택지 텍스트</span>
                     </div>
                     (<span th:text="${choice.selectedCount}">0</span> 선택)

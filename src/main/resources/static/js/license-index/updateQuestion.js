@@ -49,7 +49,7 @@ function updateDifficulty(selectElement) {
         });
 }
 
-function makeEditable(element, field, questionId) {
+function makeEditable(element, field, id) {
     const originalText = element.innerText;
     const input = document.createElement('input');
     input.type = 'text';
@@ -60,9 +60,9 @@ function makeEditable(element, field, questionId) {
         if (event.key === 'Enter') {
             const newText = input.value;
 
-            updateNormalTextField(questionId, field, newText);
+            updateNormalTextField(id, field, newText);
             element.innerText = newText;
-            element.ondblclick = () => makeEditable(element, field, questionId);
+            element.ondblclick = () => makeEditable(element, field, id);
         }
     };
 
@@ -120,13 +120,14 @@ function showOverlayInput(element) {
 function saveOverlayChanges() {
     if (currentEditElement) {
         const newText = document.getElementById('overlay-textarea').value;
-        const questionId = currentEditElement.getAttribute('data-id');
+        const id = currentEditElement.getAttribute('data-id');
         const field = currentEditElement.getAttribute('data-field');
+        console.log(field + "/" + id)
 
-        updateNormalTextField(questionId, field, newText)
+        updateNormalTextField(id, field, newText)
             .then(updatedData => {
-                if (updatedData && updatedData[field] !== undefined) {
-                    console.log(`${field}가 성공적으로 업데이트되었습니다:`, updatedData[field]);
+                if (updatedData) {
+                    console.log(`${field}가 성공적으로 업데이트되었습니다:`, newText);
 
                     // 현재 스크롤 위치 저장
                     localStorage.setItem('scrollPosition', window.pageYOffset);
@@ -151,13 +152,26 @@ function saveOverlayChanges() {
     }
 }
 
-function updateNormalTextField(questionId, field, newValue) {
-    return fetch(`/admin/question/license/${questionId}/${field}`, {
+function updateNormalTextField(id, field, newValue) {
+    // URL을 동적으로 설정
+    let url;
+    if (field === 'choiceContent') {
+        // field가 'choiceContent'이면 choiceId를 포함한 URL로 설정
+        url = `/admin/question/license/choice/${id}`;
+    } else if (field === 'description') {
+        // 기본 URL
+        url = `/admin/question/license/${id}/description`;
+    } else if (field === 'content') {
+        url = `/admin/question/license/${id}/content`;
+    }
+
+    // Fetch 요청 보내기
+    return fetch(url, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({[field]: newValue})
+        body: JSON.stringify({content: newValue})
     })
         .then(response => {
             if (!response.ok) {
