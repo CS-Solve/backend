@@ -26,15 +26,24 @@ public class ResponseQuestionDto {
 	private QuestionCategory questionCategory;
 	private QuestionLevel questionLevel;
 	private List<ResponseQuestionChoiceDto> questionChoices;
+	private boolean ifApproved;
 
-	public ResponseQuestionDto(Long id, String content, QuestionCategory questionCategory, QuestionLevel questionLevel,
-		List<ResponseQuestionChoiceDto> questionChoices, String description) {
+	public ResponseQuestionDto(Long id,
+		String content,
+		String description,
+		String imageUrl,
+		QuestionCategory questionCategory,
+		QuestionLevel questionLevel,
+		List<ResponseQuestionChoiceDto> questionChoices,
+		boolean ifApproved) {
 		this.id = id;
 		this.content = content;
+		this.description = description;
+		this.imageUrl = imageUrl;
 		this.questionCategory = questionCategory;
 		this.questionLevel = questionLevel;
 		this.questionChoices = questionChoices;
-		this.description = description;
+		this.ifApproved = ifApproved;
 	}
 
 	public static <T extends Question> ResponseQuestionDto.ResponseQuestionDtoBuilder<?, ?> common(
@@ -52,7 +61,8 @@ public class ResponseQuestionDto {
 			.questionCategory(question.getQuestionCategory())
 			.questionLevel(question.getQuestionLevel())
 			.description(question.getDescription())
-			.imageUrl(question.getImageUrl());
+			.imageUrl(question.getImageUrl())
+			.ifApproved(question.isIfApproved());
 	}
 
 	/**

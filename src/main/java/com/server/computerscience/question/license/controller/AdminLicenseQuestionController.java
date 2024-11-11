@@ -68,6 +68,15 @@ public class AdminLicenseQuestionController {
 			adminLicenseMuiltipleChoiceQuestionUpdateService.changeDescription(questionId, requestChangeContentDto)));
 	}
 
+	@ApiOperation("단답형 문제 상태 업데이트 - 문제 해설 업데이트")
+	@PatchMapping(value = "/{id}/toggle-approve")
+	public ResponseEntity<ResponseQuestionDto> toggleIsApprove(
+		@PathVariable("id") Long questionId
+	) {
+		return ResponseEntity.ok(ResponseQuestionDto.forAdmin(
+			adminLicenseMuiltipleChoiceQuestionUpdateService.toggleApprove(questionId)));
+	}
+
 	@ApiOperation("단답형 문제 상태 업데이트 - 문제 삭제")
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> changeDescription(

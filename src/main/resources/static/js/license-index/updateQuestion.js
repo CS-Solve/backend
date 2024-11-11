@@ -1,3 +1,24 @@
+function toggleApprove(questionId) {
+    fetch(`/admin/question/license/${questionId}/toggle-approve`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('승인 상태 토글 실패');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('승인 상태가 성공적으로 토글되었습니다:', data);
+        })
+        .catch(error => {
+            console.error('승인 상태 토글 중 오류 발생:', error);
+        });
+}
+
 function toggleCategory(categoryName) {
     var questionList = document.getElementById('questions-' + categoryName);
     if (questionList.style.display === "none") {
@@ -133,7 +154,7 @@ function saveOverlayChanges() {
                     localStorage.setItem('scrollPosition', window.pageYOffset);
 
                     // 성공 시 페이지 새로고침
-                    // window.location.reload();
+                    window.location.reload();
                 } else {
                     console.warn(`서버 응답에 ${field} 필드가 없거나 응답이 올바르지 않습니다.`);
                     alert('업데이트에 문제가 발생했습니다. 페이지를 새로고침한 후 다시 시도해주세요.');

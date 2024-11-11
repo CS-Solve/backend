@@ -28,7 +28,7 @@ import lombok.experimental.SuperBuilder;
 @ToString
 public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvider {
 	public boolean canBeShortAnswered;
-	public boolean ifApproved;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
@@ -61,10 +61,6 @@ public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvi
 		this.questionChoices = new ArrayList<>();
 		this.canBeShortAnswered = false;
 		this.ifApproved = false;
-	}
-
-	public void toggleApproved() {
-		this.ifApproved = !this.ifApproved;
 	}
 
 	public void toggleCanBeShortAnswered() {

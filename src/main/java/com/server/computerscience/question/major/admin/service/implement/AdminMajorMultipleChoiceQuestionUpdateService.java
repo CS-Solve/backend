@@ -16,17 +16,9 @@ public class AdminMajorMultipleChoiceQuestionUpdateService
 	implements QuestionUpdateService<MajorMultipleChoiceQuestion> {
 	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDBService;
 
-	public MajorMultipleChoiceQuestion toggleApproveNormalQuestion(Long questionId) {
-		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = majorMultipleChoiceQuestionDBService
-			.findByIdFetchChoices(
-				questionId);
-		majorMultipleChoiceQuestion.toggleApproved();
-		return majorMultipleChoiceQuestion;
-	}
-
 	public MajorMultipleChoiceQuestion toggleCanBeShortAnswered(Long questionId) {
 		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = majorMultipleChoiceQuestionDBService
-			.findByIdFetchChoices(
+			.findById(
 				questionId);
 		majorMultipleChoiceQuestion.toggleCanBeShortAnswered();
 		return majorMultipleChoiceQuestion;

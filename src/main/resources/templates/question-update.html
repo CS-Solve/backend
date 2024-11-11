@@ -57,19 +57,20 @@
 
             <!-- 해설 텍스트 -->
             <div class="editable-container">
-                <p class="descriptionText" th:attr="data-id=${question.id}, data-field='description'"
+                <p class="descriptionUpdateText" th:attr="data-id=${question.id}, data-field='description'"
                    th:text="${question.description}">설명</p>
             </div>
 
-            <div th:if="${isMajorQuestion}">
-                <label for="approve">허용:</label>
-                <input onclick="toggleApprove(this.getAttribute('data-question-id'))"
-                       th:attr="data-question-id=${question.id}"
-                       th:checked="${question.ifApproved}"
-                       type="checkbox"/>
-                <br/>
+            <!-- approve 체크박스: 항상 표시 -->
+            <label for="approve">허용:</label>
+            <input onclick="toggleApprove(this.getAttribute('data-question-id'))"
+                   th:attr="data-question-id=${question.id}"
+                   th:checked="${question.ifApproved}"
+                   type="checkbox"/>
+            <br/>
 
-                <!-- canBeMultiple 토글 -->
+            <!-- canBeShortAnswered 체크박스: isMajorQuestion이 true일 때만 표시 -->
+            <div th:if="${isMajorQuestion}">
                 <label for="canBeShortAnswered">주관식 문제 가능:</label>
                 <input onclick="toggleCanBeMultiple(this.getAttribute('data-question-id'))"
                        th:attr="data-question-id=${question.id}"
@@ -77,6 +78,7 @@
                        type="checkbox"/>
                 <br/>
             </div>
+
 
             <button th:onclick="|deleteQuestion(${question.id})|" type="button">
                 질문 삭제

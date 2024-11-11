@@ -24,6 +24,12 @@ public interface QuestionUpdateService<T extends Question> {
 		return question;
 	}
 
+	default T toggleApprove(Long questionId) {
+		T question = findById(questionId);
+		question.toggleApproved();
+		return question;
+	}
+
 	void deleteQuestion(Long questionId);
 
 	// 각 구현체에서 구현해야 하는 추상 메서드

@@ -72,7 +72,7 @@ public class AdminMajorQuestionController {
 	@PatchMapping(value = "/question/major/{id}/toggle-approve")
 	public ResponseEntity<ResponseQuestionDto> toggleApproveNormalQuestion(@PathVariable("id") Long questionId) {
 		return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(
-			adminMajorMultipleChoiceQuestionUpdateService.toggleApproveNormalQuestion(questionId)));
+			adminMajorMultipleChoiceQuestionUpdateService.toggleApprove(questionId)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 단답형-주관식 토글")
