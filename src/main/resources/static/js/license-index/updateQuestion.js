@@ -274,3 +274,35 @@ function updateAnswerStatus(choiceId, newAnswerStatus) {
             alert('정답 여부 업데이트에 실패했습니다. 다시 시도해주세요.');
         });
 }
+
+/**
+ * 선택지 삭제
+ */
+function deleteChoice(buttonElement) {
+    const choiceId = buttonElement.getAttribute('data-choice-id');
+
+    // 사용자 확인
+    const confirmation = confirm("이 선택지를 삭제하시겠습니까?");
+    if (!confirmation) {
+        return;
+    }
+
+    // 서버에 삭제 요청 보내기
+    fetch(`/admin/question/license/choice/${choiceId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("삭제 실패");
+            }
+            // 삭제 성공 시 페이지 새로고침
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error(error);
+            alert("선택지 삭제에 실패했습니다. 다시 시도해주세요.");
+        });
+}

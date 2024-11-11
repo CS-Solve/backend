@@ -66,6 +66,11 @@
                            th:checked="${choice.answerStatus}"
                            th:attr="data-id=${choice.id}"
                            onchange="confirmAnswerStatusChange(this)">
+
+                    <!-- 삭제 버튼 -->
+                    <button type="button" onclick="deleteChoice(this)" th:attr="data-choice-id=${choice.id}">
+                        삭제
+                    </button>
                 </li>
             </ul>
 

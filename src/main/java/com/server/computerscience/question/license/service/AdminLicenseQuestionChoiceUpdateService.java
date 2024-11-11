@@ -17,6 +17,11 @@ public class AdminLicenseQuestionChoiceUpdateService
 	private final LicenseQuestionChoiceRepository licenseQuestionChoiceRepository;
 
 	@Override
+	public void deleteQuestionChoice(Long questionChoiceId) {
+		licenseQuestionChoiceRepository.deleteById(questionChoiceId);
+	}
+
+	@Override
 	public LicenseQuestionChoice findById(Long questionChoiceId) {
 		return licenseQuestionChoiceRepository.findById(questionChoiceId).orElse(null);
 	}

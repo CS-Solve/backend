@@ -22,5 +22,7 @@ public interface QuestionChoiceUpdateService<T extends QuestionChoice> {
 		return questionChoice;
 	}
 
+	void deleteQuestionChoice(Long questionChoiceId);
+
 	T findById(Long questionChoiceId);
 }

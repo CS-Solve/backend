@@ -95,6 +95,15 @@ public class AdminLicenseQuestionController {
 			requestChangeContentDto)));
 	}
 
+	@ApiOperation("단답형 선택지 업데이트 - 선택지 삭제")
+	@DeleteMapping(value = "/choice/{id}")
+	public ResponseEntity<Void> deleteChoiceContent(
+		@PathVariable("id") Long licenseChoiceId) {
+		adminLicenseQuestionChoiceUpdateService.deleteQuestionChoice(
+			licenseChoiceId);
+		return ResponseEntity.noContent().build();
+	}
+
 	@ApiOperation("단답형 선택지 업데이트 - 정답 여부 변경")
 	@PatchMapping(value = "/choice/{id}/toggle")
 	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
