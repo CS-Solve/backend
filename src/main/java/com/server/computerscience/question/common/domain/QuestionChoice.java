@@ -13,13 +13,17 @@ import lombok.experimental.SuperBuilder;
 @MappedSuperclass
 @ToString(exclude = "question")
 public abstract class QuestionChoice {
-	private String text;
+	private String content;
 	private int selectedCount;
 	private boolean answerStatus;
 
-	public QuestionChoice(String text, int selectedCount, boolean answerStatus) {
-		this.text = text;
+	public QuestionChoice(String content, int selectedCount, boolean answerStatus) {
+		this.content = content;
 		this.selectedCount = selectedCount;
 		this.answerStatus = answerStatus;
+	}
+
+	public void changeContent(String content) {
+		this.content = content;
 	}
 }

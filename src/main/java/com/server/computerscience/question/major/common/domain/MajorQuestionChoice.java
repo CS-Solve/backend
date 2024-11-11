@@ -36,7 +36,7 @@ public class MajorQuestionChoice extends QuestionChoice {
 	public static MajorQuestionChoice fromMajorQuestion(RequestMakeQuestionChoiceDto dto,
 		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {
 		MajorQuestionChoice majorQuestionChoice = MajorQuestionChoice.builder()
-			.text(dto.getText())
+			.content(dto.getText())
 			.selectedCount(0)
 			.answerStatus(dto.isAnswerStatus())
 			.question(majorMultipleChoiceQuestion)

@@ -15,9 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.server.computerscience.question.common.dto.request.RequestChangeContentDto;
 import com.server.computerscience.question.common.dto.request.RequestChangeDescriptionDto;
+import com.server.computerscience.question.common.dto.response.ResponseQuestionChoiceDto;
 import com.server.computerscience.question.common.dto.response.ResponseQuestionDto;
 import com.server.computerscience.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import com.server.computerscience.question.license.service.AdminLicenseMuiltipleChoiceQuestionUpdateService;
+import com.server.computerscience.question.license.service.AdminLicenseQuestionChoiceUpdateService;
 import com.server.computerscience.question.license.service.AdminLicenseQuestionMakeService;
 
 import io.swagger.annotations.Api;
@@ -31,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminLicenseQuestionController {
 	private final AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
 	private final AdminLicenseMuiltipleChoiceQuestionUpdateService adminLicenseMuiltipleChoiceQuestionUpdateService;
+	private final AdminLicenseQuestionChoiceUpdateService adminLicenseQuestionChoiceUpdateService;
 
 	@ApiOperation("단답형 문제 세션으로 생성")
 	@PostMapping
@@ -72,6 +75,16 @@ public class AdminLicenseQuestionController {
 		@PathVariable("id") Long questionId) {
 		adminLicenseMuiltipleChoiceQuestionUpdateService.deleteQuestion(questionId);
 		return ResponseEntity.noContent().build();
+	}
+
+	@ApiOperation("단답형 선택지 업데이트 - 선택지 지문 업데이트")
+	@DeleteMapping(value = "/choice/{id}")
+	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
+		@PathVariable("id") Long licenseChoiceId,
+		@RequestBody RequestChangeContentDto requestChangeContentDto) {
+		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(adminLicenseQuestionChoiceUpdateService.changeContent(
+			licenseChoiceId,
+			requestChangeContentDto)));
 	}
 
 }

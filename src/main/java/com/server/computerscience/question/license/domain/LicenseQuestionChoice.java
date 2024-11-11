@@ -36,7 +36,7 @@ public class LicenseQuestionChoice extends QuestionChoice {
 		RequestMakeQuestionChoiceDto dto,
 		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion) {
 		LicenseQuestionChoice questionChoice = LicenseQuestionChoice.builder()
-			.text(dto.getText())
+			.content(dto.getText())
 			.selectedCount(0)
 			.answerStatus(dto.isAnswerStatus())
 			.question(licenseMultipleChoiceQuestion)
