@@ -33,6 +33,6 @@ public class AdminMajorQuestionViewController {
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("folderName", "index");
 		model.addAttribute("isMajorQuestion", true);
-		return "major-question-update";
+		return "question-update";
 	}
 }

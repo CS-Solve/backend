@@ -67,7 +67,7 @@ public class LicenseQuestionGetViewController {
 				.entrySet().stream()
 				.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
-		return "major-question-update";
+		return "question-update";
 	}
 
 	/**

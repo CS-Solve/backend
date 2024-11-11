@@ -11,8 +11,11 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @MappedSuperclass
-@ToString(exclude = "question")
+@ToString(exclude = "question") //재귀로 StackOverFlow 발생
 public abstract class QuestionChoice {
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.IDENTITY)
+	// private Long id;
 	private String content;
 	private int selectedCount;
 	private boolean answerStatus;

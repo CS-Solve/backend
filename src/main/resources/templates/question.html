@@ -86,9 +86,9 @@
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
                             <div class="choice-item"
                                  th:data-answer-status="${choice.answerStatus}"
-                                 th:data-choice-text="${choice.text}"
+                                 th:data-choice-text="${choice.content}"
                                  th:each="choice, choiceStat : ${question.questionChoices}"
-                                 th:text="${choiceStat.index + 1} + '. ' + ${choice.text}">
+                                 th:text="${choiceStat.index + 1} + '. ' + ${choice.content}">
                             </div>
                         </div>
                     </div>

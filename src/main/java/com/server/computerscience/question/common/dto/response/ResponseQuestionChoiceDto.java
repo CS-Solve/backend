@@ -24,7 +24,8 @@ public class ResponseQuestionChoiceDto {
 		this.answerStatus = answerStatus;
 	}
 
-	public static <T extends QuestionChoice> ResponseQuestionChoiceDto of(T questionChoice) {
+	public static <T extends QuestionChoice> ResponseQuestionChoiceDto of(
+		T questionChoice) {
 		return ResponseQuestionChoiceDto.builder()
 			.content(questionChoice.getContent())
 			.selectedCount(questionChoice.getSelectedCount())
