@@ -42,6 +42,9 @@
     </div>
 </header>
 <div class="quiz">
+    <!--    문제 타입(전공 or 자격증)-->
+    <input id="questionType" type="hidden" th:value="${isMajorQuestion ? 'major' : 'license'}"/>
+
     <!-- 상단 제목 -->
     <!--    <div class="logo-box">Com Ssa</div>-->
     <h1 class="session-box"
@@ -87,6 +90,7 @@
                             <div class="choice-item"
                                  th:data-answer-status="${choice.answerStatus}"
                                  th:data-choice-text="${choice.content}"
+                                 th:data-choice-id="${choice.id}"
                                  th:each="choice, choiceStat : ${question.questionChoices}"
                                  th:text="${choiceStat.index + 1} + '. ' + ${choice.content}">
                             </div>
@@ -143,7 +147,8 @@
 </div>
 
 <footer style="position: absolute; bottom: 0; width: 100%; text-align: center; padding: 1em; background-color: #f2f4f7; font-size: 0.8vw; color: #333;">
-    <p>건의 및 문의사항: <a href="https://open.kakao.com/o/sHIYrIXg" target="_blank">https://open.kakao.com/o/sHIYrIXg</a></p>
+    <p>문제 오류 제보 및 문의사항: <a href="https://open.kakao.com/o/sHIYrIXg"
+                           target="_blank">https://open.kakao.com/o/sHIYrIXg</a></p>
     <p>Email: <a href="mailto:solve.comssa@gmail.com">solve.comssa@gmail.com</a></p>
 </footer>
 </body>

@@ -112,5 +112,4 @@ public class AdminLicenseQuestionController {
 			.toggleAnswerStatus(
 				licenseChoiceId)));
 	}
-
 }

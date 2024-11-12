@@ -89,7 +89,6 @@ public class SshTunnelingInitializer {
 		} catch (Exception e) {
 			log.error("fail to make ssh tunneling");
 			this.closeSsh();
-			e.printStackTrace();
 			exit(1);
 		}
 

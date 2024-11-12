@@ -59,6 +59,7 @@ public class LicenseQuestionGetViewController {
 				.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		model.addAttribute("multipleChoice", true);
+		model.addAttribute("isMajorQuestion", false);
 		return "question";
 	}
 

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let selectedQuestion = null;
     let marked = false;
     // 상수 정의
+    const questionType = document.getElementById('questionType').value;
     const checkAnswerButton = document.getElementById('checkButton');
     const answerBox = document.getElementById('answerBox');
     const answerText = document.getElementById('answerText');
@@ -220,9 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         let questionBox = selectedChoice.closest('.question-box');
         saveQuestionPosition(questionBox);
-
         refreshAnswerAndDescription();
-
     }
 
     /*
@@ -341,7 +340,37 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // 사이드바 업데이트
         updateSidebar(selectedChoice, isCorrect);
+
+
+        isChoiceAnswer(selectedChoice);
+
     }
+
+    function isChoiceAnswer(selectedChoice) {
+        const choiceId = selectedChoice.getAttribute('data-choice-id');
+
+        if (choiceId) {
+            fetch(`/question/${questionType}/choice/${choiceId}/select`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application /json'
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('선택지 업데이트 요청이 실패했습니다.');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('선택지 업데이트 성공, 선택시 정답 여부:', data);
+                })
+                .catch(error => {
+                    console.error('선택지 업데이트 에러:', error);
+                });
+        }
+    }
+
 
 // 주관식 문제 처리 함수
     function processShortAnswer() {
