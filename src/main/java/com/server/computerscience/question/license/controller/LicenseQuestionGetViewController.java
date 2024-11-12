@@ -38,13 +38,16 @@ public class LicenseQuestionGetViewController {
 	) {
 		LicenseSession licenseSession = licenseSessionService.getLicenseSessionById(sessionId);
 
-		String sessionInform =
-			licenseSession.getLicenseCategory().getKorean() + " 기출 문제 - " + licenseSession.getContent();
+		String title =
+			licenseSession.getLicenseCategory().getKorean() + " | " + "기출 문제 - " + licenseSession.getContent();
 		model.addAttribute(baseUrl, resourceBaseUrl);
-		model.addAttribute("title", sessionInform);
+		model.addAttribute("title", title);
 		model.addAttribute("description", "CS 전공과 관련된 자격증 기출 문제를 풀어볼 수 있습니다.");
-		model.addAttribute("questionSession", sessionInform
-			+ " / 복원 문제는 오류가 있을 수 있습니다.");
+		model.addAttribute("questionSession",
+			licenseSession.getLicenseCategory().getKorean()
+				+ " - "
+				+ licenseSession.getContent()
+				+ " / 복원 문제는 오류가 있을 수 있습니다.");
 		model.addAttribute("questions",
 			userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 				.entrySet().stream()
