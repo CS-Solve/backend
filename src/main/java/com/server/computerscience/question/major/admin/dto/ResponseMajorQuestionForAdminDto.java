@@ -17,15 +17,12 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 public class ResponseMajorQuestionForAdminDto extends ResponseQuestionDto {
-	private boolean ifApproved;
 	private boolean canBeShortAnswered;
 
-	public ResponseMajorQuestionForAdminDto(Long id, String question, QuestionCategory questionCategory,
+	public ResponseMajorQuestionForAdminDto(Long id, String content, QuestionCategory questionCategory,
 		QuestionLevel questionLevel, List<ResponseQuestionChoiceDto> normalQuestionChoices, String description,
-		boolean ifApproved, boolean canBeShortAnswered) {
-		super(id, question, questionCategory, questionLevel, normalQuestionChoices, description);
-		this.ifApproved = ifApproved;
+		boolean ifApproved, boolean canBeShortAnswered, String imageUrl) {
+		super(id, content, description, imageUrl, questionCategory, questionLevel, normalQuestionChoices, ifApproved);
 		this.canBeShortAnswered = canBeShortAnswered;
 	}
-
 }

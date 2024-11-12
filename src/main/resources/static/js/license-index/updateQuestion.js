@@ -1,3 +1,24 @@
+function toggleApprove(questionId) {
+    fetch(`/admin/question/license/${questionId}/toggle-approve`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('승인 상태 토글 실패');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('승인 상태가 성공적으로 토글되었습니다:', data);
+        })
+        .catch(error => {
+            console.error('승인 상태 토글 중 오류 발생:', error);
+        });
+}
+
 function toggleCategory(categoryName) {
     var questionList = document.getElementById('questions-' + categoryName);
     if (questionList.style.display === "none") {
@@ -49,7 +70,7 @@ function updateDifficulty(selectElement) {
         });
 }
 
-function makeEditable(element, field, questionId) {
+function makeEditable(element, field, id) {
     const originalText = element.innerText;
     const input = document.createElement('input');
     input.type = 'text';
@@ -60,9 +81,9 @@ function makeEditable(element, field, questionId) {
         if (event.key === 'Enter') {
             const newText = input.value;
 
-            updateNormalTextField(questionId, field, newText);
+            updateNormalTextField(id, field, newText);
             element.innerText = newText;
-            element.ondblclick = () => makeEditable(element, field, questionId);
+            element.ondblclick = () => makeEditable(element, field, id);
         }
     };
 
@@ -120,19 +141,20 @@ function showOverlayInput(element) {
 function saveOverlayChanges() {
     if (currentEditElement) {
         const newText = document.getElementById('overlay-textarea').value;
-        const questionId = currentEditElement.getAttribute('data-id');
+        const id = currentEditElement.getAttribute('data-id');
         const field = currentEditElement.getAttribute('data-field');
+        console.log(field + "/" + id)
 
-        updateNormalTextField(questionId, field, newText)
+        updateNormalTextField(id, field, newText)
             .then(updatedData => {
-                if (updatedData && updatedData[field] !== undefined) {
-                    console.log(`${field}가 성공적으로 업데이트되었습니다:`, updatedData[field]);
+                if (updatedData) {
+                    console.log(`${field}가 성공적으로 업데이트되었습니다:`, newText);
 
                     // 현재 스크롤 위치 저장
                     localStorage.setItem('scrollPosition', window.pageYOffset);
 
                     // 성공 시 페이지 새로고침
-                    // window.location.reload();
+                    window.location.reload();
                 } else {
                     console.warn(`서버 응답에 ${field} 필드가 없거나 응답이 올바르지 않습니다.`);
                     alert('업데이트에 문제가 발생했습니다. 페이지를 새로고침한 후 다시 시도해주세요.');
@@ -151,13 +173,26 @@ function saveOverlayChanges() {
     }
 }
 
-function updateNormalTextField(questionId, field, newValue) {
-    return fetch(`/admin/question/license/${questionId}/${field}`, {
+function updateNormalTextField(id, field, newValue) {
+    // URL을 동적으로 설정
+    let url;
+    if (field === 'choiceContent') {
+        // field가 'choiceContent'이면 choiceId를 포함한 URL로 설정
+        url = `/admin/question/license/choice/${id}`;
+    } else if (field === 'description') {
+        // 기본 URL
+        url = `/admin/question/license/${id}/description`;
+    } else if (field === 'content') {
+        url = `/admin/question/license/${id}/content`;
+    }
+
+    // Fetch 요청 보내기
+    return fetch(url, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({[field]: newValue})
+        body: JSON.stringify({content: newValue})
     })
         .then(response => {
             if (!response.ok) {
@@ -199,4 +234,75 @@ function uploadImage(questionId, fileInput) {
 function removeImage(questionId) {
     // 제거 로직을 추가하거나 API를 확장하여 이미지 제거 기능 구현
     console.log("이미지 제거:", questionId);
+}
+
+/**
+ * 선택지 정답 상태 수정
+ */
+function confirmAnswerStatusChange(checkboxElement) {
+    const choiceId = checkboxElement.getAttribute('data-id');
+    const newAnswerStatus = checkboxElement.checked;
+
+    // 사용자에게 확인 메시지 띄우기
+    const confirmation = confirm("정답 여부를 변경하시겠습니까?");
+    if (confirmation) {
+        // 확인 버튼을 클릭하면 API 요청 보내기
+        updateAnswerStatus(choiceId, newAnswerStatus);
+    } else {
+        // 변경을 취소하고 체크박스를 원래 상태로 되돌리기
+        checkboxElement.checked = !newAnswerStatus;
+    }
+}
+
+function updateAnswerStatus(choiceId, newAnswerStatus) {
+    // API 요청 보내기 (PATCH 방식으로 요청)
+    return fetch(`/admin/question/license/choice/${choiceId}/toggle`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({answerStatus: newAnswerStatus})
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('정답 여부 업데이트 실패');
+            }
+            console.log('정답 여부가 성공적으로 업데이트되었습니다.');
+        })
+        .catch(error => {
+            console.error(error);
+            alert('정답 여부 업데이트에 실패했습니다. 다시 시도해주세요.');
+        });
+}
+
+/**
+ * 선택지 삭제
+ */
+function deleteChoice(buttonElement) {
+    const choiceId = buttonElement.getAttribute('data-choice-id');
+
+    // 사용자 확인
+    const confirmation = confirm("이 선택지를 삭제하시겠습니까?");
+    if (!confirmation) {
+        return;
+    }
+
+    // 서버에 삭제 요청 보내기
+    fetch(`/admin/question/license/choice/${choiceId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("삭제 실패");
+            }
+            // 삭제 성공 시 페이지 새로고침
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error(error);
+            alert("선택지 삭제에 실패했습니다. 다시 시도해주세요.");
+        });
 }

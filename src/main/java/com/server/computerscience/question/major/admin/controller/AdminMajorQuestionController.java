@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.computerscience.question.common.dto.request.RequestChangeContentDto;
-import com.server.computerscience.question.common.dto.request.RequestChangeDescriptionDto;
 import com.server.computerscience.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.server.computerscience.question.common.dto.response.ResponseQuestionDto;
 import com.server.computerscience.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
@@ -73,7 +72,7 @@ public class AdminMajorQuestionController {
 	@PatchMapping(value = "/question/major/{id}/toggle-approve")
 	public ResponseEntity<ResponseQuestionDto> toggleApproveNormalQuestion(@PathVariable("id") Long questionId) {
 		return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(
-			adminMajorMultipleChoiceQuestionUpdateService.toggleApproveNormalQuestion(questionId)));
+			adminMajorMultipleChoiceQuestionUpdateService.toggleApprove(questionId)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 단답형-주관식 토글")
@@ -96,10 +95,10 @@ public class AdminMajorQuestionController {
 	@PatchMapping(value = "/question/major/{id}/description")
 	public ResponseEntity<ResponseQuestionDto> changeDescription(
 		@PathVariable("id") Long questionId,
-		@RequestBody RequestChangeDescriptionDto requestChangeDescriptionDto
+		@RequestBody RequestChangeContentDto requestChangeContentDto
 	) {
 		return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(
-			adminMajorMultipleChoiceQuestionUpdateService.changeDescription(questionId, requestChangeDescriptionDto)));
+			adminMajorMultipleChoiceQuestionUpdateService.changeDescription(questionId, requestChangeContentDto)));
 	}
 
 	@ApiOperation("단답형 문제 삭제")

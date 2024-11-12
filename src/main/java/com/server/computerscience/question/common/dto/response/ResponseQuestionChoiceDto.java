@@ -11,20 +11,24 @@ import lombok.NoArgsConstructor;
 @Getter
 public class ResponseQuestionChoiceDto {
 
-	private String text;
+	private Long id;
+	private String content;
 	private int selectedCount;
 	private boolean answerStatus;
 
 	@Builder
-	public ResponseQuestionChoiceDto(String text, int selectedCount, boolean answerStatus) {
-		this.text = text;
+	public ResponseQuestionChoiceDto(Long id, String content, int selectedCount, boolean answerStatus) {
+		this.id = id;
+		this.content = content;
 		this.selectedCount = selectedCount;
 		this.answerStatus = answerStatus;
 	}
 
-	public static <T extends QuestionChoice> ResponseQuestionChoiceDto of(T questionChoice) {
+	public static <T extends QuestionChoice> ResponseQuestionChoiceDto of(
+		T questionChoice) {
 		return ResponseQuestionChoiceDto.builder()
-			.text(questionChoice.getText())
+			.id(questionChoice.getId())
+			.content(questionChoice.getContent())
 			.selectedCount(questionChoice.getSelectedCount())
 			.answerStatus(questionChoice.isAnswerStatus())
 			.build();

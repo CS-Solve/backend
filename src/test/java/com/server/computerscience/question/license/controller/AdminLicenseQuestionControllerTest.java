@@ -28,6 +28,7 @@ import com.server.computerscience.question.license.domain.LicenseCategory;
 import com.server.computerscience.question.license.domain.LicenseMultipleChoiceQuestion;
 import com.server.computerscience.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import com.server.computerscience.question.license.service.AdminLicenseMuiltipleChoiceQuestionUpdateService;
+import com.server.computerscience.question.license.service.AdminLicenseQuestionChoiceUpdateService;
 import com.server.computerscience.question.license.service.AdminLicenseQuestionMakeService;
 
 @WebMvcTest(AdminLicenseQuestionController.class)
@@ -36,6 +37,8 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 	private final String tag = "자격증 문제";
 	private final String baseApiUrl = "/admin/question/license";
 	private final String idUrl = "/1";
+	@MockBean
+	private AdminLicenseQuestionChoiceUpdateService adminLicenseQuestionChoiceUpdateService;
 	@MockBean
 	private AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
 	@MockBean

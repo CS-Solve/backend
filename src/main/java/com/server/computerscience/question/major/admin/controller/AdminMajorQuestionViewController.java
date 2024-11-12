@@ -31,6 +31,8 @@ public class AdminMajorQuestionViewController {
 				.map(entry -> ResponseClassifiedMultipleQuestionDto.forAdmin(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		model.addAttribute(baseUrl, resourceBaseUrl);
-		return "major-question-update";
+		model.addAttribute("folderName", "index");
+		model.addAttribute("isMajorQuestion", true);
+		return "question-update";
 	}
 }

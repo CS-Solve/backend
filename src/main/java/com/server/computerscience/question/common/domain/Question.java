@@ -20,6 +20,7 @@ public abstract class Question {
 	protected QuestionLevel questionLevel;
 	protected String description;
 	protected String imageUrl;
+	public boolean ifApproved;
 
 	public Question(String content, QuestionCategory questionCategory, QuestionLevel questionLevel, String description,
 		String imageUrl) {
@@ -38,6 +39,10 @@ public abstract class Question {
 
 	public void changeContent(String content) {
 		this.content = content;
+	}
+
+	public void toggleApproved() {
+		this.ifApproved = !this.ifApproved;
 	}
 
 	public void updateImage(String imageUrl) {

@@ -18,7 +18,7 @@ public class RequestMakeQuestionChoiceDto {
 	public static RequestMakeQuestionChoiceDto from(QuestionChoice questionChoice) {
 		return RequestMakeQuestionChoiceDto.builder()
 			.answerStatus(questionChoice.isAnswerStatus())
-			.text(questionChoice.getText())
+			.text(questionChoice.getContent())
 			.build();
 	}
 }

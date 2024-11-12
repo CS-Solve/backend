@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.server.computerscience.question.common.dto.request.RequestChangeContentDto;
-import com.server.computerscience.question.common.dto.request.RequestChangeDescriptionDto;
+import com.server.computerscience.question.common.dto.response.ResponseQuestionChoiceDto;
 import com.server.computerscience.question.common.dto.response.ResponseQuestionDto;
 import com.server.computerscience.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import com.server.computerscience.question.license.service.AdminLicenseMuiltipleChoiceQuestionUpdateService;
+import com.server.computerscience.question.license.service.AdminLicenseQuestionChoiceUpdateService;
 import com.server.computerscience.question.license.service.AdminLicenseQuestionMakeService;
 
 import io.swagger.annotations.Api;
@@ -31,6 +32,7 @@ import lombok.RequiredArgsConstructor;
 public class AdminLicenseQuestionController {
 	private final AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
 	private final AdminLicenseMuiltipleChoiceQuestionUpdateService adminLicenseMuiltipleChoiceQuestionUpdateService;
+	private final AdminLicenseQuestionChoiceUpdateService adminLicenseQuestionChoiceUpdateService;
 
 	@ApiOperation("단답형 문제 세션으로 생성")
 	@PostMapping
@@ -61,9 +63,18 @@ public class AdminLicenseQuestionController {
 	@PatchMapping(value = "/{id}/description")
 	public ResponseEntity<ResponseQuestionDto> changeDescription(
 		@PathVariable("id") Long questionId,
-		@RequestBody RequestChangeDescriptionDto changeDescriptionDto) {
+		@RequestBody RequestChangeContentDto requestChangeContentDto) {
 		return ResponseEntity.ok(ResponseQuestionDto.forAdmin(
-			adminLicenseMuiltipleChoiceQuestionUpdateService.changeDescription(questionId, changeDescriptionDto)));
+			adminLicenseMuiltipleChoiceQuestionUpdateService.changeDescription(questionId, requestChangeContentDto)));
+	}
+
+	@ApiOperation("단답형 문제 상태 업데이트 - 문제 해설 업데이트")
+	@PatchMapping(value = "/{id}/toggle-approve")
+	public ResponseEntity<ResponseQuestionDto> toggleIsApprove(
+		@PathVariable("id") Long questionId
+	) {
+		return ResponseEntity.ok(ResponseQuestionDto.forAdmin(
+			adminLicenseMuiltipleChoiceQuestionUpdateService.toggleApprove(questionId)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 문제 삭제")
@@ -72,6 +83,34 @@ public class AdminLicenseQuestionController {
 		@PathVariable("id") Long questionId) {
 		adminLicenseMuiltipleChoiceQuestionUpdateService.deleteQuestion(questionId);
 		return ResponseEntity.noContent().build();
+	}
+
+	@ApiOperation("단답형 선택지 업데이트 - 선택지 지문 업데이트")
+	@PatchMapping(value = "/choice/{id}")
+	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
+		@PathVariable("id") Long licenseChoiceId,
+		@RequestBody RequestChangeContentDto requestChangeContentDto) {
+		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(adminLicenseQuestionChoiceUpdateService.changeContent(
+			licenseChoiceId,
+			requestChangeContentDto)));
+	}
+
+	@ApiOperation("단답형 선택지 업데이트 - 선택지 삭제")
+	@DeleteMapping(value = "/choice/{id}")
+	public ResponseEntity<Void> deleteChoiceContent(
+		@PathVariable("id") Long licenseChoiceId) {
+		adminLicenseQuestionChoiceUpdateService.deleteQuestionChoice(
+			licenseChoiceId);
+		return ResponseEntity.noContent().build();
+	}
+
+	@ApiOperation("단답형 선택지 업데이트 - 정답 여부 변경")
+	@PatchMapping(value = "/choice/{id}/toggle")
+	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
+		@PathVariable("id") Long licenseChoiceId) {
+		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(adminLicenseQuestionChoiceUpdateService
+			.toggleAnswerStatus(
+				licenseChoiceId)));
 	}
 
 }

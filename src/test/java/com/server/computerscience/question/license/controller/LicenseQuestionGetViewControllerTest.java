@@ -23,15 +23,18 @@ import com.server.computerscience.question.common.dto.response.ResponseClassifie
 import com.server.computerscience.question.license.domain.LicenseCategory;
 import com.server.computerscience.question.license.domain.LicenseMultipleChoiceQuestion;
 import com.server.computerscience.question.license.domain.LicenseSession;
-import com.server.computerscience.question.license.service.LicenseQuestionGetService;
+import com.server.computerscience.question.license.service.AdminLicenseQuestionGetService;
 import com.server.computerscience.question.license.service.LicenseSessionService;
+import com.server.computerscience.question.license.service.UserLicenseQuestionGetService;
 
 @DisplayName("단위 테스트 - 자격증 Get View Controller")
 @WebMvcTest(LicenseQuestionGetViewController.class)
 class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 
 	@MockBean
-	private LicenseQuestionGetService licenseQuestionGetService;
+	private UserLicenseQuestionGetService userLicenseQuestionGetService;
+	@MockBean
+	private AdminLicenseQuestionGetService adminLicenseQuestionGetService;
 	@MockBean
 	private LicenseSessionService licenseSessionService;
 	private LicenseSession licenseSession;
@@ -66,7 +69,7 @@ class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 	void licenseQuestionPage() throws Exception {
 		final String PATH = "/question/license/1";
 		Mockito.when(licenseSessionService.getLicenseSessionById(any())).thenReturn(licenseSession);
-		Mockito.when(licenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(any()))
+		Mockito.when(userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(any()))
 			.thenReturn(licenseMultipleChoiceQuestionsMap);
 
 		mockMvc.perform(MockMvcRequestBuilders.get(PATH))
@@ -78,13 +81,13 @@ class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 
 	@Test
 	@DisplayName("업데이트")
-	void updatelicenseQuestionPage() throws Exception {
+	void updateLicenseQuestionPage() throws Exception {
 		final String PATH = "/admin/question/license/update/1";
-		Mockito.when(licenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(any()))
+		Mockito.when(userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(any()))
 			.thenReturn(licenseMultipleChoiceQuestionsMap);
 
 		mockMvc.perform(MockMvcRequestBuilders.get(PATH))
-			.andExpect(view().name("license-question-update"))
+			.andExpect(view().name("question-update"))
 			.andExpect(model().attributeExists("classifiedQuestions"))
 			.andDo(print());
 	}

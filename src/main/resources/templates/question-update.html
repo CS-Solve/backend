@@ -2,31 +2,29 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>자격증 질문 업데이트</title>
-    <script th:src="|${baseUrl}/js/license-index/updateQuestion.js|"></script>
+    <title>일반 질문 업데이트</title>
+
+    <script th:src="|${baseUrl}/js/${folderName}/updateQuestion.js|"></script>
     <script th:src="|${baseUrl}/js/translateTextForHtml.js|"></script>
-    <link rel="stylesheet" th:href="|${baseUrl}/css/normal-question-update/style.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/question-update/style.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/global.css|"/>
 </head>
 <body>
 
-<h1>자격증 질문 업데이트</h1>
+<h1>일반 질문 업데이트</h1>
 
 <!-- 카테고리별 질문 목록을 렌더링 -->
 <div th:each="classifiedQuestion : ${classifiedQuestions}">
-    <h2 style="cursor: pointer; color: #2980b9;"
+    <h2 style="cursor: pointer; color: #2980b9; font-size: 50px; "
         th:attr="onclick=|toggleCategory('${classifiedQuestion.questionCategory}')|"
-        th:text="${classifiedQuestion.questionCategory}">카테고리 이름</h2>
+        th:text="${classifiedQuestion.questionCategory}"
+        th:fontSize="300">
+        카테고리 이름</h2>
 
     <!-- 질문 목록 -->
     <div th:id="'questions-'+${classifiedQuestion.questionCategory}">
-        <div class="question-container"
-             th:each="question, iterStat : ${classifiedQuestion.responseQuestionDtoList}"
+        <div class="question-container" th:each="question : ${classifiedQuestion.responseQuestionDtoList}"
              th:id="'question-'+${question.id}">
-
-            <!-- 질문 번호 표시 -->
-            <span class="question-number" th:text="${iterStat.count} + '. '"></span>
-
             <!-- 문제 텍스트 -->
             <div class="editable-container">
                 <h3 class="questionItem" th:attr="data-id=${question.id}, data-field='content'"
@@ -54,10 +52,25 @@
 
             <!-- 선택지 목록 -->
             <ul>
-                <li th:each="choice : ${question.questionChoices}">
-                    <span th:text="${choice.text}">선택지 텍스트</span>
+                <li th:each="choice : ${question.questionChoices}"
+                    style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+                    <div class="editable-container">
+            <span th:attr="data-id=${choice.id}, data-field='choiceContent'"
+                  th:text="${choice.content}">선택지 텍스트</span>
+                    </div>
                     (<span th:text="${choice.selectedCount}">0</span> 선택)
-                    <span th:if="${choice.answerStatus}" th:text="'[정답]'">정답</span>
+
+                    <!-- 정답 여부 체크박스 -->
+                    <label for="answerStatus">정답 여부:</label>
+                    <input type="checkbox"
+                           th:checked="${choice.answerStatus}"
+                           th:attr="data-id=${choice.id}"
+                           onchange="confirmAnswerStatusChange(this)">
+
+                    <!-- 삭제 버튼 -->
+                    <button type="button" onclick="deleteChoice(this)" th:attr="data-choice-id=${choice.id}">
+                        삭제
+                    </button>
                 </li>
             </ul>
 
@@ -66,6 +79,25 @@
                 <p class="descriptionUpdateText" th:attr="data-id=${question.id}, data-field='description'"
                    th:text="${question.description}">설명</p>
             </div>
+
+            <!-- approve 체크박스: 항상 표시 -->
+            <label for="approve">허용:</label>
+            <input onclick="toggleApprove(this.getAttribute('data-question-id'))"
+                   th:attr="data-question-id=${question.id}"
+                   th:checked="${question.ifApproved}"
+                   type="checkbox"/>
+            <br/>
+
+            <!-- canBeShortAnswered 체크박스: isMajorQuestion이 true일 때만 표시 -->
+            <div th:if="${isMajorQuestion}">
+                <label for="canBeShortAnswered">주관식 문제 가능:</label>
+                <input onclick="toggleCanBeMultiple(this.getAttribute('data-question-id'))"
+                       th:attr="data-question-id=${question.id}"
+                       th:checked="${question.canBeShortAnswered}"
+                       type="checkbox"/>
+                <br/>
+            </div>
+
 
             <button th:onclick="|deleteQuestion(${question.id})|" type="button">
                 질문 삭제
@@ -79,10 +111,6 @@
     <button onclick="saveOverlayChanges()">저장</button>
     <button onclick="cancelOverlayChanges()">취소</button>
 </div>
-
-<script>
-
-</script>
 
 </body>
 </html>
