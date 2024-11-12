@@ -37,6 +37,7 @@ public class BasicQuestionSelectorService implements QuestionSelectorService {
 	@Override
 	public List<String> getLevels() {
 		return Arrays.stream(QuestionLevel.values())
+			.filter(level -> level != QuestionLevel.NONE)
 			.map(QuestionLevel::getKorean)
 			.collect(Collectors.toList());
 	}
