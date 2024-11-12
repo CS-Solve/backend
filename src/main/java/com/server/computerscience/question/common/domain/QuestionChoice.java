@@ -36,4 +36,8 @@ public abstract class QuestionChoice {
 	public void toggleAnswerStatus() {
 		this.answerStatus = !this.answerStatus;
 	}
+
+	public void select() {
+		this.selectedCount++;
+	}
 }
