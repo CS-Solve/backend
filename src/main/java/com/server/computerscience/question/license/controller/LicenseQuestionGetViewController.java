@@ -1,5 +1,6 @@
 package com.server.computerscience.question.license.controller;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.server.computerscience.login.aspect.AddLoginStatusAttribute;
 import com.server.computerscience.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.server.computerscience.question.license.domain.LicenseCategory;
 import com.server.computerscience.question.license.domain.LicenseSession;
 import com.server.computerscience.question.license.service.AdminLicenseQuestionGetService;
 import com.server.computerscience.question.license.service.LicenseSessionService;
@@ -42,7 +44,10 @@ public class LicenseQuestionGetViewController {
 			licenseSession.getLicenseCategory().getKorean() + " | " + "기출 문제 - " + licenseSession.getContent();
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("title", title);
-		model.addAttribute("description", "CS 전공과 관련된 자격증 기출 문제를 풀어볼 수 있습니다.");
+		model.addAttribute("description", Arrays.stream(LicenseCategory.values())
+			.map(LicenseCategory::getKorean)
+			.collect(Collectors.joining(", "))
+			+ " 등 컴퓨터 사이언스(CS) 자격증 기출 문제를 풀어보세요. 기출 문제 풀이를 통해 자격증 대비가 가능합니다.");
 		model.addAttribute("questionSession",
 			licenseSession.getLicenseCategory().getKorean()
 				+ " - "
