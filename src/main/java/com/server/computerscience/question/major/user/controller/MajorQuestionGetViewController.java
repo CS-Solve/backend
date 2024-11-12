@@ -55,6 +55,7 @@ public class MajorQuestionGetViewController {
 			.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
 			.collect(Collectors.toList()));
 		model.addAttribute("multipleChoice", multipleChoice);
+		model.addAttribute("isMajorQuestion", true);
 
 		return "question"; // 문제를 보여줄 페이지의 이름
 	}
