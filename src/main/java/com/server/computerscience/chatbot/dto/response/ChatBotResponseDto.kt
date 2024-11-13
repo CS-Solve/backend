@@ -6,6 +6,7 @@ class ChatBotResponseDto(
 ) {
 
     companion object {
+        @JvmStatic
         fun from(content: String?): ChatBotResponseDto {
             return ChatBotResponseDto(
                 content = content
