@@ -258,3 +258,7 @@ tasks.named('test') {
     // test 수행 이후 리포트 생성
     finalizedBy jacocoTestReport
 }
+
+kapt {
+    keepJavacAnnotationProcessors = true
+}
