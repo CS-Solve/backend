@@ -17,6 +17,9 @@ plugins {
     id 'org.ec4j.editorconfig' version '0.0.3'
     id 'checkstyle'
 
+    //코틀린
+    id 'org.jetbrains.kotlin.jvm' version '1.8.0' // Kotlin 플러그인
+    id 'org.jetbrains.kotlin.kapt' version '1.8.0' // Kotlin Annotation Processing 플러그인
 }
 
 //editorconfig {
@@ -196,12 +199,18 @@ dependencies {
 
     // @mwiede의 포크 버전 jsch 추가
     implementation 'com.github.mwiede:jsch:0.2.21'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
 //    // 기존 foo:bar 의존성에서 com.jcraft:jsch 제외
 //    implementation('foo:bar') {
 //        exclude group: 'com.jcraft', module: 'jsch'
 //    }
 
+    /**
+     * KOTLIN
+     */
+    // Kotlin용 Lombok 설정
+    kapt 'org.projectlombok:lombok'
 
 }
 
