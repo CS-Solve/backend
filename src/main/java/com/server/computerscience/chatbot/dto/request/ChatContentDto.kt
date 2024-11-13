@@ -3,13 +3,13 @@ package com.server.computerscience.chatbot.dto.request
 import com.server.computerscience.chatbot.domain.ChatContentType
 
 data class ChatContentDto(
-    val type: String? = null,
-    val text: String? = null
+    val type: String,
+    val text: String
 ) {
 
     companion object {
         @JvmStatic
-        fun from(type: ChatContentType, text: String?): ChatContentDto {
+        fun from(type: ChatContentType, text: String): ChatContentDto {
             return ChatContentDto(
                 type = type.lower,
                 text = text

@@ -52,7 +52,7 @@ public class LicenseQuestionGetViewController {
 			licenseSession.getLicenseCategory().getKorean()
 				+ " - "
 				+ licenseSession.getContent()
-				+ " / 복원 문제는 오류가 있을 수 있습니다.");
+				+ " / 실제 시험은 더 어려울 수 있으니, 문제의 중심 개념 (정답 선택지) 위주로 학습 추천");
 		model.addAttribute("questions",
 			userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 				.entrySet().stream()

@@ -6,12 +6,12 @@ import com.server.computerscience.chatbot.dto.request.ChatContentDto.Companion.f
 
 
 class ChatMessageDto(
-    val role: String? = null,
-    val content: List<ChatContentDto?>? = null
+    val role: String,
+    val content: List<ChatContentDto?>
 ) {
     companion object {
         @JvmStatic
-        fun from(text: String?, role: ChatRole): ChatMessageDto {
+        fun from(text: String, role: ChatRole): ChatMessageDto {
             return ChatMessageDto(
                 role = role.lower,
                 content = listOf(from(ChatContentType.TEXT, text))
@@ -19,7 +19,7 @@ class ChatMessageDto(
         }
 
         @JvmStatic
-        fun from(chatContents: List<ChatContentDto?>?, role: ChatRole): ChatMessageDto {
+        fun from(chatContents: List<ChatContentDto?>, role: ChatRole): ChatMessageDto {
             return ChatMessageDto(
                 role = role.lower,
                 content = chatContents

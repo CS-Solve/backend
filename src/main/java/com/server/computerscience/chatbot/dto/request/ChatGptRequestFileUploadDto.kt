@@ -5,19 +5,19 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy::class)
 data class ChatGptRequestFileUploadDto(
-    val customId: String? = null,
-    val method: String? = null,
-    val url: String? = null,
-    val body: ChatGptRestRequestDto? = null
+    val customId: String,
+    val method: String,
+    val url: String,
+    val body: ChatGptRestRequestDto
 ) {
 
     companion object {
         @JvmStatic
         fun from(
-            body: ChatGptRestRequestDto?,
-            customId: String?,
-            method: String?,
-            url: String?
+            body: ChatGptRestRequestDto,
+            customId: String,
+            method: String,
+            url: String
         ): ChatGptRequestFileUploadDto {
             return ChatGptRequestFileUploadDto(
                 customId = customId,
