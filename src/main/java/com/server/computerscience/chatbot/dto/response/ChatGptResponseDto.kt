@@ -1,54 +1,30 @@
-package com.server.computerscience.chatbot.dto.response;
+package com.server.computerscience.chatbot.dto.response
 
-import java.util.List;
+data class ChatGptResponseDto(
+    val id: String? = null,
+    val `object`: String? = null,
+    val created: Long = 0,
+    val model: String? = null,
+    val usage: Usage? = null,
+    val choices: List<Choice>? = null
+) {
+    val firstChoiceContent: String
+        get() = this.choices?.get(0)?.message?.content ?: ""
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+    data class Choice(
+        val message: Message? = null,
+        val finishReason: String? = null,
+        val index: Int = 0
+    )
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@ToString
-public class ChatGptResponseDto {
-	private String id;
-	private String object;
-	private long created;
-	private String model;
-	private Usage usage;
-	private List<Choice> choices;
+    data class Message(
+        val role: String? = null,
+        val content: String? = null
+    )
 
-	public String getFirstChoiceContent() {
-		return this.getChoices().get(0).getMessage().getContent();
-	}
-
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Getter
-	@ToString
-	public static class Choice {
-		private Message message;
-		private String finishReason;
-		private int index;
-	}
-
-	@ToString
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Getter
-	public static class Message {
-		private String role;
-		private String content;
-	}
-
-	@ToString
-	@NoArgsConstructor
-	@AllArgsConstructor
-	@Getter
-	public static class Usage {
-		private int promptTokens;
-		private int completionTokens;
-		private int totalTokens;
-	}
+    data class Usage(
+        val promptTokens: Int = 0,
+        val completionTokens: Int = 0,
+        val totalTokens: Int = 0
+    )
 }

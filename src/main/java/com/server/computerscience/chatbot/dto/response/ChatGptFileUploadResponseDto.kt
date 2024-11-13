@@ -1,21 +1,13 @@
-package com.server.computerscience.chatbot.dto.response;
+package com.server.computerscience.chatbot.dto.response
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-public class ChatGptFileUploadResponseDto {
-	private String id;
-	private String object;
-	private int bytes;
-	private long createdAt;
-	private String filename;
-	private String purpose;
-	private String status;
-	private String statusDetails;
-}
+data class ChatGptFileUploadResponseDto(
+    val id: String? = null,
+    val `object`: String? = null,
+    val bytes: Int = 0,
+    val createdAt: Long = 0,
+    val filename: String? = null,
+    val purpose: String? = null,
+    val status: String? = null,
+    val statusDetails: String? = null
+)

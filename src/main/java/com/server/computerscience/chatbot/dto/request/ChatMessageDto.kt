@@ -1,38 +1,29 @@
-package com.server.computerscience.chatbot.dto.request;
+package com.server.computerscience.chatbot.dto.request
 
-import java.util.Collections;
-import java.util.List;
+import com.server.computerscience.chatbot.domain.ChatContentType
+import com.server.computerscience.chatbot.domain.ChatRole
+import com.server.computerscience.chatbot.dto.request.ChatContentDto.Companion.from
 
-import com.server.computerscience.chatbot.domain.ChatContentType;
-import com.server.computerscience.chatbot.domain.ChatRole;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+class ChatMessageDto(
+    val role: String? = null,
+    val content: List<ChatContentDto?>? = null
+) {
+    companion object {
+        @JvmStatic
+        fun from(text: String?, role: ChatRole): ChatMessageDto {
+            return ChatMessageDto(
+                role = role.lower,
+                content = listOf(from(ChatContentType.TEXT, text))
+            )
+        }
 
-@Getter
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class ChatMessageDto {
-	private String role;
-	private List<ChatContentDto> content;
-
-	public static ChatMessageDto from(String text, ChatRole role) {
-
-		return ChatMessageDto.builder()
-			.role(role.getLower())
-			.content(Collections.singletonList(ChatContentDto.from(ChatContentType.TEXT, text)))
-			.build();
-	}
-
-	public static ChatMessageDto from(List<ChatContentDto> chatContents, ChatRole role) {
-		return ChatMessageDto.builder()
-			.role(role.getLower())
-			.content(chatContents)
-			.build();
-	}
+        @JvmStatic
+        fun from(chatContents: List<ChatContentDto?>?, role: ChatRole): ChatMessageDto {
+            return ChatMessageDto(
+                role = role.lower,
+                content = chatContents
+            )
+        }
+    }
 }

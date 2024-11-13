@@ -1,16 +1,15 @@
-package com.server.computerscience.chatbot.dto.response;
+package com.server.computerscience.chatbot.dto.response
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
 
-@AllArgsConstructor
-@Getter
-@Builder
-public class ChatBotResponseDto {
-	private String content;
+class ChatBotResponseDto(
+    val content: String? = null
+) {
 
-	public static ChatBotResponseDto from(String content) {
-		return ChatBotResponseDto.builder().content(content).build();
-	}
+    companion object {
+        fun from(content: String?): ChatBotResponseDto {
+            return ChatBotResponseDto(
+                content = content
+            )
+        }
+    }
 }
