@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.7.10'
+//    id 'org.springframework.boot' version '2.7.10'
     id 'io.spring.dependency-management' version '1.1.6'
     //gradle7부터는 jvm.convert를 사용해야한다
     //rest docs 결과물 생성 플러그인
@@ -20,8 +20,11 @@ plugins {
     //코틀린
     id 'org.jetbrains.kotlin.jvm' version '1.8.0' // Kotlin 플러그인
     id 'org.jetbrains.kotlin.kapt' version '1.8.0' // Kotlin Annotation Processing 플러그인
-}
 
+    id 'org.springframework.boot' version '2.7.10' apply false // Spring Boot 플러그인
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.8.0'
+}
+apply plugin: 'org.springframework.boot'
 //editorconfig {
 //    excludes = ['build']
 //}
