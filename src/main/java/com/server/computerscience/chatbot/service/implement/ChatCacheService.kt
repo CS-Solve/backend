@@ -5,14 +5,16 @@ import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.CachePut
 import org.springframework.scheduling.annotation.Scheduled
+import org.springframework.security.web.access.WebInvocationPrivilegeEvaluator
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-open class ChatCacheService(
-    private val cacheManager: CacheManager
+class ChatCacheService(
+    private val cacheManager: CacheManager,
+    private val privilegeEvaluator: WebInvocationPrivilegeEvaluator
 ) {
-    val DEFAULT_USED_COUNT = 0;
+    val DEFAULT_USED_COUNT: Int = 0;
 
     /**
      * 이미 저장되어있는 대화 목록이 있을 경우 기존 목록 반환, 아니라면 비어있는 목록을 반환
@@ -29,7 +31,7 @@ open class ChatCacheService(
     }
 
     @CachePut(value = [CHAT_MESSAGE], key = "#userId")
-    open fun saveChatMessage(
+    fun saveChatMessage(
         userId: String,
         chatMessageDto: ChatMessageDto,
         maxMessageSize: Int
@@ -45,13 +47,14 @@ open class ChatCacheService(
     //남은 이용 횟수를 가져오는 메소드
     fun getUsedChance(userId: String): Int {
         val cache = cacheManager.getCache(CHAT_USED_CHANCE)
-        return cache?.get(userId, Int::class.java) ?: DEFAULT_USED_COUNT
+        return cache?.get(userId)?.get() as? Int ?: DEFAULT_USED_COUNT
     }
 
     //사용 횟수 증가 메소드
     @CachePut(value = [CHAT_USED_CHANCE], key = "#userId")
-    open fun increaseUsedChance(userId: String): Int {
-        return getUsedChance(userId) + 1
+    fun increaseUsedChance(userId: String): Int {
+        val usedChance = getUsedChance(userId)
+        return usedChance.inc()
     }
 
     /**

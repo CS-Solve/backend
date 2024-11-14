@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit
 
 @Configuration
 @EnableCaching
-open class CacheConfig {
+class CacheConfig {
     @Bean
-    open fun cacheManager(): CacheManager {
+    fun cacheManager(): CacheManager {
         val cacheManager = CaffeineCacheManager()
         cacheManager.setCaffeine(
             Caffeine.newBuilder()
