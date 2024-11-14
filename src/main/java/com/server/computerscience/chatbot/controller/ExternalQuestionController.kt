@@ -24,14 +24,14 @@ class ExternalQuestionController(
 ) {
     @PostMapping("/chat-gpt/file/question")
     fun updateQuestionToChatGpt(
-        @RequestBody requestQuestionCommandDto: RequestQuestionCommandDto?
+        @RequestBody requestQuestionCommandDto: RequestQuestionCommandDto
     ): ResponseEntity<ChatGptFileUploadResponseDto> {
         return ResponseEntity.ok(externalQuestionService.sendQuestionToExternal(requestQuestionCommandDto))
     }
 
     @PostMapping("/chat-gpt/batch")
     fun createBatchToChatGpt(
-        @RequestBody requestBatchDto: ChatGptBatchRequestDto?
+        @RequestBody requestBatchDto: ChatGptBatchRequestDto
     ): ResponseEntity<ChatGptBatchResponseDto> {
         return ResponseEntity.ok(chatGptService.sendBatchMessage(requestBatchDto))
     }
