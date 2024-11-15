@@ -17,13 +17,12 @@ import org.springframework.web.bind.annotation.RestController
 @Api(tags = ["챗봇"])
 @RequiredArgsConstructor
 class ChatbotController(
-    private val chatbotService: ChatbotService
+	private val chatbotService: ChatbotService,
 ) {
-    @PostMapping("/chat/text")
-    fun chat(
-        @RequestBody chatBotRequestDto: ChatBotRequestDto,
-        @AuthenticationPrincipal user: OAuth2User?
-    ): ResponseEntity<ChatBotResponseDto> {
-        return ResponseEntity.ok(from(chatbotService.talkToAssistant(chatBotRequestDto, user)))
-    }
+	@PostMapping("/chat/text")
+	fun chat(
+		@RequestBody chatBotRequestDto: ChatBotRequestDto,
+		@AuthenticationPrincipal user: OAuth2User?,
+	): ResponseEntity<ChatBotResponseDto> =
+		ResponseEntity.ok(from(chatbotService.talkToAssistant(chatBotRequestDto, user)))
 }

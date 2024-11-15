@@ -19,20 +19,17 @@ import org.springframework.web.bind.annotation.RequestMapping
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 class ExternalQuestionController(
-    private val externalQuestionService: ExternalQuestionService,
-    private val chatGptService: ChatGptService
+	private val externalQuestionService: ExternalQuestionService,
+	private val chatGptService: ChatGptService,
 ) {
-    @PostMapping("/chat-gpt/file/question")
-    fun updateQuestionToChatGpt(
-        @RequestBody requestQuestionCommandDto: RequestQuestionCommandDto
-    ): ResponseEntity<ChatGptFileUploadResponseDto> {
-        return ResponseEntity.ok(externalQuestionService.sendQuestionToExternal(requestQuestionCommandDto))
-    }
+	@PostMapping("/chat-gpt/file/question")
+	fun updateQuestionToChatGpt(
+		@RequestBody requestQuestionCommandDto: RequestQuestionCommandDto,
+	): ResponseEntity<ChatGptFileUploadResponseDto> =
+		ResponseEntity.ok(externalQuestionService.sendQuestionToExternal(requestQuestionCommandDto))
 
-    @PostMapping("/chat-gpt/batch")
-    fun createBatchToChatGpt(
-        @RequestBody requestBatchDto: ChatGptBatchRequestDto
-    ): ResponseEntity<ChatGptBatchResponseDto> {
-        return ResponseEntity.ok(chatGptService.sendBatchMessage(requestBatchDto))
-    }
+	@PostMapping("/chat-gpt/batch")
+	fun createBatchToChatGpt(
+		@RequestBody requestBatchDto: ChatGptBatchRequestDto,
+	): ResponseEntity<ChatGptBatchResponseDto> = ResponseEntity.ok(chatGptService.sendBatchMessage(requestBatchDto))
 }
