@@ -11,7 +11,7 @@ class LoginChatBotService(
 	private val chatManageService: ChatManageService,
 ) : ChatbotService {
 	/**
-	 lateinint - Null일 경우 UninitializedPropertyAccessException 발생
+	 * lateinint - Null일 경우 UninitializedPropertyAccessException 발생
 	 */
 	@Value("\${spring.security.oauth2.client.provider.cognito.user-name-attribute}")
 	private lateinit var userIdentifier: String

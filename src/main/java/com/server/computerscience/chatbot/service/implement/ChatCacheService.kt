@@ -55,7 +55,7 @@ class ChatCacheService(
 	}
 
 	/**
-	 매 시간마다 모든 사용자에 대한 사용 횟수 캐시를 삭제하는 메서드
+	 * 캐시 삭제로 채팅 가능 횟수 초기화
 	 */
 	@Scheduled(cron = "0 0 * * * *") // 매 시간 정각에 실행
 	@CacheEvict(value = [CHAT_USED_CHANCE], allEntries = true)
