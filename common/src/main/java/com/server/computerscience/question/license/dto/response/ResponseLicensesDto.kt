@@ -1,7 +1,5 @@
 package com.server.computerscience.question.license.dto.response
 
-import com.server.computerscience.question.license.domain.LicenseCategory
-
 data class ResponseLicensesDto(
 	val korean: String,
 	val originalName: String,

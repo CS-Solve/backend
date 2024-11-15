@@ -16,37 +16,37 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService {
-	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
-	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
+    private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
+    private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 
-	/**
-	 * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 객관식.
-	 * 문제 선택지들을 섞어준다.
-	 */
+    /**
+     * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 객관식.
+     * 문제 선택지들을 섞어준다.
+     */
 
-	@Override
-	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedMajorMultipleChoiceQuestions(
-		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
-			.findAllFetchChoicesByCategoriesAndLevelsApproved(
-				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
-				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
-		for (MajorMultipleChoiceQuestion majorMultipleChoiceQuestion : majorMultipleChoiceQuestions) {
-			Collections.shuffle(majorMultipleChoiceQuestion.getQuestionChoices());
-		}
-		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
-	}
+    @Override
+    public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedMajorMultipleChoiceQuestions(
+            RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
+        List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
+                .findAllFetchChoicesByCategoriesAndLevelsApproved(
+                        requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
+                        requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
+        for (MajorMultipleChoiceQuestion majorMultipleChoiceQuestion : majorMultipleChoiceQuestions) {
+            Collections.shuffle(majorMultipleChoiceQuestion.getQuestionChoices());
+        }
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
+    }
 
-	/**
-	 * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 주관식
-	 */
-	@Override
-	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedShortAnsweredMajorQuestions(
-		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
-			.findAllFetchChoicesByCategoriesAndLevelsApprovedAndShortAnswered(
-				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
-				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
-		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
-	}
+    /**
+     * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 주관식
+     */
+    @Override
+    public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedShortAnsweredMajorQuestions(
+            RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
+        List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
+                .findAllFetchChoicesByCategoriesAndLevelsApprovedAndShortAnswered(
+                        requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
+                        requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
+    }
 }

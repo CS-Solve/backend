@@ -1,9 +1,8 @@
 package com.server.computerscience;
 
+import com.server.computerscience.login.aspect.LoginAspect;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
-
-import com.server.computerscience.login.aspect.LoginAspect;
 
 @Import(LoginAspect.class)
 @EnableAspectJAutoProxy

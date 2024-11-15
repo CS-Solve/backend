@@ -17,8 +17,8 @@
 <div th:each="classifiedQuestion : ${classifiedQuestions}">
     <h2 style="cursor: pointer; color: #2980b9; font-size: 50px; "
         th:attr="onclick=|toggleCategory('${classifiedQuestion.questionCategory}')|"
-        th:text="${classifiedQuestion.questionCategory}"
-        th:fontSize="300">
+        th:fontSize="300"
+        th:text="${classifiedQuestion.questionCategory}">
         카테고리 이름</h2>
 
     <!-- 질문 목록 -->
@@ -52,8 +52,8 @@
 
             <!-- 선택지 목록 -->
             <ul>
-                <li th:each="choice : ${question.questionChoices}"
-                    style="border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+                <li style="border-bottom: 1px solid #ccc; padding-bottom: 10px;"
+                    th:each="choice : ${question.questionChoices}">
                     <div class="editable-container">
             <span th:attr="data-id=${choice.id}, data-field='choiceContent'"
                   th:text="${choice.content}">선택지 텍스트</span>
@@ -62,13 +62,13 @@
 
                     <!-- 정답 여부 체크박스 -->
                     <label for="answerStatus">정답 여부:</label>
-                    <input type="checkbox"
-                           th:checked="${choice.answerStatus}"
+                    <input onchange="confirmAnswerStatusChange(this)"
                            th:attr="data-id=${choice.id}"
-                           onchange="confirmAnswerStatusChange(this)">
+                           th:checked="${choice.answerStatus}"
+                           type="checkbox">
 
                     <!-- 삭제 버튼 -->
-                    <button type="button" onclick="deleteChoice(this)" th:attr="data-choice-id=${choice.id}">
+                    <button onclick="deleteChoice(this)" th:attr="data-choice-id=${choice.id}" type="button">
                         삭제
                     </button>
                 </li>

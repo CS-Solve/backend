@@ -2,9 +2,6 @@ package com.server.computerscience.chatbot.domain
 
 import com.server.computerscience.chatbot.dto.request.ChatContentDto
 import com.server.computerscience.chatbot.dto.request.ChatContentDto.Companion.from
-import com.server.computerscience.question.common.domain.Question
-import com.server.computerscience.question.license.domain.LicenseMultipleChoiceQuestion
-import com.server.computerscience.question.major.common.domain.MajorMultipleChoiceQuestion
 import org.springframework.stereotype.Service
 
 @Service

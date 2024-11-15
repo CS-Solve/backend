@@ -17,23 +17,23 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class QuestionChoiceService {
-    private final MajorQuestionChoiceRepository majorQuestionChoiceRepository;
-    private final LicenseQuestionChoiceRepository licenseQuestionChoiceRepository;
+	private final MajorQuestionChoiceRepository majorQuestionChoiceRepository;
+	private final LicenseQuestionChoiceRepository licenseQuestionChoiceRepository;
 
-    public void saveWith(RequestMakeMultipleChoiceQuestionDto dto,
-                         LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion) {
-        licenseQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
-                .stream()
-                .map(qc -> LicenseQuestionChoice.from(qc, licenseMultipleChoiceQuestion))
-                .collect(Collectors.toList()));
-    }
+	public void saveWith(RequestMakeMultipleChoiceQuestionDto dto,
+						 LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion) {
+		licenseQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
+			.stream()
+			.map(qc -> LicenseQuestionChoice.from(qc, licenseMultipleChoiceQuestion))
+			.collect(Collectors.toList()));
+	}
 
-    public void saveWith(RequestMakeMultipleChoiceQuestionDto dto,
-                         MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {
-        majorQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
-                .stream()
-                .map(qc -> MajorQuestionChoice.fromMajorQuestion(qc, majorMultipleChoiceQuestion))
-                .collect(Collectors.toList()));
-    }
+	public void saveWith(RequestMakeMultipleChoiceQuestionDto dto,
+						 MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {
+		majorQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
+			.stream()
+			.map(qc -> MajorQuestionChoice.fromMajorQuestion(qc, majorMultipleChoiceQuestion))
+			.collect(Collectors.toList()));
+	}
 
 }

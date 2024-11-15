@@ -1,13 +1,12 @@
 package com.server.computerscience.question.major.service;
 
+import com.server.computerscience.question.major.admin.service.implement.BasicDuplicateQuestionDetector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import com.server.computerscience.question.major.admin.service.implement.BasicDuplicateQuestionDetector;
 
 @DisplayName("[단위] 기본 문장 유사도 검사")
 @ExtendWith(MockitoExtension.class)

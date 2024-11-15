@@ -43,7 +43,7 @@
 </header>
 <div class="quiz">
     <!--    문제 타입(전공 or 자격증)-->
-    <input id="questionType" type="hidden" th:value="${isMajorQuestion ? 'major' : 'license'}"/>
+    <input id="questionType" th:value="${isMajorQuestion ? 'major' : 'license'}" type="hidden"/>
 
     <!-- 상단 제목 -->
     <!--    <div class="logo-box">Com Ssa</div>-->
@@ -89,8 +89,8 @@
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
                             <div class="choice-item"
                                  th:data-answer-status="${choice.answerStatus}"
-                                 th:data-choice-text="${choice.content}"
                                  th:data-choice-id="${choice.id}"
+                                 th:data-choice-text="${choice.content}"
                                  th:each="choice, choiceStat : ${question.questionChoices}"
                                  th:text="${choiceStat.index + 1} + '. ' + ${choice.content}">
                             </div>
