@@ -1,0 +1,27 @@
+package com.study.computerscience.question.major.admin.dto;
+
+import com.study.computerscience.question.common.domain.QuestionCategory;
+import com.study.computerscience.question.common.domain.QuestionLevel;
+import com.study.computerscience.question.common.dto.response.ResponseQuestionChoiceDto;
+import com.study.computerscience.question.common.dto.response.ResponseQuestionDto;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
+import java.util.List;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@SuperBuilder
+public class ResponseMajorQuestionForAdminDto extends ResponseQuestionDto {
+	private boolean canBeShortAnswered;
+
+	public ResponseMajorQuestionForAdminDto(Long id, String content, QuestionCategory questionCategory,
+											QuestionLevel questionLevel, List<ResponseQuestionChoiceDto> normalQuestionChoices, String description,
+											boolean ifApproved, boolean canBeShortAnswered, String imageUrl) {
+		super(id, content, description, imageUrl, questionCategory, questionLevel, normalQuestionChoices, ifApproved);
+		this.canBeShortAnswered = canBeShortAnswered;
+	}
+}

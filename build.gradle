@@ -131,8 +131,6 @@ subprojects {
         }
         dependsOn 'openapi3'
     }
-
-
 }
 
 group = 'com.study.computer-science'
