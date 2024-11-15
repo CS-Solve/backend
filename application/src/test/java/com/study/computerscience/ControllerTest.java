@@ -14,9 +14,9 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 @Import(TestSecurityConfig.class)
 public class ControllerTest {
-    @Autowired
-    public MockMvc mockMvc;
-    @Autowired
-    public ObjectMapper objectMapper;
+	@Autowired
+	public MockMvc mockMvc;
+	@Autowired
+	public ObjectMapper objectMapper;
 }
 

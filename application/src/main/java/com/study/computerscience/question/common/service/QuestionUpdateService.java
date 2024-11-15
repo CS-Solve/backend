@@ -5,6 +5,7 @@ import com.study.computerscience.question.common.dto.request.RequestChangeConten
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Service
 @Transactional
 public interface QuestionUpdateService<T extends Question> {

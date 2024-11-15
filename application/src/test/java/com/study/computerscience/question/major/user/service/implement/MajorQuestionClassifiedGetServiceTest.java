@@ -20,63 +20,63 @@ import java.util.stream.Collectors;
 @DisplayName("전공 문제 - Service 계층 이하 통합 테스트")
 class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 
-    private final List<String> levels = Arrays.stream(QuestionLevel.values())
-            .map(QuestionLevel::getKorean)
-            .collect(Collectors.toList());
-    private final List<String> majorCategories = Arrays.stream(QuestionCategory.values())
-            .filter(QuestionCategory::isCanBeShownInMajor)
-            .map(QuestionCategory::getKorean)
-            .collect(Collectors.toList());
-    @Autowired
-    private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
-    @Autowired
-    private MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
-    private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
+	private final List<String> levels = Arrays.stream(QuestionLevel.values())
+		.map(QuestionLevel::getKorean)
+		.collect(Collectors.toList());
+	private final List<String> majorCategories = Arrays.stream(QuestionCategory.values())
+		.filter(QuestionCategory::isCanBeShownInMajor)
+		.map(QuestionCategory::getKorean)
+		.collect(Collectors.toList());
+	@Autowired
+	private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
+	@Autowired
+	private MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
+	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
-    @BeforeEach
-    void setUp() {
-        majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
+	@BeforeEach
+	void setUp() {
+		majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
 
-    }
+	}
 
-    @Test
-    @DisplayName("모든 카테고리 선택 후 허용된 객관식 문제 존재 확인")
-    void getApprovedClassifiedMajorMultipleChoiceQuestions() {
-        //given
-        majorMultipleChoiceQuestion.toggleApproved();
-        majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
-        RequestGetQuestionByCategoryAndLevelDto allQuestionRequestDto =
-                RequestGetQuestionByCategoryAndLevelDto.fromKorean(majorCategories, levels);
+	@Test
+	@DisplayName("모든 카테고리 선택 후 허용된 객관식 문제 존재 확인")
+	void getApprovedClassifiedMajorMultipleChoiceQuestions() {
+		//given
+		majorMultipleChoiceQuestion.toggleApproved();
+		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
+		RequestGetQuestionByCategoryAndLevelDto allQuestionRequestDto =
+			RequestGetQuestionByCategoryAndLevelDto.fromKorean(majorCategories, levels);
 
-        //when
-        Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions =
-                basicMajorQuestionClassifiedGetService.getApprovedClassifiedMajorMultipleChoiceQuestions(
-                        allQuestionRequestDto);
-        List<MajorMultipleChoiceQuestion> selectedCategoryQuestions = questions.get(
-                majorMultipleChoiceQuestion.getQuestionCategory());
+		//when
+		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions =
+			basicMajorQuestionClassifiedGetService.getApprovedClassifiedMajorMultipleChoiceQuestions(
+				allQuestionRequestDto);
+		List<MajorMultipleChoiceQuestion> selectedCategoryQuestions = questions.get(
+			majorMultipleChoiceQuestion.getQuestionCategory());
 
-        //then
-        Assertions.assertThat(selectedCategoryQuestions).contains(majorMultipleChoiceQuestion);
-    }
+		//then
+		Assertions.assertThat(selectedCategoryQuestions).contains(majorMultipleChoiceQuestion);
+	}
 
-    @Test
-    @DisplayName("모든 카테고리 선택 후 허용된 주관식 문제 존재 확인")
-    void getApprovedClassifiedShortAnsweredMajorQuestions() {
-        majorMultipleChoiceQuestion.toggleApproved();
-        //문제 주관식 가능 여부 허용
-        majorMultipleChoiceQuestion.toggleCanBeShortAnswered();
-        majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
-        RequestGetQuestionByCategoryAndLevelDto allQuestionRequestDto =
-                RequestGetQuestionByCategoryAndLevelDto.fromKorean(majorCategories, levels);
+	@Test
+	@DisplayName("모든 카테고리 선택 후 허용된 주관식 문제 존재 확인")
+	void getApprovedClassifiedShortAnsweredMajorQuestions() {
+		majorMultipleChoiceQuestion.toggleApproved();
+		//문제 주관식 가능 여부 허용
+		majorMultipleChoiceQuestion.toggleCanBeShortAnswered();
+		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
+		RequestGetQuestionByCategoryAndLevelDto allQuestionRequestDto =
+			RequestGetQuestionByCategoryAndLevelDto.fromKorean(majorCategories, levels);
 
-        //when
-        Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions =
-                basicMajorQuestionClassifiedGetService.getApprovedClassifiedShortAnsweredMajorQuestions(
-                        allQuestionRequestDto);
-        List<MajorMultipleChoiceQuestion> selectedCategoryQuestions = questions.get(
-                majorMultipleChoiceQuestion.getQuestionCategory());
+		//when
+		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions =
+			basicMajorQuestionClassifiedGetService.getApprovedClassifiedShortAnsweredMajorQuestions(
+				allQuestionRequestDto);
+		List<MajorMultipleChoiceQuestion> selectedCategoryQuestions = questions.get(
+			majorMultipleChoiceQuestion.getQuestionCategory());
 
-        //then
-        Assertions.assertThat(selectedCategoryQuestions.get(0).isCanBeShortAnswered()).isTrue();
-    }
+		//then
+		Assertions.assertThat(selectedCategoryQuestions.get(0).isCanBeShortAnswered()).isTrue();
+	}
 }
