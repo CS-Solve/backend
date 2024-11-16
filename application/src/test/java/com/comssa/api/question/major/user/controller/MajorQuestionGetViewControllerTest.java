@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.*;
@@ -23,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(MajorQuestionGetViewController.class)
+@ContextConfiguration(classes = MajorQuestionGetViewController.class)
 @DisplayName("단위 테스트 - 전공 문제 View Controller")
 class MajorQuestionGetViewControllerTest extends ViewControllerTest {
 	private final List<String> levels = Arrays.stream(QuestionLevel.values())

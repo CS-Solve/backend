@@ -1,18 +1,18 @@
 package com.comssa.api.question.license;
 
-import com.comssa.api.ControllerTest;
 import com.api.computerscience.question.common.dto.request.RequestChangeContentDto;
+import com.comssa.api.ControllerTest;
 import com.comssa.api.question.license.controller.AdminLicenseQuestionController;
 import com.comssa.api.question.license.service.AdminLicenseMuiltipleChoiceQuestionUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionChoiceUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionMakeService;
-import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
-import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.comssa.persistence.question.common.domain.dto.request.RequestChangeDescriptionDto;
 import com.comssa.persistence.question.common.domain.dto.response.ResponseQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.license.domain.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
+import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
+import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +22,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @WebMvcTest(AdminLicenseQuestionController.class)
+@ContextConfiguration(classes = AdminLicenseQuestionController.class)
 @DisplayName("단위 테스트 - 자격증 Admin Controller")
 class AdminLicenseQuestionControllerTest extends ControllerTest {
 	private final String tag = "자격증 문제";

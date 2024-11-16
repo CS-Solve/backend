@@ -7,8 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(basePackages = {
 	"com.comssa.api",
-	"com.comssa.core",
-	"com.comssa.persistence"
+	"com.comssa.core"
 })
 public class ServerApplication {
 

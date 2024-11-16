@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @DisplayName("단위 테스트 - 자격증 Get View Controller")
 @WebMvcTest(LicenseQuestionGetViewController.class)
+@ContextConfiguration(classes = LicenseQuestionGetViewController.class)
 class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 
 	@MockBean

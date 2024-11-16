@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.HashMap;
@@ -17,6 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest({
 	AdminMajorQuestionViewController.class
 })
+@ContextConfiguration(classes = AdminMajorQuestionViewController.class)
 @DisplayName("단위 테스트 - 전공 개념 Admin View Controller")
 class AdminMajorQuestionViewControllerTest extends ControllerTest {
 

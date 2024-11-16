@@ -16,10 +16,10 @@ data class ChatGptBatchRequestDto(
 			endpoint: String,
 			completionWindow: String,
 		): com.comssa.core.chatbot.dto.request.ChatGptBatchRequestDto =
-            com.comssa.core.chatbot.dto.request.ChatGptBatchRequestDto(
-                inputFileId = inputFileId,
-                endpoint = endpoint,
-                completionWindow = completionWindow,
-            )
+			com.comssa.core.chatbot.dto.request.ChatGptBatchRequestDto(
+				inputFileId = inputFileId,
+				endpoint = endpoint,
+				completionWindow = completionWindow,
+			)
 	}
 }

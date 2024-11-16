@@ -1,16 +1,16 @@
 package com.comssa.api.question.major.admin.controller;
 
-import com.comssa.api.ControllerTest;
 import com.api.computerscience.question.common.dto.request.RequestChangeContentDto;
+import com.comssa.api.ControllerTest;
 import com.comssa.api.question.major.admin.service.AdminMajorQuestionClassifiedGetService;
 import com.comssa.api.question.major.admin.service.AdminMajorQuestionMakeService;
 import com.comssa.api.question.major.admin.service.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.comssa.api.question.major.common.exception.DuplicateQuestionException;
-import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
-import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import com.comssa.persistence.question.common.domain.dto.request.RequestChangeDescriptionDto;
 import com.comssa.persistence.question.major.domain.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
+import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
+import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +20,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @WebMvcTest(AdminMajorQuestionController.class)
+@ContextConfiguration(classes = {AdminMajorQuestionController.class})
 @DisplayName("단위 테스트 - 전공 개념 Admin Controller")
 class AdminMajorQuestionControllerTest extends ControllerTest {
 
@@ -40,6 +42,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 	private AdminMajorMultipleChoiceQuestionUpdateService adminMajorMultipleChoiceQuestionUpdateService;
 	@MockBean
 	private AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
+
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 	private RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto;
 

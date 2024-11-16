@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @DisplayName("전공 문제 - Admin Get Service 계층 이하 통합 테스트")
-class AdminMajorQuestionClassifiedServiceTest extends ServiceIntegrationTest {
+class AdminMajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 	@Autowired
 	private BasicAdminMajorQuestionClassifiedGetService basicAdminMajorQuestionClassifiedGetService;
 	@Autowired

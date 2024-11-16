@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @ExtendWith({RestDocumentationExtension.class})
 @AutoConfigureRestDocs
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 @Import(TestSecurityConfig.class)
 public class ControllerTest {
 	@Autowired
