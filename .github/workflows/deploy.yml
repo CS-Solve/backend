@@ -54,7 +54,7 @@ jobs:
       - name: 🔧 Build Spring server
         run: |
           chmod +x ./gradlew
-          ./gradlew clean build
+          ./gradlew clean application:build
 
         # 도커로 빌드한다.
       - name: Docker build
