@@ -1,271 +1,135 @@
 plugins {
     id 'java'
-//    id 'org.springframework.boot' version '2.7.10'
     id 'io.spring.dependency-management' version '1.1.6'
-    //gradle7부터는 jvm.convert를 사용해야한다
-    //rest docs 결과물 생성 플러그인
     id "org.asciidoctor.jvm.convert" version "3.3.2"
-    //0.17.0부터는 Java 17이 요구된다.
-    // restdocs to OpenApi3 플러그인
     id 'com.epages.restdocs-api-spec' version '0.16.2'
-
-    //OpenApi3 to Swagger 플러그인
     id 'org.hidetake.swagger.generator' version '2.19.2'
     id 'jacoco'
-
-    // 코딩 컨벤션 관련
     id 'org.ec4j.editorconfig' version '0.0.3'
     id 'checkstyle'
-
-    //코틀린
-    id 'org.jetbrains.kotlin.jvm' version '1.8.0' // Kotlin 플러그인
-    id 'org.jetbrains.kotlin.kapt' version '1.8.0' // Kotlin Annotation Processing 플러그인
-
-    id 'org.springframework.boot' version '2.7.10' apply false // Spring Boot 플러그인
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.8.0'
-    id 'org.jetbrains.kotlin.plugin.jpa' version '1.8.0'
+    id 'org.springframework.boot' version '2.7.10'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.0'
     id 'org.jlleitschuh.gradle.ktlint' version '12.1.0'
-}
-apply plugin: 'org.springframework.boot'
-//editorconfig {
-//    excludes = ['build']
-//}
-checkstyle {
-    maxWarnings = 0
-    configFile = file("${rootDir}/config/naver-checkstyle-rules.xml")
-    configProperties = ["suppressionFile": "${rootDir}/config/naver-checkstyle-suppressions.xml"]
-    toolVersion = "8.42"
+    id 'org.jetbrains.kotlin.kapt' version '1.8.0'
 }
 
-//check.dependsOn editorconfigCheck // checkstyle이 설정 되어 있을 시, editorconfigCheck 후 checkstyle 진행
 
 jacoco {
-    toolVersion = "0.8.10" // https://www.jacoco.org/jacoco/trunk/doc/changes.html
+    toolVersion = "0.8.10"
 }
-jacocoTestReport {
-    dependsOn test
-    reports {
-        html.required = true
-        xml.required = true
-    }
-    afterEvaluate {
-        classDirectories.setFrom(
-                // 그 외의 매칭되는 클래스도 제외 대상
-                files(classDirectories.files.collect {
-                    fileTree(dir: it, excludes: [
-                            "com.server.computer_science.**.**",
-                            "**/*Application*",
-                            "**/*Config*",
-                            "**/domain",
-//							"**/*Dto*",
-//							"**/*Request*",
-//							"**/*Response*",
-                            "**/*Interceptor*",
-                            "**/*Exception*"
-                    ])
-                })
-        )
-    }
-    // 리포트 생성 후 커버리지 체크
-    finalizedBy jacocoTestCoverageVerification
-}
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            // rule 활성화
-            enabled = true
 
-            // 클래스 단위로 룰 체크
-            element = 'CLASS'
+subprojects {
 
-            // 라인 커버리지 리미트
-            limit {
-                counter = 'LINE'
-                value = 'COVEREDRATIO'
-//                minimum = 0.80
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot'
+
+    apply plugin: 'org.asciidoctor.jvm.convert'
+    apply plugin: 'jacoco'
+    apply plugin: 'org.ec4j.editorconfig'
+
+    /**
+     * 코틀린
+     */
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+    /**
+     * 코드 컨벤션
+     */
+    apply plugin: 'org.jlleitschuh.gradle.ktlint'
+    apply plugin: 'checkstyle'
+
+    repositories {
+        mavenCentral()
+    }
+    kapt {
+        keepJavacAnnotationProcessors = true
+    }
+
+    dependencies {
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+
+        implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+        testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+        testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.16.2'
+        implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+        runtimeOnly 'com.h2database:h2'
+        runtimeOnly 'com.mysql:mysql-connector-j'
+        testImplementation 'io.findify:s3mock_2.13:0.2.6'
+
+        // 로그인 관련
+        implementation 'org.springframework.boot:spring-boot-starter-security'
+        implementation 'software.amazon.awssdk:cognitoidentityprovider:2.20.66'
+        implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+        implementation 'org.springframework.security:spring-security-oauth2-jose'
+        implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
+
+        // 캐싱 관련
+        implementation 'org.springframework.boot:spring-boot-starter-cache'
+        implementation 'com.github.ben-manes.caffeine:caffeine'
+
+        // @mwiede의 포크 버전 jsch 추가 - ssh 터널링을 통한 DB 접속
+        implementation 'com.github.mwiede:jsch:0.2.21'
+    }
+
+    println("root Directory : ${rootDir}")
+    checkstyle {
+        maxWarnings = 0
+        configFile = file("${rootDir}/config/naver-checkstyle-rules.xml")
+        configProperties = ["suppressionFile": "${rootDir}/config/naver-checkstyle-suppressions.xml"]
+        toolVersion = "8.42"
+    }
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+
+    jacocoTestReport {
+        dependsOn test
+        reports {
+            html.required = true
+            xml.required = true
+        }
+    }
+
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                enabled = true
+                element = 'CLASS'
+                limit {
+                    counter = 'LINE'
+                    value = 'COVEREDRATIO'
+                }
+                excludes = [
+                        "com.server.computer_science.**.**",
+                        "**.*Application*",
+                        "**.*Config*",
+                        "**/domain",
+                        "**/*Interceptor*",
+                        "**/*Exception*"
+                ]
             }
-
-            // 마찬가지로 제거 대상 지정
-            excludes = [
-                    "com.server.computer_science.**.**",
-                    "**.*Application*",
-                    "**.*Config*",
-//					"**.*Dto*",
-//					"**.*Request*",
-//					"**.*Response*",
-                    "**.*Interceptor*",
-                    "**.*Exception*"
-            ]
+        }
+    }
+    group = 'com.study.computer-science'
+    version = '0.0.1-SNAPSHOT'
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(11)
+        }
+    }
+    kotlin {
+        jvmToolchain {
+            languageVersion = JavaLanguageVersion.of(11)
         }
     }
 }
 
-/**
- * compileJava->test->asciidoctor->bootJar순으로 실행된다.
- */
 
-//configurations {
-//	openapi3
-//}
-ext {
-    snippetsDir = file('build/generated-snippets')
-}
+bootJar.enabled = false;
+jar.enabled = false;
 
-/**
- * 지정된 경로의 OpenApi3 스펙을 기반으로 SwaggerUi를 생성
- */
-swaggerSources {
-    sample {
-        setInputFile(layout.buildDirectory.file("build/resoueces/main/static/openapi3.json").get().asFile)
-    }
-}
-
-openapi3 {
-    servers = [
-            { url = 'http://localhost:8080' },
-    ]
-    title = 'Post Service API'
-    description = 'Post Service API description'
-    version = '3.0.0'
-    format = 'json'
-    outputDirectory("build/resources/main/static/docs")
-    /*outputDirectory("src/main/resources/static/docs")*/
-}
-task deleteOldOpenApiSpec(type: Delete) {
-
-    delete file("build/resources/main/static/docs")
-}
-// OpenAPI 스펙 생성 전 원본 파일 삭제를 위한 태스크
-
-//openapi3 태스크가 deleteOldOpenApiSpec에 의존하도록 설정
-//tasks.openapi3 {
-//	dependsOn deleteOldOpenApiSpec
-//}
-
-// OpenAPI 스펙 파일을 원하는 위치로 복사하는 태스크
-task copyOpenApiSpec(type: Copy) {
-    dependsOn openapi3
-    from("build/api-spec/openapi3.yaml")
-    into("build/resources/main/static/docs")
-}
-
-group = 'com.study.computer-science'
-version = '0.0.1-SNAPSHOT'
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
-    }
-}
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    runtimeOnly 'com.h2database:h2'
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.16.2' //restdocs->openApi
-    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-    runtimeOnly 'com.mysql:mysql-connector-j'
-    testImplementation 'io.findify:s3mock_2.13:0.2.6'
-    implementation 'io.springfox:springfox-boot-starter:3.0.0'
-
-    /*
-    로그인 관련
-     */
-    implementation 'org.springframework.boot:spring-boot-starter-security'
-    implementation 'software.amazon.awssdk:cognitoidentityprovider:2.20.66'
-    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
-    implementation 'org.springframework.security:spring-security-oauth2-jose'
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
-
-    /*
-    캐싱 관련
-     */
-    implementation 'org.springframework.boot:spring-boot-starter-cache'
-    implementation 'com.github.ben-manes.caffeine:caffeine'
-
-
-    // @mwiede의 포크 버전 jsch 추가
-    implementation 'com.github.mwiede:jsch:0.2.21'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-
-//    // 기존 foo:bar 의존성에서 com.jcraft:jsch 제외
-//    implementation('foo:bar') {
-//        exclude group: 'com.jcraft', module: 'jsch'
-//    }
-
-    /**
-     * KOTLIN
-     */
-    // Kotlin용 Lombok 설정
-    kapt 'org.projectlombok:lombok'
-
-    implementation "org.jetbrains.kotlin:kotlin-reflect:1.8.0"
-    implementation "com.fasterxml.jackson.module:jackson-module-kotlin"
-
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
-}
-//tasks.build.dependsOn tasks.openapi3
-
-/**
- * Rest Docs 단독으로 쓸 때 설정
- */
-asciidoctor {
-    dependsOn test
-    inputs.dir snippetsDir
-}
-/**
- * 기존에 존재하는 Rest docs를 삭제하여 준다
- */
-asciidoctor.doFirst {
-    delete file('src/main/resources/static/docs')
-}
-
-
-bootJar {
-    dependsOn asciidoctor
-    copy {
-        from "${asciidoctor.outputDir}"
-        /**
-         * build/docs/asciidoc 하위에 생기는 html파일을
-         * 아래의 위치로 옮겨준다.
-         */
-        into 'BOOT-INF/classes/static/docs'
-    }
-    dependsOn 'openapi3'
-}
-
-//task copyDocument(type: Copy) {
-//	dependsOn asciidoctor
-//	from file("build/docs/asciidoc")
-//	into file("src/main/resources/static/docs")
-//}
-tasks.named('test') {
-    outputs.dir snippetsDir
-    useJUnitPlatform()
-    // test 수행 이후 리포트 생성
-    finalizedBy jacocoTestReport
-}
-
-kapt {
-    keepJavacAnnotationProcessors = true
-}

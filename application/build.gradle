@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'io.freefair.lombok' version '8.10'
+    id 'org.jetbrains.kotlin.plugin.lombok' version '1.8.0'
+
+    /*
+    API 명세
+     */
+    id 'com.epages.restdocs-api-spec'
+    id 'org.hidetake.swagger.generator'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation(project(':core'))
+    implementation(project(":persistence"))
+
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
+bootJar {
+    dependsOn asciidoctor
+    copy {
+        from "${asciidoctor.outputDir}"
+        into 'BOOT-INF/classes/static/docs'
+    }
+    dependsOn 'openapi3'
+}
+
