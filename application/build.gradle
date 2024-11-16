@@ -27,6 +27,16 @@ dependencies {
 test {
     useJUnitPlatform()
 }
-kapt {
-    keepJavacAnnotationProcessors = true
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
+bootJar {
+    dependsOn asciidoctor
+    copy {
+        from "${asciidoctor.outputDir}"
+        into 'BOOT-INF/classes/static/docs'
+    }
+    dependsOn 'openapi3'
 }
