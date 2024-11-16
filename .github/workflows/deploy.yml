@@ -59,7 +59,9 @@ jobs:
         # 도커로 빌드한다.
       - name: Docker build
         run: |
-          cd /home/runner/work/backend/backend/application
+          ls -l
+          cd /home/runner/work/backend/backend
+          ls -l
           docker login -u ${{secrets.DOCKER_USERNAME}} -p ${{secrets.DOCKER_PASSWORD}}
           docker build --no-cache --platform linux/amd64/v8 -t app .
 
