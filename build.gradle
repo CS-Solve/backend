@@ -13,18 +13,13 @@ plugins {
     id 'org.jetbrains.kotlin.kapt' version '1.8.0'
 }
 
-checkstyle {
-    maxWarnings = 0
-    configFile = file("${rootDir}/config/naver-checkstyle-rules.xml")
-    configProperties = ["suppressionFile": "${rootDir}/config/naver-checkstyle-suppressions.xml"]
-    toolVersion = "8.42"
-}
 
 jacoco {
     toolVersion = "0.8.10"
 }
 
 subprojects {
+
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.springframework.boot'
 
@@ -79,6 +74,14 @@ subprojects {
 
         // @mwiede의 포크 버전 jsch 추가 - ssh 터널링을 통한 DB 접속
         implementation 'com.github.mwiede:jsch:0.2.21'
+    }
+
+    println("root Directory : ${rootDir}")
+    checkstyle {
+        maxWarnings = 0
+        configFile = file("${rootDir}/config/naver-checkstyle-rules.xml")
+        configProperties = ["suppressionFile": "${rootDir}/config/naver-checkstyle-suppressions.xml"]
+        toolVersion = "8.42"
     }
 
     tasks.named('test') {
