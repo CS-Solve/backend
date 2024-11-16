@@ -2,7 +2,6 @@ plugins {
 	kotlin("jvm") version "1.8.0"
 	kotlin("kapt") version "1.8.0"
 	kotlin("plugin.spring") version "1.8.0"
-	kotlin("plugin.jpa") version "1.8.0"
 	/*
 	코틀린 전용 linter
 	 */
