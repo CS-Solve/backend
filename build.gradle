@@ -28,10 +28,7 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.springframework.boot'
 
-
     apply plugin: 'org.asciidoctor.jvm.convert'
-    apply plugin: 'com.epages.restdocs-api-spec'
-    apply plugin: 'org.hidetake.swagger.generator'
     apply plugin: 'jacoco'
     apply plugin: 'org.ec4j.editorconfig'
 

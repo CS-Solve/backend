@@ -2,6 +2,12 @@ plugins {
     id 'java'
     id 'io.freefair.lombok' version '8.10'
     id 'org.jetbrains.kotlin.plugin.lombok' version '1.8.0'
+
+    /*
+    API 명세
+     */
+    id 'com.epages.restdocs-api-spec'
+    id 'org.hidetake.swagger.generator'
 }
 
 repositories {
