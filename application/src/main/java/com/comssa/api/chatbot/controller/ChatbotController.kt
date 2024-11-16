@@ -1,4 +1,4 @@
-package com.comssa.core.chatbot.controller
+package com.comssa.api.chatbot.controller
 
 import com.comssa.core.chatbot.dto.request.ChatBotRequestDto
 import com.comssa.core.chatbot.dto.response.ChatBotResponseDto.Companion.from
