@@ -28,10 +28,11 @@ public class MajorQuestionGetViewController {
 
 	@AddLoginStatusAttribute
 	@GetMapping("/question/major")
-	public String getNormalQuestions(@RequestParam(required = false) List<String> levels,
-									 @RequestParam(required = false) List<String> categories,
-									 @RequestParam(required = false) Boolean multipleChoice,
-									 Model model) {
+	public String getNormalQuestions(
+		@RequestParam(required = false) List<String> levels,
+		@RequestParam(required = false) List<String> categories,
+		@RequestParam(required = false) Boolean multipleChoice,
+		Model model) {
 		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = null;
 		if (multipleChoice) {
 			questions = basicMajorQuestionClassifiedGetService

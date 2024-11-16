@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LoginController {
 
-    @GetMapping("/cognito")
-    public ResponseEntity<ResponseAccessTokenDto> getAccessToken(
-            Authentication authentication, Model model
-    ) {
-        if (authentication.isAuthenticated()) {
-            model.addAttribute("principal", authentication.getPrincipal());
-        }
-        return ResponseEntity.ok(ResponseAccessTokenDto.from("hi"));
-    }
+	@GetMapping("/cognito")
+	public ResponseEntity<ResponseAccessTokenDto> getAccessToken(
+		Authentication authentication, Model model
+	) {
+		if (authentication.isAuthenticated()) {
+			model.addAttribute("principal", authentication.getPrincipal());
+		}
+		return ResponseEntity.ok(ResponseAccessTokenDto.from("hi"));
+	}
 }

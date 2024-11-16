@@ -18,8 +18,9 @@ import java.util.stream.Collectors;
 public class RequestMakeMultipleChoiceQuestionDto extends RequestMakeQuestionDto {
 	private List<RequestMakeQuestionChoiceDto> questionChoices;
 
-	public static <T extends QuestionChoice> RequestMakeMultipleChoiceQuestionDto from(Question question,
-																					   List<T> questionChoices) {
+	public static <T extends QuestionChoice> RequestMakeMultipleChoiceQuestionDto from(
+		Question question,
+		List<T> questionChoices) {
 		return RequestMakeMultipleChoiceQuestionDto.builder()
 			.content(question.getContent())
 			.description(question.getDescription())

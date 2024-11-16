@@ -18,9 +18,10 @@ import java.util.List;
 public class ResponseMajorQuestionForAdminDto extends ResponseQuestionDto {
 	private boolean canBeShortAnswered;
 
-	public ResponseMajorQuestionForAdminDto(Long id, String content, QuestionCategory questionCategory,
-											QuestionLevel questionLevel, List<ResponseQuestionChoiceDto> normalQuestionChoices, String description,
-											boolean ifApproved, boolean canBeShortAnswered, String imageUrl) {
+	public ResponseMajorQuestionForAdminDto(
+		Long id, String content, QuestionCategory questionCategory,
+		QuestionLevel questionLevel, List<ResponseQuestionChoiceDto> normalQuestionChoices, String description,
+		boolean ifApproved, boolean canBeShortAnswered, String imageUrl) {
 		super(id, content, description, imageUrl, questionCategory, questionLevel, normalQuestionChoices, ifApproved);
 		this.canBeShortAnswered = canBeShortAnswered;
 	}

@@ -10,7 +10,16 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +40,10 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoicePro
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<LicenseQuestionChoice> questionChoices;
 
-	public static LicenseMultipleChoiceQuestion makeWithDto(RequestMakeMultipleChoiceQuestionDto dto,
-															LicenseSession licenseSession, LicenseCategory licenseCategory) {
+	public static LicenseMultipleChoiceQuestion makeWithDto(
+		RequestMakeMultipleChoiceQuestionDto dto,
+		LicenseSession licenseSession,
+		LicenseCategory licenseCategory) {
 		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.builder()
 			.content(dto.getContent())
 			.questionCategory(dto.getQuestionCategory())

@@ -16,8 +16,9 @@ public interface LicenseSessionRepository extends JpaRepository<LicenseSession, 
 
 	@Query(
 		"SELECT ls FROM LicenseSession ls " + "WHERE ls.content = :session AND ls.licenseCategory = :licenseCategory")
-	Optional<LicenseSession> findLicenseSessionByContent(@Param("session") String content,
-														 @Param("licenseCategory") LicenseCategory licenseCategory);
+	Optional<LicenseSession> findLicenseSessionByContent(
+		@Param("session") String content,
+		@Param("licenseCategory") LicenseCategory licenseCategory);
 
 	@Query("SELECT ls FROM LicenseSession ls WHERE ls.licenseCategory = :licenseCategory")
 	List<LicenseSession> findAllByLicenseCategory(@Param("licenseCategory") LicenseCategory licenseCategory);

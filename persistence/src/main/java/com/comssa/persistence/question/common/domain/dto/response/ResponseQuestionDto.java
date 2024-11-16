@@ -27,14 +27,15 @@ public class ResponseQuestionDto {
 	private List<ResponseQuestionChoiceDto> questionChoices;
 	private boolean ifApproved;
 
-	public ResponseQuestionDto(Long id,
-							   String content,
-							   String description,
-							   String imageUrl,
-							   QuestionCategory questionCategory,
-							   QuestionLevel questionLevel,
-							   List<ResponseQuestionChoiceDto> questionChoices,
-							   boolean ifApproved) {
+	public ResponseQuestionDto(
+		Long id,
+		String content,
+		String description,
+		String imageUrl,
+		QuestionCategory questionCategory,
+		QuestionLevel questionLevel,
+		List<ResponseQuestionChoiceDto> questionChoices,
+		boolean ifApproved) {
 		this.id = id;
 		this.content = content;
 		this.description = description;

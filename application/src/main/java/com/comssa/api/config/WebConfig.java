@@ -9,14 +9,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/robots.txt").addResourceLocations("classpath:/static/robots.txt");
-        registry.addResourceHandler("/sitemap.xml").addResourceLocations("classpath:/static/sitemap.xml");
-    }
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/robots.txt").addResourceLocations("classpath:/static/robots.txt");
+		registry.addResourceHandler("/sitemap.xml").addResourceLocations("classpath:/static/sitemap.xml");
+	}
 
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 }

@@ -4,5 +4,5 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface DuplicateQuestionDetector {
-    boolean isQuestionDuplicate(String originalString, String newQuestions);
+	boolean isQuestionDuplicate(String originalString, String newQuestions);
 }

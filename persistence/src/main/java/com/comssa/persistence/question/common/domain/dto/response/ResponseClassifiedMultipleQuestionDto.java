@@ -18,8 +18,9 @@ public class ResponseClassifiedMultipleQuestionDto {
 	private QuestionCategory questionCategory;
 	private List<ResponseQuestionDto> responseQuestionDtoList;
 
-	public ResponseClassifiedMultipleQuestionDto(QuestionCategory questionCategory,
-												 List<ResponseQuestionDto> responseQuestionDtoList) {
+	public ResponseClassifiedMultipleQuestionDto(
+		QuestionCategory questionCategory,
+		List<ResponseQuestionDto> responseQuestionDtoList) {
 		this.questionCategory = questionCategory;
 		this.responseQuestionDtoList = responseQuestionDtoList;
 	}
@@ -44,8 +45,9 @@ public class ResponseClassifiedMultipleQuestionDto {
 	/**
 	 * 관리자 객관식
 	 */
-	public static ResponseClassifiedMultipleQuestionDto forAdmin(QuestionCategory questionCategory,
-																 List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
+	public static ResponseClassifiedMultipleQuestionDto forAdmin(
+		QuestionCategory questionCategory,
+		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
 		return ResponseClassifiedMultipleQuestionDto.builder()
 			.questionCategory(questionCategory)
 			.responseQuestionDtoList(

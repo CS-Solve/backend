@@ -14,8 +14,10 @@ public class ResponseMajorQuestionClassCountDto {
 	private int count;
 
 	@Builder
-	public ResponseMajorQuestionClassCountDto(QuestionCategory questionCategory, QuestionLevel questionLevel,
-											  int count) {
+	public ResponseMajorQuestionClassCountDto(
+		QuestionCategory questionCategory,
+		QuestionLevel questionLevel,
+		int count) {
 		this.questionCategory = questionCategory;
 		this.questionLevel = questionLevel;
 		this.count = count;

@@ -27,8 +27,9 @@ public class MajorMultipleChoiceQuestionDbService {
 	}
 
 	// 카테고리, 레벨로 조회 - 선택지까지
-	public List<MajorMultipleChoiceQuestion> getFetchChoicesByCategoriesAndLevels(List<QuestionCategory> categories,
-																				  List<QuestionLevel> questionLevels) {
+	public List<MajorMultipleChoiceQuestion> getFetchChoicesByCategoriesAndLevels(
+		List<QuestionCategory> categories,
+		List<QuestionLevel> questionLevels) {
 		return majorMultipleChoiceQuestionRepository.findFetchChoicesWithCategoriesAndLevels(categories,
 			questionLevels);
 	}

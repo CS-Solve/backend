@@ -20,8 +20,9 @@ public class MajorQuestionChoice extends QuestionChoice {
 	@JoinColumn(name = "major_multiple_choice_question_id")
 	private MajorMultipleChoiceQuestion question;
 
-	public MajorQuestionChoice(String text, int selectedCount, boolean answerStatus,
-							   MajorMultipleChoiceQuestion question) {
+	public MajorQuestionChoice(
+		String text, int selectedCount, boolean answerStatus,
+		MajorMultipleChoiceQuestion question) {
 		super(text, selectedCount, answerStatus);
 		this.question = question;
 	}

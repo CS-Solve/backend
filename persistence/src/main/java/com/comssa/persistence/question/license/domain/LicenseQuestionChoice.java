@@ -19,8 +19,10 @@ public class LicenseQuestionChoice extends QuestionChoice {
 	@JoinColumn(name = "license_multiple_choice_question_id")
 	private LicenseMultipleChoiceQuestion question;
 
-	public LicenseQuestionChoice(String text, int selectedCount, boolean answerStatus,
-								 LicenseMultipleChoiceQuestion question) {
+	public LicenseQuestionChoice(
+		String text, int selectedCount,
+		boolean answerStatus,
+		LicenseMultipleChoiceQuestion question) {
 		super(text, selectedCount, answerStatus);
 		this.question = question;
 	}
