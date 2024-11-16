@@ -9,10 +9,11 @@ plugins {
     id 'checkstyle'
     id 'org.springframework.boot' version '2.7.10'
     id 'org.jetbrains.kotlin.jvm' version '1.8.0'
-    id 'org.jetbrains.kotlin.kapt' version '1.8.0'
-    id 'org.jetbrains.kotlin.plugin.spring' version '1.8.0'
-    id 'org.jetbrains.kotlin.plugin.jpa' version '1.8.0'
     id 'org.jlleitschuh.gradle.ktlint' version '12.1.0'
+    id 'org.jetbrains.kotlin.kapt' version '1.8.0'
+//    id 'org.jetbrains.kotlin.plugin.spring' version '1.8.0'
+//    id 'org.jetbrains.kotlin.plugin.jpa' version '1.8.0'
+
 }
 
 checkstyle {
@@ -30,7 +31,6 @@ subprojects {
     apply plugin: 'io.spring.dependency-management'
     apply plugin: 'org.springframework.boot'
 
-    apply plugin: 'java'
 
     apply plugin: 'org.asciidoctor.jvm.convert'
     apply plugin: 'com.epages.restdocs-api-spec'
@@ -41,7 +41,7 @@ subprojects {
     /**
      * 코틀린
      */
-//    apply plugin: 'org.jetbrains.kotlin.jvm'
+    apply plugin: 'org.jetbrains.kotlin.jvm'
 //    apply plugin: 'org.jetbrains.kotlin.kapt'
 //    apply plugin: 'org.jetbrains.kotlin.plugin.spring'
 //    apply plugin: 'org.jetbrains.kotlin.plugin.jpa'
@@ -140,7 +140,7 @@ subprojects {
 
 group = 'com.study.computer-science'
 version = '0.0.1-SNAPSHOT'
-
+bootJar.enabled = false;
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(11)
