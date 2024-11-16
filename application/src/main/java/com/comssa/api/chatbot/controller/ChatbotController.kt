@@ -1,6 +1,7 @@
 package com.comssa.api.chatbot.controller
 
 import com.comssa.core.chatbot.dto.request.ChatBotRequestDto
+import com.comssa.core.chatbot.dto.response.ChatBotResponseDto
 import com.comssa.core.chatbot.dto.response.ChatBotResponseDto.Companion.from
 import com.comssa.core.chatbot.service.ChatbotService
 import io.swagger.annotations.Api
@@ -22,5 +23,6 @@ class ChatbotController(
 	fun chat(
 		@RequestBody chatBotRequestDto: ChatBotRequestDto,
 		@AuthenticationPrincipal user: OAuth2User?,
-	) = ResponseEntity.ok(from(chatbotService.talkToAssistant(chatBotRequestDto, user)))
+	): ResponseEntity<ChatBotResponseDto> =
+		ResponseEntity.ok(from(chatbotService.talkToAssistant(chatBotRequestDto, user)))
 }

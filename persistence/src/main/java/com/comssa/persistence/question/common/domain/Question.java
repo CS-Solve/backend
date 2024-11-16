@@ -12,7 +12,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 @SuperBuilder
 @NoArgsConstructor
-public abstract class Question {
+public abstract class Question extends BaseEntity {
 	public boolean ifApproved;
 	protected String content;
 	@Enumerated(value = EnumType.STRING)
