@@ -61,9 +61,13 @@ subprojects {
         runtimeOnly 'com.mysql:mysql-connector-j'
         testImplementation 'io.findify:s3mock_2.13:0.2.6'
 
-        // 로그인 관련
+        /*
+        로그인 관련
+         */
         implementation 'org.springframework.boot:spring-boot-starter-security'
+        // Cognito
         implementation 'software.amazon.awssdk:cognitoidentityprovider:2.20.66'
+        
         implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
         implementation 'org.springframework.security:spring-security-oauth2-jose'
         implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
