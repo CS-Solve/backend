@@ -1,7 +1,7 @@
 package com.comssa.persistence.question.major.domain.common;
 
 import com.comssa.persistence.question.common.domain.QuestionChoice;
-import com.comssa.persistence.question.major.domain.admin.dto.RequestMakeQuestionChoiceDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeQuestionChoiceDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;

@@ -1,4 +1,4 @@
-package com.api.computerscience.question.license.dto.response
+package com.comssa.persistence.question.license.dto.response
 
 import com.comssa.persistence.question.license.domain.LicenseCategory
 

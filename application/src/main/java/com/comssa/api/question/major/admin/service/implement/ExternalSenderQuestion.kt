@@ -5,7 +5,7 @@ import com.comssa.api.question.major.admin.service.ExternalQuestionService
 import com.comssa.core.chatbot.dto.response.ChatGptFileUploadResponseDto
 import com.comssa.core.chatbot.service.implement.ChatManageService
 import com.comssa.persistence.question.common.domain.Question
-import com.comssa.persistence.question.common.domain.dto.request.RequestQuestionCommandDto
+import com.comssa.persistence.question.common.dto.request.RequestQuestionCommandDto
 import org.springframework.stereotype.Service
 
 @Service

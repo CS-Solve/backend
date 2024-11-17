@@ -1,4 +1,4 @@
-package com.comssa.persistence.question.major.domain.user.dto.response;
+package com.comssa.persistence.question.major.user.dto.response;
 
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;

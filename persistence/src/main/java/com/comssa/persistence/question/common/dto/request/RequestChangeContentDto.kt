@@ -1,4 +1,4 @@
-package com.api.computerscience.question.common.dto.request
+package com.comssa.persistence.question.common.dto.request
 
 data class RequestChangeContentDto(
 	val content: String? = null,

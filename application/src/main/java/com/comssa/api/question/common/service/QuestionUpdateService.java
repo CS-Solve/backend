@@ -1,8 +1,8 @@
 package com.comssa.api.question.common.service;
 
 
-import com.api.computerscience.question.common.dto.request.RequestChangeContentDto;
 import com.comssa.persistence.question.common.domain.Question;
+import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,4 +1,4 @@
-package com.comssa.persistence.question.license.domain.dto.response;
+package com.comssa.persistence.question.license.dto.response;
 
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseSession;

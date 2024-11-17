@@ -1,10 +1,10 @@
 package com.comssa.api.question.common.controller;
 
-import com.api.computerscience.question.license.dto.response.ResponseLicensesDto;
 import com.comssa.api.login.aspect.AddLoginStatusAttribute;
 import com.comssa.api.question.common.service.QuestionSelectorService;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
-import com.comssa.persistence.question.license.domain.dto.response.ResponseLicenseSessionDto;
+import com.comssa.persistence.question.license.dto.response.ResponseLicenseSessionDto;
+import com.comssa.persistence.question.license.dto.response.ResponseLicensesDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;

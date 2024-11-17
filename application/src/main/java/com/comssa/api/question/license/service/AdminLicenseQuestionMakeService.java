@@ -3,13 +3,13 @@ package com.comssa.api.question.license.service;
 
 import com.comssa.api.question.common.service.FileUploadService;
 import com.comssa.api.question.common.service.implement.QuestionChoiceService;
-import com.comssa.persistence.question.common.domain.dto.response.ResponseQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.license.domain.LicenseSession;
-import com.comssa.persistence.question.license.domain.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.license.repository.LicenseMultipleChoiceQuestionRepository;
-import com.comssa.persistence.question.major.domain.admin.dto.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

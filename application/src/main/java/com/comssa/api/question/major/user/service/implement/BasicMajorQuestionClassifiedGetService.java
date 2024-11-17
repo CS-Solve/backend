@@ -6,7 +6,7 @@ import com.comssa.api.question.major.common.service.implement.MajorMultipleChoic
 import com.comssa.api.question.major.user.service.MajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.major.domain.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
+import com.comssa.persistence.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

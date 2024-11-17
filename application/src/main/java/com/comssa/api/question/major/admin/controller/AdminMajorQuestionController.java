@@ -1,14 +1,14 @@
 package com.comssa.api.question.major.admin.controller;
 
-import com.api.computerscience.question.common.dto.request.RequestChangeContentDto;
 import com.comssa.api.question.major.admin.service.AdminMajorQuestionClassifiedGetService;
 import com.comssa.api.question.major.admin.service.AdminMajorQuestionMakeService;
 import com.comssa.api.question.major.admin.service.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.comssa.api.question.major.common.exception.DuplicateQuestionException;
-import com.comssa.persistence.question.common.domain.dto.response.ResponseClassifiedMultipleQuestionDto;
-import com.comssa.persistence.question.common.domain.dto.response.ResponseQuestionDto;
-import com.comssa.persistence.question.major.domain.admin.dto.RequestMakeMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.major.domain.admin.dto.ResponseMajorQuestionForAdminDto;
+import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
+import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.ResponseMajorQuestionForAdminDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

@@ -1,12 +1,12 @@
 package com.comssa.api.question.license.controller;
 
-import com.api.computerscience.question.common.dto.request.RequestChangeContentDto;
 import com.comssa.api.question.license.service.AdminLicenseMuiltipleChoiceQuestionUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionChoiceUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionMakeService;
-import com.comssa.persistence.question.common.domain.dto.response.ResponseQuestionChoiceDto;
-import com.comssa.persistence.question.common.domain.dto.response.ResponseQuestionDto;
-import com.comssa.persistence.question.license.domain.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
+import com.comssa.persistence.question.common.dto.response.ResponseQuestionChoiceDto;
+import com.comssa.persistence.question.common.dto.response.ResponseQuestionDto;
+import com.comssa.persistence.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

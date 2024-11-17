@@ -1,4 +1,4 @@
-package com.comssa.persistence.question.major.domain.admin.dto;
+package com.comssa.persistence.question.major.admin.dto;
 
 import com.comssa.persistence.question.common.domain.QuestionChoice;
 import lombok.AllArgsConstructor;

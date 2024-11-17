@@ -1,11 +1,11 @@
-package com.comssa.persistence.question.common.domain.dto.response;
+package com.comssa.persistence.question.common.dto.response;
 
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionChoice;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
-import com.comssa.persistence.question.major.domain.admin.dto.ResponseMajorQuestionForAdminDto;
+import com.comssa.persistence.question.major.admin.dto.ResponseMajorQuestionForAdminDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
