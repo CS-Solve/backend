@@ -4,7 +4,7 @@ import com.comssa.api.question.common.service.implement.QuestionChoiceService;
 import com.comssa.api.question.major.admin.service.AdminMajorQuestionMakeService;
 import com.comssa.api.question.major.admin.service.DuplicateQuestionDetector;
 import com.comssa.api.question.major.common.exception.DuplicateQuestionException;
-import com.comssa.persistence.question.major.domain.admin.dto.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.major.repository.MajorMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;

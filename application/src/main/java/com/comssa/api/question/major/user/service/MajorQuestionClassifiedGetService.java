@@ -3,7 +3,7 @@ package com.comssa.api.question.major.user.service;
 
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.major.domain.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
+import com.comssa.persistence.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

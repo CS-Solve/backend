@@ -1,8 +1,8 @@
 package com.comssa.api.question.major.admin.service.implement
 
-import com.comssa.core.chatbot.domain.ChatContentType
 import com.comssa.core.chatbot.dto.request.ChatContentDto
 import com.comssa.core.chatbot.dto.request.ChatContentDto.Companion.from
+import com.comssa.persistence.chatbot.ChatContentType
 import com.comssa.persistence.question.common.domain.Question
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion

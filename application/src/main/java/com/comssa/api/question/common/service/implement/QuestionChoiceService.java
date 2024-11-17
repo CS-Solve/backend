@@ -4,7 +4,7 @@ package com.comssa.api.question.common.service.implement;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.license.domain.LicenseQuestionChoice;
 import com.comssa.persistence.question.license.repository.LicenseQuestionChoiceRepository;
-import com.comssa.persistence.question.major.domain.admin.dto.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.major.domain.common.MajorQuestionChoice;
 import com.comssa.persistence.question.major.repository.MajorQuestionChoiceRepository;

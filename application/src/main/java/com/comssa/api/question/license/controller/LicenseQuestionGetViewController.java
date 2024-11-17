@@ -4,7 +4,7 @@ import com.comssa.api.login.aspect.AddLoginStatusAttribute;
 import com.comssa.api.question.license.service.AdminLicenseQuestionGetService;
 import com.comssa.api.question.license.service.LicenseSessionService;
 import com.comssa.api.question.license.service.UserLicenseQuestionGetService;
-import com.comssa.persistence.question.common.domain.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseSession;
 import io.swagger.annotations.Api;

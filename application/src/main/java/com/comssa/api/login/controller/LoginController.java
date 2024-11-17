@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class LoginController {
 
+	/*
+	해당 API는 테스트용
+	실제 로그인 요청은 클라이언트에서 직접 authorization/cognito 요청을 보낸다.
+	 */
 	@GetMapping("/cognito")
 	public ResponseEntity<ResponseAccessTokenDto> getAccessToken(
 		Authentication authentication, Model model

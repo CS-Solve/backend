@@ -1,16 +1,16 @@
 package com.comssa.api.question.license;
 
-import com.api.computerscience.question.common.dto.request.RequestChangeContentDto;
 import com.comssa.api.ControllerTest;
 import com.comssa.api.question.license.controller.AdminLicenseQuestionController;
 import com.comssa.api.question.license.service.AdminLicenseMuiltipleChoiceQuestionUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionChoiceUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionMakeService;
-import com.comssa.persistence.question.common.domain.dto.request.RequestChangeDescriptionDto;
-import com.comssa.persistence.question.common.domain.dto.response.ResponseQuestionDto;
+import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
+import com.comssa.persistence.question.common.dto.request.RequestChangeDescriptionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
-import com.comssa.persistence.question.license.domain.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import org.junit.jupiter.api.BeforeEach;

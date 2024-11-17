@@ -4,7 +4,7 @@ import com.comssa.api.question.major.admin.service.ExternalQuestionService
 import com.comssa.core.chatbot.dto.response.ChatGptBatchResponseDto
 import com.comssa.core.chatbot.dto.response.ChatGptFileUploadResponseDto
 import com.comssa.core.chatbot.service.implement.ChatGptService
-import com.comssa.persistence.question.common.domain.dto.request.RequestQuestionCommandDto
+import com.comssa.persistence.question.common.dto.request.RequestQuestionCommandDto
 import io.swagger.annotations.Api
 import lombok.RequiredArgsConstructor
 import org.springframework.http.ResponseEntity
