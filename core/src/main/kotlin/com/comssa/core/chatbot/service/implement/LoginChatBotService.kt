@@ -21,8 +21,8 @@ class LoginChatBotService(
 		if (user == null) {
 			return NOT_LOGIN
 		}
-		val userId = authUserService.getCognitoId(user) ?: return NOT_LOGIN
-		return chatManageService.talkForChat(userId, chatBotRequestDto)
+		val cognitoId = authUserService.getCognitoId(user) ?: return NOT_LOGIN
+		return chatManageService.talkForChat(cognitoId, chatBotRequestDto)
 	}
 
 	companion object {
