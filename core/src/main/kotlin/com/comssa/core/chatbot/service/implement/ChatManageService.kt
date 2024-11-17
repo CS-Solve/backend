@@ -1,10 +1,10 @@
 package com.comssa.core.chatbot.service.implement
 
-import com.comssa.core.chatbot.domain.ChatRole
 import com.comssa.core.chatbot.dto.request.ChatBotRequestDto
 import com.comssa.core.chatbot.dto.request.ChatContentDto
 import com.comssa.core.chatbot.dto.request.ChatMessageDto
 import com.comssa.core.chatbot.dto.response.ChatGptFileUploadResponseDto
+import com.comssa.persistence.chatbot.ChatRole
 import org.springframework.stereotype.Service
 
 @Service

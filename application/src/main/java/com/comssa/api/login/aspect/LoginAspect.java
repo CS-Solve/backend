@@ -15,6 +15,7 @@ public class LoginAspect {
 	/**
 	 * 특정 메서드에 @AddLoginStatusAttribute 어노테이션이 있으면
 	 * 메서드 실행 전후에 이 advice가 실행됩니다.
+	 * Model에 login 상태 부여
 	 */
 	@Around("@annotation(com.comssa.api.login.aspect.AddLoginStatusAttribute)")
 	public Object addLoginStatusAttribute(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -26,8 +27,11 @@ public class LoginAspect {
 			if (arg instanceof Model) {
 				Model model = (Model) arg;
 				// 인증 상태 확인 및 isLogin 속성 추가
+
 				// cognito 요청을 하면 자동으로 저장 됨.
 				Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+				// 시큐리티 컨텍스트에 유저 관련 정보가 저장되어있다면
 				boolean isAuthenticated =
 					auth != null && auth.isAuthenticated() && !(auth instanceof AnonymousAuthenticationToken);
 				model.addAttribute("isLogin", isAuthenticated);

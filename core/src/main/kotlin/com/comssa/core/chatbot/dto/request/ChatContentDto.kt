@@ -1,6 +1,6 @@
 package com.comssa.core.chatbot.dto.request
 
-import com.comssa.core.chatbot.domain.ChatContentType
+import com.comssa.persistence.chatbot.ChatContentType
 
 data class ChatContentDto(
 	val type: String,

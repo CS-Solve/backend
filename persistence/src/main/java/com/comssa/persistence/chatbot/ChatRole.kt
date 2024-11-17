@@ -1,4 +1,4 @@
-package com.comssa.core.chatbot.domain
+package com.comssa.persistence.chatbot
 
 enum class ChatRole(
 	val lower: String,
