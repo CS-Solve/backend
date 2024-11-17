@@ -17,7 +17,7 @@ public class LoginAspect {
 	 * 메서드 실행 전후에 이 advice가 실행됩니다.
 	 * Model에 login 상태 부여
 	 */
-	@Around("@annotation(com.comssa.api.login.aspect.AddLoginStatusAttribute)")
+	@Around("@annotation(com.comssa.api.login.aspect.AddLoginStatusAttributeToView)")
 	public Object addLoginStatusAttribute(ProceedingJoinPoint joinPoint) throws Throwable {
 		// 현재 메서드의 파라미터 가져오기
 		Object[] args = joinPoint.getArgs();

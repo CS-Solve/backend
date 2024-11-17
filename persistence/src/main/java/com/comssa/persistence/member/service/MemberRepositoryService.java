@@ -15,7 +15,7 @@ public class MemberRepositoryService {
 		return memberRepository.findByCognitoId(cognitoId).orElse(null);
 	}
 
-	public Member save(Member from) {
-		return memberRepository.save(from);
+	public Member save(Member member) {
+		return memberRepository.save(member);
 	}
 }

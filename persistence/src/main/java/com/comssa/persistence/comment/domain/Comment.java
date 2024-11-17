@@ -29,4 +29,13 @@ public class Comment {
 	@ManyToOne
 	@JoinColumn(name = "member_id")
 	private Member member;
+
+	private String content;
+
+	public static Comment from(String content, Member member) {
+		return Comment.builder()
+			.content(content)
+			.member(member)
+			.build();
+	}
 }
