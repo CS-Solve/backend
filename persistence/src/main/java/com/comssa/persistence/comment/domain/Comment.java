@@ -30,7 +30,6 @@ public class Comment extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "member_id")
 	private Member member;
-
 	@ManyToOne
 	@JoinColumn(name = "question_id")
 	private Question question;
@@ -38,10 +37,11 @@ public class Comment extends BaseEntity {
 	private String content;
 
 
-	public static Comment from(String content, Member member) {
+	public static Comment from(String content, Member member, Question question) {
 		return Comment.builder()
 			.content(content)
 			.member(member)
+			.question(question)
 			.build();
 	}
 }

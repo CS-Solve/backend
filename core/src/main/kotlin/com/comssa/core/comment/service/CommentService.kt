@@ -7,6 +7,7 @@ import com.comssa.persistence.comment.domain.Comment
 import com.comssa.persistence.comment.service.CommentRepositoryService
 import com.comssa.persistence.exception.NotLoginException
 import com.comssa.persistence.member.service.MemberRepositoryService
+import com.comssa.persistence.question.common.service.QuestionRepositoryService
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -17,19 +18,24 @@ class CommentService(
 	private val authUserService: AuthUserService,
 	private val commentRepositoryService: CommentRepositoryService,
 	private val memberRepositoryService: MemberRepositoryService,
+	private val questionRepositoryService: QuestionRepositoryService,
 ) {
 	fun makeComment(
 		requestMakeCommentDto: RequestMakeCommentDto,
 		user: OAuth2User?,
 	): ResponseCommentDto {
 		val cognitoId = authUserService.getCognitoId(user) ?: throw NotLoginException()
-		// JAVA랑 엮이면서 Null SAFE한 것을 알 수 없음
+
 		val member = memberRepositoryService.findByCognitoId(cognitoId)
+		val question = questionRepositoryService.findById(requestMakeCommentDto.questionId)
+
 		val newComment =
 			Comment.from(
 				requestMakeCommentDto.content,
 				member,
+				question,
 			)
+
 		commentRepositoryService.save(newComment)
 		return ResponseCommentDto.from(newComment, member)
 	}
