@@ -219,6 +219,7 @@
     flex: 0 0 auto;
 }
 
+
 .quiz .questionItem {
 
     margin-top: -1px;
@@ -637,7 +638,6 @@ Side bar
 
 #questionList a {
     display: block;
-    padding: 5px 0;
     color: #333;
     text-decoration: none;
     word-wrap: break-word;

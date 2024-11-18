@@ -1,5 +1,6 @@
 <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel"
-     aria-hidden="true">
+     aria-hidden="true"
+     th:data-question-id="${question.id}">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <!-- 모달 헤더: 닫기 버튼 -->
@@ -8,10 +9,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-
             <!-- 문제 본문 영역 -->
             <div class="modal-body content">
-                <p class="questionItem" th:text="${question.content}">
+                <p class="specific-question" th:text="${question.content}">
                 <div th:if="${question.imageUrl != null}">
                     <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
                 </div>
@@ -33,14 +33,15 @@
             <hr/>
 
             <!-- 댓글 입력 영역 -->
-            <div class="modal-body comment-input">
+            <div class="modal-body comment">
                 <h5 class="modal-comment-title"></h5>
-                <textarea id="newComment" placeholder="댓글을 입력하세요..." rows="3" style="width: 100%;"></textarea>
-                <button type="button" class="btn btn-primary" onclick="submitComment()">댓글 등록</button>
-            </div>
-            <!-- 댓글 목록 영역 -->
-            <div class="modal-body comment-list">
-                <h5 class="modal-comment-title">댓글 목록</h5>
+                <div class="comment-input">
+                    <label for="newComment"></label><textarea id="newComment" placeholder="댓글을 입력하세요..." rows="4"
+                                                              style="width: 100%;"></textarea>
+                    <button type="button" class="btn btn-primary" onclick="submitComment()">댓글
+                        등록
+                    </button>
+                </div>
                 <div th:each="comment : ${comments}">
                     <div class="comment-item">
                         <p th:text="${comment.content}">댓글 내용</p>
@@ -49,12 +50,12 @@
                     </div>
                     <hr/> <!-- 각 댓글 사이 구분선 -->
                 </div>
-            </div>
 
-            <!-- 모달 푸터: 닫기 버튼 -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
             </div>
+            <!-- 모달 푸터: 닫기 버튼 -->
+            <!--            <div class="modal-footer">-->
+            <!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>-->
+            <!--            </div>-->
         </div>
     </div>
 </div>

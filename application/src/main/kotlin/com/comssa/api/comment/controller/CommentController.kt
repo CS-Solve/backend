@@ -1,5 +1,6 @@
 package com.comssa.api.comment.controller
 
+import com.comssa.api.login.aspect.AddLoginStatusAttributeToView
 import com.comssa.core.comment.dto.RequestMakeCommentDto
 import com.comssa.core.comment.dto.ResponseCommentDto
 import com.comssa.core.comment.service.CommentService
@@ -35,6 +36,7 @@ class CommentController(
 		ResponseEntity.ok(commentService.makeComment(requestMakeCommentDto, questionId, user))
 
 	@GetMapping("/{questionId}/comment")
+	@AddLoginStatusAttributeToView
 	fun getComments(
 		model: Model,
 		@PathVariable("questionId") questionId: Long,

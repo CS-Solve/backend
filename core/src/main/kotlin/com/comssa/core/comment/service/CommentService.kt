@@ -52,17 +52,19 @@ class CommentService(
 		user: OAuth2User?,
 		questionId: Long,
 	): Pair<Member?, Question> {
+		/*
+		cognitoId로 유저 조회
+		 */
+		val member =
+			authUserService.getCognitoId(user)?.let { memberRepositoryService.findByCognitoId(it) }
+
 		/**
 		 * 없는 문제라면 에러 발생
 		 */
 		val question =
 			questionRepositoryService.findById(questionId)
 				?: throw NoSuchElementException("Question $questionId not found")
-		/*
-		cognitoId로 유저 조회
-		 */
-		val member =
-			authUserService.getCognitoId(user)?.let { memberRepositoryService.findByCognitoId(it) }
+
 		return member to question
 	}
 }
