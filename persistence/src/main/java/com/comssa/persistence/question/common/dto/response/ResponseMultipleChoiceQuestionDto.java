@@ -20,7 +20,8 @@ import java.util.stream.Collectors;
 public class ResponseMultipleChoiceQuestionDto extends ResponseQuestionDto {
 	private List<ResponseQuestionChoiceDto> questionChoices;
 
-	public static <T extends Question> ResponseMultipleChoiceQuestionDto.ResponseMultipleChoiceQuestionDtoBuilder<?, ?> common(
+	public static <T extends Question> ResponseMultipleChoiceQuestionDto
+		.ResponseMultipleChoiceQuestionDtoBuilder<?, ?> common(
 		T question,
 		List<? extends QuestionChoice> choiceExtractor) {
 		return ResponseMultipleChoiceQuestionDto.builder()

@@ -68,14 +68,16 @@ public class AdminMajorQuestionController {
 
 	@ApiOperation("단답형 문제 상태 업데이트 - Approve 토글")
 	@PatchMapping(value = "/question/major/{id}/toggle-approve")
-	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleApproveNormalQuestion(@PathVariable("id") Long questionId) {
+	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleApproveNormalQuestion(
+		@PathVariable("id") Long questionId) {
 		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forMajor(
 			adminMajorMultipleChoiceQuestionUpdateService.toggleApprove(questionId)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 단답형-주관식 토글")
 	@PatchMapping(value = "/question/major/{id}/toggle-multiple")
-	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleCanBeShortAnswered(@PathVariable("id") Long questionId) {
+	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleCanBeShortAnswered(
+		@PathVariable("id") Long questionId) {
 		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forMajor(
 			adminMajorMultipleChoiceQuestionUpdateService.toggleCanBeShortAnswered(questionId)));
 	}

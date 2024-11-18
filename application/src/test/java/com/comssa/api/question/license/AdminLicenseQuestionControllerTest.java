@@ -67,7 +67,8 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 	void makeLicenseQuestion() throws Exception {
 		final String path = baseApiUrl;
 		final String document_Name = "성공";
-		Mockito.when(adminLicenseQuestionMakeService.makeLicenseNormalQuestion(any())).thenReturn(responseMultipleChoiceQuestionDtos);
+		Mockito.when(adminLicenseQuestionMakeService
+			.makeLicenseNormalQuestion(any())).thenReturn(responseMultipleChoiceQuestionDtos);
 
 		mockMvc.perform(RestDocumentationRequestBuilders.post(path)
 				.contentType(MediaType.APPLICATION_JSON)
@@ -77,7 +78,9 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 					licenseMultipleChoiceQuestions,
 					LicenseMultipleChoiceQuestion::getQuestionChoices))))
 			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(responseMultipleChoiceQuestionDtos)))
+			.andExpect(MockMvcResultMatchers
+				.content()
+				.json(objectMapper.writeValueAsString(responseMultipleChoiceQuestionDtos)))
 			.andDo(print())
 			.andDo(MockMvcRestDocumentation.document(
 				document_Name
@@ -104,7 +107,9 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(RequestChangeContentDto.forTest())))
 			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(responseMultipleChoiceQuestionDto)))
+			.andExpect(MockMvcResultMatchers
+				.content()
+				.json(objectMapper.writeValueAsString(responseMultipleChoiceQuestionDto)))
 			.andDo(print())
 			.andDo(MockMvcRestDocumentation.document(
 				document_Name
@@ -132,7 +137,9 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(RequestChangeDescriptionDto.forTest())))
 			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(responseMultipleChoiceQuestionDto)))
+			.andExpect(MockMvcResultMatchers
+				.content()
+				.json(objectMapper.writeValueAsString(responseMultipleChoiceQuestionDto)))
 			.andDo(print())
 			.andDo(MockMvcRestDocumentation.document(
 				document_Name
