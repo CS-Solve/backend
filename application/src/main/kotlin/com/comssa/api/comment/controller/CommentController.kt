@@ -15,24 +15,26 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping(("/question/comment"))
+@RequestMapping(("/question"))
 @Api(tags = ["댓글"])
 class CommentController(
 	private val commentService: CommentService,
 ) {
-	@PostMapping
+	@PostMapping("/{questionId}/comment")
 	fun addComment(
+		@PathVariable("questionId") questionId: Long,
 		@RequestBody requestMakeCommentDto: RequestMakeCommentDto,
 		@AuthenticationPrincipal user: OAuth2User?,
-	): ResponseEntity<ResponseCommentDto> = ResponseEntity.ok(commentService.makeComment(requestMakeCommentDto, user))
+	): ResponseEntity<ResponseCommentDto> =
+		ResponseEntity.ok(commentService.makeComment(requestMakeCommentDto, questionId, user))
 
-	@GetMapping("{questionId}")
+	@GetMapping("/{questionId}/comment")
 	fun getComments(
 		@PathVariable("questionId") questionId: Long,
 		@AuthenticationPrincipal user: OAuth2User?,
 	): ResponseEntity<List<ResponseCommentDto>> =
 		ResponseEntity.ok(
 			commentService
-				.getAllComments(questionId, user),
+				.getComments(questionId, user),
 		)
 }
