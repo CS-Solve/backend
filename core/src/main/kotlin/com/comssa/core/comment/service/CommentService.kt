@@ -40,10 +40,16 @@ class CommentService(
 		return ResponseCommentDto.from(newComment, member)
 	}
 
-	fun getAllComments(user: OAuth2User?): List<ResponseCommentDto> {
+	fun getAllComments(
+		questionId: Long,
+		user: OAuth2User?,
+	): List<ResponseCommentDto> {
 		val cognitoId = authUserService.getCognitoId(user)
 		val member = memberRepositoryService.findByCognitoId(cognitoId)
-		val comments = commentRepositoryService.findAll()
+		val question =
+			questionRepositoryService.findById(questionId)
+				?: throw NoSuchElementException("Question $questionId not found")
+		val comments = question.comments
 		return comments.map { comment -> ResponseCommentDto.from(comment, member) }
 	}
 }

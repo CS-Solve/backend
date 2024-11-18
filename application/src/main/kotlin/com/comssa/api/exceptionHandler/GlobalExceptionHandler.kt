@@ -11,4 +11,8 @@ class GlobalExceptionHandler {
 	@ExceptionHandler(NotLoginException::class)
 	fun handleNotLoginException(e: NotLoginException): ResponseEntity<String> =
 		ResponseEntity(e.message, HttpStatus.UNAUTHORIZED)
+
+	@ExceptionHandler(NoSuchElementException::class)
+	fun handleNoSuchElementException(e: NoSuchElementException): ResponseEntity<String> =
+		ResponseEntity(e.message, HttpStatus.NOT_FOUND)
 }
