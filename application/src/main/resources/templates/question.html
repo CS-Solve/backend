@@ -130,16 +130,15 @@
         <!-- 해설 보기 -->
         <div class="description-box">
             <div class="descriptionToggle">
-                <div class="text-wrapper-10" id="toggleDescription">해설 보기 ▼</div>
+                <div class="text-wrapper-10" onclick="loadComments()" id="toggleDescription">해설 보기</div>
             </div>
             <!-- 해설 내용 -->
-            <div class="description-container" id="descriptionContent">
-                <p class="descriptionText" id="descriptionText" style="display: none">해설 내용이 여기에 표시됩니다.</p>
-            </div>
+            <!--            <div class="description-container" id="descriptionContent">-->
+            <!--                <p class="descriptionText" id="descriptionText" style="display: none">해설 내용이 여기에 표시됩니다.</p>-->
+            <!--            </div>-->
             <div class="descriptionToggle">
                 <div class="text-wrapper-10">Chat GPT 4o mini</div>
             </div>
-            <button class="commentButton" onclick="loadComments()">댓글 보기</button>
             <!--            챗봇 내용-->
             <div class=" chatbot-container">
                 <div class="chatbot-messages" id="chatbotMessages">

@@ -15,8 +15,10 @@
 }
 
 /* 모달 본문 스타일 */
+/* 모달 본문 스타일 수정 */
 .modal-body {
-    padding-bottom: 2vh !important;
+    padding: 0 !important; /* padding을 0으로 강제 설정 */
+    padding-bottom: 2vh !important; /* 필요한 경우 특정 방향에만 padding을 추가 */
     height: auto;
     flex: 1;
     display: flex;

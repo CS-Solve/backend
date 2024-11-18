@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         questionList.addEventListener('click', handleQuestionListClick);
         document.querySelector('.left-box').addEventListener('click', handleQuestionClick);
         checkAnswerButton.addEventListener('click', handleCheckAnswer);
-        toggleButton.addEventListener('click', toggleDescriptionVisibility);
+        // toggleButton.addEventListener('click', toggleDescriptionVisibility);
     }
 
     function initialize() {
