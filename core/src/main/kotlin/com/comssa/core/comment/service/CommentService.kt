@@ -11,8 +11,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-@Service
 @Transactional
+@Service
 class CommentService(
 	private val authUserService: AuthUserService,
 	private val commentRepositoryService: CommentRepositoryService,
@@ -36,7 +36,7 @@ class CommentService(
 
 	fun getAllComments(user: OAuth2User?): List<ResponseCommentDto> {
 		val cognitoId = authUserService.getCognitoId(user)
-		val member = memberRepositoryService.findByCognitoIdFetchJoinComments(cognitoId)
+		val member = memberRepositoryService.findByCognitoId(cognitoId)
 		val comments = commentRepositoryService.findAll()
 		return comments.map { comment -> ResponseCommentDto.from(comment, member) }
 	}
