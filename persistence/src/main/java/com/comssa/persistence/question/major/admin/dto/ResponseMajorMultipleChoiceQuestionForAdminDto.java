@@ -2,8 +2,8 @@ package com.comssa.persistence.question.major.admin.dto;
 
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
+import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.common.dto.response.ResponseQuestionChoiceDto;
-import com.comssa.persistence.question.common.dto.response.ResponseQuestionDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,10 +15,10 @@ import java.util.List;
 @Getter
 @Setter
 @SuperBuilder
-public class ResponseMajorQuestionForAdminDto extends ResponseQuestionDto {
+public class ResponseMajorMultipleChoiceQuestionForAdminDto extends ResponseMultipleChoiceQuestionDto {
 	private boolean canBeShortAnswered;
 
-	public ResponseMajorQuestionForAdminDto(
+	public ResponseMajorMultipleChoiceQuestionForAdminDto(
 		Long id, String content, QuestionCategory questionCategory,
 		QuestionLevel questionLevel, List<ResponseQuestionChoiceDto> normalQuestionChoices, String description,
 		boolean ifApproved, boolean canBeShortAnswered, String imageUrl) {

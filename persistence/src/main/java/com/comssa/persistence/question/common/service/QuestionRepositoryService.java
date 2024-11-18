@@ -15,4 +15,9 @@ public class QuestionRepositoryService {
 	public Question findById(Long id) {
 		return questionRepository.findById(id).orElse(null);
 	}
+
+	@Nullable
+	public Question findByIdFetchChoices(Long id) {
+		return questionRepository.findById(id).orElse(null);
+	}
 }

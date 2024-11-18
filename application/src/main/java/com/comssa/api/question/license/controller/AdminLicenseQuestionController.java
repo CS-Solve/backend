@@ -4,8 +4,8 @@ import com.comssa.api.question.license.service.AdminLicenseMuiltipleChoiceQuesti
 import com.comssa.api.question.license.service.AdminLicenseQuestionChoiceUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionMakeService;
 import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
+import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.common.dto.response.ResponseQuestionChoiceDto;
-import com.comssa.persistence.question.common.dto.response.ResponseQuestionDto;
 import com.comssa.persistence.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,7 +34,7 @@ public class AdminLicenseQuestionController {
 
 	@ApiOperation("단답형 문제 세션으로 생성")
 	@PostMapping
-	public ResponseEntity<List<ResponseQuestionDto>> makeLicenseQuestionOfSession(
+	public ResponseEntity<List<ResponseMultipleChoiceQuestionDto>> makeLicenseQuestionOfSession(
 		@RequestBody RequestMakeLicenseMultipleChoiceQuestionDto requestMakeLicenseMultipleChoiceQuestionDto) {
 		return ResponseEntity.ok(
 			adminLicenseQuestionMakeService.makeLicenseNormalQuestion(requestMakeLicenseMultipleChoiceQuestionDto));
@@ -51,28 +51,28 @@ public class AdminLicenseQuestionController {
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 문제 지문 업데이트")
 	@PatchMapping(value = "/{id}/content")
-	public ResponseEntity<ResponseQuestionDto> changeContent(
+	public ResponseEntity<ResponseMultipleChoiceQuestionDto> changeContent(
 		@PathVariable("id") Long questionId,
 		@RequestBody RequestChangeContentDto requestChangeContentDto) {
-		return ResponseEntity.ok(ResponseQuestionDto.forAdmin(
+		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forAdmin(
 			adminLicenseMuiltipleChoiceQuestionUpdateService.changeContent(questionId, requestChangeContentDto)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 문제 해설 업데이트")
 	@PatchMapping(value = "/{id}/description")
-	public ResponseEntity<ResponseQuestionDto> changeDescription(
+	public ResponseEntity<ResponseMultipleChoiceQuestionDto> changeDescription(
 		@PathVariable("id") Long questionId,
 		@RequestBody RequestChangeContentDto requestChangeContentDto) {
-		return ResponseEntity.ok(ResponseQuestionDto.forAdmin(
+		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forAdmin(
 			adminLicenseMuiltipleChoiceQuestionUpdateService.changeDescription(questionId, requestChangeContentDto)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 문제 해설 업데이트")
 	@PatchMapping(value = "/{id}/toggle-approve")
-	public ResponseEntity<ResponseQuestionDto> toggleIsApprove(
+	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleIsApprove(
 		@PathVariable("id") Long questionId
 	) {
-		return ResponseEntity.ok(ResponseQuestionDto.forAdmin(
+		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forAdmin(
 			adminLicenseMuiltipleChoiceQuestionUpdateService.toggleApprove(questionId)));
 	}
 

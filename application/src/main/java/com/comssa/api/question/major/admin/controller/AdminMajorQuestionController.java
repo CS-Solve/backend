@@ -6,9 +6,9 @@ import com.comssa.api.question.major.admin.service.implement.AdminMajorMultipleC
 import com.comssa.api.question.major.common.exception.DuplicateQuestionException;
 import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
-import com.comssa.persistence.question.common.dto.response.ResponseQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.major.admin.dto.ResponseMajorQuestionForAdminDto;
+import com.comssa.persistence.question.major.admin.dto.ResponseMajorMultipleChoiceQuestionForAdminDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -47,55 +47,55 @@ public class AdminMajorQuestionController {
 
 	@ApiOperation("단답형 문제 리스트로 생성")
 	@PostMapping(value = "/question/major-multi")
-	public ResponseEntity<List<ResponseQuestionDto>> makeMultiMajorQuestion(
+	public ResponseEntity<List<ResponseMultipleChoiceQuestionDto>> makeMultiMajorQuestion(
 		@RequestBody List<RequestMakeMultipleChoiceQuestionDto> requestMakeMultipleChoiceQuestionDtos) {
 		return ResponseEntity.ok(
 			adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMultipleChoiceQuestionDtos)
 				.stream()
-				.map(ResponseQuestionDto::forAdmin)
+				.map(ResponseMultipleChoiceQuestionDto::forAdmin)
 				.collect(Collectors.toList()));
 	}
 
 	@ApiOperation("단답형 문제 단일로 생성")
 	@PostMapping(value = "/question/major-single")
-	public ResponseEntity<ResponseQuestionDto> makeSingleNormalQuestion(
+	public ResponseEntity<ResponseMultipleChoiceQuestionDto> makeSingleNormalQuestion(
 		@RequestBody RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto) throws
 		DuplicateQuestionException {
 		return ResponseEntity.ok(
-			ResponseQuestionDto.forAdmin(
+			ResponseMultipleChoiceQuestionDto.forAdmin(
 				adminMajorQuestionMakeService.makeMultipleChoiceQuestion(requestMakeMultipleChoiceQuestionDto)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - Approve 토글")
 	@PatchMapping(value = "/question/major/{id}/toggle-approve")
-	public ResponseEntity<ResponseQuestionDto> toggleApproveNormalQuestion(@PathVariable("id") Long questionId) {
-		return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(
+	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleApproveNormalQuestion(@PathVariable("id") Long questionId) {
+		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forAdmin(
 			adminMajorMultipleChoiceQuestionUpdateService.toggleApprove(questionId)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 단답형-주관식 토글")
 	@PatchMapping(value = "/question/major/{id}/toggle-multiple")
-	public ResponseEntity<ResponseQuestionDto> toggleCanBeShortAnswered(@PathVariable("id") Long questionId) {
-		return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(
+	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleCanBeShortAnswered(@PathVariable("id") Long questionId) {
+		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forAdmin(
 			adminMajorMultipleChoiceQuestionUpdateService.toggleCanBeShortAnswered(questionId)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 문제 업데이트")
 	@PatchMapping(value = "/question/major/{id}/content")
-	public ResponseEntity<ResponseQuestionDto> changeQuestion(
+	public ResponseEntity<ResponseMultipleChoiceQuestionDto> changeQuestion(
 		@PathVariable("id") Long questionId,
 		@RequestBody RequestChangeContentDto requestChangeContentDto) {
-		return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(
+		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forAdmin(
 			adminMajorMultipleChoiceQuestionUpdateService.changeContent(questionId, requestChangeContentDto)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 해설 업데이트")
 	@PatchMapping(value = "/question/major/{id}/description")
-	public ResponseEntity<ResponseQuestionDto> changeDescription(
+	public ResponseEntity<ResponseMultipleChoiceQuestionDto> changeDescription(
 		@PathVariable("id") Long questionId,
 		@RequestBody RequestChangeContentDto requestChangeContentDto
 	) {
-		return ResponseEntity.ok(ResponseMajorQuestionForAdminDto.forAdmin(
+		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forAdmin(
 			adminMajorMultipleChoiceQuestionUpdateService.changeDescription(questionId, requestChangeContentDto)));
 	}
 
