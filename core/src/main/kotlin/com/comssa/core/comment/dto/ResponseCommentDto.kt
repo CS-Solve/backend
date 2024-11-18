@@ -13,14 +13,14 @@ data class ResponseCommentDto(
 	companion object {
 		fun from(
 			comment: Comment,
-			member: Member?,
+			loginMember: Member?,
 		): ResponseCommentDto =
 			ResponseCommentDto(
 				content = comment.content,
 				memberId = comment.member.cognitoId,
 				commentId = comment.id.toString(),
 				// member가 null이면 자동으로 false
-				ifAuthor = member?.id == comment.member.id,
+				ifAuthor = loginMember?.id == comment.member.id,
 				createdAt = comment.createdAt.toString(),
 			)
 	}

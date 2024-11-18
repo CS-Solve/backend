@@ -5,6 +5,7 @@ import com.comssa.core.comment.dto.RequestMakeCommentDto
 import com.comssa.core.comment.dto.ResponseCommentDto
 import com.comssa.persistence.comment.domain.Comment
 import com.comssa.persistence.comment.service.CommentRepositoryService
+import com.comssa.persistence.exception.NotLoginException
 import com.comssa.persistence.member.domain.Member
 import com.comssa.persistence.member.service.MemberRepositoryService
 import com.comssa.persistence.question.common.domain.Question
@@ -26,8 +27,8 @@ class CommentService(
 		questionId: Long,
 		user: OAuth2User?,
 	): ResponseCommentDto {
-		val (member, question) = pair(user, questionId)
-
+		val (member, question) = findMemberAndQuestion(user, questionId)
+		member ?: throw NotLoginException()
 		val newComment =
 			Comment.from(
 				requestMakeCommentDto.content,
@@ -42,22 +43,26 @@ class CommentService(
 		questionId: Long,
 		user: OAuth2User?,
 	): List<ResponseCommentDto> {
-		val (member, question) = pair(user, questionId)
+		val (member, question) = findMemberAndQuestion(user, questionId)
 		val comments = question.comments
-
 		return comments.map { comment -> ResponseCommentDto.from(comment, member) }
 	}
 
-	private fun pair(
+	private fun findMemberAndQuestion(
 		user: OAuth2User?,
 		questionId: Long,
 	): Pair<Member?, Question> {
-		val cognitoId = authUserService.getCognitoId(user)
-		val member = memberRepositoryService.findByCognitoId(cognitoId)
-
+		/**
+		 * 없는 문제라면 에러 발생
+		 */
 		val question =
 			questionRepositoryService.findById(questionId)
 				?: throw NoSuchElementException("Question $questionId not found")
-		return Pair(member, question)
+		/*
+		cognitoId로 유저 조회
+		 */
+		val member =
+			authUserService.getCognitoId(user)?.let { memberRepositoryService.findByCognitoId(it) }
+		return member to question
 	}
 }

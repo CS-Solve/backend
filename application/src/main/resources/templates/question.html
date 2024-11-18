@@ -24,6 +24,8 @@
     <link rel="stylesheet" th:href="|${baseUrl}/css/question/style.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/question/chatbot.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/question/commentModal.css|"/>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
 
     <!-- jQuery 라이브러리 추가 -->
@@ -133,7 +135,7 @@
             <div class="descriptionToggle">
                 <div class="text-wrapper-10">Chat GPT 4o mini</div>
             </div>
-            <button class="btn btn-link" onclick="loadComments()">댓글 보기</button>
+            <button class="commentButton" onclick="loadComments()">댓글 보기</button>
             <!--            챗봇 내용-->
             <div class=" chatbot-container">
                 <div class="chatbot-messages" id="chatbotMessages">
