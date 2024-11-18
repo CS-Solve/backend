@@ -15,8 +15,15 @@ class AuthUserService(
 	@Value("\${spring.security.oauth2.client.provider.cognito.user-name-attribute}")
 	private lateinit var userIdentifier: String
 
-	fun getCognitoId(user: OAuth2User): String? {
+	/**
+	 * 들어온 User가 null이거나 userId가 null일 경우를 모두 check한다.
+	 */
+	fun getCognitoId(user: OAuth2User?): String? {
+		if (user == null) {
+			return null
+		}
 		val userId = user.attributes[userIdentifier] as? String ?: return null
+		// DB에 저장되었는지 확인
 		memberService.findAndSaveMember(userId)
 		return userId
 	}

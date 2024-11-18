@@ -31,6 +31,6 @@ class CommentController(
 	): ResponseEntity<List<ResponseCommentDto>> =
 		ResponseEntity.ok(
 			commentService
-				.getComments(user),
+				.getAllComments(user),
 		)
 }

@@ -18,9 +18,6 @@ class LoginChatBotService(
 		chatBotRequestDto: ChatBotRequestDto,
 		user: OAuth2User?,
 	): String {
-		if (user == null) {
-			return NOT_LOGIN
-		}
 		val cognitoId = authUserService.getCognitoId(user) ?: return NOT_LOGIN
 		return chatManageService.talkForChat(cognitoId, chatBotRequestDto)
 	}
