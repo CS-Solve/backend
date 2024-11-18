@@ -20,7 +20,7 @@ function loadComments() {
             $('#commentModal').modal('show');
 
             // 모달이 로드된 후에 questionItem 요소들을 포맷팅
-            $('#commentModal .specific-question').each(function () {
+            $('#commentModal .specific-question, #commentModal .specific-description').each(function () {
                 formatSpecificQuestion(this);
             });
         },

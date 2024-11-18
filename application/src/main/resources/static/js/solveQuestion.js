@@ -253,9 +253,9 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function refreshAnswerAndDescription() {
-        makeDescriptionForHtml()
+        // makeDescriptionForHtml()
         hideAnswerMessage();
-        hideDescription();
+        // hideDescription();
         marked = false;
     }
 
