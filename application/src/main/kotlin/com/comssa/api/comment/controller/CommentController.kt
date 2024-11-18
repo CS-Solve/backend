@@ -36,7 +36,11 @@ class CommentController(
 	): ResponseEntity<ResponseCommentDto> =
 		ResponseEntity.ok(commentService.makeComment(requestMakeCommentDto, questionId, user))
 
-	@DeleteMapping("/{questionId}/comment/{commentId}")
+	@DeleteMapping("/comment/{commentId}")
+	fun deleteComment(
+		@PathVariable("commentId") commentId: Long,
+	): ResponseEntity<Void> = ResponseEntity.noContent().build()
+
 	@GetMapping("/{questionId}/comment")
 	@AddLoginStatusAttributeToView
 	fun getComments(

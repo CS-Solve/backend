@@ -19,4 +19,8 @@ public class CommentRepositoryService {
 	public List<Comment> findAll() {
 		return commentRepository.findAll();
 	}
+
+	public void deleteById(Long commentId) {
+		commentRepository.deleteById(commentId);
+	}
 }

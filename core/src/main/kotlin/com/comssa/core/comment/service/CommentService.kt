@@ -70,4 +70,8 @@ class CommentService(
 
 		return member to question
 	}
+
+	fun deleteComment(commentId: Long) {
+		commentRepositoryService.deleteById(commentId)
+	}
 }
