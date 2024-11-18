@@ -22,7 +22,7 @@ public class AdminMajorQuestionViewController {
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
 
-	@GetMapping("/question/update")
+	@GetMapping("/question/major/update")
 	public String updateQuestionPage(Model model) {
 		model.addAttribute("classifiedQuestions",
 			adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()
