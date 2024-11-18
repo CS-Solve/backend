@@ -10,7 +10,7 @@
             </div>
 
             <!-- 문제 본문 영역 -->
-            <div class="modal-body">
+            <div class="modal-body content">
                 <p class="questionItem" th:text="${question.content}">
                 <div th:if="${question.imageUrl != null}">
                     <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
@@ -33,17 +33,13 @@
             <hr/>
 
             <!-- 댓글 입력 영역 -->
-            <div class="modal-body">
-                <h5 class="modal-comment-title">댓글 작성</h5>
+            <div class="modal-body comment-input">
+                <h5 class="modal-comment-title"></h5>
                 <textarea id="newComment" placeholder="댓글을 입력하세요..." rows="3" style="width: 100%;"></textarea>
                 <button type="button" class="btn btn-primary" onclick="submitComment()">댓글 등록</button>
             </div>
-
-            <!-- 구분선 -->
-            <hr/>
-
             <!-- 댓글 목록 영역 -->
-            <div class="modal-body modal-comment-body">
+            <div class="modal-body comment-list">
                 <h5 class="modal-comment-title">댓글 목록</h5>
                 <div th:each="comment : ${comments}">
                     <div class="comment-item">

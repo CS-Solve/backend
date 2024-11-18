@@ -230,11 +230,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function saveQuestionPosition(questionBox) {
         const category = questionBox.closest('.category').querySelector('.category-text').textContent.trim();
         const index = questionBox.dataset.questionIndex;
-
+        const questionId = questionBox.dataset.questionId
         // JSON 형태로 category와 index 저장
         const questionPosition = {
             category: category,
-            index: index
+            index: index,
+            questionId: questionId,
         };
 
         sessionStorage.setItem("lastSelectedQuestion", JSON.stringify(questionPosition));

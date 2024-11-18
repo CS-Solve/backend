@@ -11,4 +11,10 @@
 .modal-content {
     padding: 20px;
     height: 80%;
+    overflow-y: scroll;
+}
+
+.modal-body {
+    padding: 0 !important;
+    height: 80%; /* 필요에 따라 height 설정 */
 }

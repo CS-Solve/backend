@@ -77,8 +77,11 @@
             <div class="categoryTitleBox">
                 <div class="category-text" th:text="${category.questionCategory.korean}">문제 분야</div>
             </div>
-            <div class="question-box" th:data-question-index="${iterStat.index}"
-                 th:each="question, iterStat : ${category.responseMultipleChoiceQuestionDtoList}">
+            <div class="question-box"
+                 th:each="question, iterStat : ${category.responseMultipleChoiceQuestionDtoList}"
+                 th:data-question-id="${question.id}"
+                 th:data-question-index="${iterStat.index}"
+            >
                 <div class="each-question" th:data-description="${question.description}">
                     <div class="question-meta-data">
                         <div class="quiz-number">
@@ -90,7 +93,8 @@
                         <div class="questionResult"></div> <!-- 정답/오답 여부를 여기에 표시 -->
                     </div>
                     <div class="questions">
-                        <p class="questionItem" th:text="${question.content}">
+                        <p class="questionItem"
+                           th:text="${question.content}">
                         <div th:if="${question.imageUrl != null}">
                             <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
                         </div>
@@ -98,10 +102,10 @@
                         <div class="choice-list" th:if="${multipleChoice}">
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
                             <div class="choice-item"
+                                 th:each="choice, choiceStat : ${question.questionChoices}"
                                  th:data-answer-status="${choice.answerStatus}"
                                  th:data-choice-id="${choice.id}"
                                  th:data-choice-text="${choice.content}"
-                                 th:each="choice, choiceStat : ${question.questionChoices}"
                                  th:text="${choiceStat.index + 1} + '. ' + ${choice.content}">
                             </div>
                         </div>
