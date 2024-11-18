@@ -137,4 +137,14 @@
         height: auto; /* 부모의 높이가 자동으로 조정되도록 설정 */
     }
 
+    /**
+    문제 페이지
+     */
+    .right-box {
+        width: 10%;
+    }
+
+    .left-sidebar {
+        width: 80%;
+    }
 }
