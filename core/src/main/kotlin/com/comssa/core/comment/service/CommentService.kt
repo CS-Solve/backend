@@ -72,6 +72,7 @@ class CommentService(
 	}
 
 	fun deleteComment(commentId: Long) {
+		authUserService
 		commentRepositoryService.deleteById(commentId)
 	}
 }

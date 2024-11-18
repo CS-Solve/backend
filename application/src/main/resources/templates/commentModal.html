@@ -45,8 +45,15 @@
                 <div th:each="comment : ${comments}">
                     <div class="comment-item">
                         <p th:text="${comment.content}">댓글 내용</p>
-                        <p><strong>작성자:</strong> <span th:text="${comment.memberId}">작성자 아이디</span></p>
-                        <p><strong>작성일:</strong> <span th:text="${comment.createdAt}">작성일</span></p>
+                        <p style="color: gray; font-size: 0.9em;">
+                            <span th:text="${#strings.substring(comment.memberId, 0, 8)}"></span>
+                            | <span
+                                th:text="${#strings.substring(comment.createdAt.toString(), 0, 10)}"></span>
+                        </p>
+                        <!-- 삭제 버튼: comment.ifAuthor가 true일 때만 표시 -->
+                        <span th:if="${comment.ifAuthor}"
+                              th:attr="onclick='deleteComment(' + ${comment.commentId} + ')'"
+                              class="delete-btn">X</span>
                     </div>
                     <hr/> <!-- 각 댓글 사이 구분선 -->
                 </div>

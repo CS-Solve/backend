@@ -92,3 +92,22 @@ function submitComment() {
         }
     });
 }
+
+// 댓글 삭제
+function deleteComment(commentId) {
+    fetch(`/question/comment/${commentId}`, {
+        method: 'DELETE'
+    }).then(response => {
+        if (response.ok) {
+            alert("댓글이 삭제되었습니다.");
+            location.reload(); // 페이지 새로고침으로 변경사항 반영
+        } else {
+            alert("댓글 삭제에 실패했습니다.");
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        alert("오류가 발생했습니다.");
+    });
+    if (confirm("댓글을 삭제하시겠습니까?")) {
+    }
+}

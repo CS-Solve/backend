@@ -39,7 +39,11 @@ class CommentController(
 	@DeleteMapping("/comment/{commentId}")
 	fun deleteComment(
 		@PathVariable("commentId") commentId: Long,
-	): ResponseEntity<Void> = ResponseEntity.noContent().build()
+		@AuthenticationPrincipal user: OAuth2User?,
+	): ResponseEntity<Void> {
+		commentService.deleteComment(commentId)
+		return ResponseEntity.noContent().build()
+	}
 
 	@GetMapping("/{questionId}/comment")
 	@AddLoginStatusAttributeToView
