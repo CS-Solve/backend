@@ -24,6 +24,7 @@
     <link rel="stylesheet" th:href="|${baseUrl}/css/question/style.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/question/chatbot.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/question/commentModal.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/question/mediaStyle.css|"/>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
@@ -95,7 +96,7 @@
                     <div class="questions">
                         <p class="questionItem"
                            th:text="${question.content}">
-                        <div th:if="${question.imageUrl != null}">
+                        <div th:if="${question.imageUrl != null}" class="image-container">
                             <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
                         </div>
                         </p>

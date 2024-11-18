@@ -1,6 +1,6 @@
 /* 모달 중앙 배치 및 크기 조정 */
 .modal-dialog.modal-dialog-centered {
-    width: 80vw !important;
+    width: 60vw !important;
     max-width: none;
     height: 80vh !important;
     max-height: none;
@@ -24,10 +24,13 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+
+    align-items: center; /* 가로 중앙 정렬 */
 }
 
 /* 댓글 입력란 스타일 */
 .comment-input {
+
     padding-bottom: 2vh;
     border-bottom: 1px solid #ddd; /* 하단 테두리 */
 }
@@ -51,4 +54,12 @@
     right: 15px;
     color: red;
     cursor: pointer;
+}
+
+.choice-list, .specific-question, .comment-input, .question-image {
+    width: 90%;
+}
+
+.question-image {
+    overflow-x: scroll;
 }

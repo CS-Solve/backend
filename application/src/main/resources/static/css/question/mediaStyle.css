@@ -1,0 +1,12 @@
+/**
+    모바일 환경에서 조정
+     */
+@media (max-width: 768px) {
+    .quiz .right-box {
+        width: 10% !important;
+    }
+
+    .quiz .left-box {
+        width: 80% !important;
+    }
+}

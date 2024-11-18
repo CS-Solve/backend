@@ -23,7 +23,8 @@
                          th:data-choice-id="${choice.id}"
                          th:data-choice-text="${choice.content}"
                          th:each="choice, choiceStat : ${question.questionChoices}"
-                         th:text="${choiceStat.index + 1} + '. ' + ${choice.content}">
+                         th:text="${choiceStat.index + 1} + '. ' + ${choice.content}"
+                         th:classappend="${choice.answerStatus} ? 'text-success' : 'text-danger'">
                     </div>
                 </div>
                 <!--                <p th:text="${questionContent}">문제 내용이 여기에 표시됩니다.</p>-->
