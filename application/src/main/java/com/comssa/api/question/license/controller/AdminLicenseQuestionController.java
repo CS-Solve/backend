@@ -54,7 +54,7 @@ public class AdminLicenseQuestionController {
 	public ResponseEntity<ResponseMultipleChoiceQuestionDto> changeContent(
 		@PathVariable("id") Long questionId,
 		@RequestBody RequestChangeContentDto requestChangeContentDto) {
-		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forAdmin(
+		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forLicense(
 			adminLicenseMuiltipleChoiceQuestionUpdateService.changeContent(questionId, requestChangeContentDto)));
 	}
 
@@ -63,7 +63,7 @@ public class AdminLicenseQuestionController {
 	public ResponseEntity<ResponseMultipleChoiceQuestionDto> changeDescription(
 		@PathVariable("id") Long questionId,
 		@RequestBody RequestChangeContentDto requestChangeContentDto) {
-		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forAdmin(
+		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forLicense(
 			adminLicenseMuiltipleChoiceQuestionUpdateService.changeDescription(questionId, requestChangeContentDto)));
 	}
 
@@ -72,7 +72,7 @@ public class AdminLicenseQuestionController {
 	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleIsApprove(
 		@PathVariable("id") Long questionId
 	) {
-		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forAdmin(
+		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forLicense(
 			adminLicenseMuiltipleChoiceQuestionUpdateService.toggleApprove(questionId)));
 	}
 

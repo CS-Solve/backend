@@ -49,7 +49,7 @@ public class AdminLicenseQuestionMakeService {
 			requestMakeMultipleChoiceQuestionDto, licenseSession, licenseCategory);
 		licenseMultipleChoiceQuestionRepository.save(licenseMultipleChoiceQuestion);
 		questionChoiceService.saveWith(requestMakeMultipleChoiceQuestionDto, licenseMultipleChoiceQuestion);
-		return ResponseMultipleChoiceQuestionDto.forAdmin(licenseMultipleChoiceQuestion);
+		return ResponseMultipleChoiceQuestionDto.forLicense(licenseMultipleChoiceQuestion);
 	}
 
 	public String updateLicenseQuestionWithImage(Long licenseQuestionId, MultipartFile file) {

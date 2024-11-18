@@ -52,7 +52,7 @@ public class AdminMajorQuestionController {
 		return ResponseEntity.ok(
 			adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMultipleChoiceQuestionDtos)
 				.stream()
-				.map(ResponseMultipleChoiceQuestionDto::forAdmin)
+				.map(ResponseMultipleChoiceQuestionDto::forMajor)
 				.collect(Collectors.toList()));
 	}
 
@@ -62,21 +62,21 @@ public class AdminMajorQuestionController {
 		@RequestBody RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto) throws
 		DuplicateQuestionException {
 		return ResponseEntity.ok(
-			ResponseMultipleChoiceQuestionDto.forAdmin(
+			ResponseMultipleChoiceQuestionDto.forMajor(
 				adminMajorQuestionMakeService.makeMultipleChoiceQuestion(requestMakeMultipleChoiceQuestionDto)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - Approve 토글")
 	@PatchMapping(value = "/question/major/{id}/toggle-approve")
 	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleApproveNormalQuestion(@PathVariable("id") Long questionId) {
-		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forAdmin(
+		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forMajor(
 			adminMajorMultipleChoiceQuestionUpdateService.toggleApprove(questionId)));
 	}
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 단답형-주관식 토글")
 	@PatchMapping(value = "/question/major/{id}/toggle-multiple")
 	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleCanBeShortAnswered(@PathVariable("id") Long questionId) {
-		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forAdmin(
+		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forMajor(
 			adminMajorMultipleChoiceQuestionUpdateService.toggleCanBeShortAnswered(questionId)));
 	}
 
@@ -85,7 +85,7 @@ public class AdminMajorQuestionController {
 	public ResponseEntity<ResponseMultipleChoiceQuestionDto> changeQuestion(
 		@PathVariable("id") Long questionId,
 		@RequestBody RequestChangeContentDto requestChangeContentDto) {
-		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forAdmin(
+		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forMajor(
 			adminMajorMultipleChoiceQuestionUpdateService.changeContent(questionId, requestChangeContentDto)));
 	}
 
@@ -95,7 +95,7 @@ public class AdminMajorQuestionController {
 		@PathVariable("id") Long questionId,
 		@RequestBody RequestChangeContentDto requestChangeContentDto
 	) {
-		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forAdmin(
+		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forMajor(
 			adminMajorMultipleChoiceQuestionUpdateService.changeDescription(questionId, requestChangeContentDto)));
 	}
 

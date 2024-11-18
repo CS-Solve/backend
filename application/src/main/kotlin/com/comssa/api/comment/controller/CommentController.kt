@@ -55,7 +55,7 @@ class CommentController(
 		val comments: List<ResponseCommentDto> = commentService.getComments(questionId, user)
 		model.addAttribute("multipleChoice", true)
 		model.addAttribute("comments", comments)
-		val question = questionGetService.getQuestionById(questionId)
+		val question = questionGetService.getQuestionByIdFetchIfShould(questionId)
 		model.addAttribute(
 			"question",
 			ResponseQuestionDto.forUser(question),

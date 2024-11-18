@@ -31,7 +31,8 @@ class CommentService(
 			authUserService.getCognitoId(user)?.let { memberRepositoryService.findByCognitoId(it) }
 				?: throw NotLoginException()
 
-		val question = questionRepositoryService.findById(questionId) ?: throw NoSuchElementException()
+		val question =
+			questionRepositoryService.findById(questionId) ?: throw NoSuchElementException()
 		val newComment =
 			Comment.from(
 				requestMakeCommentDto.content,

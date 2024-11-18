@@ -52,7 +52,7 @@ public class ResponseClassifiedMultipleQuestionDto {
 			.questionCategory(questionCategory)
 			.responseMultipleChoiceQuestionDtoList(
 				majorMultipleChoiceQuestions.stream()
-					.map(ResponseMultipleChoiceQuestionDto::forAdmin)
+					.map(ResponseMultipleChoiceQuestionDto::forMajor)
 					.collect(Collectors.toList())
 			)
 			.build();
