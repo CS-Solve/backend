@@ -27,8 +27,11 @@ class CommentService(
 		questionId: Long,
 		user: OAuth2User?,
 	): ResponseCommentDto {
-		val (member, question) = findMemberAndQuestion(user, questionId)
-		member ?: throw NotLoginException()
+		val member =
+			authUserService.getCognitoId(user)?.let { memberRepositoryService.findByCognitoId(it) }
+				?: throw NotLoginException()
+
+		val question = questionRepositoryService.findById(questionId) ?: throw NoSuchElementException()
 		val newComment =
 			Comment.from(
 				requestMakeCommentDto.content,
