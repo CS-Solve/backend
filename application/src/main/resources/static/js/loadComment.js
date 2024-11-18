@@ -65,23 +65,20 @@ function formatSpecificQuestion(element) {
  * 댓글 작성
  */
 function submitComment() {
-    // questionId를 가져옵니다
     const questionId = document.getElementById('commentModal').getAttribute('data-question-id');
     const commentContent = document.getElementById('newComment').value;
-
     if (!commentContent) {
         alert("댓글을 입력하세요.");
         return;
     }
-
     $.ajax({
         url: `/question/${questionId}/comment`,
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({content: commentContent}),
-        success: function (response) {
+        success: function () {
             alert("댓글이 등록되었습니다.");
-            location.reload(); // 댓글 등록 후 페이지를 새로고침하여 댓글 목록 갱신
+            reloadComments(questionId); // 댓글 목록 갱신
         },
         error: function (jqXHR) {
             if (jqXHR.status === 401) {
@@ -95,12 +92,18 @@ function submitComment() {
 
 // 댓글 삭제
 function deleteComment(commentId) {
+    const questionId = document.getElementById('commentModal').getAttribute('data-question-id');
+
+    if (!confirm("댓글을 삭제하시겠습니까?")) {
+        return;
+    }
+
     fetch(`/question/comment/${commentId}`, {
         method: 'DELETE'
     }).then(response => {
         if (response.ok) {
             alert("댓글이 삭제되었습니다.");
-            location.reload(); // 페이지 새로고침으로 변경사항 반영
+            reloadComments(questionId); // 댓글 목록 갱신
         } else {
             alert("댓글 삭제에 실패했습니다.");
         }
@@ -108,6 +111,22 @@ function deleteComment(commentId) {
         console.error('Error:', error);
         alert("오류가 발생했습니다.");
     });
-    if (confirm("댓글을 삭제하시겠습니까?")) {
-    }
 }
+
+/**
+ * 댓글 초기화
+ */
+function reloadComments(questionId) {
+    $.ajax({
+        url: `/question/${questionId}/comment`, // 최신 댓글 목록을 가져오기 위한 URL
+        method: 'GET',
+        success: function (data) {
+            // 댓글 목록을 업데이트할 영역을 찾아서 새로 불러온 HTML로 교체
+            $('#commentModal .modal-body.comment').html($(data).find('.modal-body.comment').html());
+        },
+        error: function () {
+            alert('댓글을 갱신하는 데 실패했습니다.');
+        }
+    });
+}
+
