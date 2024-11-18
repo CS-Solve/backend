@@ -7,6 +7,8 @@ data class ResponseCommentDto(
 	val content: String,
 	val ifAuthor: Boolean,
 	val memberId: String,
+	val commentId: String,
+	val createdAt: String,
 ) {
 	companion object {
 		fun from(
@@ -15,9 +17,11 @@ data class ResponseCommentDto(
 		): ResponseCommentDto =
 			ResponseCommentDto(
 				content = comment.content,
-				memberId = comment.member.id.toString(),
+				memberId = comment.member.cognitoId,
+				commentId = comment.id.toString(),
 				// member가 null이면 자동으로 false
 				ifAuthor = member?.id == comment.member.id,
+				createdAt = comment.createdAt.toString(),
 			)
 	}
 }

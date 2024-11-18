@@ -7,19 +7,22 @@ import io.swagger.annotations.Api
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
 import org.springframework.security.oauth2.core.user.OAuth2User
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.ResponseBody
 
-@RestController
+@Controller
 @RequestMapping(("/question"))
 @Api(tags = ["댓글"])
 class CommentController(
 	private val commentService: CommentService,
 ) {
+	@ResponseBody
 	@PostMapping("/{questionId}/comment")
 	fun addComment(
 		@PathVariable("questionId") questionId: Long,
@@ -30,11 +33,12 @@ class CommentController(
 
 	@GetMapping("/{questionId}/comment")
 	fun getComments(
+		model: Model,
 		@PathVariable("questionId") questionId: Long,
 		@AuthenticationPrincipal user: OAuth2User?,
-	): ResponseEntity<List<ResponseCommentDto>> =
-		ResponseEntity.ok(
-			commentService
-				.getComments(questionId, user),
-		)
+	): String {
+		val comments: List<ResponseCommentDto> = commentService.getComments(questionId, user)
+		model.addAttribute("comments", comments)
+		return "commentModal"
+	}
 }

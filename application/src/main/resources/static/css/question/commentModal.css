@@ -1,0 +1,9 @@
+/* 모달이 중앙에 표시되도록 설정 */
+.modal-dialog {
+    max-width: 600px;
+    margin: 1.75rem auto;
+}
+
+.modal-content {
+    padding: 20px;
+}
