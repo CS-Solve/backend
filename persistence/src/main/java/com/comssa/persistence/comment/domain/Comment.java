@@ -2,6 +2,7 @@ package com.comssa.persistence.comment.domain;
 
 
 import com.comssa.persistence.member.domain.Member;
+import com.comssa.persistence.question.common.domain.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,8 +21,8 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @Getter
 @Builder
-@ToString
-public class Comment {
+@ToString(exclude = {"member"})
+public class Comment extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;

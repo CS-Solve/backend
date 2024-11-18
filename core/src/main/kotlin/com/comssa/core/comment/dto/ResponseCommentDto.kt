@@ -1,16 +1,19 @@
-package com.comssa.api.comment.dto
+package com.comssa.core.comment.dto
 
 import com.comssa.persistence.comment.domain.Comment
 
 data class ResponseCommentDto(
 	val content: String,
-	val memberId: Long,
+	val ifAuthor: Boolean,
 ) {
 	companion object {
-		fun from(comment: Comment): ResponseCommentDto =
+		fun from(
+			comment: Comment,
+			ifAuthor: Boolean,
+		): ResponseCommentDto =
 			ResponseCommentDto(
 				content = comment.content,
-				memberId = comment.member.id,
+				ifAuthor = ifAuthor,
 			)
 	}
 }

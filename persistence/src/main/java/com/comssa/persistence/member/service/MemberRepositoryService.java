@@ -15,6 +15,10 @@ public class MemberRepositoryService {
 		return memberRepository.findByCognitoId(cognitoId).orElse(null);
 	}
 
+	public Member findByCognitoIdFetchJoinComments(String cognitoId) {
+		return memberRepository.findByCognitoIdFetchJoinComments(cognitoId).orElse(null);
+	}
+
 	public Member save(Member member) {
 		return memberRepository.save(member);
 	}
