@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,8 +27,9 @@ public class Member {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 	private boolean ifDeleted;
+	@NotNull
 	private String cognitoId;
-
+	@NotNull
 	@OneToMany(mappedBy = "member")
 	private List<Comment> comments;
 

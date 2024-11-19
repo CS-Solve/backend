@@ -3,7 +3,7 @@ package com.comssa.persistence.question.common.service;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.lang.Nullable;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,5 +19,10 @@ public class QuestionRepositoryService {
 	@Nullable
 	public Question findByIdFetchChoices(Long id) {
 		return questionRepository.findById(id).orElse(null);
+	}
+
+	@Nullable
+	public Question findByIdFetchCommentsOrderByCreatedAtDesc(Long id) {
+		return questionRepository.findByIdFetchCommentsOrderByCreatedAtDesc(id).orElse(null);
 	}
 }
