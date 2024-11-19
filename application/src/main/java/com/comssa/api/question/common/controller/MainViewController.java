@@ -1,6 +1,6 @@
 package com.comssa.api.question.common.controller;
 
-import com.comssa.api.login.aspect.AddLoginStatusAttribute;
+import com.comssa.api.login.aspect.AddLoginStatusAttributeToView;
 import com.comssa.api.question.common.service.QuestionSelectorService;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.dto.response.ResponseLicenseSessionDto;
@@ -26,7 +26,7 @@ public class MainViewController {
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
 
-	@AddLoginStatusAttribute
+	@AddLoginStatusAttributeToView
 	@GetMapping("/")
 	public String showMainPage(Model model) {
 		List<String> categories = questionSelectorService.getCategories();
@@ -37,7 +37,7 @@ public class MainViewController {
 		return "index";
 	}
 
-	@AddLoginStatusAttribute
+	@AddLoginStatusAttributeToView
 	@GetMapping("/license")
 	public String showLicensePage(Model model) {
 		List<ResponseLicensesDto> licenseCategories = questionSelectorService.getLicenseCategories()

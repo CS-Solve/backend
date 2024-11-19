@@ -23,10 +23,21 @@
     <link rel="stylesheet" th:href="|${baseUrl}/css/global.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/question/style.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/question/chatbot.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/question/commentModal.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/question/mediaStyle.css|"/>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- jQuery 라이브러리 추가 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
     <script th:src="|${baseUrl}/js/solveQuestion.js|"></script>
     <script th:src="|${baseUrl}/js/showQuestionUi.js|"></script>
     <script th:src="|${baseUrl}/js/translateTextForHtml.js|"></script>
     <script th:src="|${baseUrl}/js/chatbot.js|"></script>
+    <script th:src="|${baseUrl}/js/loadComment.js|"></script>
 
 </head>
 <body>
@@ -67,8 +78,11 @@
             <div class="categoryTitleBox">
                 <div class="category-text" th:text="${category.questionCategory.korean}">문제 분야</div>
             </div>
-            <div class="question-box" th:data-question-index="${iterStat.index}"
-                 th:each="question, iterStat : ${category.responseQuestionDtoList}">
+            <div class="question-box"
+                 th:each="question, iterStat : ${category.responseMultipleChoiceQuestionDtoList}"
+                 th:data-question-id="${question.id}"
+                 th:data-question-index="${iterStat.index}"
+            >
                 <div class="each-question" th:data-description="${question.description}">
                     <div class="question-meta-data">
                         <div class="quiz-number">
@@ -80,18 +94,19 @@
                         <div class="questionResult"></div> <!-- 정답/오답 여부를 여기에 표시 -->
                     </div>
                     <div class="questions">
-                        <p class="questionItem" th:text="${question.content}">
-                        <div th:if="${question.imageUrl != null}">
+                        <p class="questionItem"
+                           th:text="${question.content}">
+                        <div th:if="${question.imageUrl != null}" class="image-container">
                             <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
                         </div>
                         </p>
                         <div class="choice-list" th:if="${multipleChoice}">
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
                             <div class="choice-item"
+                                 th:each="choice, choiceStat : ${question.questionChoices}"
                                  th:data-answer-status="${choice.answerStatus}"
                                  th:data-choice-id="${choice.id}"
                                  th:data-choice-text="${choice.content}"
-                                 th:each="choice, choiceStat : ${question.questionChoices}"
                                  th:text="${choiceStat.index + 1} + '. ' + ${choice.content}">
                             </div>
                         </div>
@@ -116,12 +131,12 @@
         <!-- 해설 보기 -->
         <div class="description-box">
             <div class="descriptionToggle">
-                <div class="text-wrapper-10" id="toggleDescription">해설 보기 ▼</div>
+                <div class="text-wrapper-10" onclick="loadComments()" id="toggleDescription">해설 보기</div>
             </div>
             <!-- 해설 내용 -->
-            <div class="description-container" id="descriptionContent">
-                <p class="descriptionText" id="descriptionText" style="display: none">해설 내용이 여기에 표시됩니다.</p>
-            </div>
+            <!--            <div class="description-container" id="descriptionContent">-->
+            <!--                <p class="descriptionText" id="descriptionText" style="display: none">해설 내용이 여기에 표시됩니다.</p>-->
+            <!--            </div>-->
             <div class="descriptionToggle">
                 <div class="text-wrapper-10">Chat GPT 4o mini</div>
             </div>
@@ -134,7 +149,6 @@
                     <textarea id="chatbotInput" placeholder="질문을 입력하세요..." rows="3"></textarea>
                     <button onclick="sendMessage()">전송</button>
                 </div>
-
             </div>
         </div>
     </div>

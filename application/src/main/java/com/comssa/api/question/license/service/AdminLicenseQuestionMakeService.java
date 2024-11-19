@@ -3,7 +3,7 @@ package com.comssa.api.question.license.service;
 
 import com.comssa.api.question.common.service.FileUploadService;
 import com.comssa.api.question.common.service.implement.QuestionChoiceService;
-import com.comssa.persistence.question.common.dto.response.ResponseQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.license.domain.LicenseSession;
@@ -28,7 +28,7 @@ public class AdminLicenseQuestionMakeService {
 	private final QuestionChoiceService questionChoiceService;
 	private final FileUploadService fileUploadService;
 
-	public List<ResponseQuestionDto> makeLicenseNormalQuestion(
+	public List<ResponseMultipleChoiceQuestionDto> makeLicenseNormalQuestion(
 		RequestMakeLicenseMultipleChoiceQuestionDto requestMakeLicenseMultipleChoiceQuestionDto) {
 		LicenseSession licenseSession = licenseSessionService.getLicenseSession(
 			requestMakeLicenseMultipleChoiceQuestionDto.getLicenseSession(),
@@ -42,14 +42,14 @@ public class AdminLicenseQuestionMakeService {
 			.collect(Collectors.toList());
 	}
 
-	private ResponseQuestionDto saveNormalLicenseQuestion(
+	private ResponseMultipleChoiceQuestionDto saveNormalLicenseQuestion(
 		RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto, LicenseSession licenseSession,
 		LicenseCategory licenseCategory) {
 		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.makeWithDto(
 			requestMakeMultipleChoiceQuestionDto, licenseSession, licenseCategory);
 		licenseMultipleChoiceQuestionRepository.save(licenseMultipleChoiceQuestion);
 		questionChoiceService.saveWith(requestMakeMultipleChoiceQuestionDto, licenseMultipleChoiceQuestion);
-		return ResponseQuestionDto.forAdmin(licenseMultipleChoiceQuestion);
+		return ResponseMultipleChoiceQuestionDto.forLicense(licenseMultipleChoiceQuestion);
 	}
 
 	public String updateLicenseQuestionWithImage(Long licenseQuestionId, MultipartFile file) {

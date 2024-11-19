@@ -1,6 +1,6 @@
 package com.comssa.api.question.license.controller;
 
-import com.comssa.api.login.aspect.AddLoginStatusAttribute;
+import com.comssa.api.login.aspect.AddLoginStatusAttributeToView;
 import com.comssa.api.question.license.service.AdminLicenseQuestionGetService;
 import com.comssa.api.question.license.service.LicenseSessionService;
 import com.comssa.api.question.license.service.UserLicenseQuestionGetService;
@@ -30,7 +30,7 @@ public class LicenseQuestionGetViewController {
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
 
-	@AddLoginStatusAttribute
+	@AddLoginStatusAttributeToView
 	@GetMapping("/question/license/{sessionId}")
 	public String getLicenseQuestionsBySession(
 		@PathVariable Long sessionId,

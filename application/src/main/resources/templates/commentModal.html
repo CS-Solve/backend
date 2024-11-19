@@ -1,0 +1,73 @@
+<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel"
+     aria-hidden="true"
+     th:data-question-id="${question.id}">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- 모달 헤더: 닫기 버튼 -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- 문제 본문 영역 -->
+            <div class="modal-body content">
+                <p class="specific-question" th:text="${question.content}">
+                <div th:if="${question.imageUrl != null}">
+                    <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
+                </div>
+                </p>
+                <div class="specific-choice-list" th:if="${multipleChoice}">
+                    <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
+                    <div class="choice-item"
+                         th:data-answer-status="${choice.answerStatus}"
+                         th:data-choice-id="${choice.id}"
+                         th:data-choice-text="${choice.content}"
+                         th:each="choice, choiceStat : ${question.questionChoices}"
+                         th:text="${choiceStat.index + 1} + '. ' + ${choice.content}"
+                         th:classappend="${choice.answerStatus} ? 'text-success' : 'text-danger'">
+                    </div>
+                </div>
+                <!--                <p th:text="${questionContent}">문제 내용이 여기에 표시됩니다.</p>-->
+            </div>
+            <div class="specific-description">
+                <h3 style="font-weight: bold;">해설</h3> <!-- 제목과 여백 추가 -->
+                <div class="specific-description-content" th:text="${question.description}">
+                    <!-- question.description 예제 텍스트로 확인 -->
+                </div>
+            </div>
+
+
+            <!-- 댓글 입력 영역 -->
+            <div class="modal-body comment">
+                <h5 class="modal-comment-title"></h5>
+                <div class="comment-input">
+                    <label for="newComment"></label><textarea id="newComment" placeholder="댓글을 입력하세요..." rows="4"
+                                                              style="width: 100%;"></textarea>
+                    <button type="button" class="btn btn-primary" onclick="submitComment()">댓글
+                        등록
+                    </button>
+                </div>
+                <div th:each="comment : ${comments}">
+                    <div class="comment-item">
+                        <p th:text="${comment.content}">댓글 내용</p>
+                        <p style="color: gray; font-size: 0.9em;">
+                            <span th:text="${#strings.substring(comment.memberId, 0, 8)}"></span>
+                            | <span
+                                th:text="${#strings.substring(comment.createdAt.toString(), 0, 10)}"></span>
+                        </p>
+                        <!-- 삭제 버튼: comment.ifAuthor가 true일 때만 표시 -->
+                        <span th:if="${comment.ifAuthor}"
+                              th:attr="onclick='deleteComment(' + ${comment.commentId} + ')'"
+                              class="delete-btn">X</span>
+                    </div>
+                    <hr/> <!-- 각 댓글 사이 구분선 -->
+                </div>
+
+            </div>
+            <!-- 모달 푸터: 닫기 버튼 -->
+            <!--            <div class="modal-footer">-->
+            <!--                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>-->
+            <!--            </div>-->
+        </div>
+    </div>
+</div>

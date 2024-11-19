@@ -1,6 +1,6 @@
 package com.comssa.api.question.major.user.controller;
 
-import com.comssa.api.login.aspect.AddLoginStatusAttribute;
+import com.comssa.api.login.aspect.AddLoginStatusAttributeToView;
 import com.comssa.api.question.major.user.service.implement.BasicMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
@@ -26,7 +26,7 @@ public class MajorQuestionGetViewController {
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
 
-	@AddLoginStatusAttribute
+	@AddLoginStatusAttributeToView
 	@GetMapping("/question/major")
 	public String getNormalQuestions(
 		@RequestParam(required = false) List<String> levels,

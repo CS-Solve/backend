@@ -1,0 +1,82 @@
+/* 모달 중앙 배치 및 크기 조정 */
+.modal-dialog.modal-dialog-centered {
+    width: 60vw !important;
+    max-width: none;
+    height: 80vh !important;
+    max-height: none;
+    margin: 1.75rem auto;
+}
+
+/* 모달 콘텐츠 스타일 */
+.modal-content {
+    padding: 20px;
+    height: 80%;
+    overflow-y: scroll;
+}
+
+/* 모달 본문 스타일 */
+/* 모달 본문 스타일 수정 */
+.modal-body {
+    padding: 0 !important; /* padding을 0으로 강제 설정 */
+    padding-bottom: 1vh !important; /* 필요한 경우 특정 방향에만 padding을 추가 */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    /*align-items: center; !* 가로 중앙 정렬 *!*/
+}
+
+/* 댓글 입력란 스타일 */
+.comment-input {
+
+    padding-bottom: 2vh;
+    border-bottom: 1px solid #ddd; /* 하단 테두리 */
+}
+
+/* 댓글 항목 스타일 */
+.comment-item {
+    padding: 10px; /* 내부 여백 */
+    margin-bottom: 10px; /* 각 댓글 간의 간격 */
+    position: relative; /* 삭제 버튼 위치를 위한 상대 위치 설정 */
+}
+
+/* 마지막 댓글의 하단 테두리 없애기 */
+.comment-item:last-child {
+    border-bottom: none;
+}
+
+/* 삭제 버튼 (X) 스타일 */
+.comment-item .delete-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: red;
+    cursor: pointer;
+}
+
+/*.specific-choice-list, .specific-question, .comment-input, .question-image, .specific-description {*/
+/*    width: 90%;*/
+/*}*/
+
+.specific-choice-list, .specific-description {
+    margin-bottom: 2vh;
+}
+
+.specific-choice-list {
+    border: 1px solid #ddd; /* 하단 테두리 */
+    font-size: 1.5vh;
+}
+
+.specific-description-content {
+    font-size: 1vh;
+}
+
+.question-image {
+    overflow-x: scroll;
+    width: 90%;
+}
+
+
+
+

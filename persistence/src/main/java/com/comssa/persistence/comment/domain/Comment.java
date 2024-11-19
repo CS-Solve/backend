@@ -2,6 +2,8 @@ package com.comssa.persistence.comment.domain;
 
 
 import com.comssa.persistence.member.domain.Member;
+import com.comssa.persistence.question.common.domain.BaseEntity;
+import com.comssa.persistence.question.common.domain.Question;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,13 +22,26 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @Getter
 @Builder
-@ToString
-public class Comment {
+@ToString(exclude = {"member"})
+public class Comment extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long id;
-
+	private Long id;
 	@ManyToOne
 	@JoinColumn(name = "member_id")
 	private Member member;
+	@ManyToOne
+	@JoinColumn(name = "question_id")
+	private Question question;
+
+	private String content;
+
+
+	public static Comment from(String content, Member member, Question question) {
+		return Comment.builder()
+			.content(content)
+			.member(member)
+			.question(question)
+			.build();
+	}
 }

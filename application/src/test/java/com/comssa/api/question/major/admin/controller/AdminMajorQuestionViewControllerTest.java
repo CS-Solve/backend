@@ -13,7 +13,9 @@ import java.util.HashMap;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest({
 	AdminMajorQuestionViewController.class
@@ -34,7 +36,7 @@ class AdminMajorQuestionViewControllerTest extends ControllerTest {
 			.thenReturn(new HashMap<>());
 
 		// When & Then
-		mockMvc.perform(MockMvcRequestBuilders.get("/admin/question/update"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/admin/question/major/update"))
 			.andExpect(status().isOk()) // 상태 코드 200 확인
 			.andExpect(view().name("question-update")) // 뷰 이름 확인
 			.andExpect(model().attributeExists("classifiedQuestions")) // 모델 속성 확인

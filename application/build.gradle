@@ -3,6 +3,8 @@ plugins {
     id 'io.freefair.lombok' version '8.10'
     id 'org.jetbrains.kotlin.plugin.lombok' version '1.8.0'
 
+    //임시 스프링 프록시 기능을 사용하기 위함( all-open)
+    id "org.jetbrains.kotlin.plugin.spring" version "1.4.32"
     /*
     API 명세
      */

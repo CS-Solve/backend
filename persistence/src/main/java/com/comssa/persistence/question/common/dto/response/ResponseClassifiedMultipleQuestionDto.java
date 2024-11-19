@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 @SuperBuilder
 public class ResponseClassifiedMultipleQuestionDto {
 	private QuestionCategory questionCategory;
-	private List<ResponseQuestionDto> responseQuestionDtoList;
+	private List<ResponseMultipleChoiceQuestionDto> responseMultipleChoiceQuestionDtoList;
 
 	public ResponseClassifiedMultipleQuestionDto(
 		QuestionCategory questionCategory,
-		List<ResponseQuestionDto> responseQuestionDtoList) {
+		List<ResponseMultipleChoiceQuestionDto> responseMultipleChoiceQuestionDtoList) {
 		this.questionCategory = questionCategory;
-		this.responseQuestionDtoList = responseQuestionDtoList;
+		this.responseMultipleChoiceQuestionDtoList = responseMultipleChoiceQuestionDtoList;
 	}
 
 	/**
@@ -32,9 +32,9 @@ public class ResponseClassifiedMultipleQuestionDto {
 		QuestionCategory questionCategory, List<T> multipleChoiceQuestions) {
 		return ResponseClassifiedMultipleQuestionDto.builder()
 			.questionCategory(questionCategory)
-			.responseQuestionDtoList(
+			.responseMultipleChoiceQuestionDtoList(
 				multipleChoiceQuestions.stream()
-					.map(question -> ResponseQuestionDto.forUser(
+					.map(question -> ResponseMultipleChoiceQuestionDto.forUser(
 						question, question.getQuestionChoices()
 					))
 					.collect(Collectors.toList())
@@ -50,9 +50,9 @@ public class ResponseClassifiedMultipleQuestionDto {
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
 		return ResponseClassifiedMultipleQuestionDto.builder()
 			.questionCategory(questionCategory)
-			.responseQuestionDtoList(
+			.responseMultipleChoiceQuestionDtoList(
 				majorMultipleChoiceQuestions.stream()
-					.map(ResponseQuestionDto::forAdmin)
+					.map(ResponseMultipleChoiceQuestionDto::forMajor)
 					.collect(Collectors.toList())
 			)
 			.build();

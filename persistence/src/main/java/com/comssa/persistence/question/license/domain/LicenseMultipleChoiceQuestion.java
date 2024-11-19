@@ -11,12 +11,10 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -28,12 +26,11 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @ToString
+@DiscriminatorValue("LM")
 public class LicenseMultipleChoiceQuestion extends Question implements ChoiceProvider {
+
 	@Enumerated(value = EnumType.STRING)
 	protected LicenseCategory licenseCategory;
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
 	@ManyToOne
 	@JoinColumn(name = "license_session_id")
 	private LicenseSession licenseSession;
@@ -79,11 +76,4 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoicePro
 		this.questionChoices = new ArrayList<>();
 	}
 
-	/**
-	 * Dto 반환시 Generic을 쓰기위해 상위 추상 클래스에 포함한 메소드
-	 */
-	@Override
-	public Long getId() {
-		return id;
-	}
 }

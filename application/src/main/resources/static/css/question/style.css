@@ -219,6 +219,7 @@
     flex: 0 0 auto;
 }
 
+
 .quiz .questionItem {
 
     margin-top: -1px;
@@ -267,6 +268,16 @@
 
 .quiz .text-wrapper-4 {
     color: #166aff;
+}
+
+.image-container {
+    width: 100%; /* 화면 너비에 맞게 설정 */
+    overflow-x: auto; /* 가로 스크롤 활성화 */
+}
+
+.question-image {
+    display: block;
+    max-width: none; /* 이미지 크기를 제한하지 않음 */
 }
 
 /* 질문을 담는 박스 (question-box) 설정 */
@@ -637,8 +648,10 @@ Side bar
 
 #questionList a {
     display: block;
-    padding: 5px 0;
     color: #333;
     text-decoration: none;
     word-wrap: break-word;
 }
+
+
+

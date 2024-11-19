@@ -11,10 +11,8 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +22,10 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @ToString
+@DiscriminatorValue("MM")
 public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvider {
 	public boolean canBeShortAnswered;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private Long id;
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MajorQuestionChoice> questionChoices;
 
@@ -67,13 +63,5 @@ public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvi
 
 	public boolean isFit(QuestionCategory questionCategory, QuestionLevel questionLevel) {
 		return this.questionCategory.equals(questionCategory) && this.questionLevel.equals(questionLevel);
-	}
-
-	/**
-	 * Dto 반환시 Generic을 쓰기위해 상위 추상 클래스에 포함한 메소드
-	 */
-	@Override
-	public Long getId() {
-		return id;
 	}
 }

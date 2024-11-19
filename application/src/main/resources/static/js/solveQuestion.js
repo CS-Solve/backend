@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         questionList.addEventListener('click', handleQuestionListClick);
         document.querySelector('.left-box').addEventListener('click', handleQuestionClick);
         checkAnswerButton.addEventListener('click', handleCheckAnswer);
-        toggleButton.addEventListener('click', toggleDescriptionVisibility);
+        // toggleButton.addEventListener('click', toggleDescriptionVisibility);
     }
 
     function initialize() {
@@ -230,11 +230,12 @@ document.addEventListener('DOMContentLoaded', function () {
     function saveQuestionPosition(questionBox) {
         const category = questionBox.closest('.category').querySelector('.category-text').textContent.trim();
         const index = questionBox.dataset.questionIndex;
-
+        const questionId = questionBox.dataset.questionId
         // JSON 형태로 category와 index 저장
         const questionPosition = {
             category: category,
-            index: index
+            index: index,
+            questionId: questionId,
         };
 
         sessionStorage.setItem("lastSelectedQuestion", JSON.stringify(questionPosition));
@@ -252,22 +253,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function refreshAnswerAndDescription() {
-        makeDescriptionForHtml()
+        // makeDescriptionForHtml()
         hideAnswerMessage();
-        hideDescription();
+        // hideDescription();
         marked = false;
     }
 
-    function toggleDescriptionVisibility() {
-        if (marked === false) {
-
-        }
-        if (descriptionText.style.display === "none") {
-            showDescription();
-        } else {
-            hideDescription();
-        }
-    }
+    //
 
     /**
      * 채점 버튼을 눌렀을시
@@ -404,40 +396,53 @@ document.addEventListener('DOMContentLoaded', function () {
         answerBox.style.display = 'none';
     }
 
-    function makeDescriptionForHtml() {
-        /*
-        주관식이냐, 객관식이냐에 출력 내용을 구분한다.
-         */
-        const description = selectedChoice ? selectedChoice.closest('.each-question').getAttribute('data-description') : selectedQuestion.closest('.each-question').getAttribute('data-description');
-        // formatText 함수를 호출하여 포맷팅된 텍스트를 얻음
-        descriptionText.innerHTML = formatText(description);
-    }
-
-
-    function showDescription() {
-        descriptionText.style.display = "block";
-        toggleButton.textContent = "해설 숨기기 ▼";
-    }
-
-    function hideDescription() {
-        descriptionText.style.display = "none";
-        toggleButton.textContent = "해설 보기 ▼";
-    }
-
-    function formatText(text) {
-        // 줄 바꿈을 <br/>로 변환
-        let formattedText = text.replace(/\n/g, '<br/>');
-
-        // #으로 시작하는 텍스트를 대제목과 소제목으로 변환
-        formattedText = formattedText.replace(/^### (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.2em;">$1</span>');
-        formattedText = formattedText.replace(/^## (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.4em;">$1</span>');
-        formattedText = formattedText.replace(/^# (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.6em;">$1</span>');
-
-        // **로 둘러싸인 단어를 굵게 표시
-        formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; font-size: 1em;">$1</span>');
-
-        return formattedText;
-    }
-
 
 });
+
+
+//
+//
+// function makeDescriptionForHtml() {
+//     /*
+//     주관식이냐, 객관식이냐에 출력 내용을 구분한다.
+//      */
+//     const description = selectedChoice ? selectedChoice.closest('.each-question').getAttribute('data-description') : selectedQuestion.closest('.each-question').getAttribute('data-description');
+//     // formatText 함수를 호출하여 포맷팅된 텍스트를 얻음
+//
+//     //현재 해설창은 Deprecated
+//     // descriptionText.innerHTML = formatText(description);
+// }
+// function formatText(text) {
+//     // 줄 바꿈을 <br/>로 변환
+//     let formattedText = text.replace(/\n/g, '<br/>');
+//
+//     // #으로 시작하는 텍스트를 대제목과 소제목으로 변환
+//     formattedText = formattedText.replace(/^### (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.2em;">$1</span>');
+//     formattedText = formattedText.replace(/^## (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.4em;">$1</span>');
+//     formattedText = formattedText.replace(/^# (.*?)(<br\/>|$)/gm, '<span style="font-weight: bold; font-size: 1.6em;">$1</span>');
+//
+//     // **로 둘러싸인 단어를 굵게 표시
+//     formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; font-size: 1em;">$1</span>');
+//
+//     return formattedText;
+// }
+
+// function showDescription() {
+//     descriptionText.style.display = "block";
+//     toggleButton.textContent = "해설 숨기기 ▼";
+// }
+//
+// function hideDescription() {
+//     descriptionText.style.display = "none";
+//     toggleButton.textContent = "해설 보기 ▼";
+// }
+// function toggleDescriptionVisibility() {
+//     if (marked === false) {
+//
+//     }
+//     if (descriptionText.style.display === "none") {
+//         showDescription();
+//     } else {
+//         hideDescription();
+//     }
+// }
