@@ -203,7 +203,12 @@ function saveOverlayChanges() {
 }
 
 function updateNormalTextField(questionId, field, newValue) {
-    return fetch(`/admin/question/major/${questionId}/${field}`, {
+    // 경로를 동적으로 설정
+    const apiUrl = field === 'gradeStandard'
+        ? `/questions/descriptive/${questionId}/standard`
+        : `/admin/question/major/${questionId}/${field}`;
+
+    return fetch(apiUrl, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -215,7 +220,7 @@ function updateNormalTextField(questionId, field, newValue) {
                 throw new Error(`${field} 업데이트 실패`);
             }
             return response.json();
-        });
+        })
 }
 
 
