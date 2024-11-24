@@ -3,7 +3,7 @@ package com.comssa.api.question.major.user.controller;
 import com.comssa.api.login.aspect.AddLoginStatusAttributeToView;
 import com.comssa.api.question.major.user.service.implement.UserMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
-import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +51,7 @@ public class MajorQuestionGetViewController {
 		model.addAttribute("description", "다양한 분야와 난이도의 CS (컴퓨터 사이언스) 문제를 풀어볼 수 있습니다.");
 		model.addAttribute("questionSession", title);
 		model.addAttribute("questions", questions.entrySet().stream()
-			.map(entry -> ResponseClassifiedMultipleQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
+			.map(entry -> ResponseClassifiedQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
 			.collect(Collectors.toList()));
 		model.addAttribute("multipleChoice", multipleChoice);
 		model.addAttribute("isMajorQuestion", true);

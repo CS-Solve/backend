@@ -2,7 +2,7 @@ package com.comssa.api.question.major.admin.controller;
 
 
 import com.comssa.api.question.major.admin.service.AdminMajorQuestionClassifiedGetService;
-import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ public class AdminMajorQuestionViewController {
 		model.addAttribute("classifiedQuestions",
 			adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()
 				.entrySet().stream()
-				.map(entry -> ResponseClassifiedMultipleQuestionDto.multipleQuestionForAdmin(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedQuestionDto.multipleQuestionForAdmin(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("folderName", "index");

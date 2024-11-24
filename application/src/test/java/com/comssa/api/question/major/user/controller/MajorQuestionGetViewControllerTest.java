@@ -5,7 +5,7 @@ import com.comssa.api.ViewControllerTest;
 import com.comssa.api.question.major.user.service.implement.UserMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
-import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -45,18 +45,18 @@ class MajorQuestionGetViewControllerTest extends ViewControllerTest {
 	boolean multipleChoice = true;
 	@MockBean
 	private UserMajorQuestionClassifiedGetService userMajorQuestionClassifiedGetService;
-	private List<ResponseClassifiedMultipleQuestionDto> responseClassifiedMultipleQuestionDtos;
+	private List<ResponseClassifiedQuestionDto> responseClassifiedQuestionDtos;
 
 	@BeforeEach
 	void setUp() {
-		responseClassifiedMultipleQuestionDtos = new ArrayList<>();
+		responseClassifiedQuestionDtos = new ArrayList<>();
 		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = Collections.singletonList(
 			majorMultipleChoiceQuestion);
-		ResponseClassifiedMultipleQuestionDto responseClassifiedMultipleQuestionDto =
-			ResponseClassifiedMultipleQuestionDto.multipleQuestionForUser(majorMultipleChoiceQuestion.getQuestionCategory(),
+		ResponseClassifiedQuestionDto responseClassifiedQuestionDto =
+			ResponseClassifiedQuestionDto.multipleQuestionForUser(majorMultipleChoiceQuestion.getQuestionCategory(),
 				majorMultipleChoiceQuestions);
-		responseClassifiedMultipleQuestionDtos.add(responseClassifiedMultipleQuestionDto);
+		responseClassifiedQuestionDtos.add(responseClassifiedQuestionDto);
 		map.put(majorMultipleChoiceQuestion.getQuestionCategory(), majorMultipleChoiceQuestions);
 	}
 

@@ -4,7 +4,7 @@ import com.comssa.api.login.aspect.AddLoginStatusAttributeToView;
 import com.comssa.api.question.license.service.AdminLicenseQuestionGetService;
 import com.comssa.api.question.license.service.LicenseSessionService;
 import com.comssa.api.question.license.service.UserLicenseQuestionGetService;
-import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseSession;
 import io.swagger.annotations.Api;
@@ -54,7 +54,7 @@ public class LicenseQuestionGetViewController {
 		model.addAttribute("questions",
 			userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 				.entrySet().stream()
-				.map(entry -> ResponseClassifiedMultipleQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		model.addAttribute("multipleChoice", true);
 		model.addAttribute("isMajorQuestion", false);
@@ -75,7 +75,7 @@ public class LicenseQuestionGetViewController {
 		model.addAttribute("classifiedQuestions",
 			adminLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 				.entrySet().stream()
-				.map(entry -> ResponseClassifiedMultipleQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		return "question-update";
 	}

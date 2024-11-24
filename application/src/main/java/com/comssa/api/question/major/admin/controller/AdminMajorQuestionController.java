@@ -5,7 +5,7 @@ import com.comssa.api.question.major.admin.service.AdminMajorQuestionMakeService
 import com.comssa.api.question.major.admin.service.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.comssa.api.question.major.common.exception.DuplicateQuestionException;
 import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
-import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
 import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.major.admin.dto.ResponseMajorMultipleChoiceQuestionForAdminDto;
@@ -38,10 +38,10 @@ public class AdminMajorQuestionController {
 
 	@ApiOperation("단답형 문제 조회")
 	@GetMapping("/question/major")
-	public List<ResponseClassifiedMultipleQuestionDto> getAllMajorQuestionForAdmin() {
+	public List<ResponseClassifiedQuestionDto> getAllMajorQuestionForAdmin() {
 		return adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()
 			.entrySet().stream()
-			.map(entry -> ResponseClassifiedMultipleQuestionDto.multipleQuestionForAdmin(entry.getKey(), entry.getValue()))
+			.map(entry -> ResponseClassifiedQuestionDto.multipleQuestionForAdmin(entry.getKey(), entry.getValue()))
 			.collect(Collectors.toList());
 	}
 
