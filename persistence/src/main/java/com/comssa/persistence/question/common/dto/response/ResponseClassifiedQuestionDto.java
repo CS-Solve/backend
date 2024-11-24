@@ -50,4 +50,19 @@ public class ResponseClassifiedQuestionDto {
 			)
 			.build();
 	}
+
+//	/**
+//	 * 유저 서술형
+//	 */
+//	public static ResponseClassifiedQuestionDto majorDescriptiveQuestionForUser(
+//		QuestionCategory questionCategory,
+//		List<MajorDescriptiveQuestion> majorDescriptiveQuestions
+//	) {
+//		return ResponseClassifiedQuestionDto.builder()
+//			.questionCategory(questionCategory)
+//			.responseQuestionDtos(
+//				majorDescriptiveQuestions
+//			)
+//			.build();
+//	}
 }

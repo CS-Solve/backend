@@ -79,7 +79,7 @@
                 <div class="category-text" th:text="${category.questionCategory.korean}">문제 분야</div>
             </div>
             <div class="question-box"
-                 th:each="question, iterStat : ${category.responseMultipleChoiceQuestionDtoList}"
+                 th:each="question, iterStat : ${category.responseQuestionDtos}"
                  th:data-question-id="${question.id}"
                  th:data-question-index="${iterStat.index}"
             >
