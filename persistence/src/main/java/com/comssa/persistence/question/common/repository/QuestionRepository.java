@@ -11,10 +11,10 @@ import java.util.Optional;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-	@Query("SELECT DISTINCT q " +
-		"FROM Question q " +
-		"LEFT JOIN FETCH q.comments c " +
-		"WHERE q.id = :questionId " +
-		"ORDER BY c.createdAt DESC")
+	@Query("SELECT DISTINCT q "
+		+ "FROM Question q "
+		+ "LEFT JOIN FETCH q.comments c "
+		+ "WHERE q.id = :questionId "
+		+ "ORDER BY c.createdAt DESC")
 	Optional<Question> findByIdFetchCommentsOrderByCreatedAtDesc(@Param("questionId") Long questionId);
 }
