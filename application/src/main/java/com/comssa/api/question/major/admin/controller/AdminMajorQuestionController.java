@@ -39,7 +39,7 @@ public class AdminMajorQuestionController {
 	@ApiOperation("단답형 문제 조회")
 	@GetMapping("/question/major")
 	public List<ResponseClassifiedQuestionDto> getAllMajorQuestionForAdmin() {
-		return adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()
+		return adminMajorQuestionClassifiedGetService.getClassifiedAllMajorMultipleChoiceQuestions()
 			.entrySet().stream()
 			.map(entry -> ResponseClassifiedQuestionDto.majorMultipleQuestionForAdmin(entry.getKey(), entry.getValue()))
 			.collect(Collectors.toList());

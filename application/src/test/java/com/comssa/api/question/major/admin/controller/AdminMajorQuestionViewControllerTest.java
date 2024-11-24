@@ -32,7 +32,7 @@ class AdminMajorQuestionViewControllerTest extends ControllerTest {
 	void updateMajorQuestionPage() throws Exception {
 		// Given
 
-		when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions())
+		when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorMultipleChoiceQuestions())
 			.thenReturn(new HashMap<>());
 
 		// When & Then

@@ -22,4 +22,8 @@ public interface MajorDescriptiveQuestionRepository extends JpaRepository<MajorD
 	List<MajorDescriptiveQuestion> findWithCategoriesAndLevelsAndIfApproved(
 		@Param("questionCategories") List<QuestionCategory> questionCategories,
 		@Param("questionLevels") List<QuestionLevel> questionLevels);
+
+	@Query("SELECT DISTINCT md FROM MajorDescriptiveQuestion md "
+		+ "ORDER BY md.ifApproved")
+	List<MajorDescriptiveQuestion> findAllSortedByIfApproved();
 }

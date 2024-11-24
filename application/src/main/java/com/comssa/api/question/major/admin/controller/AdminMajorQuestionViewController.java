@@ -19,15 +19,29 @@ public class AdminMajorQuestionViewController {
 
 	private final String baseUrl = "baseUrl";
 	private final AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
+
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
 
-	@GetMapping("/question/major/update")
-	public String updateQuestionPage(Model model) {
+	@GetMapping("/question/major/multiple/update")
+	public String updateMultipleQuestionPage(Model model) {
 		model.addAttribute("classifiedQuestions",
-			adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()
+			adminMajorQuestionClassifiedGetService.getClassifiedAllMajorMultipleChoiceQuestions()
 				.entrySet().stream()
 				.map(entry -> ResponseClassifiedQuestionDto.majorMultipleQuestionForAdmin(entry.getKey(), entry.getValue()))
+				.collect(Collectors.toList()));
+		model.addAttribute(baseUrl, resourceBaseUrl);
+		model.addAttribute("folderName", "index");
+		model.addAttribute("isMajorQuestion", true);
+		return "question-update";
+	}
+
+	@GetMapping("/question/major/descriptive/update")
+	public String updateDescriptiveQuestionPage(Model model) {
+		model.addAttribute("classifiedQuestions",
+			adminMajorQuestionClassifiedGetService.getClassifiedAllMajorDescriptiveQuestions()
+				.entrySet().stream()
+				.map(entry -> ResponseClassifiedQuestionDto.majorDescriptiveQuestion(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("folderName", "index");

@@ -61,7 +61,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 	void getMajorMultipleChoiceQuestions() throws Exception {
 		final String PATH = "/admin/question/major";
 		final String document_Name = "성공";
-		Mockito.when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions())
+		Mockito.when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorMultipleChoiceQuestions())
 			.thenReturn(new HashMap<>());
 		mockMvc.perform(RestDocumentationRequestBuilders.get(PATH))
 			.andExpect(MockMvcResultMatchers.status().isOk())

@@ -55,7 +55,7 @@ public class MajorQuestionGetViewController {
 				);
 
 			model.addAttribute("questions", descriptiveQuestions.entrySet().stream()
-				.map(entry -> ResponseClassifiedQuestionDto.majorDescriptiveQuestionForUser(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedQuestionDto.majorDescriptiveQuestion(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 			title = "CS 전공 문제 - " + descriptiveQuestions.keySet().stream()
 				.map(QuestionCategory::getKorean)

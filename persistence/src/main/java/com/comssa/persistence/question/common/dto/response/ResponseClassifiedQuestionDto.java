@@ -55,7 +55,7 @@ public class ResponseClassifiedQuestionDto {
 	/**
 	 * 유저 서술형
 	 */
-	public static ResponseClassifiedQuestionDto majorDescriptiveQuestionForUser(
+	public static ResponseClassifiedQuestionDto majorDescriptiveQuestion(
 		QuestionCategory questionCategory,
 		List<MajorDescriptiveQuestion> majorDescriptiveQuestions
 	) {
@@ -63,7 +63,7 @@ public class ResponseClassifiedQuestionDto {
 			.questionCategory(questionCategory)
 			.responseQuestionDtos(
 				majorDescriptiveQuestions.stream()
-					.map(ResponseQuestionDto::forUser)
+					.map(ResponseDescriptiveQuestionDto::forAdminMajor)
 					.collect(Collectors.toList())
 			)
 			.build();

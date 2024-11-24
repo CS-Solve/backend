@@ -5,7 +5,9 @@ import com.comssa.api.question.major.admin.service.AdminMajorQuestionClassifiedG
 import com.comssa.api.question.major.common.service.QuestionClassifyByCategoryService;
 import com.comssa.api.question.major.common.service.implement.MajorMultipleChoiceQuestionDbService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
+import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.major.repository.MajorDescriptiveQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQuestionClassifiedGetService {
 	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
+	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionRepository;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 
 	/**
@@ -25,9 +28,15 @@ public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQu
 	 * @return
 	 */
 	@Override
-	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getClassifiedAllMajorQuestions() {
+	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getClassifiedAllMajorMultipleChoiceQuestions() {
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
 			.findAllFetchChoicesSortedByApproveAndShortAnswered();
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
+	}
+
+	@Override
+	public Map<QuestionCategory, List<MajorDescriptiveQuestion>> getClassifiedAllMajorDescriptiveQuestions() {
+		List<MajorDescriptiveQuestion> majorDescriptiveQuestions = majorDescriptiveQuestionRepository.findAllSortedByIfApproved();
+		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorDescriptiveQuestions);
 	}
 }
