@@ -41,6 +41,7 @@ public class MajorQuestionGetViewController {
 				userMajorQuestionClassifiedGetService.getApprovedClassifiedMajorMultipleChoiceQuestions(
 					RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels)
 				);
+
 			model.addAttribute("questions", multipleChoiceQuestions.entrySet().stream()
 				.map(entry -> ResponseClassifiedQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
@@ -52,6 +53,7 @@ public class MajorQuestionGetViewController {
 				userMajorQuestionClassifiedGetService.getApprovedClassifiedDescriptiveQuestions(
 					RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels)
 				);
+
 			model.addAttribute("questions", descriptiveQuestions.entrySet().stream()
 				.map(entry -> ResponseClassifiedQuestionDto.majorDescriptiveQuestionForUser(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));

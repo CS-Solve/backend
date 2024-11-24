@@ -58,7 +58,7 @@ class CommentController(
 		val question = questionGetService.getQuestionByIdFetchChoiceIfShould(questionId)
 		model.addAttribute(
 			"question",
-			ResponseQuestionDto.from(question),
+			ResponseQuestionDto.forUser(question),
 		)
 		return "commentModal"
 	}

@@ -4,8 +4,11 @@ import com.comssa.api.question.common.service.implement.QuestionChoiceService;
 import com.comssa.api.question.major.admin.service.AdminMajorQuestionMakeService;
 import com.comssa.api.question.major.admin.service.DuplicateQuestionDetector;
 import com.comssa.api.question.major.common.exception.DuplicateQuestionException;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorDescriptiveQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.major.repository.MajorDescriptiveQuestionRepository;
 import com.comssa.persistence.question.major.repository.MajorMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,7 @@ import java.util.stream.Collectors;
 public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMakeService {
 
 	private final MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
+	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionRepository;
 	private final QuestionChoiceService questionChoiceService;
 	private final DuplicateQuestionDetector duplicateQuestionDetector;
 
@@ -28,7 +32,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	 */
 	@Override
 	public List<MajorMultipleChoiceQuestion> makeMultipleChoiceQuestions(
-		List<RequestMakeMultipleChoiceQuestionDto> requestDtos) {
+		List<RequestMakeMajorMultipleChoiceQuestionDto> requestDtos) {
 		// 중복되지 않은 질문을 필터링하여 저장
 		return requestDtos.stream()
 			.filter(this::isNotDuplicateQuestion)
@@ -41,18 +45,27 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	 */
 	@Override
 	public MajorMultipleChoiceQuestion makeMultipleChoiceQuestion(
-		RequestMakeMultipleChoiceQuestionDto requestDto) throws DuplicateQuestionException {
+		RequestMakeMajorMultipleChoiceQuestionDto requestDto) throws DuplicateQuestionException {
 		if (!isNotDuplicateQuestion(requestDto)) {
 			throw new DuplicateQuestionException();
 		}
 		return saveMajorMultipleChoiceQuestion(requestDto);
 	}
 
+	@Override
+	public List<MajorDescriptiveQuestion> makeDescriptiveQuestions(
+		List<RequestMakeMajorDescriptiveQuestionDto> requestNormalQuestionDto) {
+
+		return requestNormalQuestionDto.stream()
+			.map(this::saveMajorDescriptiveQuestion)
+			.collect(Collectors.toList());
+	}
+
 	/**
 	 * 중복되지 않은 질문인지 확인하는 메서드
 	 * 매번 DB에서 새롭게 조회 후 검증한다.(DTO 자체의 중복된 데이터)
 	 */
-	private boolean isNotDuplicateQuestion(RequestMakeMultipleChoiceQuestionDto requestDto) {
+	private boolean isNotDuplicateQuestion(RequestMakeMajorMultipleChoiceQuestionDto requestDto) {
 		return majorMultipleChoiceQuestionRepository.findAll().stream()
 			.noneMatch(existingQuestion -> duplicateQuestionDetector.isQuestionDuplicate(
 				existingQuestion.getContent(), requestDto.getContent()));
@@ -62,10 +75,20 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	 * 새로운 질문을 저장하고 선택지를 저장하는 메서드
 	 */
 	private MajorMultipleChoiceQuestion saveMajorMultipleChoiceQuestion(
-		RequestMakeMultipleChoiceQuestionDto requestDto) {
+		RequestMakeMajorMultipleChoiceQuestionDto requestDto) {
 		MajorMultipleChoiceQuestion question = MajorMultipleChoiceQuestion.makeWithDto(requestDto);
 		majorMultipleChoiceQuestionRepository.save(question);
 		questionChoiceService.saveWith(requestDto, question);
+		return question;
+	}
+
+	private MajorDescriptiveQuestion saveMajorDescriptiveQuestion(
+		RequestMakeMajorDescriptiveQuestionDto requestDto
+	) {
+		MajorDescriptiveQuestion question = MajorDescriptiveQuestion.makeWithDto(
+			requestDto
+		);
+		majorDescriptiveQuestionRepository.save(question);
 		return question;
 	}
 }

@@ -23,7 +23,7 @@
 
     <!-- 질문 목록 -->
     <div th:id="'questions-'+${classifiedQuestion.questionCategory}">
-        <div class="question-container" th:each="question : ${classifiedQuestion.responseMultipleChoiceQuestionDtoList}"
+        <div class="question-container" th:each="question : ${classifiedQuestion.responseQuestionDtos}"
              th:id="'question-'+${question.id}">
             <!-- 문제 텍스트 -->
             <div class="editable-container">

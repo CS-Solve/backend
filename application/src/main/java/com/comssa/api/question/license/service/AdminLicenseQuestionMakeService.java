@@ -9,7 +9,7 @@ import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuest
 import com.comssa.persistence.question.license.domain.LicenseSession;
 import com.comssa.persistence.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.license.repository.LicenseMultipleChoiceQuestionRepository;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +33,7 @@ public class AdminLicenseQuestionMakeService {
 		LicenseSession licenseSession = licenseSessionService.getLicenseSession(
 			requestMakeLicenseMultipleChoiceQuestionDto.getLicenseSession(),
 			requestMakeLicenseMultipleChoiceQuestionDto.getLicenseCategory());
-		List<RequestMakeMultipleChoiceQuestionDto> questions = requestMakeLicenseMultipleChoiceQuestionDto
+		List<RequestMakeMajorMultipleChoiceQuestionDto> questions = requestMakeLicenseMultipleChoiceQuestionDto
 			.getQuestions();
 		return questions
 			.stream()
@@ -43,12 +43,12 @@ public class AdminLicenseQuestionMakeService {
 	}
 
 	private ResponseMultipleChoiceQuestionDto saveNormalLicenseQuestion(
-		RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto, LicenseSession licenseSession,
+		RequestMakeMajorMultipleChoiceQuestionDto requestMakeMajorMultipleChoiceQuestionDto, LicenseSession licenseSession,
 		LicenseCategory licenseCategory) {
 		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.makeWithDto(
-			requestMakeMultipleChoiceQuestionDto, licenseSession, licenseCategory);
+			requestMakeMajorMultipleChoiceQuestionDto, licenseSession, licenseCategory);
 		licenseMultipleChoiceQuestionRepository.save(licenseMultipleChoiceQuestion);
-		questionChoiceService.saveWith(requestMakeMultipleChoiceQuestionDto, licenseMultipleChoiceQuestion);
+		questionChoiceService.saveWith(requestMakeMajorMultipleChoiceQuestionDto, licenseMultipleChoiceQuestion);
 		return ResponseMultipleChoiceQuestionDto.forLicense(licenseMultipleChoiceQuestion);
 	}
 

@@ -2,6 +2,7 @@ package com.comssa.api.question.controller
 
 import com.comssa.core.question.common.dto.RequestUserDescriptiveAnswerDto
 import com.comssa.core.question.common.service.DescriptiveQuestionService
+import io.swagger.annotations.Api
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@Api(tags = ["서술형 문제"])
 class DescriptiveQuestionController(
 	private val descriptiveQuestionService: DescriptiveQuestionService,
 ) {

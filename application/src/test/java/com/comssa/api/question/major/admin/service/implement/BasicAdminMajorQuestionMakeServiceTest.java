@@ -2,7 +2,7 @@ package com.comssa.api.question.major.admin.service.implement;
 
 
 import com.comssa.api.ServiceIntegrationTest;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.major.repository.MajorMultipleChoiceQuestionRepository;
 import org.assertj.core.api.Assertions;
@@ -31,8 +31,8 @@ class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
 	@DisplayName("객관식 문제 단체로 생성")
 	void makeMajorMultipleChoiceQuestions() {
 		//given
-		List<RequestMakeMultipleChoiceQuestionDto> makeMultipleChoiceQuestionDtoList =
-			List.of(RequestMakeMultipleChoiceQuestionDto.from(majorMultipleChoiceQuestion,
+		List<RequestMakeMajorMultipleChoiceQuestionDto> makeMultipleChoiceQuestionDtoList =
+			List.of(RequestMakeMajorMultipleChoiceQuestionDto.from(majorMultipleChoiceQuestion,
 				majorMultipleChoiceQuestion.getQuestionChoices()));
 
 		//when
@@ -52,10 +52,10 @@ class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
 	@DisplayName("단체로 중복된 본문이 있는 문제 저장 - 한 개만 저장됨")
 	void makeMajorMultipleChoiceQuestionsDuplicateContent() {
 		//given
-		List<RequestMakeMultipleChoiceQuestionDto> makeMultipleChoiceQuestionDtoList =
-			List.of(RequestMakeMultipleChoiceQuestionDto.from(majorMultipleChoiceQuestion,
+		List<RequestMakeMajorMultipleChoiceQuestionDto> makeMultipleChoiceQuestionDtoList =
+			List.of(RequestMakeMajorMultipleChoiceQuestionDto.from(majorMultipleChoiceQuestion,
 					majorMultipleChoiceQuestion.getQuestionChoices()),
-				RequestMakeMultipleChoiceQuestionDto.from(majorMultipleChoiceQuestion,
+				RequestMakeMajorMultipleChoiceQuestionDto.from(majorMultipleChoiceQuestion,
 					majorMultipleChoiceQuestion.getQuestionChoices())
 			);
 		//when

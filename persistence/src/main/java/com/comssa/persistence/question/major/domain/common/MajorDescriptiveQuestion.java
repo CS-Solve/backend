@@ -1,6 +1,7 @@
 package com.comssa.persistence.question.major.domain.common;
 
 import com.comssa.persistence.question.common.domain.Question;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorDescriptiveQuestionDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -21,5 +22,19 @@ public class MajorDescriptiveQuestion extends Question {
 	@Override
 	public void initDefaults() {
 
+	}
+
+	public static MajorDescriptiveQuestion makeWithDto(
+		RequestMakeMajorDescriptiveQuestionDto dto) {
+		MajorDescriptiveQuestion question = MajorDescriptiveQuestion.builder()
+			.content(dto.getContent())
+			.questionCategory(dto.getQuestionCategory())
+			.questionLevel(dto.getQuestionLevel())
+			.description(dto.getDescription())
+			.gradeStandard(dto.getGradeStandard())
+			.imageUrl(null)
+			.build();
+		question.initDefaults();
+		return question;
 	}
 }

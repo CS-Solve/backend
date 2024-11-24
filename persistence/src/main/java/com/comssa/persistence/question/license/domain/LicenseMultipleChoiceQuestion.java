@@ -4,7 +4,7 @@ import com.comssa.persistence.question.common.domain.ChoiceProvider;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -38,7 +38,7 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoicePro
 	private List<LicenseQuestionChoice> questionChoices;
 
 	public static LicenseMultipleChoiceQuestion makeWithDto(
-		RequestMakeMultipleChoiceQuestionDto dto,
+		RequestMakeMajorMultipleChoiceQuestionDto dto,
 		LicenseSession licenseSession,
 		LicenseCategory licenseCategory) {
 		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.builder()

@@ -46,7 +46,7 @@ public class ResponseClassifiedQuestionDto {
 			.questionCategory(questionCategory)
 			.responseQuestionDtos(
 				majorMultipleChoiceQuestions.stream()
-					.map(ResponseMultipleChoiceQuestionDto::forMajor)
+					.map(ResponseMultipleChoiceQuestionDto::forAdminMajor)
 					.collect(Collectors.toList())
 			)
 			.build();
@@ -63,7 +63,7 @@ public class ResponseClassifiedQuestionDto {
 			.questionCategory(questionCategory)
 			.responseQuestionDtos(
 				majorDescriptiveQuestions.stream()
-					.map(ResponseQuestionDto::from)
+					.map(ResponseQuestionDto::forUser)
 					.collect(Collectors.toList())
 			)
 			.build();
