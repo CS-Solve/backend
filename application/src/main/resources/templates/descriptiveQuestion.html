@@ -119,7 +119,8 @@
 
                     <!-- AI 답변창 -->
                     <div class="ai-answer-container" th:if="!${multipleChoice}">
-                        답변이 이곳에 표시됩니다.
+                        <div class="loading-spinner" style="display: none;">답변 생성 중...</div> <!-- 로딩 스피너 -->
+                        <div class="ai-response-content">답변이 이곳에 표시됩니다.</div> <!-- 실제 AI 답변 -->
                     </div>
                 </div>
             </div>

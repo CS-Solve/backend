@@ -19,7 +19,6 @@ function loadCommentsByParents(button) {
         alert("해당 질문의 ID를 가져올 수 없습니다.");
         return;
     }
-
     // AJAX 요청
     fetchComments(questionId);
 }

@@ -52,3 +52,15 @@
     gap: 10px; /* 버튼 간격 */
     justify-content: flex-start; /* 버튼을 왼쪽 정렬 */
 }
+
+/**
+AI 답변 로딩창
+ */
+.loading-spinner {
+    font-size: 1.2rem;
+    color: #007bff;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+    display: none;
+}
