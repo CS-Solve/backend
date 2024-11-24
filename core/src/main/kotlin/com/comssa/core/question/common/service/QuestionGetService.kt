@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 class QuestionGetService(
 	private val questionRepositoryService: QuestionRepositoryService,
 ) {
-	fun getQuestionByIdFetchIfShould(questionId: Long): Question {
+	fun getQuestionByIdFetchChoiceIfShould(questionId: Long): Question {
 		val question =
 			questionRepositoryService.findById(questionId)
 				?: throw NoSuchElementException("Question with ID $questionId not found")
@@ -26,6 +26,13 @@ class QuestionGetService(
 				question.questionChoices.size // 지연 로딩 강제 초기화
 			}
 		}
+		return question
+	}
+
+	fun getDescriptiveQuestion(questionId: Long): Question {
+		val question =
+			questionRepositoryService.findById(questionId)
+				?: throw NoSuchElementException("Question with ID $questionId not found")
 		return question
 	}
 }

@@ -1,12 +1,12 @@
 package com.comssa.core.chatbot.dto.response
 
-class ChatBotResponseDto(
+class ChatResponseDto(
 	val content: String? = null,
 ) {
 	companion object {
 		@JvmStatic
-		fun from(content: String): ChatBotResponseDto =
-			ChatBotResponseDto(
+		fun from(content: String): ChatResponseDto =
+			ChatResponseDto(
 				content = content,
 			)
 	}

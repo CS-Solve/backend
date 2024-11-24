@@ -1,8 +1,8 @@
 package com.comssa.api.chatbot.controller
 
-import com.comssa.core.chatbot.dto.request.ChatBotRequestDto
-import com.comssa.core.chatbot.dto.response.ChatBotResponseDto
-import com.comssa.core.chatbot.dto.response.ChatBotResponseDto.Companion.from
+import com.comssa.core.chatbot.dto.request.ChatRequestDto
+import com.comssa.core.chatbot.dto.response.ChatResponseDto
+import com.comssa.core.chatbot.dto.response.ChatResponseDto.Companion.from
 import com.comssa.core.chatbot.service.ChatbotService
 import io.swagger.annotations.Api
 import org.springframework.http.ResponseEntity
@@ -19,8 +19,7 @@ class ChatbotController(
 ) {
 	@PostMapping("/chat/text")
 	fun chat(
-		@RequestBody chatBotRequestDto: ChatBotRequestDto,
+		@RequestBody chatRequestDto: ChatRequestDto,
 		@AuthenticationPrincipal user: OAuth2User?,
-	): ResponseEntity<ChatBotResponseDto> =
-		ResponseEntity.ok(from(chatbotService.talkToAssistant(chatBotRequestDto, user)))
+	): ResponseEntity<ChatResponseDto> = ResponseEntity.ok(from(chatbotService.talkToAssistant(chatRequestDto, user)))
 }

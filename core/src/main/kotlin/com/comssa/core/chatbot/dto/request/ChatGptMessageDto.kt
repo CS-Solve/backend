@@ -3,7 +3,7 @@ package com.comssa.core.chatbot.dto.request
 import com.comssa.persistence.chatbot.ChatContentType
 import com.comssa.persistence.chatbot.ChatRole
 
-class ChatMessageDto(
+class ChatGptMessageDto(
 	val role: String,
 	val content: List<ChatContentDto?>,
 ) {
@@ -12,8 +12,8 @@ class ChatMessageDto(
 		fun from(
 			text: String,
 			role: ChatRole,
-		): ChatMessageDto =
-			ChatMessageDto(
+		): ChatGptMessageDto =
+			ChatGptMessageDto(
 				role = role.lower,
 				content =
 					listOf(
@@ -28,8 +28,8 @@ class ChatMessageDto(
 		fun from(
 			chatContents: List<ChatContentDto?>,
 			role: ChatRole,
-		): ChatMessageDto =
-			ChatMessageDto(
+		): ChatGptMessageDto =
+			ChatGptMessageDto(
 				role = role.lower,
 				content = chatContents,
 			)

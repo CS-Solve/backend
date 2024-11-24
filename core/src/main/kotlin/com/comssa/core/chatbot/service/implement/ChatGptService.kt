@@ -1,9 +1,9 @@
 package com.comssa.core.chatbot.service.implement
 
 import com.comssa.core.chatbot.config.RestTemplateService
+import com.comssa.core.chatbot.dto.request.ChatGptMessageDto
 import com.comssa.core.chatbot.dto.request.ChatGptRequestFileUploadDto
 import com.comssa.core.chatbot.dto.request.ChatGptRestRequestDto
-import com.comssa.core.chatbot.dto.request.ChatMessageDto
 import com.comssa.core.chatbot.dto.response.ChatGptBatchResponseDto
 import com.comssa.core.chatbot.dto.response.ChatGptFileUploadResponseDto
 import com.comssa.core.chatbot.dto.response.ChatGptResponseDto
@@ -28,7 +28,12 @@ class ChatGptService(
 	private val fileUploadUrl = "/v1/files"
 	private val batchCreateUrl = "/v1/batches"
 
-	fun sendChatMessage(chatMessages: List<ChatMessageDto?>): String {
+	/**
+	 * 단순하게 메시지를 보내는 역할만을 한다
+	 * 메시지는 채팅용일 수도, 정답 채점을 위한 데이터일 수있고 이를 신경 쓰지 않는다.
+	 * 오로지 메시지와 역할만 보낸다.
+	 */
+	fun sendChatMessage(chatMessages: List<ChatGptMessageDto?>): String {
 		val chatGptRestRequestDto: ChatGptRestRequestDto = ChatGptRestRequestDto.from(model, chatMessages)
 		val response =
 			restTemplateService
@@ -42,7 +47,7 @@ class ChatGptService(
 		return response?.firstChoiceContent ?: "응답을 생성할 수 없습니다."
 	}
 
-	fun sendFileUploadMessage(chatMessages: List<ChatMessageDto?>): ChatGptFileUploadResponseDto {
+	fun sendFileUploadMessage(chatMessages: List<ChatGptMessageDto?>): ChatGptFileUploadResponseDto {
 		val dataForFIle = makeFileUploadDto(chatMessages)
 		// 메모리 내 ByteArrayResource로 변환
 		val resource = fileConvertService.dataToChatGptJson(dataForFIle)
@@ -59,7 +64,7 @@ class ChatGptService(
 		return response ?: ChatGptFileUploadResponseDto()
 	}
 
-	private fun makeFileUploadDto(chatMessages: List<ChatMessageDto?>): List<ChatGptRequestFileUploadDto> {
+	private fun makeFileUploadDto(chatMessages: List<ChatGptMessageDto?>): List<ChatGptRequestFileUploadDto> {
 		val chatGptRequestFileUploadDto =
 			ChatGptRequestFileUploadDto.from(
 				ChatGptRestRequestDto.from(model, chatMessages),

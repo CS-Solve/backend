@@ -1,6 +1,6 @@
 package com.comssa.core.chatbot.service.implement
 
-import com.comssa.core.chatbot.dto.request.ChatMessageDto
+import com.comssa.core.chatbot.dto.request.ChatGptMessageDto
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.CachePut
@@ -15,14 +15,14 @@ class ChatCacheService(
 	/**
 	 * 이미 저장되어있는 대화 목록이 있을 경우 기존 목록 반환, 아니라면 비어있는 목록을 반환
 	 */
-	private fun getChatMessages(userId: String): List<ChatMessageDto?> {
+	private fun getChatMessages(userId: String): List<ChatGptMessageDto?> {
 		val cache =
 			cacheManager.getCache(com.comssa.core.chatbot.service.implement.ChatCacheService.Companion.CHAT_MESSAGE)
 		if (cache != null) {
 			val chatMessages = cache.get(userId, List::class.java)
 			// filterIsInstance는 리스트내에서 특정타입의 요소들만 필터링 한다 -> as 보다 타입 안전성을 확보하면서 제네릭 타입을 활용 가능하다.
 			// reified를 사용하면 필터링없이 바로 반환 가능하지만, cache.get는 스프링 내장함수고 일반의 T를 반환하다.
-			return chatMessages?.filterIsInstance<ChatMessageDto>() ?: LinkedList()
+			return chatMessages?.filterIsInstance<ChatGptMessageDto>() ?: LinkedList()
 		}
 		return LinkedList()
 	}
@@ -33,11 +33,11 @@ class ChatCacheService(
 	)
 	fun saveChatMessage(
 		userId: String,
-		chatMessageDto: ChatMessageDto,
+		chatGptMessageDto: ChatGptMessageDto,
 		maxMessageSize: Int,
-	): List<ChatMessageDto> {
-		val chatMessages: MutableList<ChatMessageDto> = getChatMessages(userId).filterNotNull().toMutableList()
-		chatMessages.add(chatMessageDto)
+	): List<ChatGptMessageDto> {
+		val chatMessages: MutableList<ChatGptMessageDto> = getChatMessages(userId).filterNotNull().toMutableList()
+		chatMessages.add(chatGptMessageDto)
 		if (chatMessages.size > maxMessageSize) {
 			chatMessages.removeAt(0)
 		}
