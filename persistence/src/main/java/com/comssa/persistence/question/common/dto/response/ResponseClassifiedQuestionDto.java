@@ -3,6 +3,7 @@ package com.comssa.persistence.question.common.dto.response;
 import com.comssa.persistence.question.common.domain.ChoiceProvider;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
+import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +39,7 @@ public class ResponseClassifiedQuestionDto {
 	/**
 	 * 관리자 객관식
 	 */
-	public static ResponseClassifiedQuestionDto multipleQuestionForAdmin(
+	public static ResponseClassifiedQuestionDto majorMultipleQuestionForAdmin(
 		QuestionCategory questionCategory,
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
 		return ResponseClassifiedQuestionDto.builder()
@@ -51,18 +52,20 @@ public class ResponseClassifiedQuestionDto {
 			.build();
 	}
 
-//	/**
-//	 * 유저 서술형
-//	 */
-//	public static ResponseClassifiedQuestionDto majorDescriptiveQuestionForUser(
-//		QuestionCategory questionCategory,
-//		List<MajorDescriptiveQuestion> majorDescriptiveQuestions
-//	) {
-//		return ResponseClassifiedQuestionDto.builder()
-//			.questionCategory(questionCategory)
-//			.responseQuestionDtos(
-//				majorDescriptiveQuestions
-//			)
-//			.build();
-//	}
+	/**
+	 * 유저 서술형
+	 */
+	public static ResponseClassifiedQuestionDto majorDescriptiveQuestionForUser(
+		QuestionCategory questionCategory,
+		List<MajorDescriptiveQuestion> majorDescriptiveQuestions
+	) {
+		return ResponseClassifiedQuestionDto.builder()
+			.questionCategory(questionCategory)
+			.responseQuestionDtos(
+				majorDescriptiveQuestions.stream()
+					.map(ResponseQuestionDto::from)
+					.collect(Collectors.toList())
+			)
+			.build();
+	}
 }

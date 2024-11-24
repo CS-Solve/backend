@@ -71,7 +71,7 @@
         </div>
 
 
-        <form class="mainForm" method="get" th:action="@{/question/major/multiple}">
+        <form class="mainForm" method="get" th:action="@{/question/major}">
             <div class="main-box">
                 <p class="question-title-box">
                     <span class="choice-left" onclick="window.location.href='/'">전공 개념</span>
@@ -112,10 +112,7 @@
                 </div>
                 <!-- 문제 유형을 Boolean으로 설정 -->
                 <input id="questionType" name="multipleChoice" type="hidden" value=""/>
-
             </div>
-
-
             <div class="start-button-container">
                 <button class="start-left-box" onclick="makeMultipleChoice(true)" type="submit">
                     <span class="start-button-text">객관식</span>

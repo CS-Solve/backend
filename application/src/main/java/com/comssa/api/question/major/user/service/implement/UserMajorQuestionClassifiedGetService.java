@@ -27,7 +27,6 @@ public class UserMajorQuestionClassifiedGetService implements MajorQuestionClass
 	 * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 객관식.
 	 * 문제 선택지들을 섞어준다.
 	 */
-
 	@Override
 	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedMajorMultipleChoiceQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
@@ -35,8 +34,8 @@ public class UserMajorQuestionClassifiedGetService implements MajorQuestionClass
 			.findAllFetchChoicesByCategoriesAndLevelsApproved(
 				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
 				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
-		for (MajorMultipleChoiceQuestion majorMultipleChoiceQuestion : majorMultipleChoiceQuestions) {
-			Collections.shuffle(majorMultipleChoiceQuestion.getQuestionChoices());
+		for (MajorMultipleChoiceQuestion question : majorMultipleChoiceQuestions) {
+			Collections.shuffle(question.getQuestionChoices());
 		}
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
 	}
@@ -66,5 +65,4 @@ public class UserMajorQuestionClassifiedGetService implements MajorQuestionClass
 				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorDescriptiveQuestions);
 	}
-
 }
