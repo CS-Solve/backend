@@ -1,0 +1,46 @@
+.left-box {
+    width: 80% !important;
+}
+
+/* 입력창 스타일 */
+.answer-input-container {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+/* 입력창 텍스트박스 스타일 */
+.user-answer {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    resize: none;
+    margin-bottom: 10px;
+}
+
+/* 제출 버튼 스타일 */
+.descriptive-answer-btn {
+    display: block;
+    width: 100px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+/* AI 답변 창 스타일 */
+.ai-answer-container {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    line-height: 1.6;
+}

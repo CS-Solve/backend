@@ -23,7 +23,7 @@
     <link rel="stylesheet" th:href="|${baseUrl}/css/global.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/question/style.css|"/>
     <link rel="stylesheet" th:href="|${baseUrl}/css/question/commentModal.css|"/>
-    <link rel="stylesheet" th:href="|${baseUrl}/css/question/mediaStyle.css|"/>
+    <link rel="stylesheet" th:href="|${baseUrl}/css/question/descriptive-style.css|"/>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
@@ -97,6 +97,19 @@
                             <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
                         </div>
                         </p>
+                    </div>
+                    <!-- 입력창 -->
+                    <div class="answer-input-container" th:if="!${multipleChoice}">
+                        <textarea class="user-answer" placeholder="정답을 입력하세요..." rows="5"></textarea>
+                        <button type="button" class="descriptive-answer-btn"
+                                th:attr="data-question-id=${question.id}">
+                            제출
+                        </button>
+                    </div>
+
+                    <!-- AI 답변창 -->
+                    <div class="ai-answer-container" th:if="!${multipleChoice}">
+                        답변이 여기에 표시됩니다.
                     </div>
                 </div>
             </div>
