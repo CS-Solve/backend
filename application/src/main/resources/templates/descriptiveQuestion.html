@@ -35,6 +35,7 @@
     <script th:src="|${baseUrl}/js/showQuestionUi.js|"></script>
     <script th:src="|${baseUrl}/js/translateTextForHtml.js|"></script>
     <script th:src="|${baseUrl}/js/loadComment.js|"></script>
+    <script th:src="|${baseUrl}/js/solveDescriptiveQuestion.js|"></script>
 
 </head>
 <body>
@@ -100,16 +101,25 @@
                     </div>
                     <!-- 입력창 -->
                     <div class="answer-input-container" th:if="!${multipleChoice}">
-                        <textarea class="user-answer" placeholder="정답을 입력하세요..." rows="5"></textarea>
-                        <button type="button" class="descriptive-answer-btn"
-                                th:attr="data-question-id=${question.id}">
-                            제출
-                        </button>
+    <textarea class="user-answer" placeholder="정답을 입력하세요..." rows="10"
+              style="width: 100%;"></textarea>
+                        <div class="button-group">
+                            <!-- 제출 버튼 -->
+                            <button type="button" class="descriptive-answer-btn"
+                                    th:attr="data-question-id=${question.id}">제출
+                            </button>
+                            <!-- 해설 버튼 -->
+                            <!-- 해설 버튼 -->
+                            <button type="button" class="descriptive-description-btn"
+                                    th:attr="data-question-id=${question.id}"
+                                    onclick="loadCommentsByParents(this)">해설
+                            </button>
+                        </div>
                     </div>
 
                     <!-- AI 답변창 -->
                     <div class="ai-answer-container" th:if="!${multipleChoice}">
-                        답변이 여기에 표시됩니다.
+                        답변이 이곳에 표시됩니다.
                     </div>
                 </div>
             </div>
