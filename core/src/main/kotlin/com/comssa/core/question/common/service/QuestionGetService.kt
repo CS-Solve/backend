@@ -31,7 +31,7 @@ class QuestionGetService(
 		return question
 	}
 
-	fun getDescriptiveQuestion(questionId: Long): MajorDescriptiveQuestion {
+	fun getMajorDescriptiveQuestion(questionId: Long): MajorDescriptiveQuestion {
 		val question =
 			questionRepositoryService.findById(questionId)
 				?: throw NoSuchElementException("Question with ID $questionId not found")

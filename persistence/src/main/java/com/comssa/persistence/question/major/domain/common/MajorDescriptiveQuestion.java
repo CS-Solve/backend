@@ -24,6 +24,10 @@ public class MajorDescriptiveQuestion extends Question {
 
 	}
 
+	public void changeGradeStandard(String gradeStandard) {
+		this.gradeStandard = gradeStandard;
+	}
+
 	public static MajorDescriptiveQuestion makeWithDto(
 		RequestMakeMajorDescriptiveQuestionDto dto) {
 		MajorDescriptiveQuestion question = MajorDescriptiveQuestion.builder()
