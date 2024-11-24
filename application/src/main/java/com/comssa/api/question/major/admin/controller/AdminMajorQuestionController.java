@@ -41,7 +41,7 @@ public class AdminMajorQuestionController {
 	public List<ResponseClassifiedMultipleQuestionDto> getAllMajorQuestionForAdmin() {
 		return adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()
 			.entrySet().stream()
-			.map(entry -> ResponseClassifiedMultipleQuestionDto.forAdmin(entry.getKey(), entry.getValue()))
+			.map(entry -> ResponseClassifiedMultipleQuestionDto.multipleQuestionForAdmin(entry.getKey(), entry.getValue()))
 			.collect(Collectors.toList());
 	}
 

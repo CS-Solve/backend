@@ -1,7 +1,7 @@
 package com.comssa.api.question.major.user.controller;
 
 import com.comssa.api.login.aspect.AddLoginStatusAttributeToView;
-import com.comssa.api.question.major.user.service.implement.BasicMajorQuestionClassifiedGetService;
+import com.comssa.api.question.major.user.service.implement.UserMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
@@ -21,13 +21,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MajorQuestionGetViewController {
 
-	private final BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
+	private final UserMajorQuestionClassifiedGetService userMajorQuestionClassifiedGetService;
 	private final String baseUrl = "baseUrl";
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
 
 	@AddLoginStatusAttributeToView
-	@GetMapping("/question/major")
+	@GetMapping("/question/major/multiple")
 	public String getNormalQuestions(
 		@RequestParam(required = false) List<String> levels,
 		@RequestParam(required = false) List<String> categories,
@@ -35,11 +35,11 @@ public class MajorQuestionGetViewController {
 		Model model) {
 		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = null;
 		if (multipleChoice) {
-			questions = basicMajorQuestionClassifiedGetService
+			questions = userMajorQuestionClassifiedGetService
 				.getApprovedClassifiedMajorMultipleChoiceQuestions(
 					RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels));
 		} else {
-			questions = basicMajorQuestionClassifiedGetService
+			questions = userMajorQuestionClassifiedGetService
 				.getApprovedClassifiedShortAnsweredMajorQuestions(
 					RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels));
 		}
@@ -51,11 +51,29 @@ public class MajorQuestionGetViewController {
 		model.addAttribute("description", "다양한 분야와 난이도의 CS (컴퓨터 사이언스) 문제를 풀어볼 수 있습니다.");
 		model.addAttribute("questionSession", title);
 		model.addAttribute("questions", questions.entrySet().stream()
-			.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
+			.map(entry -> ResponseClassifiedMultipleQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
 			.collect(Collectors.toList()));
 		model.addAttribute("multipleChoice", multipleChoice);
 		model.addAttribute("isMajorQuestion", true);
 
 		return "question"; // 문제를 보여줄 페이지의 이름
 	}
+
+//	@AddLoginStatusAttributeToView
+//	@GetMapping("/question/major/descriptive")
+//	public String getMajorDescriptiveQuestions(
+//		@RequestParam(required = false) List<String> levels,
+//		@RequestParam(required = false) List<String> categories,
+//		Model model
+//	) {
+//		Map<QuestionCategory, List<MajorDescriptiveQuestion>> questions = null;
+//		questions = userMajorQuestionClassifiedGetService
+//			.getApprovedClassifiedDescriptiveQuestions(
+//				RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels));
+//
+//		model.addAttribute(baseUrl, resourceBaseUrl);
+//		model.addAttribute("questions", questions.entrySet().stream()
+//			.map(entry -> ResponseClassifiedMultipleQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
+//			.collect(Collectors.toList()));
+//	}
 }

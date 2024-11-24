@@ -20,4 +20,9 @@ class DescriptiveQuestionController(
 		ResponseEntity.ok(
 			descriptiveQuestionService.gradeDescriptiveQuestion(questionId, requestUserDescriptiveAnswerDto),
 		)
+
+// 	@PostMapping("/questions/major/descriptive")
+// 	fun makeMajorDescriptiveQuestion(
+//
+// 	):
 }

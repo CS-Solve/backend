@@ -1,8 +1,10 @@
 package com.comssa.core.question.common.service
 
+import com.comssa.persistence.exception.WrongQuestionTypeException
 import com.comssa.persistence.question.common.domain.Question
 import com.comssa.persistence.question.common.service.QuestionRepositoryService
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion
+import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -29,10 +31,11 @@ class QuestionGetService(
 		return question
 	}
 
-	fun getDescriptiveQuestion(questionId: Long): Question {
+	fun getDescriptiveQuestion(questionId: Long): MajorDescriptiveQuestion {
 		val question =
 			questionRepositoryService.findById(questionId)
 				?: throw NoSuchElementException("Question with ID $questionId not found")
-		return question
+		return question as? MajorDescriptiveQuestion
+			?: throw WrongQuestionTypeException()
 	}
 }

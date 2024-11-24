@@ -54,7 +54,7 @@ public class LicenseQuestionGetViewController {
 		model.addAttribute("questions",
 			userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 				.entrySet().stream()
-				.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedMultipleQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		model.addAttribute("multipleChoice", true);
 		model.addAttribute("isMajorQuestion", false);
@@ -75,7 +75,7 @@ public class LicenseQuestionGetViewController {
 		model.addAttribute("classifiedQuestions",
 			adminLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 				.entrySet().stream()
-				.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedMultipleQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		return "question-update";
 	}

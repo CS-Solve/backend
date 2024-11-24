@@ -63,7 +63,7 @@ class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 
 		responseClassifiedMultipleQuestionDtos = new ArrayList<>();
 		responseClassifiedMultipleQuestionDtos.add(
-			ResponseClassifiedMultipleQuestionDto.forUser(questionCategory, licenseMultipleChoiceQuestions));
+			ResponseClassifiedMultipleQuestionDto.multipleQuestionForUser(questionCategory, licenseMultipleChoiceQuestions));
 
 		licenseSession = LicenseSession.from("test", licenseCategory);
 	}

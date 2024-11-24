@@ -18,17 +18,10 @@ public class ResponseClassifiedMultipleQuestionDto {
 	private QuestionCategory questionCategory;
 	private List<ResponseMultipleChoiceQuestionDto> responseMultipleChoiceQuestionDtoList;
 
-	public ResponseClassifiedMultipleQuestionDto(
-		QuestionCategory questionCategory,
-		List<ResponseMultipleChoiceQuestionDto> responseMultipleChoiceQuestionDtoList) {
-		this.questionCategory = questionCategory;
-		this.responseMultipleChoiceQuestionDtoList = responseMultipleChoiceQuestionDtoList;
-	}
-
 	/**
 	 * 유저 객관식 문제 전용
 	 */
-	public static <T extends Question & ChoiceProvider> ResponseClassifiedMultipleQuestionDto forUser(
+	public static <T extends Question & ChoiceProvider> ResponseClassifiedMultipleQuestionDto multipleQuestionForUser(
 		QuestionCategory questionCategory, List<T> multipleChoiceQuestions) {
 		return ResponseClassifiedMultipleQuestionDto.builder()
 			.questionCategory(questionCategory)
@@ -45,7 +38,7 @@ public class ResponseClassifiedMultipleQuestionDto {
 	/**
 	 * 관리자 객관식
 	 */
-	public static ResponseClassifiedMultipleQuestionDto forAdmin(
+	public static ResponseClassifiedMultipleQuestionDto multipleQuestionForAdmin(
 		QuestionCategory questionCategory,
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
 		return ResponseClassifiedMultipleQuestionDto.builder()
