@@ -33,6 +33,7 @@ public class AdminMajorQuestionViewController {
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("folderName", "index");
 		model.addAttribute("isMajorQuestion", true);
+		model.addAttribute("isMultipleChoice", true);
 		return "question-update";
 	}
 
@@ -46,6 +47,7 @@ public class AdminMajorQuestionViewController {
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("folderName", "index");
 		model.addAttribute("isMajorQuestion", true);
+		model.addAttribute("isMultipleChoice", false);
 		return "question-update";
 	}
 }

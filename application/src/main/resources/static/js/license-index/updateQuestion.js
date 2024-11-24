@@ -15,7 +15,7 @@ function toggleApprove(questionId) {
             console.log('승인 상태가 성공적으로 토글되었습니다:', data);
         })
         .catch(error => {
-            console.error('승인 상태 토글 중 오류 발생:', error);
+            alert('승인 상태 토글 중 오류 발생:' + error);
         });
 }
 
@@ -40,7 +40,7 @@ function deleteQuestion(questionId) {
                 document.getElementById('question-' + questionId).style.display = 'none';
             })
             .catch(error => {
-                console.error('질문 삭제 중 오류 발생:', error);
+                alert('질문 삭제 중 오류 발생:' + error);
             });
     }
 }
@@ -66,7 +66,7 @@ function updateDifficulty(selectElement) {
             console.log('난이도가 성공적으로 업데이트되었습니다:', data);
         })
         .catch(error => {
-            console.error('난이도 업데이트 중 오류 발생:', error);
+            alert('난이도 업데이트 중 오류 발생:' + error);
         });
 }
 
@@ -227,7 +227,7 @@ function uploadImage(questionId, fileInput) {
     }).then(data => {
         console.log("이미지 업로드 성공:", data);  // 여기서 URL을 로그에 표시합니다
         location.reload(); // 조건 없이 새로고침하여 업로드된 이미지 표시
-    }).catch(error => console.error("이미지 업로드 실패:", error));
+    }).catch(error => alert("이미지 업로드 실패:" + error));
 }
 
 // 이미지 제거 함수

@@ -34,7 +34,6 @@ public class MajorQuestionGetViewController {
 		@RequestParam(required = false) List<String> categories,
 		@RequestParam(required = false) Boolean multipleChoice,
 		Model model) {
-
 		String title;
 		if (Boolean.TRUE.equals(multipleChoice)) {
 			Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> multipleChoiceQuestions =
@@ -69,7 +68,11 @@ public class MajorQuestionGetViewController {
 		model.addAttribute("multipleChoice", multipleChoice);
 		model.addAttribute("isMajorQuestion", true);
 
-		return "question";
+		if (multipleChoice) {
+			return "question";
+		}
+		return "descriptiveQuestion";
+
 	}
 }
 
