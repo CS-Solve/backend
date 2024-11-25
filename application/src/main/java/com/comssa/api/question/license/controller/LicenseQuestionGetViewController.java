@@ -39,7 +39,7 @@ public class LicenseQuestionGetViewController {
 		LicenseSession licenseSession = licenseSessionService.getLicenseSessionById(sessionId);
 
 		String title =
-			licenseSession.getLicenseCategory().getKorean() + " | " + "기출 문제 - " + licenseSession.getContent();
+			"[" + licenseSession.getLicenseCategory().getKorean() + "] " + "기출 문제 - " + licenseSession.getContent();
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("title", title);
 		model.addAttribute("description", Arrays.stream(LicenseCategory.values())
