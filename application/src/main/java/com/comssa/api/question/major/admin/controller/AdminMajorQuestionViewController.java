@@ -28,7 +28,8 @@ public class AdminMajorQuestionViewController {
 		model.addAttribute("classifiedQuestions",
 			adminMajorQuestionClassifiedGetService.getClassifiedAllMajorMultipleChoiceQuestions()
 				.entrySet().stream()
-				.map(entry -> ResponseClassifiedQuestionDto.majorMultipleQuestionForAdmin(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedQuestionDto
+					.majorMultipleQuestionForAdmin(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("folderName", "index");

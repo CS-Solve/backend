@@ -148,7 +148,6 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				document_Name, resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
-
 						.build()
 				)
 			));

@@ -43,7 +43,8 @@ public class AdminLicenseQuestionMakeService {
 	}
 
 	private ResponseMultipleChoiceQuestionDto saveNormalLicenseQuestion(
-		RequestMakeMajorMultipleChoiceQuestionDto requestMakeMajorMultipleChoiceQuestionDto, LicenseSession licenseSession,
+		RequestMakeMajorMultipleChoiceQuestionDto requestMakeMajorMultipleChoiceQuestionDto,
+		LicenseSession licenseSession,
 		LicenseCategory licenseCategory) {
 		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.makeWithDto(
 			requestMakeMajorMultipleChoiceQuestionDto, licenseSession, licenseCategory);

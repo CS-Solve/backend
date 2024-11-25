@@ -36,7 +36,8 @@ public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQu
 
 	@Override
 	public Map<QuestionCategory, List<MajorDescriptiveQuestion>> getClassifiedAllMajorDescriptiveQuestions() {
-		List<MajorDescriptiveQuestion> majorDescriptiveQuestions = majorDescriptiveQuestionRepository.findAllSortedByIfApproved();
+		List<MajorDescriptiveQuestion> majorDescriptiveQuestions =
+			majorDescriptiveQuestionRepository.findAllSortedByIfApproved();
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorDescriptiveQuestions);
 	}
 }

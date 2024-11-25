@@ -36,7 +36,7 @@ class AdminMajorQuestionViewControllerTest extends ControllerTest {
 			.thenReturn(new HashMap<>());
 
 		// When & Then
-		mockMvc.perform(MockMvcRequestBuilders.get("/admin/question/major/update"))
+		mockMvc.perform(MockMvcRequestBuilders.get("/admin/question/major/multiple/update"))
 			.andExpect(status().isOk()) // 상태 코드 200 확인
 			.andExpect(view().name("question-update")) // 뷰 이름 확인
 			.andExpect(model().attributeExists("classifiedQuestions")) // 모델 속성 확인
