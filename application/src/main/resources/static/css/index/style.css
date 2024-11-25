@@ -199,7 +199,7 @@
     padding: 10px 20px;
     width: 50%; /* 버튼 너비 설정 */
     height: 30%;
-    background-color: #ffac70;
+    background-color: #5b96ff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -210,7 +210,7 @@
 /* hover 효과 */
 .start-left-box:hover,
 .start-right-box:hover {
-    background-color: #ff9b50;
+    background-color: #166aff;
     box-shadow: 0 0 10px rgba(255, 172, 112, 0.5);
 }
 
