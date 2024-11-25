@@ -3,6 +3,7 @@ package com.comssa.persistence.question.common.dto.response;
 import com.comssa.persistence.question.common.domain.ChoiceProvider;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
+import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,25 +15,18 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Getter
 @SuperBuilder
-public class ResponseClassifiedMultipleQuestionDto {
+public class ResponseClassifiedQuestionDto {
 	private QuestionCategory questionCategory;
-	private List<ResponseMultipleChoiceQuestionDto> responseMultipleChoiceQuestionDtoList;
-
-	public ResponseClassifiedMultipleQuestionDto(
-		QuestionCategory questionCategory,
-		List<ResponseMultipleChoiceQuestionDto> responseMultipleChoiceQuestionDtoList) {
-		this.questionCategory = questionCategory;
-		this.responseMultipleChoiceQuestionDtoList = responseMultipleChoiceQuestionDtoList;
-	}
+	private List<ResponseQuestionDto> responseQuestionDtos;
 
 	/**
 	 * 유저 객관식 문제 전용
 	 */
-	public static <T extends Question & ChoiceProvider> ResponseClassifiedMultipleQuestionDto forUser(
+	public static <T extends Question & ChoiceProvider> ResponseClassifiedQuestionDto multipleQuestionForUser(
 		QuestionCategory questionCategory, List<T> multipleChoiceQuestions) {
-		return ResponseClassifiedMultipleQuestionDto.builder()
+		return ResponseClassifiedQuestionDto.builder()
 			.questionCategory(questionCategory)
-			.responseMultipleChoiceQuestionDtoList(
+			.responseQuestionDtos(
 				multipleChoiceQuestions.stream()
 					.map(question -> ResponseMultipleChoiceQuestionDto.forUser(
 						question, question.getQuestionChoices()
@@ -45,14 +39,31 @@ public class ResponseClassifiedMultipleQuestionDto {
 	/**
 	 * 관리자 객관식
 	 */
-	public static ResponseClassifiedMultipleQuestionDto forAdmin(
+	public static ResponseClassifiedQuestionDto majorMultipleQuestionForAdmin(
 		QuestionCategory questionCategory,
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
-		return ResponseClassifiedMultipleQuestionDto.builder()
+		return ResponseClassifiedQuestionDto.builder()
 			.questionCategory(questionCategory)
-			.responseMultipleChoiceQuestionDtoList(
+			.responseQuestionDtos(
 				majorMultipleChoiceQuestions.stream()
-					.map(ResponseMultipleChoiceQuestionDto::forMajor)
+					.map(ResponseMultipleChoiceQuestionDto::forAdminMajor)
+					.collect(Collectors.toList())
+			)
+			.build();
+	}
+
+	/**
+	 * 유저 서술형
+	 */
+	public static ResponseClassifiedQuestionDto majorDescriptiveQuestion(
+		QuestionCategory questionCategory,
+		List<MajorDescriptiveQuestion> majorDescriptiveQuestions
+	) {
+		return ResponseClassifiedQuestionDto.builder()
+			.questionCategory(questionCategory)
+			.responseQuestionDtos(
+				majorDescriptiveQuestions.stream()
+					.map(ResponseDescriptiveQuestionDto::forAdminMajor)
 					.collect(Collectors.toList())
 			)
 			.build();

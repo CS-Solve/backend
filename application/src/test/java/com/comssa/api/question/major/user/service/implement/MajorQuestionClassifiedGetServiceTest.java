@@ -28,7 +28,7 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 		.map(QuestionCategory::getKorean)
 		.collect(Collectors.toList());
 	@Autowired
-	private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
+	private UserMajorQuestionClassifiedGetService userMajorQuestionClassifiedGetService;
 	@Autowired
 	private MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
@@ -50,7 +50,7 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 
 		//when
 		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions =
-			basicMajorQuestionClassifiedGetService.getApprovedClassifiedMajorMultipleChoiceQuestions(
+			userMajorQuestionClassifiedGetService.getApprovedClassifiedMajorMultipleChoiceQuestions(
 				allQuestionRequestDto);
 		List<MajorMultipleChoiceQuestion> selectedCategoryQuestions = questions.get(
 			majorMultipleChoiceQuestion.getQuestionCategory());
@@ -71,7 +71,7 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 
 		//when
 		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions =
-			basicMajorQuestionClassifiedGetService.getApprovedClassifiedShortAnsweredMajorQuestions(
+			userMajorQuestionClassifiedGetService.getApprovedClassifiedShortAnsweredMajorQuestions(
 				allQuestionRequestDto);
 		List<MajorMultipleChoiceQuestion> selectedCategoryQuestions = questions.get(
 			majorMultipleChoiceQuestion.getQuestionCategory());

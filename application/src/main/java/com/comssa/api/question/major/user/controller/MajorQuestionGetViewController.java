@@ -1,9 +1,10 @@
 package com.comssa.api.question.major.user.controller;
 
 import com.comssa.api.login.aspect.AddLoginStatusAttributeToView;
-import com.comssa.api.question.major.user.service.implement.BasicMajorQuestionClassifiedGetService;
+import com.comssa.api.question.major.user.service.implement.UserMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
-import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
+import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MajorQuestionGetViewController {
 
-	private final BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
+	private final UserMajorQuestionClassifiedGetService userMajorQuestionClassifiedGetService;
 	private final String baseUrl = "baseUrl";
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
@@ -33,29 +34,49 @@ public class MajorQuestionGetViewController {
 		@RequestParam(required = false) List<String> categories,
 		@RequestParam(required = false) Boolean multipleChoice,
 		Model model) {
-		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = null;
-		if (multipleChoice) {
-			questions = basicMajorQuestionClassifiedGetService
-				.getApprovedClassifiedMajorMultipleChoiceQuestions(
-					RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels));
+		String title;
+		String description;
+		if (Boolean.TRUE.equals(multipleChoice)) {
+			Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> multipleChoiceQuestions =
+				userMajorQuestionClassifiedGetService.getApprovedClassifiedMajorMultipleChoiceQuestions(
+					RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels)
+				);
+
+			model.addAttribute("questions", multipleChoiceQuestions.entrySet().stream()
+				.map(entry -> ResponseClassifiedQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
+				.collect(Collectors.toList()));
+			title = "CS 전공 문제 - " + multipleChoiceQuestions.keySet().stream()
+				.map(QuestionCategory::getKorean)
+				.collect(Collectors.joining(", "));
+			description = "다양한 분야와 난이도의 CS (컴퓨터 사이언스) 문제를 풀어볼 수 있습니다.";
+
 		} else {
-			questions = basicMajorQuestionClassifiedGetService
-				.getApprovedClassifiedShortAnsweredMajorQuestions(
-					RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels));
+			Map<QuestionCategory, List<MajorDescriptiveQuestion>> descriptiveQuestions =
+				userMajorQuestionClassifiedGetService.getApprovedClassifiedDescriptiveQuestions(
+					RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels)
+				);
+
+			model.addAttribute("questions", descriptiveQuestions.entrySet().stream()
+				.map(entry -> ResponseClassifiedQuestionDto.majorDescriptiveQuestion(entry.getKey(), entry.getValue()))
+				.collect(Collectors.toList()));
+			title = "CS 가상 기술 면접 - " + descriptiveQuestions.keySet().stream()
+				.map(QuestionCategory::getKorean)
+				.collect(Collectors.joining(", "));
+			description = "다양한 분야의 CS 기술 면접 질문들이 준비되어있습니다. AI 기반 채점을 통해 기술 면접에 대비할 수 있습니다.";
 		}
-		String title = "CS 전공 문제 - " + questions.keySet().stream()
-			.map(QuestionCategory::getKorean) // 각 엔트리의 `getKorean()` 호출
-			.collect(Collectors.joining(", "));
+
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("title", title);
-		model.addAttribute("description", "다양한 분야와 난이도의 CS (컴퓨터 사이언스) 문제를 풀어볼 수 있습니다.");
+		model.addAttribute("description", description);
 		model.addAttribute("questionSession", title);
-		model.addAttribute("questions", questions.entrySet().stream()
-			.map(entry -> ResponseClassifiedMultipleQuestionDto.forUser(entry.getKey(), entry.getValue()))
-			.collect(Collectors.toList()));
 		model.addAttribute("multipleChoice", multipleChoice);
 		model.addAttribute("isMajorQuestion", true);
 
-		return "question"; // 문제를 보여줄 페이지의 이름
+		if (multipleChoice) {
+			return "question";
+		}
+		return "descriptiveQuestion";
+
 	}
 }
+

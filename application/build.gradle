@@ -21,12 +21,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation(project(':core'))
     implementation(project(":persistence"))
-
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
-
 }
 
 test {

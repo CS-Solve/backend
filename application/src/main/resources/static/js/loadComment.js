@@ -7,19 +7,35 @@ function loadComments() {
         alert("선택된 질문이 없습니다.");
         return;
     }
+    fetchComments(questionId);
+}
 
+function loadCommentsByParents(button) {
+    // 버튼에서 data-question-id 속성 가져오기
+    const questionId = button.getAttribute('data-question-id');
+    console.log("버튼에서 가져온 questionId:", questionId);
+
+    if (!questionId) {
+        alert("해당 질문의 ID를 가져올 수 없습니다.");
+        return;
+    }
     // AJAX 요청
+    fetchComments(questionId);
+}
+
+function fetchComments(questionId) {
     $.ajax({
-        url: `/question/${questionId}/comment`, // questionId를 URL에 포함
+        url: `/question/${questionId}/comment`,
         method: 'GET',
         success: function (data) {
             // 이미 모달이 있다면 제거
             $('#commentModal').remove();
+
             // 새 모달 HTML을 추가하고 표시
             $('body').append(data);
             $('#commentModal').modal('show');
 
-            // 모달이 로드된 후에 questionItem 요소들을 포맷팅
+            // 모달 내부의 특정 요소를 포맷팅
             $('#commentModal .specific-question, #commentModal .specific-description').each(function () {
                 formatSpecificQuestion(this);
             });

@@ -2,10 +2,10 @@ package com.comssa.api.question.major.user.controller;
 
 
 import com.comssa.api.ViewControllerTest;
-import com.comssa.api.question.major.user.service.implement.BasicMajorQuestionClassifiedGetService;
+import com.comssa.api.question.major.user.service.implement.UserMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
-import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -44,19 +44,19 @@ class MajorQuestionGetViewControllerTest extends ViewControllerTest {
 	private final Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> map = new HashMap<>();
 	boolean multipleChoice = true;
 	@MockBean
-	private BasicMajorQuestionClassifiedGetService basicMajorQuestionClassifiedGetService;
-	private List<ResponseClassifiedMultipleQuestionDto> responseClassifiedMultipleQuestionDtos;
+	private UserMajorQuestionClassifiedGetService userMajorQuestionClassifiedGetService;
+	private List<ResponseClassifiedQuestionDto> responseClassifiedQuestionDtos;
 
 	@BeforeEach
 	void setUp() {
-		responseClassifiedMultipleQuestionDtos = new ArrayList<>();
+		responseClassifiedQuestionDtos = new ArrayList<>();
 		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = Collections.singletonList(
 			majorMultipleChoiceQuestion);
-		ResponseClassifiedMultipleQuestionDto responseClassifiedMultipleQuestionDto =
-			ResponseClassifiedMultipleQuestionDto.forUser(majorMultipleChoiceQuestion.getQuestionCategory(),
+		ResponseClassifiedQuestionDto responseClassifiedQuestionDto =
+			ResponseClassifiedQuestionDto.multipleQuestionForUser(majorMultipleChoiceQuestion.getQuestionCategory(),
 				majorMultipleChoiceQuestions);
-		responseClassifiedMultipleQuestionDtos.add(responseClassifiedMultipleQuestionDto);
+		responseClassifiedQuestionDtos.add(responseClassifiedQuestionDto);
 		map.put(majorMultipleChoiceQuestion.getQuestionCategory(), majorMultipleChoiceQuestions);
 	}
 
@@ -64,7 +64,7 @@ class MajorQuestionGetViewControllerTest extends ViewControllerTest {
 	@DisplayName("객관식 문제 조회")
 	void majorQuestionPage() throws Exception {
 		final String path = "/question/major";
-		Mockito.when(basicMajorQuestionClassifiedGetService.getApprovedClassifiedMajorMultipleChoiceQuestions(any()))
+		Mockito.when(userMajorQuestionClassifiedGetService.getApprovedClassifiedMajorMultipleChoiceQuestions(any()))
 			.thenReturn(map);
 
 		mockMvc.perform(MockMvcRequestBuilders.get(path)

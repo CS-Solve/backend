@@ -4,7 +4,7 @@ import com.comssa.persistence.question.common.domain.ChoiceProvider;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -29,7 +29,7 @@ public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvi
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MajorQuestionChoice> questionChoices;
 
-	public static MajorMultipleChoiceQuestion makeWithDto(RequestMakeMultipleChoiceQuestionDto dto) {
+	public static MajorMultipleChoiceQuestion makeWithDto(RequestMakeMajorMultipleChoiceQuestionDto dto) {
 		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.builder()
 			.content(dto.getContent())
 			.questionCategory(dto.getQuestionCategory())

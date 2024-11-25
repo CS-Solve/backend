@@ -2,13 +2,13 @@ package com.comssa.core.chatbot.dto.request
 
 data class ChatGptRestRequestDto(
 	val model: String,
-	val messages: List<ChatMessageDto?>,
+	val messages: List<ChatGptMessageDto?>,
 ) {
 	companion object {
 		@JvmStatic
 		fun from(
 			model: String,
-			chatMessages: List<ChatMessageDto?>,
+			chatMessages: List<ChatGptMessageDto?>,
 		): ChatGptRestRequestDto =
 			ChatGptRestRequestDto(
 				model = model,

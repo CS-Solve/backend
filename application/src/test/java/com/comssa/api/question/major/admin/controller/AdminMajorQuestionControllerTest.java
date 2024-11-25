@@ -7,7 +7,7 @@ import com.comssa.api.question.major.admin.service.implement.AdminMajorMultipleC
 import com.comssa.api.question.major.common.exception.DuplicateQuestionException;
 import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
 import com.comssa.persistence.question.common.dto.request.RequestChangeDescriptionDto;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
@@ -44,12 +44,12 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 	private AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
 
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
-	private RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto;
+	private RequestMakeMajorMultipleChoiceQuestionDto requestMakeMajorMultipleChoiceQuestionDto;
 
 	@BeforeEach
 	void setUp() {
 		majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
-		requestMakeMultipleChoiceQuestionDto = new RequestMakeMultipleChoiceQuestionDto();
+		requestMakeMajorMultipleChoiceQuestionDto = new RequestMakeMajorMultipleChoiceQuestionDto();
 	}
 
 	@Test
@@ -61,7 +61,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 	void getMajorMultipleChoiceQuestions() throws Exception {
 		final String PATH = "/admin/question/major";
 		final String document_Name = "성공";
-		Mockito.when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions())
+		Mockito.when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorMultipleChoiceQuestions())
 			.thenReturn(new HashMap<>());
 		mockMvc.perform(RestDocumentationRequestBuilders.get(PATH))
 			.andExpect(MockMvcResultMatchers.status().isOk())
@@ -112,7 +112,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 			.thenReturn(majorMultipleChoiceQuestion);
 		mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(requestMakeMultipleChoiceQuestionDto)))
+				.content(objectMapper.writeValueAsString(requestMakeMajorMultipleChoiceQuestionDto)))
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andDo(print())
 			.andDo(MockMvcRestDocumentation.document(
@@ -138,7 +138,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 			.makeMultipleChoiceQuestion(any());
 		mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(requestMakeMultipleChoiceQuestionDto)))
+				.content(objectMapper.writeValueAsString(requestMakeMajorMultipleChoiceQuestionDto)))
 			.andExpect(MockMvcResultMatchers.status().isConflict())
 			.andDo(print())
 			.andDo(MockMvcRestDocumentation.document(
@@ -148,7 +148,6 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				document_Name, resource(
 					ResourceSnippetParameters.builder()
 						.tag(tag)
-
 						.build()
 				)
 			));

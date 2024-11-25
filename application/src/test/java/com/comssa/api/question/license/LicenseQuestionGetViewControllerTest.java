@@ -7,7 +7,7 @@ import com.comssa.api.question.license.service.AdminLicenseQuestionGetService;
 import com.comssa.api.question.license.service.LicenseSessionService;
 import com.comssa.api.question.license.service.UserLicenseQuestionGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
-import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.license.domain.LicenseSession;
@@ -45,7 +45,7 @@ class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 	private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
 	private List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions;
 	private Map<QuestionCategory, List<LicenseMultipleChoiceQuestion>> licenseMultipleChoiceQuestionsMap;
-	private List<ResponseClassifiedMultipleQuestionDto> responseClassifiedMultipleQuestionDtos;
+	private List<ResponseClassifiedQuestionDto> responseClassifiedQuestionDtos;
 	private LicenseCategory licenseCategory;
 	private QuestionCategory questionCategory;
 
@@ -61,9 +61,9 @@ class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 		licenseMultipleChoiceQuestionsMap = new HashMap<>();
 		licenseMultipleChoiceQuestionsMap.put(questionCategory, licenseMultipleChoiceQuestions);
 
-		responseClassifiedMultipleQuestionDtos = new ArrayList<>();
-		responseClassifiedMultipleQuestionDtos.add(
-			ResponseClassifiedMultipleQuestionDto.forUser(questionCategory, licenseMultipleChoiceQuestions));
+		responseClassifiedQuestionDtos = new ArrayList<>();
+		responseClassifiedQuestionDtos.add(
+			ResponseClassifiedQuestionDto.multipleQuestionForUser(questionCategory, licenseMultipleChoiceQuestions));
 
 		licenseSession = LicenseSession.from("test", licenseCategory);
 	}

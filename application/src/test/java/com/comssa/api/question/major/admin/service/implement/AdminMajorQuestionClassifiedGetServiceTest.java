@@ -36,7 +36,7 @@ class AdminMajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest 
 
 		//when
 		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = basicAdminMajorQuestionClassifiedGetService
-			.getClassifiedAllMajorQuestions();
+			.getClassifiedAllMajorMultipleChoiceQuestions();
 		List<MajorMultipleChoiceQuestion> selectedCategoryQuestion = questions.get(
 			majorMultipleChoiceQuestion.getQuestionCategory());
 
@@ -58,7 +58,7 @@ class AdminMajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest 
 
 		//when
 		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = basicAdminMajorQuestionClassifiedGetService
-			.getClassifiedAllMajorQuestions();
+			.getClassifiedAllMajorMultipleChoiceQuestions();
 		List<MajorMultipleChoiceQuestion> selectedCategoryQuestion = questions.get(
 			majorMultipleChoiceQuestion.getQuestionCategory());
 

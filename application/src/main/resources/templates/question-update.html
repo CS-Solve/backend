@@ -23,7 +23,7 @@
 
     <!-- 질문 목록 -->
     <div th:id="'questions-'+${classifiedQuestion.questionCategory}">
-        <div class="question-container" th:each="question : ${classifiedQuestion.responseMultipleChoiceQuestionDtoList}"
+        <div class="question-container" th:each="question : ${classifiedQuestion.responseQuestionDtos}"
              th:id="'question-'+${question.id}">
             <!-- 문제 텍스트 -->
             <div class="editable-container">
@@ -51,7 +51,8 @@
             </select>
 
             <!-- 선택지 목록 -->
-            <ul>
+            <!-- 선택지 목록: isMultipleChoice가 false일 때만 렌더링 -->
+            <ul th:if="${isMultipleChoice}">
                 <li style="border-bottom: 1px solid #ccc; padding-bottom: 10px;"
                     th:each="choice : ${question.questionChoices}">
                     <div class="editable-container">
@@ -80,6 +81,12 @@
                    th:text="${question.description}">설명</p>
             </div>
 
+            <div class="editable-container" th:if="${question.gradeStandard != null}">
+                <p class="gradeStandardUpdateText"
+                   th:attr="data-id=${question.id}, data-field='gradeStandard'"
+                   th:text="${question.gradeStandard}">채점 기준</p>
+            </div>
+            
             <!-- approve 체크박스: 항상 표시 -->
             <label for="approve">허용:</label>
             <input onclick="toggleApprove(this.getAttribute('data-question-id'))"
@@ -88,15 +95,15 @@
                    type="checkbox"/>
             <br/>
 
-            <!-- canBeShortAnswered 체크박스: isMajorQuestion이 true일 때만 표시 -->
-            <div th:if="${isMajorQuestion}">
-                <label for="canBeShortAnswered">주관식 문제 가능:</label>
-                <input onclick="toggleCanBeMultiple(this.getAttribute('data-question-id'))"
-                       th:attr="data-question-id=${question.id}"
-                       th:checked="${question.canBeShortAnswered}"
-                       type="checkbox"/>
-                <br/>
-            </div>
+            <!--            &lt;!&ndash; canBeShortAnswered 체크박스: isMajorQuestion이 true일 때만 표시 &ndash;&gt;-->
+            <!--            <div th:if="${isMajorQuestion}">-->
+            <!--                <label for="canBeShortAnswered">주관식 문제 가능:</label>-->
+            <!--                <input onclick="toggleCanBeMultiple(this.getAttribute('data-question-id'))"-->
+            <!--                       th:attr="data-question-id=${question.id}"-->
+            <!--                       th:checked="${question.canBeShortAnswered}"-->
+            <!--                       type="checkbox"/>-->
+            <!--                <br/>-->
+            <!--            </div>-->
 
 
             <button th:onclick="|deleteQuestion(${question.id})|" type="button">

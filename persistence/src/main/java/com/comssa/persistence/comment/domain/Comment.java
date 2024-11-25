@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,9 +34,16 @@ public class Comment extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "question_id")
 	private Question question;
-
 	private String content;
 
+	public Comment(
+		@NotNull Member member,
+		@NotNull Question question,
+		@NotNull String content) {
+		this.member = member;
+		this.question = question;
+		this.content = content;
+	}
 
 	public static Comment from(String content, Member member, Question question) {
 		return Comment.builder()
@@ -44,4 +52,5 @@ public class Comment extends BaseEntity {
 			.question(question)
 			.build();
 	}
+
 }

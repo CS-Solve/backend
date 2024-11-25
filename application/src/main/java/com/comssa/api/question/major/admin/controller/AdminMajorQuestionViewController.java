@@ -2,7 +2,7 @@ package com.comssa.api.question.major.admin.controller;
 
 
 import com.comssa.api.question.major.admin.service.AdminMajorQuestionClassifiedGetService;
-import com.comssa.persistence.question.common.dto.response.ResponseClassifiedMultipleQuestionDto;
+import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -19,19 +19,36 @@ public class AdminMajorQuestionViewController {
 
 	private final String baseUrl = "baseUrl";
 	private final AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
+
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
 
-	@GetMapping("/question/major/update")
-	public String updateQuestionPage(Model model) {
+	@GetMapping("/question/major/multiple/update")
+	public String updateMultipleQuestionPage(Model model) {
 		model.addAttribute("classifiedQuestions",
-			adminMajorQuestionClassifiedGetService.getClassifiedAllMajorQuestions()
+			adminMajorQuestionClassifiedGetService.getClassifiedAllMajorMultipleChoiceQuestions()
 				.entrySet().stream()
-				.map(entry -> ResponseClassifiedMultipleQuestionDto.forAdmin(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedQuestionDto
+					.majorMultipleQuestionForAdmin(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("folderName", "index");
 		model.addAttribute("isMajorQuestion", true);
+		model.addAttribute("isMultipleChoice", true);
+		return "question-update";
+	}
+
+	@GetMapping("/question/major/descriptive/update")
+	public String updateDescriptiveQuestionPage(Model model) {
+		model.addAttribute("classifiedQuestions",
+			adminMajorQuestionClassifiedGetService.getClassifiedAllMajorDescriptiveQuestions()
+				.entrySet().stream()
+				.map(entry -> ResponseClassifiedQuestionDto.majorDescriptiveQuestion(entry.getKey(), entry.getValue()))
+				.collect(Collectors.toList()));
+		model.addAttribute(baseUrl, resourceBaseUrl);
+		model.addAttribute("folderName", "index");
+		model.addAttribute("isMajorQuestion", true);
+		model.addAttribute("isMultipleChoice", false);
 		return "question-update";
 	}
 }

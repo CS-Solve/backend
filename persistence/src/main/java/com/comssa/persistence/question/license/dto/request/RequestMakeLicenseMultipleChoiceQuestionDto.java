@@ -3,7 +3,7 @@ package com.comssa.persistence.question.license.dto.request;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.license.domain.LicenseQuestionChoice;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @SuperBuilder
 @Getter
 public class RequestMakeLicenseMultipleChoiceQuestionDto {
-	private List<RequestMakeMultipleChoiceQuestionDto> questions;
+	private List<RequestMakeMajorMultipleChoiceQuestionDto> questions;
 	private String licenseSession;
 	private LicenseCategory licenseCategory;
 
@@ -31,7 +31,7 @@ public class RequestMakeLicenseMultipleChoiceQuestionDto {
 			.questions(
 				questions.stream()
 					.map(
-						q -> RequestMakeMultipleChoiceQuestionDto.from(q, questionChoiceExtractor.apply(q))
+						q -> RequestMakeMajorMultipleChoiceQuestionDto.from(q, questionChoiceExtractor.apply(q))
 					)
 					.collect(Collectors.toList())
 

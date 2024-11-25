@@ -15,13 +15,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @SuperBuilder
 @Getter
-public class RequestMakeMultipleChoiceQuestionDto extends RequestMakeQuestionDto {
+public class RequestMakeMajorMultipleChoiceQuestionDto extends RequestMakeQuestionDto {
 	private List<RequestMakeQuestionChoiceDto> questionChoices;
 
-	public static <T extends QuestionChoice> RequestMakeMultipleChoiceQuestionDto from(
+	public static <T extends QuestionChoice> RequestMakeMajorMultipleChoiceQuestionDto from(
 		Question question,
 		List<T> questionChoices) {
-		return RequestMakeMultipleChoiceQuestionDto.builder()
+		return RequestMakeMajorMultipleChoiceQuestionDto.builder()
 			.content(question.getContent())
 			.description(question.getDescription())
 			.questionCategory(question.getQuestionCategory())

@@ -5,7 +5,9 @@ import com.comssa.api.question.major.common.service.QuestionClassifyByCategorySe
 import com.comssa.api.question.major.common.service.implement.MajorMultipleChoiceQuestionDbService;
 import com.comssa.api.question.major.user.service.MajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
+import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.major.repository.MajorDescriptiveQuestionRepository;
 import com.comssa.persistence.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,15 +18,15 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService {
+public class UserMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService {
 	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
+	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionRepository;
 
 	/**
 	 * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 객관식.
 	 * 문제 선택지들을 섞어준다.
 	 */
-
 	@Override
 	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedMajorMultipleChoiceQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
@@ -32,8 +34,8 @@ public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClas
 			.findAllFetchChoicesByCategoriesAndLevelsApproved(
 				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
 				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
-		for (MajorMultipleChoiceQuestion majorMultipleChoiceQuestion : majorMultipleChoiceQuestions) {
-			Collections.shuffle(majorMultipleChoiceQuestion.getQuestionChoices());
+		for (MajorMultipleChoiceQuestion question : majorMultipleChoiceQuestions) {
+			Collections.shuffle(question.getQuestionChoices());
 		}
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
 	}
@@ -49,5 +51,18 @@ public class BasicMajorQuestionClassifiedGetService implements MajorQuestionClas
 				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
 				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
+	}
+
+	/**
+	 * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 서술형
+	 */
+	@Override
+	public Map<QuestionCategory, List<MajorDescriptiveQuestion>> getApprovedClassifiedDescriptiveQuestions(
+		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
+		List<MajorDescriptiveQuestion> majorDescriptiveQuestions = majorDescriptiveQuestionRepository
+			.findWithCategoriesAndLevelsAndIfApproved(
+				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
+				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
+		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorDescriptiveQuestions);
 	}
 }

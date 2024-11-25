@@ -4,6 +4,7 @@ import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
+import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,30 +25,16 @@ public class ResponseQuestionDto {
 	private boolean ifApproved;
 	private boolean ifMultipleChoice;
 
-	public static <T extends Question> ResponseMultipleChoiceQuestionDto basic(
-		T question) {
-
+	public static ResponseQuestionDto forUser(Question question) {
 		if (question instanceof LicenseMultipleChoiceQuestion) {
 			return ResponseMultipleChoiceQuestionDto.forLicense((LicenseMultipleChoiceQuestion) question);
 		}
 		if (question instanceof MajorMultipleChoiceQuestion) {
 			return ResponseMultipleChoiceQuestionDto.forMajor((MajorMultipleChoiceQuestion) question);
 		}
-		return ResponseMultipleChoiceQuestionDto.builder()
-			.id(question.getId())
-			.content(question.getContent())
-			.questionCategory(question.getQuestionCategory())
-			.questionLevel(question.getQuestionLevel())
-			.description(question.getDescription())
-			.imageUrl(question.getImageUrl())
-			.build();
-	}
-
-	/**
-	 * 유저와 관리자에 따라 다른 정적팩토리 메소드를 사용한다
-	 */
-	public static <T extends Question> ResponseMultipleChoiceQuestionDto forUser(
-		T question) {
-		return basic(question);
+		if (question instanceof MajorDescriptiveQuestion) {
+			return ResponseDescriptiveQuestionDto.forMajor((MajorDescriptiveQuestion) question);
+		}
+		throw new IllegalArgumentException("Unsupported question type: " + question.getClass().getName());
 	}
 }

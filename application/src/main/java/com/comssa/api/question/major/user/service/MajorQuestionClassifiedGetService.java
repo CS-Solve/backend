@@ -2,6 +2,7 @@ package com.comssa.api.question.major.user.service;
 
 
 import com.comssa.persistence.question.common.domain.QuestionCategory;
+import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import org.springframework.stereotype.Service;
@@ -20,4 +21,9 @@ public interface MajorQuestionClassifiedGetService {
 	Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedShortAnsweredMajorQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto);
 
+	Map<QuestionCategory, List<MajorDescriptiveQuestion>> getApprovedClassifiedDescriptiveQuestions(
+		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto
+	);
+
 }
+

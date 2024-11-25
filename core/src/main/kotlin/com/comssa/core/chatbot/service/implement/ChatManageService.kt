@@ -1,8 +1,8 @@
 package com.comssa.core.chatbot.service.implement
 
-import com.comssa.core.chatbot.dto.request.ChatBotRequestDto
 import com.comssa.core.chatbot.dto.request.ChatContentDto
-import com.comssa.core.chatbot.dto.request.ChatMessageDto
+import com.comssa.core.chatbot.dto.request.ChatGptMessageDto
+import com.comssa.core.chatbot.dto.request.ChatRequestDto
 import com.comssa.core.chatbot.dto.response.ChatGptFileUploadResponseDto
 import com.comssa.persistence.chatbot.ChatRole
 import org.springframework.stereotype.Service
@@ -14,37 +14,38 @@ class ChatManageService(
 ) {
 	fun talkForChat(
 		userId: String,
-		chatBotRequestDto: ChatBotRequestDto,
+		chatRequestDto: ChatRequestDto,
 	): String {
 		if (chatCacheService.getUsedChance(userId) >= MAX_CHAT_CHANCE) {
 			return NO_MORE_CHANCE
 		}
-		/**
-		 * User가 가지고 있는 이전 대화 기록을 가져온다.
-		 */
-		val chatMessages = beforeRespond(userId, chatBotRequestDto)
 
-		/**
-		 * 챗봇에게 받은 답변 또한 이전 대화 기록에 넣는다.
-		 */
+		val chatMessages = beforeRespond(userId, chatRequestDto)
+
 		val answer = chatGptService.sendChatMessage(chatMessages)
 		afterRespond(userId, answer)
 		return answer
 	}
 
+	/**
+	 * User가 가지고 있는 이전 대화 기록을 가져온다.
+	 */
 	private fun beforeRespond(
 		userId: String,
-		chatBotRequestDto: ChatBotRequestDto,
-	): List<ChatMessageDto> {
-		val chatMessageFromUser = ChatMessageDto.from(chatBotRequestDto.prompt, ChatRole.USER)
+		chatRequestDto: ChatRequestDto,
+	): List<ChatGptMessageDto> {
+		val chatMessageFromUser = ChatGptMessageDto.from(chatRequestDto.prompt, ChatRole.USER)
 		return chatCacheService.saveChatMessage(userId, chatMessageFromUser, MAX_MESSAGES_SIZE)
 	}
 
+	/**
+	 * 챗봇에게 받은 답변 또한 이전 대화 기록에 넣는다.
+	 */
 	private fun afterRespond(
 		userId: String,
 		answer: String,
 	) {
-		val chatMessageFromAssistant = ChatMessageDto.from(answer, ChatRole.USER)
+		val chatMessageFromAssistant = ChatGptMessageDto.from(answer, ChatRole.ASSISTANT)
 		chatCacheService.saveChatMessage(userId, chatMessageFromAssistant, MAX_MESSAGES_SIZE)
 		chatCacheService.increaseUsedChance(userId)
 	}
@@ -53,9 +54,19 @@ class ChatManageService(
 		chatMessages: List<ChatContentDto>,
 		command: String,
 	): ChatGptFileUploadResponseDto {
-		val commandMessage = ChatMessageDto.from(command, ChatRole.SYSTEM)
-		val chatMessage = ChatMessageDto.from(chatMessages, ChatRole.USER)
-		return chatGptService.sendFileUploadMessage(listOf(chatMessage, commandMessage))
+		val commandMessage = ChatGptMessageDto.from(command, ChatRole.SYSTEM)
+		val chatMessage = ChatGptMessageDto.from(chatMessages, ChatRole.USER)
+		return chatGptService.sendFileUploadMessage(listOf(commandMessage, chatMessage))
+	}
+
+	fun talkForGradeQuestion(
+		command: String,
+		questionContent: String,
+		userDescriptiveAnswer: String,
+	): String {
+		val commandMessage = ChatGptMessageDto.from(command, ChatRole.SYSTEM)
+		val chatMessage = ChatGptMessageDto.from("$questionContent\n$userDescriptiveAnswer", ChatRole.USER)
+		return chatGptService.sendChatMessage(listOf(commandMessage, chatMessage))
 	}
 
 	companion object {
