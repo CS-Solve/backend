@@ -65,8 +65,9 @@ class ChatManageService(
 		userDescriptiveAnswer: String,
 	): String {
 		val commandMessage = ChatGptMessageDto.from(command, ChatRole.SYSTEM)
-		val chatMessage = ChatGptMessageDto.from("$questionContent\n$userDescriptiveAnswer", ChatRole.USER)
-		return chatGptService.sendChatMessage(listOf(commandMessage, chatMessage))
+		val questionContentMessage = ChatGptMessageDto.from(questionContent, ChatRole.ASSISTANT)
+		val chatMessage = ChatGptMessageDto.from(userDescriptiveAnswer, ChatRole.USER)
+		return chatGptService.sendChatMessage(listOf(commandMessage, questionContentMessage, chatMessage))
 	}
 
 	companion object {
