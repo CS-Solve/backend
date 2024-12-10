@@ -36,9 +36,14 @@ function fetchComments(questionId) {
             $('#commentModal').modal('show');
 
             // 모달 내부의 특정 요소를 포맷팅
-            $('#commentModal .specific-question, #commentModal .specific-description').each(function () {
+            $('#commentModal .specific-question').each(function () {
                 formatSpecificQuestion(this);
             });
+            // 모달 내부의 특정 요소를 포맷팅
+            $('#commentModal .specific-description').each(function () {
+                formatSpecificText(this);
+            });
+
         },
         error: function () {
             alert('댓글을 불러오는 데 실패했습니다.');
@@ -47,9 +52,14 @@ function fetchComments(questionId) {
 }
 
 function formatSpecificQuestion(element) {
-    // 본문 내용은  기본 글자를 크게 한다
+    //본문 내용은  기본 글자를 크게 한다
     element.style.fontWeight = 'bold';
     element.style.fontSize = "1.5vh";
+    // element의 텍스트를 줄바꿈으로 나누어 배열로 저장
+    formatSpecificText(element)
+}
+
+function formatSpecificText(element) {
 
     // element의 텍스트를 줄바꿈으로 나누어 배열로 저장
     let lines = element.textContent.split('\n');
@@ -72,7 +82,6 @@ function formatSpecificQuestion(element) {
 
         return formattedLine; // 포맷팅된 줄 반환
     });
-
     // 포맷팅된 줄들을 다시 줄바꿈으로 연결
     element.innerHTML = formattedLines.join('<br/>');
 }
