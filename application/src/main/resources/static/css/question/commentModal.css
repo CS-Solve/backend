@@ -63,8 +63,14 @@
     margin-bottom: 2vh;
 }
 
+.specific-title {
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+    border-bottom: 1px solid #ddd;
+    border-top: 1px solid #ddd;
+}
+
 .specific-choice-list {
-    border: 1px solid #ddd; /* 하단 테두리 */
     font-size: 1.5vh;
 }
 

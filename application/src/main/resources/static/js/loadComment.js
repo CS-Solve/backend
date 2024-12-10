@@ -36,7 +36,7 @@ function fetchComments(questionId) {
             $('#commentModal').modal('show');
 
             // 모달 내부의 특정 요소를 포맷팅
-            $('#commentModal .specific-question').each(function () {
+            $('#commentModal .specific-question-content').each(function () {
                 formatSpecificQuestion(this);
             });
             // 모달 내부의 특정 요소를 포맷팅
