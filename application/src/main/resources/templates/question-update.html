@@ -81,12 +81,12 @@
                    th:text="${question.description}">설명</p>
             </div>
 
-            <div class="editable-container" th:if="${question.gradeStandard != null}">
+            <div class="editable-container" th:if="${!isMultipleChoice}">
                 <p class="gradeStandardUpdateText"
                    th:attr="data-id=${question.id}, data-field='gradeStandard'"
                    th:text="${question.gradeStandard}">채점 기준</p>
             </div>
-            
+
             <!-- approve 체크박스: 항상 표시 -->
             <label for="approve">허용:</label>
             <input onclick="toggleApprove(this.getAttribute('data-question-id'))"
