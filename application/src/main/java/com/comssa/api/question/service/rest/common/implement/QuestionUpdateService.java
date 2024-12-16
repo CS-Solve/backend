@@ -11,7 +11,8 @@ import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
-public class QuestionUpdateService implements com.comssa.api.question.service.rest.common.QuestionUpdateService<Question> {
+public class QuestionUpdateService
+	implements com.comssa.api.question.service.rest.common.QuestionUpdateService<Question> {
 	private final QuestionRepositoryService questionRepositoryService;
 	private final FileUploadService fileUploadService;
 

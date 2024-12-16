@@ -6,7 +6,7 @@ import lombok.Getter;
 public enum QuestionType {
 	MULTIPLE_CHOICE("multiple"),
 	DESCRIPTIVE("descriptive");
-	private String name;
+	private final String name;
 
 	QuestionType(String name) {
 		this.name = name;

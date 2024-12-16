@@ -31,7 +31,6 @@ public class AdminLicenseQuestionGetService implements LicenseQuestionGetService
 		Long sessionId) {
 		List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository
 			.findAllByLicenseSessionIdFetchChoicesOrderByApproved(sessionId);
-		Map<QuestionCategory, List<Question>> questionsByCategory = questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions);
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions);
 	}
 }

@@ -34,6 +34,15 @@ public class QuestionViewController {
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
 
+	@NotNull
+	private static List<ResponseClassifiedQuestionDto> transformQuestion(
+		Map<QuestionCategory,
+			List<Question>> questions) {
+		return questions.entrySet().stream()
+			.map(entry -> ResponseClassifiedQuestionDto.from(entry.getKey(), entry.getValue()))
+			.collect(Collectors.toList());
+	}
+
 	@AddLoginStatusAttributeToView
 	@GetMapping("/question/major")
 	public String getNormalQuestions(
@@ -57,7 +66,6 @@ public class QuestionViewController {
 		return "descriptiveQuestion";
 	}
 
-
 	@AddLoginStatusAttributeToView
 	@GetMapping("/question/license/{sessionId}")
 	public String getLicenseQuestionsBySession(
@@ -66,7 +74,8 @@ public class QuestionViewController {
 	) {
 		LicenseSession licenseSession = licenseSessionService.getLicenseSessionById(sessionId);
 		htmlTagService.forLicenseQuestion(licenseSession, model);
-		Map<QuestionCategory, List<Question>> questions = userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId);
+		Map<QuestionCategory, List<Question>> questions =
+			userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId);
 
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("questions", transformQuestion(questions));
@@ -75,14 +84,10 @@ public class QuestionViewController {
 		return "question";
 	}
 
-	@NotNull
-	private static List<ResponseClassifiedQuestionDto> transformQuestion(Map<QuestionCategory, List<Question>> questions) {
-		return questions.entrySet().stream()
-			.map(entry -> ResponseClassifiedQuestionDto.from(entry.getKey(), entry.getValue()))
-			.collect(Collectors.toList());
-	}
-
-	private Map<QuestionCategory, List<Question>> getQuestions(List<String> levels, List<String> categories, Boolean multipleChoice) {
+	private Map<QuestionCategory, List<Question>> getQuestions(
+		List<String> levels,
+		List<String> categories,
+		Boolean multipleChoice) {
 		Map<QuestionCategory, List<Question>> questions;
 		if (Boolean.TRUE.equals(multipleChoice)) {
 			questions =

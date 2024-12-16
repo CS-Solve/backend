@@ -15,12 +15,17 @@ import java.util.stream.Collectors;
 @Service
 public class HtmlTagService {
 
+	private static String getAllLicenseCategories() {
+		return Arrays.stream(LicenseCategory.values())
+			.map(LicenseCategory::getKorean)
+			.collect(Collectors.joining(", "));
+	}
+
 	public void addTagToModel(HtmlTag tag, Model model) {
 		model.addAttribute("title", tag.getTitle());
 		model.addAttribute("description", tag.getDescription());
 		model.addAttribute("questionSession", tag.getQuestionSession());
 	}
-
 
 	public void forLicenseMain(Model model) {
 		String title = getAllLicenseCategories() + "기출";
@@ -38,12 +43,6 @@ public class HtmlTagService {
 			.build(), model);
 	}
 
-	private static String getAllLicenseCategories() {
-		return Arrays.stream(LicenseCategory.values())
-			.map(LicenseCategory::getKorean)
-			.collect(Collectors.joining(", "));
-	}
-
 	public void forLicenseQuestion(LicenseSession licenseSession, Model model) {
 
 
@@ -51,7 +50,9 @@ public class HtmlTagService {
 		boolean recent = licenseSession.getCreatedAt().isAfter(twoYearsAgo);
 
 		String title = "[" + licenseSession.getLicenseCategory().getKorean() + "] ";
-		if (recent) title += "최신 ";
+		if (recent) {
+			title += "최신 ";
+		}
 		title += "기출 문제 - " + licenseSession.getContent();
 
 

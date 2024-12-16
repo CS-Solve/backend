@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class QuestionChoiceGradeService implements com.comssa.api.question.service.rest.common.QuestionChoiceGradeService {
+public class QuestionChoiceGradeService
+	implements com.comssa.api.question.service.rest.common.QuestionChoiceGradeService {
 	private final QuestionChoiceRepository questionChoiceRepository;
 
 	@Override
