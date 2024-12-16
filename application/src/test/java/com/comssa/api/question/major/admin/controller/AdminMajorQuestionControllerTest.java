@@ -5,8 +5,6 @@ import com.comssa.api.question.major.admin.service.AdminMajorQuestionClassifiedG
 import com.comssa.api.question.major.admin.service.AdminMajorQuestionMakeService;
 import com.comssa.api.question.major.admin.service.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.comssa.api.question.major.common.exception.DuplicateQuestionException;
-import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
-import com.comssa.persistence.question.common.dto.request.RequestChangeDescriptionDto;
 import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
@@ -153,29 +151,6 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 			));
 	}
 
-	@Test
-	@DisplayName("전공 문제 업데이트 - Approve")
-	void updateSingleMajorMultipleChoiceQuestionApprove() throws Exception {
-		final String PATH = "/admin/question/major/1/toggle-approve";
-		final String document_Name = "성공";
-		Mockito.when(adminMajorMultipleChoiceQuestionUpdateService.toggleApprove(any()))
-			.thenReturn(majorMultipleChoiceQuestion);
-		mockMvc.perform(RestDocumentationRequestBuilders.patch(PATH)
-				.contentType(MediaType.APPLICATION_JSON))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name, resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("단답형 문제 생성")
-						.build()
-				)
-			));
-	}
 
 	@Test
 	@DisplayName("전공 문제 업데이트 - 객관식 여부")
@@ -202,75 +177,5 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 			));
 	}
 
-	@Test
-	@DisplayName("전공 문제 업데이트 - 본문")
-	void updateSingleMajorMultipleChoiceQuestionContent() throws Exception {
-		final String PATH = "/admin/question/major/1/content";
-		final String document_Name = "성공";
-		Mockito.when(adminMajorMultipleChoiceQuestionUpdateService.changeContent(any(), any()))
-			.thenReturn(majorMultipleChoiceQuestion);
-		mockMvc.perform(RestDocumentationRequestBuilders.patch(PATH)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(RequestChangeContentDto.forTest())))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name, resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("단답형 문제")
-						.build()
-				)
-			));
-	}
 
-	@Test
-	@DisplayName("전공 문제 업데이트 - 해설")
-	void updateSingleMajorMultipleChoiceQuestionDescription() throws Exception {
-		final String PATH = "/admin/question/major/1/description";
-		final String document_Name = "성공";
-		Mockito.when(adminMajorMultipleChoiceQuestionUpdateService.changeDescription(any(), any()))
-			.thenReturn(majorMultipleChoiceQuestion);
-		mockMvc.perform(RestDocumentationRequestBuilders.patch(PATH)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(RequestChangeDescriptionDto.forTest())))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name, resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("단답형 문제")
-						.build()
-				)
-			));
-	}
-
-	@Test
-	@DisplayName("전공 문제 삭제")
-	void deleteSingleMajorMultipleChoiceQuestion() throws Exception {
-		final String PATH = "/admin/question/major/1";
-		final String document_Name = "성공";
-		mockMvc.perform(RestDocumentationRequestBuilders.delete(PATH)
-				.contentType(MediaType.APPLICATION_JSON))
-			.andExpect(MockMvcResultMatchers.status().isNoContent())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name, resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("단답형 문제")
-						.build()
-				)
-			));
-	}
 }

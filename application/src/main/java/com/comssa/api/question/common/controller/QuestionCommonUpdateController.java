@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,5 +58,13 @@ public class QuestionCommonUpdateController {
 		@PathVariable("id") Long licenseQuestionId,
 		@RequestPart(value = "image") MultipartFile file) {
 		return ResponseEntity.ok(questionCommonUpdateService.updateImage(licenseQuestionId, file));
+	}
+
+	@ApiOperation(" 문제 삭제")
+	@DeleteMapping(value = "/question/common/{id}")
+	public ResponseEntity<Void> changeDescription(
+		@PathVariable("id") Long questionId) {
+		questionCommonUpdateService.deleteQuestion(questionId);
+		return ResponseEntity.noContent().build();
 	}
 }

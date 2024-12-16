@@ -12,7 +12,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,7 +67,7 @@ public class AdminMajorQuestionController {
 			ResponseMultipleChoiceQuestionDto.forAdminMajor(
 				adminMajorQuestionMakeService.makeMultipleChoiceQuestion(requestMakeMajorMultipleChoiceQuestionDto)));
 	}
-	
+
 	@ApiOperation("단답형 문제 상태 업데이트 - 단답형-주관식 토글")
 	@PatchMapping(value = "/question/major/{id}/toggle-multiple")
 	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleCanBeShortAnswered(
@@ -77,11 +76,4 @@ public class AdminMajorQuestionController {
 			adminMajorMultipleChoiceQuestionUpdateService.toggleCanBeShortAnswered(questionId)));
 	}
 
-
-	@ApiOperation("단답형 문제 삭제")
-	@DeleteMapping(value = "/question/major/{id}")
-	public ResponseEntity<Void> deleteMajorQuestion(@PathVariable("id") Long questionId) {
-		adminMajorMultipleChoiceQuestionUpdateService.deleteQuestion(questionId);
-		return ResponseEntity.noContent().build();
-	}
 }

@@ -1,6 +1,5 @@
 package com.comssa.api.question.license.controller;
 
-import com.comssa.api.question.license.service.AdminLicenseMuiltipleChoiceQuestionUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionChoiceUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionMakeService;
 import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
@@ -27,7 +26,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminLicenseQuestionController {
 	private final AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
-	private final AdminLicenseMuiltipleChoiceQuestionUpdateService adminLicenseMuiltipleChoiceQuestionUpdateService;
 
 	private final AdminLicenseQuestionChoiceUpdateService adminLicenseQuestionChoiceUpdateService;
 
@@ -37,15 +35,6 @@ public class AdminLicenseQuestionController {
 		@RequestBody RequestMakeLicenseMultipleChoiceQuestionDto requestMakeLicenseMultipleChoiceQuestionDto) {
 		return ResponseEntity.ok(
 			adminLicenseQuestionMakeService.makeLicenseNormalQuestion(requestMakeLicenseMultipleChoiceQuestionDto));
-	}
-
-
-	@ApiOperation("단답형 문제 상태 업데이트 - 문제 삭제")
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<Void> changeDescription(
-		@PathVariable("id") Long questionId) {
-		adminLicenseMuiltipleChoiceQuestionUpdateService.deleteQuestion(questionId);
-		return ResponseEntity.noContent().build();
 	}
 
 	@ApiOperation("단답형 선택지 업데이트 - 선택지 지문 업데이트")

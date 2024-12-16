@@ -2,11 +2,8 @@ package com.comssa.api.question.license;
 
 import com.comssa.api.ControllerTest;
 import com.comssa.api.question.license.controller.AdminLicenseQuestionController;
-import com.comssa.api.question.license.service.AdminLicenseMuiltipleChoiceQuestionUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionChoiceUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionMakeService;
-import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
-import com.comssa.persistence.question.common.dto.request.RequestChangeDescriptionDto;
 import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
@@ -43,8 +40,6 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 	private AdminLicenseQuestionChoiceUpdateService adminLicenseQuestionChoiceUpdateService;
 	@MockBean
 	private AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
-	@MockBean
-	private AdminLicenseMuiltipleChoiceQuestionUpdateService adminLicenseMuiltipleChoiceQuestionUpdateService;
 
 
 	private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
@@ -95,65 +90,6 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 			));
 	}
 
-	@Test
-	@DisplayName("본문 업데이트")
-	void updateLicenseQuestionContent() throws Exception {
-		final String path = baseApiUrl + idUrl + "/content";
-		final String document_Name = "성공";
-		Mockito.when(adminLicenseMuiltipleChoiceQuestionUpdateService.changeContent(any(), any()))
-			.thenReturn(licenseMultipleChoiceQuestion);
-
-		mockMvc.perform(RestDocumentationRequestBuilders.patch(path)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(RequestChangeContentDto.forTest())))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andExpect(MockMvcResultMatchers
-				.content()
-				.json(objectMapper.writeValueAsString(responseMultipleChoiceQuestionDto)))
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name,
-				resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("자격증")
-						.build()
-				)
-			));
-	}
-
-	@Test
-	@DisplayName("해설 업데이트")
-	void updateLicenseQuestionDescription() throws Exception {
-		final String path = baseApiUrl + idUrl + "/description";
-		final String document_Name = "성공";
-		Mockito.when(adminLicenseMuiltipleChoiceQuestionUpdateService.changeDescription(any(), any()))
-			.thenReturn(licenseMultipleChoiceQuestion);
-
-		mockMvc.perform(RestDocumentationRequestBuilders.patch(path)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(RequestChangeDescriptionDto.forTest())))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andExpect(MockMvcResultMatchers
-				.content()
-				.json(objectMapper.writeValueAsString(responseMultipleChoiceQuestionDto)))
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name,
-				resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("자격증")
-						.build()
-				)
-			));
-	}
 
 	@Test
 	@DisplayName("삭제")

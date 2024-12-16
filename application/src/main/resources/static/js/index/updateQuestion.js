@@ -58,7 +58,7 @@ function toggleCategory(categoryName) {
 
 function deleteQuestion(questionId) {
     if (confirm("정말로 이 질문을 삭제하시겠습니까?")) {
-        fetch(`/admin/question/major/${questionId}`, {
+        fetch(`/admin/question/common/${questionId}`, {
             method: 'DELETE',
         })
             .then(response => {
