@@ -16,8 +16,7 @@ public class QuestionServiceFactory {
 			applicationContext.getBeansOfType(Object.class).values()
 				.stream()
 				.filter(
-					bean ->
-					{
+					bean -> {
 						String name = bean.getClass().getSimpleName().toLowerCase();
 						return name.contains("question") && name.contains("service");
 					}

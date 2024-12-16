@@ -79,9 +79,9 @@
                 <div class="category-text" th:text="${category.questionCategory.korean}">문제 분야</div>
             </div>
             <div class="question-box"
-                 th:each="question, iterStat : ${category.responseQuestionDtos}"
                  th:data-question-id="${question.id}"
                  th:data-question-index="${iterStat.index}"
+                 th:each="question, iterStat : ${category.responseQuestionDtos}"
             >
                 <div class="each-question" th:data-description="${question.description}">
                     <div class="question-meta-data">
@@ -96,17 +96,17 @@
                     <div class="questions">
                         <p class="questionItem"
                            th:text="${question.content}">
-                        <div th:if="${question.imageUrl != null}" class="image-container">
+                        <div class="image-container" th:if="${question.imageUrl != null}">
                             <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
                         </div>
                         </p>
                         <div class="choice-list" th:if="${multipleChoice}">
                             <!-- 선택지 리스트 반복 렌더링 및 번호 추가 -->
                             <div class="choice-item"
-                                 th:each="choice, choiceStat : ${question.questionChoices}"
                                  th:data-answer-status="${choice.answerStatus}"
                                  th:data-choice-id="${choice.id}"
                                  th:data-choice-text="${choice.content}"
+                                 th:each="choice, choiceStat : ${question.questionChoices}"
                                  th:text="${choiceStat.index + 1} + '. ' + ${choice.content}">
                             </div>
                         </div>
@@ -131,7 +131,7 @@
         <!-- 해설 보기 -->
         <div class="description-box">
             <div class="descriptionToggle">
-                <div class="text-wrapper-10" onclick="loadComments()" id="toggleDescription">해설 보기</div>
+                <div class="text-wrapper-10" id="toggleDescription" onclick="loadComments()">해설 보기</div>
             </div>
             <!-- 해설 내용 -->
             <!--            <div class="description-container" id="descriptionContent">-->

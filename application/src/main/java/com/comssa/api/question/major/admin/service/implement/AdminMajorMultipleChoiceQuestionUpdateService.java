@@ -10,14 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Transactional
 public class AdminMajorMultipleChoiceQuestionUpdateService {
-    private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDBService;
+	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDBService;
 
-    public MajorMultipleChoiceQuestion toggleCanBeShortAnswered(Long questionId) {
-        MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = majorMultipleChoiceQuestionDBService
-                .findById(
-                        questionId);
-        majorMultipleChoiceQuestion.toggleCanBeShortAnswered();
-        return majorMultipleChoiceQuestion;
-    }
-	
+	public MajorMultipleChoiceQuestion toggleCanBeShortAnswered(Long questionId) {
+		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = majorMultipleChoiceQuestionDBService
+			.findById(
+				questionId);
+		majorMultipleChoiceQuestion.toggleCanBeShortAnswered();
+		return majorMultipleChoiceQuestion;
+	}
+
 }
