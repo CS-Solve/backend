@@ -2,10 +2,10 @@ package com.comssa.api.question.license;
 
 
 import com.comssa.api.ViewControllerTest;
-import com.comssa.api.question.license.controller.LicenseQuestionGetViewController;
-import com.comssa.api.question.license.service.AdminLicenseQuestionGetService;
-import com.comssa.api.question.license.service.LicenseSessionService;
-import com.comssa.api.question.license.service.UserLicenseQuestionGetService;
+import com.comssa.api.question.controller.view.LicenseQuestionGetViewController;
+import com.comssa.api.question.service.license.implement.AdminLicenseQuestionGetService;
+import com.comssa.api.question.service.license.implement.LicenseSessionService;
+import com.comssa.api.question.service.license.implement.UserLicenseQuestionGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;

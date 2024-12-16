@@ -2,7 +2,8 @@ package com.comssa.api.question.major.user.controller;
 
 
 import com.comssa.api.ViewControllerTest;
-import com.comssa.api.question.major.user.service.implement.UserMajorQuestionClassifiedGetService;
+import com.comssa.api.question.controller.view.MajorQuestionGetViewController;
+import com.comssa.api.question.service.major.implement.UserMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;

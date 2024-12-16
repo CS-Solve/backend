@@ -1,6 +1,7 @@
 package com.comssa.api.question.major.user.service.implement;
 
 import com.comssa.api.ServiceIntegrationTest;
+import com.comssa.api.question.service.major.implement.UserMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;

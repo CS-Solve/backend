@@ -1,6 +1,6 @@
 package com.comssa.api.exceptionHandler
 
-import com.comssa.api.question.major.common.exception.DuplicateQuestionException
+import com.comssa.api.exception.DuplicateQuestionException
 import com.comssa.persistence.exception.NotLoginException
 import com.comssa.persistence.exception.WrongQuestionTypeException
 import org.springframework.http.HttpStatus

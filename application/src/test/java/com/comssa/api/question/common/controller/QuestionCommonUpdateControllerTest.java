@@ -1,7 +1,8 @@
 package com.comssa.api.question.common.controller;
 
 import com.comssa.api.ControllerTest;
-import com.comssa.api.question.common.service.implement.QuestionCommonUpdateService;
+import com.comssa.api.question.controller.rest.common.QuestionUpdateController;
+import com.comssa.api.question.service.common.implement.QuestionUpdateService;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
 import com.comssa.persistence.question.common.dto.request.RequestChangeDescriptionDto;
@@ -23,120 +24,120 @@ import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@WebMvcTest(QuestionCommonUpdateController.class)
-@ContextConfiguration(classes = QuestionCommonUpdateController.class)
+@WebMvcTest(QuestionUpdateController.class)
+@ContextConfiguration(classes = QuestionUpdateController.class)
 class QuestionCommonUpdateControllerTest extends ControllerTest {
-	private final String tag = "문제 수정";
-	private final String baseApiUrl = "/admin/question/common";
-	private final String idUrl = "/1";
-	@MockBean
-	private QuestionCommonUpdateService questionCommonUpdateService;
+    private final String tag = "문제 수정";
+    private final String baseApiUrl = "/admin/question/common";
+    private final String idUrl = "/1";
+    @MockBean
+    private QuestionUpdateService questionUpdateService;
 
-	private Question question;
+    private Question question;
 
-	@BeforeEach
-	void setUp() {
+    @BeforeEach
+    void setUp() {
 
-	}
+    }
 
-	@Test
-	@DisplayName("본문 업데이트")
-	void updateLicenseQuestionContent() throws Exception {
-		final String path = baseApiUrl + idUrl + "/content";
-		final String document_Name = "성공";
-		Mockito.when(questionCommonUpdateService.changeContent(any(), any()))
-			.thenReturn(question);
+    @Test
+    @DisplayName("본문 업데이트")
+    void updateLicenseQuestionContent() throws Exception {
+        final String path = baseApiUrl + idUrl + "/content";
+        final String document_Name = "성공";
+        Mockito.when(questionUpdateService.changeContent(any(), any()))
+                .thenReturn(question);
 
-		mockMvc.perform(RestDocumentationRequestBuilders.patch(path)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(RequestChangeContentDto.forTest())))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name,
-				resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("본")
-						.build()
-				)
-			));
-	}
+        mockMvc.perform(RestDocumentationRequestBuilders.patch(path)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(RequestChangeContentDto.forTest())))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(print())
+                .andDo(MockMvcRestDocumentation.document(
+                        document_Name
+                ))
+                .andDo(MockMvcRestDocumentationWrapper.document(
+                        document_Name,
+                        resource(
+                                ResourceSnippetParameters.builder()
+                                        .tag(tag)
+                                        .description("본")
+                                        .build()
+                        )
+                ));
+    }
 
-	@Test
-	@DisplayName("해설 업데이트")
-	void updateLicenseQuestionDescription() throws Exception {
-		final String path = baseApiUrl + idUrl + "/description";
-		final String document_Name = "성공";
-		Mockito.when(questionCommonUpdateService.changeDescription(any(), any()))
-			.thenReturn(question);
+    @Test
+    @DisplayName("해설 업데이트")
+    void updateLicenseQuestionDescription() throws Exception {
+        final String path = baseApiUrl + idUrl + "/description";
+        final String document_Name = "성공";
+        Mockito.when(questionUpdateService.changeDescription(any(), any()))
+                .thenReturn(question);
 
-		mockMvc.perform(RestDocumentationRequestBuilders.patch(path)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(RequestChangeDescriptionDto.forTest())))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name,
-				resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("해설")
-						.build()
-				)
-			));
-	}
+        mockMvc.perform(RestDocumentationRequestBuilders.patch(path)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(RequestChangeDescriptionDto.forTest())))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(print())
+                .andDo(MockMvcRestDocumentation.document(
+                        document_Name
+                ))
+                .andDo(MockMvcRestDocumentationWrapper.document(
+                        document_Name,
+                        resource(
+                                ResourceSnippetParameters.builder()
+                                        .tag(tag)
+                                        .description("해설")
+                                        .build()
+                        )
+                ));
+    }
 
-	@Test
-	@DisplayName("개시 여부 변경")
-	void updateSingleMajorMultipleChoiceQuestionApprove() throws Exception {
-		final String PATH = "/admin/question/common/1/toggle-approve";
-		final String document_Name = "성공";
-		Mockito.when(questionCommonUpdateService.toggleApprove(any()))
-			.thenReturn(question);
-		mockMvc.perform(RestDocumentationRequestBuilders.patch(PATH)
-				.contentType(MediaType.APPLICATION_JSON))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name, resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("개시 여부")
-						.build()
-				)
-			));
-	}
+    @Test
+    @DisplayName("개시 여부 변경")
+    void updateSingleMajorMultipleChoiceQuestionApprove() throws Exception {
+        final String PATH = "/admin/question/common/1/toggle-approve";
+        final String document_Name = "성공";
+        Mockito.when(questionUpdateService.toggleApprove(any()))
+                .thenReturn(question);
+        mockMvc.perform(RestDocumentationRequestBuilders.patch(PATH)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(print())
+                .andDo(MockMvcRestDocumentation.document(
+                        document_Name
+                ))
+                .andDo(MockMvcRestDocumentationWrapper.document(
+                        document_Name, resource(
+                                ResourceSnippetParameters.builder()
+                                        .tag(tag)
+                                        .description("개시 여부")
+                                        .build()
+                        )
+                ));
+    }
 
-	@Test
-	@DisplayName("삭제")
-	void deleteLicenseQuestion() throws Exception {
-		final String path = baseApiUrl + idUrl;
-		final String document_Name = "성공";
+    @Test
+    @DisplayName("삭제")
+    void deleteLicenseQuestion() throws Exception {
+        final String path = baseApiUrl + idUrl;
+        final String document_Name = "성공";
 
-		mockMvc.perform(RestDocumentationRequestBuilders.delete(path))
-			.andExpect(MockMvcResultMatchers.status().isNoContent())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name,
-				resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("삭제")
-						.build()
-				)
-			));
-	}
+        mockMvc.perform(RestDocumentationRequestBuilders.delete(path))
+                .andExpect(MockMvcResultMatchers.status().isNoContent())
+                .andDo(print())
+                .andDo(MockMvcRestDocumentation.document(
+                        document_Name
+                ))
+                .andDo(MockMvcRestDocumentationWrapper.document(
+                        document_Name,
+                        resource(
+                                ResourceSnippetParameters.builder()
+                                        .tag(tag)
+                                        .description("삭제")
+                                        .build()
+                        )
+                ));
+    }
 }

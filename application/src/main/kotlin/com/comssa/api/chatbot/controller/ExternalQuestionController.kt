@@ -1,6 +1,6 @@
 package com.comssa.api.chatbot.controller
 
-import com.comssa.api.question.major.admin.service.ExternalQuestionService
+import com.comssa.api.chatbot.service.ExternalQuestionService
 import com.comssa.core.chatbot.dto.response.ChatGptBatchResponseDto
 import com.comssa.core.chatbot.dto.response.ChatGptFileUploadResponseDto
 import com.comssa.core.chatbot.service.implement.ChatGptService
