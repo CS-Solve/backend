@@ -2,8 +2,8 @@ package com.comssa.api.question.license;
 
 import com.comssa.api.ControllerTest;
 import com.comssa.api.question.license.controller.AdminLicenseQuestionController;
-import com.comssa.api.question.license.service.AdminLicenseQuestionChoiceUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionMakeService;
+import com.comssa.api.question.license.service.QuestionCommonChoiceUpdateService;
 import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
@@ -37,7 +37,7 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 	private final String baseApiUrl = "/admin/question/license";
 	private final String idUrl = "/1";
 	@MockBean
-	private AdminLicenseQuestionChoiceUpdateService adminLicenseQuestionChoiceUpdateService;
+	private QuestionCommonChoiceUpdateService questionCommonChoiceUpdateService;
 	@MockBean
 	private AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
 

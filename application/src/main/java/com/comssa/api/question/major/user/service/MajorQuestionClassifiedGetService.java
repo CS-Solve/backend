@@ -12,18 +12,18 @@ import java.util.Map;
 
 @Service
 public interface MajorQuestionClassifiedGetService {
-    /**
-     * 분류별로 나누어 문제를 반환
-     */
-    Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedMajorMultipleChoiceQuestions(
-            RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto);
+	/**
+	 * 분류별로 나누어 문제를 반환
+	 */
+	Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedMajorMultipleChoiceQuestions(
+		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto);
 
-    Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedShortAnsweredMajorQuestions(
-            RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto);
+	Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedShortAnsweredMajorQuestions(
+		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto);
 
-    Map<QuestionCategory, List<MajorDescriptiveQuestion>> getApprovedClassifiedDescriptiveQuestions(
-            RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto
-    );
+	Map<QuestionCategory, List<MajorDescriptiveQuestion>> getApprovedClassifiedDescriptiveQuestions(
+		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto
+	);
 
 }
 

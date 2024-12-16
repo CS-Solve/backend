@@ -177,7 +177,7 @@ function updateNormalTextField(id, field, newValue) {
     let url;
     if (field === 'choiceContent') {
         // field가 'choiceContent'이면 choiceId를 포함한 URL로 설정
-        url = `/admin/question/license/choice/${id}`;
+        url = `/admin/question/common/choice/${id}`;
     } else if (field === 'description') {
         // 기본 URL
         url = `/admin/question/common/${id}/description`;

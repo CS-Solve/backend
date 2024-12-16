@@ -1,7 +1,7 @@
 package com.comssa.api.question.license.controller;
 
-import com.comssa.api.question.license.service.AdminLicenseQuestionChoiceUpdateService;
 import com.comssa.api.question.license.service.AdminLicenseQuestionMakeService;
+import com.comssa.api.question.license.service.QuestionCommonChoiceUpdateService;
 import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
 import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.common.dto.response.ResponseQuestionChoiceDto;
@@ -27,7 +27,7 @@ import java.util.List;
 public class AdminLicenseQuestionController {
 	private final AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
 
-	private final AdminLicenseQuestionChoiceUpdateService adminLicenseQuestionChoiceUpdateService;
+	private final QuestionCommonChoiceUpdateService questionCommonChoiceUpdateService;
 
 	@ApiOperation("단답형 문제 세션으로 생성")
 	@PostMapping
@@ -42,7 +42,7 @@ public class AdminLicenseQuestionController {
 	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
 		@PathVariable("id") Long licenseChoiceId,
 		@RequestBody RequestChangeContentDto requestChangeContentDto) {
-		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(adminLicenseQuestionChoiceUpdateService.changeContent(
+		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(questionCommonChoiceUpdateService.changeContent(
 			licenseChoiceId,
 			requestChangeContentDto)));
 	}
@@ -51,7 +51,7 @@ public class AdminLicenseQuestionController {
 	@DeleteMapping(value = "/choice/{id}")
 	public ResponseEntity<Void> deleteChoiceContent(
 		@PathVariable("id") Long licenseChoiceId) {
-		adminLicenseQuestionChoiceUpdateService.deleteQuestionChoice(
+		questionCommonChoiceUpdateService.deleteQuestionChoice(
 			licenseChoiceId);
 		return ResponseEntity.noContent().build();
 	}
@@ -60,7 +60,7 @@ public class AdminLicenseQuestionController {
 	@PatchMapping(value = "/choice/{id}/toggle")
 	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
 		@PathVariable("id") Long licenseChoiceId) {
-		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(adminLicenseQuestionChoiceUpdateService
+		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(questionCommonChoiceUpdateService
 			.toggleAnswerStatus(
 				licenseChoiceId)));
 	}
