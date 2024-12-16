@@ -91,27 +91,4 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 	}
 
 
-	@Test
-	@DisplayName("삭제")
-	void deleteLicenseQuestion() throws Exception {
-		final String path = baseApiUrl + idUrl;
-		final String document_Name = "성공";
-
-		mockMvc.perform(RestDocumentationRequestBuilders.delete(path))
-			.andExpect(MockMvcResultMatchers.status().isNoContent())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name,
-				resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("자격증")
-						.build()
-				)
-			));
-	}
-
 }

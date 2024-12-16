@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuestionGradeController {
 	private final QuestionServiceFactory questionServiceFactory;
 
-	@ApiOperation("자격증 문제 채점")
-	@PatchMapping("/question/{questionField}/{questionType}/{choiceId}/{questionAct}")
+	@ApiOperation("객관식 문제 채점")
+	@PatchMapping("/question/{questionField}/{questionType}/choice/{choiceId}/{questionAct}")
 	public ResponseEntity<Boolean> isMajorChoiceAnswer(
 		@PathVariable("questionField") String questionField,
 		@PathVariable("questionType") String questionType,

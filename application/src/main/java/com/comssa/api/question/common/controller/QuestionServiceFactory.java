@@ -31,7 +31,7 @@ public class QuestionServiceFactory {
 		String questionAct,
 		Class<T> classType
 	) {
-		return findService(questionField, questionType, questionAct, classType, false);
+		return findServiceByClassName(questionField, questionType, questionAct, classType, false);
 	}
 
 	public <T> T getAdminQuestionService(
@@ -40,10 +40,10 @@ public class QuestionServiceFactory {
 		String questionAct,
 		Class<T> classType
 	) {
-		return findService(questionField, questionType, questionAct, classType, true);
+		return findServiceByClassName(questionField, questionType, questionAct, classType, true);
 	}
 
-	private <T> T findService(
+	private <T> T findServiceByClassName(
 		String questionField,
 		String questionType,
 		String questionAct,

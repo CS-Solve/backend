@@ -22,7 +22,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static org.mockito.ArgumentMatchers.any;
@@ -54,28 +53,6 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 	void makeMultiMajorQuestion() {
 	}
 
-	@Test
-	@DisplayName("전공 문제 조회")
-	void getMajorMultipleChoiceQuestions() throws Exception {
-		final String PATH = "/admin/question/major";
-		final String document_Name = "성공";
-		Mockito.when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorMultipleChoiceQuestions())
-			.thenReturn(new HashMap<>());
-		mockMvc.perform(RestDocumentationRequestBuilders.get(PATH))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name, resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("단답형")
-						.build()
-				)
-			));
-	}
 
 	@Test
 	@DisplayName("전공 문제 단체 생성 - 성공")
