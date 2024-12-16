@@ -30,6 +30,7 @@ import java.util.List;
 public class AdminLicenseQuestionController {
 	private final AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
 	private final AdminLicenseMuiltipleChoiceQuestionUpdateService adminLicenseMuiltipleChoiceQuestionUpdateService;
+
 	private final AdminLicenseQuestionChoiceUpdateService adminLicenseQuestionChoiceUpdateService;
 
 	@ApiOperation("단답형 문제 세션으로 생성")
@@ -48,33 +49,7 @@ public class AdminLicenseQuestionController {
 		return ResponseEntity.ok(
 			adminLicenseQuestionMakeService.updateLicenseQuestionWithImage(licenseQuestionId, file));
 	}
-
-	@ApiOperation("단답형 문제 상태 업데이트 - 문제 지문 업데이트")
-	@PatchMapping(value = "/{id}/content")
-	public ResponseEntity<ResponseMultipleChoiceQuestionDto> changeContent(
-		@PathVariable("id") Long questionId,
-		@RequestBody RequestChangeContentDto requestChangeContentDto) {
-		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forLicense(
-			adminLicenseMuiltipleChoiceQuestionUpdateService.changeContent(questionId, requestChangeContentDto)));
-	}
-
-	@ApiOperation("단답형 문제 상태 업데이트 - 문제 해설 업데이트")
-	@PatchMapping(value = "/{id}/description")
-	public ResponseEntity<ResponseMultipleChoiceQuestionDto> changeDescription(
-		@PathVariable("id") Long questionId,
-		@RequestBody RequestChangeContentDto requestChangeContentDto) {
-		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forLicense(
-			adminLicenseMuiltipleChoiceQuestionUpdateService.changeDescription(questionId, requestChangeContentDto)));
-	}
-
-	@ApiOperation("단답형 문제 상태 업데이트 - 문제 해설 업데이트")
-	@PatchMapping(value = "/{id}/toggle-approve")
-	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleIsApprove(
-		@PathVariable("id") Long questionId
-	) {
-		return ResponseEntity.ok(ResponseMultipleChoiceQuestionDto.forLicense(
-			adminLicenseMuiltipleChoiceQuestionUpdateService.toggleApprove(questionId)));
-	}
+	
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 문제 삭제")
 	@DeleteMapping(value = "/{id}")

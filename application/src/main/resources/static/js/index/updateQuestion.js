@@ -1,5 +1,5 @@
 function toggleApprove(questionId) {
-    fetch(`/admin/question/major/${questionId}/toggle-approve`, {
+    fetch(`/admin/question/common/${questionId}/toggle-approve`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ function toggleApprove(questionId) {
 }
 
 function toggleCanBeMultiple(questionId) {
-    fetch(`/admin/question/major/${questionId}/toggle-multiple`, {
+    fetch(`/admin/question/common/${questionId}/toggle-multiple`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -80,7 +80,7 @@ function updateDifficulty(selectElement) {
     const questionId = selectElement.getAttribute('data-question-id');
     const newDifficulty = selectElement.value;
 
-    fetch(`/admin/question/major/${questionId}/difficulty`, {
+    fetch(`/admin/question/common/${questionId}/difficulty`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -175,9 +175,9 @@ function saveOverlayChanges() {
         const field = currentEditElement.getAttribute('data-field');
 
         updateNormalTextField(questionId, field, newText)
-            .then(updatedData => {
-                if (updatedData && updatedData[field] !== undefined) {
-                    console.log(`${field}가 성공적으로 업데이트되었습니다:`, updatedData[field]);
+            .then(response => {
+                if (response.ok) {
+                    console.log(`성공적으로 업데이트되었습니다:`);
 
                     // 현재 스크롤 위치 저장
                     localStorage.setItem('scrollPosition', window.pageYOffset);
@@ -206,7 +206,7 @@ function updateNormalTextField(questionId, field, newValue) {
     // 경로를 동적으로 설정
     const apiUrl = field === 'gradeStandard'
         ? `/questions/descriptive/${questionId}/standard`
-        : `/admin/question/major/${questionId}/${field}`;
+        : `/admin/question/common/${questionId}/${field}`;
 
     return fetch(apiUrl, {
         method: 'PATCH',
@@ -219,7 +219,7 @@ function updateNormalTextField(questionId, field, newValue) {
             if (!response.ok) {
                 throw new Error(`${field} 업데이트 실패`);
             }
-            return response.json();
+            return response;
         })
 }
 
@@ -237,7 +237,7 @@ function uploadImage(questionId, fileInput) {
     formData.append("image", fileInput.files[0]);
     console.log(formData)
 
-    fetch(`/admin/question/license/${questionId}`, {
+    fetch(`/admin/question/common/${questionId}`, {
         method: 'PATCH',
         body: formData
     }).then(response => {

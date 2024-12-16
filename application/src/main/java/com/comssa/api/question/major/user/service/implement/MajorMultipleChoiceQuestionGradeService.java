@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MajorMultipleChoiceQuestionGradeService implements MultipleChoiceQuestionGradeService<MajorQuestionChoice> {
+public class MajorMultipleChoiceQuestionGradeService implements MultipleChoiceQuestionGradeService {
 	private final MajorQuestionChoiceRepository majorQuestionChoiceRepository;
 
 	@Override

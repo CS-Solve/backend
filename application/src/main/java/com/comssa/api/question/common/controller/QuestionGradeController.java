@@ -24,7 +24,7 @@ public class QuestionGradeController {
 		@PathVariable("choiceId") Long choiceId
 	) {
 		MultipleChoiceQuestionGradeService multipleChoiceQuestionGradeService
-			= questionServiceFactory.getMultipleChoiceQuestionGradeService(
+			= questionServiceFactory.getQuestionService(
 			questionField,
 			questionType,
 			questionAct,

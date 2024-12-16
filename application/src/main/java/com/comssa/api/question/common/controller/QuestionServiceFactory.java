@@ -25,23 +25,50 @@ public class QuestionServiceFactory {
 				.collect(Collectors.toList());
 	}
 
-	public <T> T getMultipleChoiceQuestionGradeService(
-		String questionClass,
+	public <T> T getQuestionService(
+		String questionField,
 		String questionType,
 		String questionAct,
 		Class<T> classType
 	) {
+		return findService(questionField, questionType, questionAct, classType, false);
+	}
+
+	public <T> T getAdminQuestionService(
+		String questionField,
+		String questionType,
+		String questionAct,
+		Class<T> classType
+	) {
+		return findService(questionField, questionType, questionAct, classType, true);
+	}
+
+	private <T> T findService(
+		String questionField,
+		String questionType,
+		String questionAct,
+		Class<T> classType,
+		boolean isAdmin
+	) {
 		return questionService.stream()
 			.filter(service -> {
 				String name = service.getClass().getSimpleName().toLowerCase();
-				return name.contains(questionClass.toLowerCase())
+				boolean matches = name.contains(questionField.toLowerCase())
 					&& name.contains(questionType.toLowerCase())
 					&& name.contains(questionAct.toLowerCase());
+				if (isAdmin) {
+					matches = matches && name.contains("admin");
+				}
+				return matches;
 			})
 			.map(classType::cast)
+			/*
+			이 부분으로 반환값을 Object대신 제네릭을 사용함에도 ClassCastException이 여전히 발생할 수 있지만,
+			제네릭을 사용함으로 에러 처리를 호출부가 아니라 현 클래스에서 집중할 수 있음
+			 */
 			.findFirst()
 			.orElseThrow(() -> new IllegalArgumentException(
-				"No service found for questionClass: " + questionClass
+				"No service found for questionField: " + questionField
 					+ ", questionType: " + questionType
 					+ ", questionAct: " + questionAct
 			));

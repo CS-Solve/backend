@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class LicenseMultipleChoiceQuestionGradeService implements MultipleChoiceQuestionGradeService<LicenseQuestionChoice> {
+public class LicenseMultipleChoiceQuestionGradeService implements MultipleChoiceQuestionGradeService {
 	private final LicenseQuestionChoiceRepository licenseQuestionChoiceRepository;
 
 	@Override

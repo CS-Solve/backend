@@ -25,4 +25,8 @@ public class QuestionRepositoryService {
 	public Question findByIdFetchCommentsOrderByCreatedAtDesc(Long id) {
 		return questionRepository.findByIdFetchCommentsOrderByCreatedAtDesc(id).orElse(null);
 	}
+
+	public void delete(Long id) {
+		questionRepository.deleteById(id);
+	}
 }
