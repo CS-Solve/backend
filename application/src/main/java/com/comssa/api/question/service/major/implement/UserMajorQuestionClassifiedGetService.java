@@ -3,6 +3,7 @@ package com.comssa.api.question.service.major.implement;
 
 import com.comssa.api.question.service.common.QuestionClassifyByCategoryService;
 import com.comssa.api.question.service.major.MajorQuestionClassifiedGetService;
+import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
@@ -27,7 +28,7 @@ public class UserMajorQuestionClassifiedGetService implements MajorQuestionClass
 	 * 문제 선택지들을 섞어준다.
 	 */
 	@Override
-	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getApprovedClassifiedMajorMultipleChoiceQuestions(
+	public Map<QuestionCategory, List<Question>> getApprovedClassifiedMajorMultipleChoiceQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
 			.findAllFetchChoicesByCategoriesAndLevelsApproved(
@@ -44,7 +45,7 @@ public class UserMajorQuestionClassifiedGetService implements MajorQuestionClass
 	 * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 서술형
 	 */
 	@Override
-	public Map<QuestionCategory, List<MajorDescriptiveQuestion>> getApprovedClassifiedDescriptiveQuestions(
+	public Map<QuestionCategory, List<Question>> getApprovedClassifiedDescriptiveQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
 		List<MajorDescriptiveQuestion> majorDescriptiveQuestions = majorDescriptiveQuestionRepository
 			.findWithCategoriesAndLevelsAndIfApproved(

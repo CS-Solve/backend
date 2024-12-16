@@ -37,19 +37,19 @@ public class AdminMajorQuestionViewController {
 		Map<QuestionCategory, List<Question>> questions = null;
 		if (questionType.equals(QuestionType.MULTIPLE_CHOICE.getName())) {
 			model.addAttribute("isMultipleChoice", true);
-			model.addAttribute("classifiedQuestions", adminMajorQuestionClassifiedGetService.getClassifiedAllMajorMultipleChoiceQuestions()
-				.entrySet().stream()
-				.map(entry -> ResponseClassifiedQuestionDto
-					.getQuestions(entry.getKey(), entry.getValue()))
-				.collect(Collectors.toList()));
+			questions = adminMajorQuestionClassifiedGetService
+				.getClassifiedAllMajorMultipleChoiceQuestions();
 		} else if (questionType.equals(QuestionType.DESCRIPTIVE.getName())) {
 			model.addAttribute("isMultipleChoice", false);
-			model.addAttribute("classifiedQuestions", adminMajorQuestionClassifiedGetService.getClassifiedAllMajorDescriptiveQuestions()
-				.entrySet().stream()
-				.map(entry -> ResponseClassifiedQuestionDto
-					.getQuestions(entry.getKey(), entry.getValue()))
-				.collect(Collectors.toList()));
+			questions = adminMajorQuestionClassifiedGetService
+				.getClassifiedAllMajorDescriptiveQuestions();
 		}
+		model.addAttribute("classifiedQuestions", questions
+			.entrySet().stream()
+			.map(entry -> ResponseClassifiedQuestionDto
+				.getQuestions(entry.getKey(), entry.getValue()))
+			.collect(Collectors.toList()));
+
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("folderName", "index");
 		model.addAttribute("isMajorQuestion", true);

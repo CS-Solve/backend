@@ -3,6 +3,7 @@ package com.comssa.api.question.service.license.implement;
 
 import com.comssa.api.question.service.common.QuestionClassifyByCategoryService;
 import com.comssa.api.question.service.license.LicenseQuestionGetService;
+import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.license.repository.LicenseMultipleChoiceQuestionRepository;
@@ -18,17 +19,17 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UserLicenseQuestionGetService implements LicenseQuestionGetService {
-    private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
-    private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
+	private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
+	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 
-    public Map<QuestionCategory, List<LicenseMultipleChoiceQuestion>> getClassifiedLicenseMultipleChoiceQuestion(
-            Long sessionId) {
-        List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository
-                .findAllByLicenseSessionIdFetchChoicesAndIfApproved(
-                        sessionId);
-        for (LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion : licenseMultipleChoiceQuestions) {
-            Collections.shuffle(licenseMultipleChoiceQuestion.getQuestionChoices());
-        }
-        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions);
-    }
+	public Map<QuestionCategory, List<Question>> getClassifiedLicenseMultipleChoiceQuestion(
+		Long sessionId) {
+		List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository
+			.findAllByLicenseSessionIdFetchChoicesAndIfApproved(
+				sessionId);
+		for (LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion : licenseMultipleChoiceQuestions) {
+			Collections.shuffle(licenseMultipleChoiceQuestion.getQuestionChoices());
+		}
+		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions);
+	}
 }

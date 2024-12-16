@@ -3,6 +3,7 @@ package com.comssa.api.question.service.major.implement;
 
 import com.comssa.api.question.service.common.QuestionClassifyByCategoryService;
 import com.comssa.api.question.service.major.AdminMajorQuestionClassifiedGetService;
+import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
@@ -27,14 +28,14 @@ public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQu
 	 * @return
 	 */
 	@Override
-	public Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> getClassifiedAllMajorMultipleChoiceQuestions() {
+	public Map<QuestionCategory, List<Question>> getClassifiedAllMajorMultipleChoiceQuestions() {
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
 			.findAllFetchChoicesSortedByApproveAndShortAnswered();
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
 	}
 
 	@Override
-	public Map<QuestionCategory, List<MajorDescriptiveQuestion>> getClassifiedAllMajorDescriptiveQuestions() {
+	public Map<QuestionCategory, List<Question>> getClassifiedAllMajorDescriptiveQuestions() {
 		List<MajorDescriptiveQuestion> majorDescriptiveQuestions =
 			majorDescriptiveQuestionRepository.findAllSortedByIfApproved();
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorDescriptiveQuestions);

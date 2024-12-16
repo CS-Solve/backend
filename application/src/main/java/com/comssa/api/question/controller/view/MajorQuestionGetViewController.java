@@ -2,10 +2,9 @@ package com.comssa.api.question.controller.view;
 
 import com.comssa.api.login.aspect.AddLoginStatusAttributeToView;
 import com.comssa.api.question.service.major.implement.UserMajorQuestionClassifiedGetService;
+import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
-import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
-import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,7 +36,7 @@ public class MajorQuestionGetViewController {
 		String title;
 		String description;
 		if (Boolean.TRUE.equals(multipleChoice)) {
-			Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> multipleChoiceQuestions =
+			Map<QuestionCategory, List<Question>> multipleChoiceQuestions =
 				userMajorQuestionClassifiedGetService.getApprovedClassifiedMajorMultipleChoiceQuestions(
 					RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels)
 				);
@@ -51,7 +50,7 @@ public class MajorQuestionGetViewController {
 			description = "다양한 분야와 난이도의 CS (컴퓨터 사이언스) 문제를 풀어볼 수 있습니다.";
 
 		} else {
-			Map<QuestionCategory, List<MajorDescriptiveQuestion>> descriptiveQuestions =
+			Map<QuestionCategory, List<Question>> descriptiveQuestions =
 				userMajorQuestionClassifiedGetService.getApprovedClassifiedDescriptiveQuestions(
 					RequestGetQuestionByCategoryAndLevelDto.fromKorean(categories, levels)
 				);

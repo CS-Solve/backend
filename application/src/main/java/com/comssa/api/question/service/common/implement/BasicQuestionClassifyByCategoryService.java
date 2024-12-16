@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class BasicQuestionClassifyByCategoryService implements QuestionClassifyByCategoryService {
 	@Override
-	public <T extends Question> Map<QuestionCategory, List<T>> classifyQuestionByCategoryOrdered(List<T> questions) {
+	public Map<QuestionCategory, List<Question>> classifyQuestionByCategoryOrdered(List<? extends Question> questions) {
 		return questions.stream()
 			.collect(Collectors.groupingBy(
 				Question::getQuestionCategory,
