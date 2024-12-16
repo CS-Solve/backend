@@ -37,6 +37,7 @@ public class ResponseMultipleChoiceQuestionDto extends ResponseQuestionDto {
 			.questionLevel(question.getQuestionLevel())
 			.description(question.getDescription())
 			.imageUrl(question.getImageUrl())
+			.ifApproved(question.isIfApproved())
 			.ifMultipleChoice(true);
 	}
 
@@ -53,7 +54,7 @@ public class ResponseMultipleChoiceQuestionDto extends ResponseQuestionDto {
 	/**
 	 * 차이점은 NormalQuesiton시 주관식 가능 여부와, 허용됐는지 여부 변수의 존재 여부다
 	 */
-	public static ResponseMajorMultipleChoiceQuestionForAdminDto forAdminMajor(MajorMultipleChoiceQuestion question) {
+	public static ResponseMajorMultipleChoiceQuestionForAdminDto forAdmin(MajorMultipleChoiceQuestion question) {
 		return ResponseMajorMultipleChoiceQuestionForAdminDto.builder()
 			.id(question.getId())
 			.content(question.getContent())

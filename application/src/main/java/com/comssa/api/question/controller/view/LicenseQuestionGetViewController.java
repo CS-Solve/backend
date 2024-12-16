@@ -54,7 +54,8 @@ public class LicenseQuestionGetViewController {
 		model.addAttribute("questions",
 			userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 				.entrySet().stream()
-				.map(entry -> ResponseClassifiedQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedQuestionDto
+					.getQuestions(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		model.addAttribute("multipleChoice", true);
 		model.addAttribute("isMajorQuestion", false);
@@ -64,7 +65,7 @@ public class LicenseQuestionGetViewController {
 	/*
 	업데이트 화면
 	 */
-	@GetMapping("/admin/question/license/update/{sessionId}")
+	@GetMapping("/admin/question/license/{sessionId}")
 	public String updateLicenseQuestions(
 		@PathVariable Long sessionId,
 		Model model
@@ -75,19 +76,9 @@ public class LicenseQuestionGetViewController {
 		model.addAttribute("classifiedQuestions",
 			adminLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 				.entrySet().stream()
-				.map(entry -> ResponseClassifiedQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedQuestionDto.getQuestions(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		return "question-update";
 	}
-
-	/**
-	 * 임시 JSON 용
-	 */
-	//    @GetMapping("/question/license/{sessionId}/rest")
-	//    @ResponseBody
-	//    public ResponseEntity<List<ResponseClassifiedMultipleQuestionDto>> getLicenseQuestionsJson(
-	//    @PathVariable Long sessionId){
-	//        return ResponseEntity.ok(licenseQuestionGetService.getClassifiedLicenseNormalQuestion(sessionId));
-	//    }
 
 }

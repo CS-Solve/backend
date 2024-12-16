@@ -55,7 +55,7 @@ class MajorQuestionGetViewControllerTest extends ViewControllerTest {
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = Collections.singletonList(
 			majorMultipleChoiceQuestion);
 		ResponseClassifiedQuestionDto responseClassifiedQuestionDto =
-			ResponseClassifiedQuestionDto.multipleQuestionForUser(majorMultipleChoiceQuestion.getQuestionCategory(),
+			ResponseClassifiedQuestionDto.getQuestions(majorMultipleChoiceQuestion.getQuestionCategory(),
 				majorMultipleChoiceQuestions);
 		responseClassifiedQuestionDtos.add(responseClassifiedQuestionDto);
 		map.put(majorMultipleChoiceQuestion.getQuestionCategory(), majorMultipleChoiceQuestions);

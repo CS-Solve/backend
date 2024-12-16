@@ -43,7 +43,7 @@ public class MajorQuestionGetViewController {
 				);
 
 			model.addAttribute("questions", multipleChoiceQuestions.entrySet().stream()
-				.map(entry -> ResponseClassifiedQuestionDto.multipleQuestionForUser(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedQuestionDto.getQuestions(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 			title = "CS 전공 문제 - " + multipleChoiceQuestions.keySet().stream()
 				.map(QuestionCategory::getKorean)
@@ -57,7 +57,7 @@ public class MajorQuestionGetViewController {
 				);
 
 			model.addAttribute("questions", descriptiveQuestions.entrySet().stream()
-				.map(entry -> ResponseClassifiedQuestionDto.majorDescriptiveQuestion(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedQuestionDto.getQuestions(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 			title = "CS 가상 기술 면접 - " + descriptiveQuestions.keySet().stream()
 				.map(QuestionCategory::getKorean)

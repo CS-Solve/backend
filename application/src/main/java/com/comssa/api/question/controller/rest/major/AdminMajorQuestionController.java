@@ -37,7 +37,7 @@ public class AdminMajorQuestionController {
 		return ResponseEntity.ok(
 			adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMajorMultipleChoiceQuestionDtos)
 				.stream()
-				.map(ResponseMultipleChoiceQuestionDto::forAdminMajor)
+				.map(ResponseMultipleChoiceQuestionDto::forAdmin)
 				.collect(Collectors.toList()));
 	}
 
@@ -45,7 +45,7 @@ public class AdminMajorQuestionController {
 	@PatchMapping(value = "/question/major/multiple/{id}/toggle-multiple")
 	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleCanBeShortAnswered(
 		@PathVariable("id") Long questionId) {
-		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forAdminMajor(
+		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forAdmin(
 			adminMajorMultipleChoiceQuestionUpdateService.toggleCanBeShortAnswered(questionId)));
 	}
 
@@ -59,7 +59,7 @@ public class AdminMajorQuestionController {
 					requestMakeMajorDescriptiveQuestionDtos
 				)
 				.stream()
-				.map(ResponseDescriptiveQuestionDto::forAdminMajor)
+				.map(ResponseDescriptiveQuestionDto::forMajor)
 				.collect(Collectors.toList())
 		);
 	}

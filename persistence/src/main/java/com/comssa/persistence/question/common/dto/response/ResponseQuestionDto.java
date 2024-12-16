@@ -25,7 +25,7 @@ public class ResponseQuestionDto {
 	private boolean ifApproved;
 	private boolean ifMultipleChoice;
 
-	public static ResponseQuestionDto forUser(Question question) {
+	public static ResponseQuestionDto from(Question question) {
 		if (question instanceof LicenseMultipleChoiceQuestion) {
 			return ResponseMultipleChoiceQuestionDto.forLicense((LicenseMultipleChoiceQuestion) question);
 		}

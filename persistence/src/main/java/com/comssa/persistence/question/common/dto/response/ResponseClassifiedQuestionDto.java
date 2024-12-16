@@ -1,10 +1,7 @@
 package com.comssa.persistence.question.common.dto.response;
 
-import com.comssa.persistence.question.common.domain.ChoiceProvider;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
-import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
-import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -19,51 +16,15 @@ public class ResponseClassifiedQuestionDto {
 	private QuestionCategory questionCategory;
 	private List<ResponseQuestionDto> responseQuestionDtos;
 
-	/**
-	 * 유저 객관식 문제 전용
-	 */
-	public static <T extends Question & ChoiceProvider> ResponseClassifiedQuestionDto multipleQuestionForUser(
-		QuestionCategory questionCategory, List<T> multipleChoiceQuestions) {
-		return ResponseClassifiedQuestionDto.builder()
-			.questionCategory(questionCategory)
-			.responseQuestionDtos(
-				multipleChoiceQuestions.stream()
-					.map(question -> ResponseMultipleChoiceQuestionDto.forUser(
-						question, question.getQuestionChoices()
-					))
-					.collect(Collectors.toList())
-			)
-			.build();
-	}
 
-	/**
-	 * 관리자 객관식
-	 */
-	public static ResponseClassifiedQuestionDto majorMultipleQuestionForAdmin(
+	public static <T extends Question> ResponseClassifiedQuestionDto getQuestions(
 		QuestionCategory questionCategory,
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions) {
+		List<T> question) {
 		return ResponseClassifiedQuestionDto.builder()
 			.questionCategory(questionCategory)
 			.responseQuestionDtos(
-				majorMultipleChoiceQuestions.stream()
-					.map(ResponseMultipleChoiceQuestionDto::forAdminMajor)
-					.collect(Collectors.toList())
-			)
-			.build();
-	}
-
-	/**
-	 * 유저 서술형
-	 */
-	public static ResponseClassifiedQuestionDto majorDescriptiveQuestion(
-		QuestionCategory questionCategory,
-		List<MajorDescriptiveQuestion> majorDescriptiveQuestions
-	) {
-		return ResponseClassifiedQuestionDto.builder()
-			.questionCategory(questionCategory)
-			.responseQuestionDtos(
-				majorDescriptiveQuestions.stream()
-					.map(ResponseDescriptiveQuestionDto::forAdminMajor)
+				question.stream()
+					.map(ResponseQuestionDto::from)
 					.collect(Collectors.toList())
 			)
 			.build();

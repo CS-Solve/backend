@@ -22,20 +22,9 @@ public class ResponseDescriptiveQuestionDto extends ResponseQuestionDto {
 			.description(question.getDescription())
 			.imageUrl(question.getImageUrl())
 			.ifMultipleChoice(false)
-			.build();
-	}
-
-	public static ResponseDescriptiveQuestionDto forAdminMajor(MajorDescriptiveQuestion question) {
-		return ResponseDescriptiveQuestionDto.builder()
-			.id(question.getId())
-			.content(question.getContent())
-			.questionCategory(question.getQuestionCategory())
-			.questionLevel(question.getQuestionLevel())
-			.description(question.getDescription())
-			.imageUrl(question.getImageUrl())
-			.ifMultipleChoice(false)
 			.ifApproved(question.isIfApproved())
 			.gradeStandard(question.getGradeStandard())
 			.build();
 	}
+
 }

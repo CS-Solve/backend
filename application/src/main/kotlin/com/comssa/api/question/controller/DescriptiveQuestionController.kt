@@ -33,7 +33,7 @@ class DescriptiveQuestionController(
 		@RequestBody requestGradeStandardDto: RequestGradeStandardDto,
 	): ResponseEntity<ResponseQuestionDto> =
 		ResponseEntity.ok(
-			ResponseDescriptiveQuestionDto.forAdminMajor(
+			ResponseDescriptiveQuestionDto.forMajor(
 				descriptiveQuestionService.changeGradeStandard(questionId, requestGradeStandardDto),
 			),
 		)
