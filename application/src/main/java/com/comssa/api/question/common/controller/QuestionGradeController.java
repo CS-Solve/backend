@@ -1,7 +1,6 @@
 package com.comssa.api.question.common.controller;
 
 import com.comssa.api.question.common.service.MultipleChoiceQuestionGradeService;
-import com.comssa.persistence.question.common.domain.QuestionChoice;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,11 +23,12 @@ public class QuestionGradeController {
 		@PathVariable("questionAct") String questionAct,
 		@PathVariable("choiceId") Long choiceId
 	) {
-		MultipleChoiceQuestionGradeService<? extends QuestionChoice> multipleChoiceQuestionGradeService
+		MultipleChoiceQuestionGradeService multipleChoiceQuestionGradeService
 			= questionServiceFactory.getMultipleChoiceQuestionGradeService(
 			questionField,
 			questionType,
-			questionAct
+			questionAct,
+			MultipleChoiceQuestionGradeService.class
 		);
 		return ResponseEntity.ok(multipleChoiceQuestionGradeService.isChoiceAnswer(choiceId));
 	}

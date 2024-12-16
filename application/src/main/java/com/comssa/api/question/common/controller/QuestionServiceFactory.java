@@ -1,17 +1,13 @@
 package com.comssa.api.question.common.controller;
 
 
-import com.comssa.api.question.common.service.MultipleChoiceQuestionGradeService;
-import com.comssa.persistence.question.common.domain.QuestionChoice;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@Lazy
 public class QuestionServiceFactory {
 	private final List<Object> questionService;
 
@@ -29,18 +25,20 @@ public class QuestionServiceFactory {
 				.collect(Collectors.toList());
 	}
 
-	public MultipleChoiceQuestionGradeService<? extends QuestionChoice> getMultipleChoiceQuestionGradeService(
+	public <T> T getMultipleChoiceQuestionGradeService(
 		String questionClass,
 		String questionType,
-		String questionAct
+		String questionAct,
+		Class<T> classType
 	) {
-		return (MultipleChoiceQuestionGradeService<? extends QuestionChoice>) questionService.stream()
+		return questionService.stream()
 			.filter(service -> {
 				String name = service.getClass().getSimpleName().toLowerCase();
 				return name.contains(questionClass.toLowerCase())
 					&& name.contains(questionType.toLowerCase())
 					&& name.contains(questionAct.toLowerCase());
 			})
+			.map(classType::cast)
 			.findFirst()
 			.orElseThrow(() -> new IllegalArgumentException(
 				"No service found for questionClass: " + questionClass
