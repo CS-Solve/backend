@@ -51,7 +51,7 @@ public class HtmlTagService {
 		boolean recent = licenseSession.getCreatedAt().isAfter(twoYearsAgo);
 
 		String title = "[" + licenseSession.getLicenseCategory().getKorean() + "] ";
-		if (recent) title += "최신";
+		if (recent) title += "최신 ";
 		title += "기출 문제 - " + licenseSession.getContent();
 
 

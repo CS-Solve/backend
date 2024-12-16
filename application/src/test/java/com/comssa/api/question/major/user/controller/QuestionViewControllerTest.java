@@ -3,11 +3,17 @@ package com.comssa.api.question.major.user.controller;
 
 import com.comssa.api.ViewControllerTest;
 import com.comssa.api.question.controller.view.QuestionViewController;
+import com.comssa.api.question.service.rest.license.implement.LicenseSessionService;
+import com.comssa.api.question.service.rest.license.implement.UserLicenseQuestionGetService;
 import com.comssa.api.question.service.rest.major.implement.UserMajorQuestionClassifiedGetService;
+import com.comssa.api.question.service.view.HtmlTagService;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
+import com.comssa.persistence.question.license.domain.LicenseCategory;
+import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
+import com.comssa.persistence.question.license.domain.LicenseSession;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(QuestionViewController.class)
 @ContextConfiguration(classes = QuestionViewController.class)
-@DisplayName("단위 테스트 - 전공 문제 View Controller")
+@DisplayName("단위 테스트 - 문제 View Controller")
 class QuestionViewControllerTest extends ViewControllerTest {
 	private final List<String> levels = Arrays.stream(QuestionLevel.values())
 		.map(QuestionLevel::getKorean)
@@ -47,7 +53,26 @@ class QuestionViewControllerTest extends ViewControllerTest {
 	boolean multipleChoice = true;
 	@MockBean
 	private UserMajorQuestionClassifiedGetService userMajorQuestionClassifiedGetService;
+
+
+	/*
+	License관련
+	 */
+	@MockBean
+	private UserLicenseQuestionGetService userLicenseQuestionGetService;
+	@MockBean
+	private List<Question> licenseMultipleChoiceQuestions;
+	@MockBean
+	private HtmlTagService htmlTagService;
+	@MockBean
+	private LicenseSessionService licenseSessionService;
+
+	private Map<QuestionCategory, List<Question>> licenseMultipleChoiceQuestionsMap;
+	private LicenseSession licenseSession;
 	private List<ResponseClassifiedQuestionDto> responseClassifiedQuestionDtos;
+	private LicenseCategory licenseCategory;
+	private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
+	private QuestionCategory questionCategory;
 
 	@BeforeEach
 	void setUp() {
@@ -60,10 +85,31 @@ class QuestionViewControllerTest extends ViewControllerTest {
 				majorMultipleChoiceQuestions);
 		responseClassifiedQuestionDtos.add(responseClassifiedQuestionDto);
 		map.put(majorMultipleChoiceQuestion.getQuestionCategory(), majorMultipleChoiceQuestions);
+
+
+		/**
+		 * License관련
+		 */
+		licenseMultipleChoiceQuestions = new ArrayList<>();
+		licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.makeForTest("test");
+		licenseMultipleChoiceQuestions.add(licenseMultipleChoiceQuestion);
+
+
+		questionCategory = QuestionCategory.DATA_MODELING;
+
+		licenseMultipleChoiceQuestionsMap = new HashMap<>();
+		licenseMultipleChoiceQuestionsMap.put(questionCategory, licenseMultipleChoiceQuestions);
+
+		responseClassifiedQuestionDtos = new ArrayList<>();
+		responseClassifiedQuestionDtos.add(
+			ResponseClassifiedQuestionDto.from(questionCategory, licenseMultipleChoiceQuestions));
+		licenseCategory = LicenseCategory.SQLD;
+
+		licenseSession = LicenseSession.from("test", licenseCategory);
 	}
 
 	@Test
-	@DisplayName("객관식 문제 조회")
+	@DisplayName("전공 문제 조회")
 	void majorQuestionPage() throws Exception {
 		final String path = "/question/major";
 		Mockito.when(userMajorQuestionClassifiedGetService.getApprovedClassifiedMajorMultipleChoiceQuestions(any()))
@@ -79,4 +125,17 @@ class QuestionViewControllerTest extends ViewControllerTest {
 			.andDo(print());
 	}
 
+	@Test
+	@DisplayName("자격증 문제 조회")
+	void licenseQuestionPage() throws Exception {
+		final String PATH = "/question/license/1";
+		Mockito.when(licenseSessionService.getLicenseSessionById(any())).thenReturn(licenseSession);
+		Mockito.when(userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(any()))
+			.thenReturn(licenseMultipleChoiceQuestionsMap);
+
+		mockMvc.perform(MockMvcRequestBuilders.get(PATH))
+			.andExpect(view().name("question"))
+			.andExpect(model().attributeExists("questions"))
+			.andDo(print());
+	}
 }
