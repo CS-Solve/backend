@@ -1,6 +1,6 @@
 package com.comssa.api.question.major.service;
 
-import com.comssa.api.question.service.common.implement.BasicDuplicateQuestionDetector;
+import com.comssa.api.question.service.rest.common.implement.BasicDuplicateQuestionDetector;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

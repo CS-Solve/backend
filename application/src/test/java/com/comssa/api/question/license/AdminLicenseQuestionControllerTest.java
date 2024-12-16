@@ -2,8 +2,8 @@ package com.comssa.api.question.license;
 
 import com.comssa.api.ControllerTest;
 import com.comssa.api.question.controller.rest.license.AdminLicenseQuestionController;
-import com.comssa.api.question.service.common.implement.QuestionChoiceUpdateService;
-import com.comssa.api.question.service.license.implement.AdminLicenseQuestionMakeService;
+import com.comssa.api.question.service.rest.common.implement.QuestionChoiceUpdateService;
+import com.comssa.api.question.service.rest.license.implement.AdminLicenseQuestionMakeService;
 import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
@@ -33,62 +33,62 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @ContextConfiguration(classes = AdminLicenseQuestionController.class)
 @DisplayName("단위 테스트 - 자격증 Admin Controller")
 class AdminLicenseQuestionControllerTest extends ControllerTest {
-    private final String tag = "자격증 문제";
-    private final String baseApiUrl = "/admin/question/license";
-    private final String idUrl = "/1";
-    @MockBean
-    private QuestionChoiceUpdateService questionChoiceUpdateService;
-    @MockBean
-    private AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
+	private final String tag = "자격증 문제";
+	private final String baseApiUrl = "/admin/question/license";
+	private final String idUrl = "/1";
+	@MockBean
+	private QuestionChoiceUpdateService questionChoiceUpdateService;
+	@MockBean
+	private AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
 
 
-    private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
-    private List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions;
-    private ResponseMultipleChoiceQuestionDto responseMultipleChoiceQuestionDto;
-    private List<ResponseMultipleChoiceQuestionDto> responseMultipleChoiceQuestionDtos;
+	private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
+	private List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions;
+	private ResponseMultipleChoiceQuestionDto responseMultipleChoiceQuestionDto;
+	private List<ResponseMultipleChoiceQuestionDto> responseMultipleChoiceQuestionDtos;
 
-    @BeforeEach
-    void setUp() {
-        licenseMultipleChoiceQuestions = new ArrayList<>();
-        responseMultipleChoiceQuestionDtos = new ArrayList<>();
-        licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.makeForTest("test");
-        licenseMultipleChoiceQuestions.add(licenseMultipleChoiceQuestion);
-        responseMultipleChoiceQuestionDto = ResponseMultipleChoiceQuestionDto.forLicense(licenseMultipleChoiceQuestion);
-        responseMultipleChoiceQuestionDtos.add(responseMultipleChoiceQuestionDto);
-    }
+	@BeforeEach
+	void setUp() {
+		licenseMultipleChoiceQuestions = new ArrayList<>();
+		responseMultipleChoiceQuestionDtos = new ArrayList<>();
+		licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.makeForTest("test");
+		licenseMultipleChoiceQuestions.add(licenseMultipleChoiceQuestion);
+		responseMultipleChoiceQuestionDto = ResponseMultipleChoiceQuestionDto.forLicense(licenseMultipleChoiceQuestion);
+		responseMultipleChoiceQuestionDtos.add(responseMultipleChoiceQuestionDto);
+	}
 
-    @Test
-    @DisplayName("생성")
-    void makeLicenseQuestion() throws Exception {
-        final String path = baseApiUrl;
-        final String document_Name = "성공";
-        Mockito.when(adminLicenseQuestionMakeService
-                .makeLicenseNormalQuestion(any())).thenReturn(responseMultipleChoiceQuestionDtos);
+	@Test
+	@DisplayName("생성")
+	void makeLicenseQuestion() throws Exception {
+		final String path = baseApiUrl;
+		final String document_Name = "성공";
+		Mockito.when(adminLicenseQuestionMakeService
+			.makeLicenseNormalQuestion(any())).thenReturn(responseMultipleChoiceQuestionDtos);
 
-        mockMvc.perform(RestDocumentationRequestBuilders.post(path)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(RequestMakeLicenseMultipleChoiceQuestionDto.from(
-                                "test",
-                                LicenseCategory.SQLD,
-                                licenseMultipleChoiceQuestions,
-                                LicenseMultipleChoiceQuestion::getQuestionChoices))))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers
-                        .content()
-                        .json(objectMapper.writeValueAsString(responseMultipleChoiceQuestionDtos)))
-                .andDo(print())
-                .andDo(MockMvcRestDocumentation.document(
-                        document_Name
-                ))
-                .andDo(MockMvcRestDocumentationWrapper.document(
-                        document_Name, resource(
-                                ResourceSnippetParameters.builder()
-                                        .tag(tag)
-                                        .description("자격증")
-                                        .build()
-                        )
-                ));
-    }
+		mockMvc.perform(RestDocumentationRequestBuilders.post(path)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(RequestMakeLicenseMultipleChoiceQuestionDto.from(
+					"test",
+					LicenseCategory.SQLD,
+					licenseMultipleChoiceQuestions,
+					LicenseMultipleChoiceQuestion::getQuestionChoices))))
+			.andExpect(MockMvcResultMatchers.status().isOk())
+			.andExpect(MockMvcResultMatchers
+				.content()
+				.json(objectMapper.writeValueAsString(responseMultipleChoiceQuestionDtos)))
+			.andDo(print())
+			.andDo(MockMvcRestDocumentation.document(
+				document_Name
+			))
+			.andDo(MockMvcRestDocumentationWrapper.document(
+				document_Name, resource(
+					ResourceSnippetParameters.builder()
+						.tag(tag)
+						.description("자격증")
+						.build()
+				)
+			));
+	}
 
 
 }

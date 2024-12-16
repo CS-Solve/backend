@@ -3,9 +3,9 @@ package com.comssa.api.question.license;
 
 import com.comssa.api.ViewControllerTest;
 import com.comssa.api.question.controller.view.LicenseQuestionGetViewController;
-import com.comssa.api.question.service.license.implement.AdminLicenseQuestionGetService;
-import com.comssa.api.question.service.license.implement.LicenseSessionService;
-import com.comssa.api.question.service.license.implement.UserLicenseQuestionGetService;
+import com.comssa.api.question.service.rest.license.implement.AdminLicenseQuestionGetService;
+import com.comssa.api.question.service.rest.license.implement.LicenseSessionService;
+import com.comssa.api.question.service.rest.license.implement.UserLicenseQuestionGetService;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
@@ -64,7 +64,7 @@ class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 
 		responseClassifiedQuestionDtos = new ArrayList<>();
 		responseClassifiedQuestionDtos.add(
-			ResponseClassifiedQuestionDto.getQuestions(questionCategory, licenseMultipleChoiceQuestions));
+			ResponseClassifiedQuestionDto.from(questionCategory, licenseMultipleChoiceQuestions));
 
 		licenseSession = LicenseSession.from("test", licenseCategory);
 	}

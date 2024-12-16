@@ -17,7 +17,7 @@ public class ResponseClassifiedQuestionDto {
 	private List<ResponseQuestionDto> responseQuestionDtos;
 
 
-	public static <T extends Question> ResponseClassifiedQuestionDto getQuestions(
+	public static <T extends Question> ResponseClassifiedQuestionDto from(
 		QuestionCategory questionCategory,
 		List<T> question) {
 		return ResponseClassifiedQuestionDto.builder()

@@ -2,7 +2,7 @@ package com.comssa.api.question.major.admin.controller;
 
 import com.comssa.api.ControllerTest;
 import com.comssa.api.question.controller.view.AdminMajorQuestionViewController;
-import com.comssa.api.question.service.major.AdminMajorQuestionClassifiedGetService;
+import com.comssa.api.question.service.rest.major.AdminMajorQuestionClassifiedGetService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

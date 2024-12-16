@@ -1,5 +1,6 @@
 package com.comssa.persistence.question.license.domain;
 
+import com.comssa.persistence.question.common.domain.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor
-public class LicenseSession {
+public class LicenseSession extends BaseEntity {
 
 	@Enumerated(value = EnumType.STRING)
 	protected LicenseCategory licenseCategory;

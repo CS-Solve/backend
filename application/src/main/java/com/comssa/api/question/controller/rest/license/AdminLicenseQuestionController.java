@@ -1,6 +1,6 @@
 package com.comssa.api.question.controller.rest.license;
 
-import com.comssa.api.question.service.license.implement.AdminLicenseQuestionMakeService;
+import com.comssa.api.question.service.rest.license.implement.AdminLicenseQuestionMakeService;
 import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import io.swagger.annotations.Api;

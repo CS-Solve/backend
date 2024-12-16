@@ -1,6 +1,6 @@
 package com.comssa.api.question.controller.view;
 
-import com.comssa.api.question.service.license.implement.AdminLicenseQuestionGetService;
+import com.comssa.api.question.service.rest.license.implement.AdminLicenseQuestionGetService;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +39,7 @@ public class LicenseQuestionGetViewController {
 		model.addAttribute("classifiedQuestions",
 			adminLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
 				.entrySet().stream()
-				.map(entry -> ResponseClassifiedQuestionDto.getQuestions(entry.getKey(), entry.getValue()))
+				.map(entry -> ResponseClassifiedQuestionDto.from(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList()));
 		return "question-update";
 	}

@@ -1,7 +1,7 @@
 package com.comssa.api.question.major.user.service.implement;
 
 import com.comssa.api.ServiceIntegrationTest;
-import com.comssa.api.question.service.major.implement.UserMajorQuestionClassifiedGetService;
+import com.comssa.api.question.service.rest.major.implement.UserMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
@@ -60,5 +60,5 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 		//then
 		Assertions.assertThat(selectedCategoryQuestions).contains(majorMultipleChoiceQuestion);
 	}
-	
+
 }

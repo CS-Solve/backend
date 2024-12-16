@@ -1,7 +1,7 @@
 package com.comssa.api.question.controller.view;
 
 import com.comssa.api.login.aspect.AddLoginStatusAttributeToView;
-import com.comssa.api.question.service.common.QuestionSelectorService;
+import com.comssa.api.question.service.rest.common.QuestionSelectorService;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.dto.response.ResponseLicenseSessionDto;
 import com.comssa.persistence.question.license.dto.response.ResponseLicensesDto;

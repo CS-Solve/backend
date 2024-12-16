@@ -2,9 +2,9 @@ package com.comssa.api.question.major.admin.controller;
 
 import com.comssa.api.ControllerTest;
 import com.comssa.api.question.controller.rest.major.AdminMajorQuestionController;
-import com.comssa.api.question.service.major.AdminMajorQuestionClassifiedGetService;
-import com.comssa.api.question.service.major.AdminMajorQuestionMakeService;
-import com.comssa.api.question.service.major.implement.AdminMajorMultipleChoiceQuestionUpdateService;
+import com.comssa.api.question.service.rest.major.AdminMajorQuestionClassifiedGetService;
+import com.comssa.api.question.service.rest.major.AdminMajorQuestionMakeService;
+import com.comssa.api.question.service.rest.major.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;

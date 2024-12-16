@@ -1,8 +1,8 @@
 package com.comssa.api.question.controller.view;
 
 
-import com.comssa.api.question.controller.rest.QuestionType;
-import com.comssa.api.question.service.major.AdminMajorQuestionClassifiedGetService;
+import com.comssa.api.question.domain.QuestionType;
+import com.comssa.api.question.service.rest.major.AdminMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
@@ -47,7 +47,7 @@ public class AdminMajorQuestionViewController {
 		model.addAttribute("classifiedQuestions", questions
 			.entrySet().stream()
 			.map(entry -> ResponseClassifiedQuestionDto
-				.getQuestions(entry.getKey(), entry.getValue()))
+				.from(entry.getKey(), entry.getValue()))
 			.collect(Collectors.toList()));
 
 		model.addAttribute(baseUrl, resourceBaseUrl);

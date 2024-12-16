@@ -3,7 +3,7 @@ package com.comssa.api.question.major.user.controller;
 
 import com.comssa.api.ViewControllerTest;
 import com.comssa.api.question.controller.view.QuestionViewController;
-import com.comssa.api.question.service.major.implement.UserMajorQuestionClassifiedGetService;
+import com.comssa.api.question.service.rest.major.implement.UserMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
@@ -56,7 +56,7 @@ class QuestionViewControllerTest extends ViewControllerTest {
 		List<Question> majorMultipleChoiceQuestions = Collections.singletonList(
 			majorMultipleChoiceQuestion);
 		ResponseClassifiedQuestionDto responseClassifiedQuestionDto =
-			ResponseClassifiedQuestionDto.getQuestions(majorMultipleChoiceQuestion.getQuestionCategory(),
+			ResponseClassifiedQuestionDto.from(majorMultipleChoiceQuestion.getQuestionCategory(),
 				majorMultipleChoiceQuestions);
 		responseClassifiedQuestionDtos.add(responseClassifiedQuestionDto);
 		map.put(majorMultipleChoiceQuestion.getQuestionCategory(), majorMultipleChoiceQuestions);

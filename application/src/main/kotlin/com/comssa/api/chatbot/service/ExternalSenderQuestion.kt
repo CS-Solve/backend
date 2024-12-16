@@ -1,6 +1,6 @@
 package com.comssa.api.chatbot.service
 
-import com.comssa.api.question.service.common.QuestionSelectorService
+import com.comssa.api.question.service.rest.common.QuestionSelectorService
 import com.comssa.core.chatbot.dto.response.ChatGptFileUploadResponseDto
 import com.comssa.core.chatbot.service.implement.ChatManageService
 import com.comssa.persistence.question.common.domain.Question

@@ -1,7 +1,7 @@
 package com.comssa.api.question.controller.rest.major;
 
-import com.comssa.api.question.service.major.AdminMajorQuestionMakeService;
-import com.comssa.api.question.service.major.implement.AdminMajorMultipleChoiceQuestionUpdateService;
+import com.comssa.api.question.service.rest.major.AdminMajorQuestionMakeService;
+import com.comssa.api.question.service.rest.major.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.comssa.persistence.question.common.dto.response.ResponseDescriptiveQuestionDto;
 import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorDescriptiveQuestionDto;
