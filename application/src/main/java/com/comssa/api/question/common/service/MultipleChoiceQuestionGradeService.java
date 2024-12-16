@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public interface QuestionChoiceGradeService<T extends QuestionChoice> {
+public interface MultipleChoiceQuestionGradeService<T extends QuestionChoice> {
 
 	default boolean isChoiceAnswer(Long choiceId) {
 		T questionChoice = findById(choiceId);

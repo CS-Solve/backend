@@ -37,7 +37,6 @@ class DescriptiveQuestionController(
 				descriptiveQuestionService.changeGradeStandard(questionId, requestGradeStandardDto),
 			),
 		)
-
 // 	@PostMapping("/questions/major/descriptive")
 // 	fun makeMajorDescriptiveQuestion(
 //

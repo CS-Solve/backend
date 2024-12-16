@@ -1,6 +1,6 @@
 package com.comssa.api.question.major.user.service.implement;
 
-import com.comssa.api.question.common.service.QuestionChoiceGradeService;
+import com.comssa.api.question.common.service.MultipleChoiceQuestionGradeService;
 import com.comssa.persistence.question.major.domain.common.MajorQuestionChoice;
 import com.comssa.persistence.question.major.repository.MajorQuestionChoiceRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MajorQuestionChoiceGradeService implements QuestionChoiceGradeService<MajorQuestionChoice> {
+public class MajorMultipleChoiceQuestionGradeService implements MultipleChoiceQuestionGradeService<MajorQuestionChoice> {
 	private final MajorQuestionChoiceRepository majorQuestionChoiceRepository;
 
 	@Override

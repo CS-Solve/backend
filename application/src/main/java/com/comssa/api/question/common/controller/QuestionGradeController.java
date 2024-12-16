@@ -1,7 +1,7 @@
 package com.comssa.api.question.common.controller;
 
-import com.comssa.api.question.license.service.LicenseQuestionChoiceGradeService;
-import com.comssa.api.question.major.user.service.implement.MajorQuestionChoiceGradeService;
+import com.comssa.api.question.common.service.MultipleChoiceQuestionGradeService;
+import com.comssa.persistence.question.common.domain.QuestionChoice;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -14,23 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class QuestionGradeController {
-	private final LicenseQuestionChoiceGradeService licenseQuestionChoiceGradeService;
-	private final MajorQuestionChoiceGradeService majorQuestionChoiceGradeService;
+	private final QuestionServiceFactory questionServiceFactory;
 
 	@ApiOperation("자격증 문제 채점")
-	@PatchMapping("/question/license/choice/{choiceId}/select")
-	public ResponseEntity<Boolean> isLicenseChoiceAnswer(
-		@PathVariable("choiceId") Long choiceId
-	) {
-		return ResponseEntity.ok(licenseQuestionChoiceGradeService.isChoiceAnswer(choiceId));
-	}
-
-	@ApiOperation("자격증 문제 채점")
-	@PatchMapping("/question/major/choice/{choiceId}/select")
+	@PatchMapping("/question/{questionField}/{questionType}/{choiceId}/{questionAct}")
 	public ResponseEntity<Boolean> isMajorChoiceAnswer(
+		@PathVariable("questionField") String questionField,
+		@PathVariable("questionType") String questionType,
+		@PathVariable("questionAct") String questionAct,
 		@PathVariable("choiceId") Long choiceId
 	) {
-		return ResponseEntity.ok(majorQuestionChoiceGradeService.isChoiceAnswer(choiceId));
+		MultipleChoiceQuestionGradeService<? extends QuestionChoice> multipleChoiceQuestionGradeService
+			= questionServiceFactory.getMultipleChoiceQuestionGradeService(
+			questionField,
+			questionType,
+			questionAct
+		);
+		return ResponseEntity.ok(multipleChoiceQuestionGradeService.isChoiceAnswer(choiceId));
 	}
-
 }

@@ -1,4 +1,4 @@
-package com.comssa.api.question.license.controller
+package com.comssa.api.chatbot.controller
 
 import com.comssa.api.question.major.admin.service.ExternalQuestionService
 import com.comssa.core.chatbot.dto.response.ChatGptBatchResponseDto
