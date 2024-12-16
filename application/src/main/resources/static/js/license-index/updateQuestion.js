@@ -1,5 +1,5 @@
 function toggleApprove(questionId) {
-    fetch(`/admin/question/license/${questionId}/toggle-approve`, {
+    fetch(`/admin/question/common/${questionId}/toggle-approve`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ function toggleCategory(categoryName) {
 
 function deleteQuestion(questionId) {
     if (confirm("정말로 이 질문을 삭제하시겠습니까?")) {
-        fetch(`/admin/question/license/${questionId}`, {
+        fetch(`/admin/question/common/${questionId}`, {
             method: 'DELETE',
         })
             .then(response => {
@@ -49,7 +49,7 @@ function updateDifficulty(selectElement) {
     const questionId = selectElement.getAttribute('data-question-id');
     const newDifficulty = selectElement.value;
 
-    fetch(`/admin/question/normal/${questionId}/difficulty`, {
+    fetch(`/admin/question/common/${questionId}/difficulty`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
@@ -147,12 +147,11 @@ function saveOverlayChanges() {
 
         updateNormalTextField(id, field, newText)
             .then(updatedData => {
-                if (updatedData) {
-                    console.log(`${field}가 성공적으로 업데이트되었습니다:`, newText);
+                if (updatedData.ok) {
+                    console.log(`성공적으로 업데이트되었습니다:`);
 
                     // 현재 스크롤 위치 저장
                     localStorage.setItem('scrollPosition', window.pageYOffset);
-
                     // 성공 시 페이지 새로고침
                     window.location.reload();
                 } else {
@@ -178,12 +177,12 @@ function updateNormalTextField(id, field, newValue) {
     let url;
     if (field === 'choiceContent') {
         // field가 'choiceContent'이면 choiceId를 포함한 URL로 설정
-        url = `/admin/question/license/choice/${id}`;
+        url = `/admin/question/common/choice/${id}`;
     } else if (field === 'description') {
         // 기본 URL
-        url = `/admin/question/license/${id}/description`;
+        url = `/admin/question/common/${id}/description`;
     } else if (field === 'content') {
-        url = `/admin/question/license/${id}/content`;
+        url = `/admin/question/common/${id}/content`;
     }
 
     // Fetch 요청 보내기
@@ -198,7 +197,7 @@ function updateNormalTextField(id, field, newValue) {
             if (!response.ok) {
                 throw new Error(`${field} 업데이트 실패`);
             }
-            return response.json();
+            return response;
         });
 }
 
@@ -216,7 +215,7 @@ function uploadImage(questionId, fileInput) {
     formData.append("image", fileInput.files[0]);
 
 
-    fetch(`/admin/question/license/${questionId}/image`, {
+    fetch(`/admin/question/common/${questionId}/image`, {
         method: 'PATCH',
         body: formData
     }).then(response => {

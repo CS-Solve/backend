@@ -81,7 +81,7 @@
                    th:text="${question.description}">설명</p>
             </div>
 
-            <div class="editable-container" th:if="${!isMultipleChoice}">
+            <div class="editable-container" th:if="${!question.ifMultipleChoice}">
                 <p class="gradeStandardUpdateText"
                    th:attr="data-id=${question.id}, data-field='gradeStandard'"
                    th:text="${question.gradeStandard}">채점 기준</p>

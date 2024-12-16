@@ -77,9 +77,9 @@
                 <div class="category-text" th:text="${category.questionCategory.korean}">문제 분야</div>
             </div>
             <div class="question-box"
-                 th:each="question, iterStat : ${category.responseQuestionDtos}"
                  th:data-question-id="${question.id}"
                  th:data-question-index="${iterStat.index}"
+                 th:each="question, iterStat : ${category.responseQuestionDtos}"
             >
                 <div class="each-question" th:data-description="${question.description}">
                     <div class="question-meta-data">
@@ -94,7 +94,7 @@
                     <div class="questions">
                         <p class="questionItem"
                            th:text="${question.content}">
-                        <div th:if="${question.imageUrl != null}" class="image-container">
+                        <div class="image-container" th:if="${question.imageUrl != null}">
                             <img alt="Question Image" class="question-image" th:src="${question.imageUrl}"/>
                         </div>
                         </p>
@@ -105,14 +105,14 @@
               style="width: 100%;"></textarea>
                         <div class="button-group">
                             <!-- 제출 버튼 -->
-                            <button type="button" class="descriptive-answer-btn"
-                                    th:attr="data-question-id=${question.id}">제출
+                            <button class="descriptive-answer-btn" th:attr="data-question-id=${question.id}"
+                                    type="button">제출
                             </button>
                             <!-- 해설 버튼 -->
                             <!-- 해설 버튼 -->
-                            <button type="button" class="descriptive-description-btn"
+                            <button class="descriptive-description-btn" onclick="loadCommentsByParents(this)"
                                     th:attr="data-question-id=${question.id}"
-                                    onclick="loadCommentsByParents(this)">댓글
+                                    type="button">댓글
                             </button>
                         </div>
                     </div>

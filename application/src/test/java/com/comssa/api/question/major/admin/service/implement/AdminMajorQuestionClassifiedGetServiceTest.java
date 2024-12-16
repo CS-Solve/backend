@@ -1,6 +1,8 @@
 package com.comssa.api.question.major.admin.service.implement;
 
 import com.comssa.api.ServiceIntegrationTest;
+import com.comssa.api.question.service.rest.major.implement.BasicAdminMajorQuestionClassifiedGetService;
+import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.major.repository.MajorMultipleChoiceQuestionRepository;
@@ -35,9 +37,9 @@ class AdminMajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest 
 		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
 
 		//when
-		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = basicAdminMajorQuestionClassifiedGetService
+		Map<QuestionCategory, List<Question>> questions = basicAdminMajorQuestionClassifiedGetService
 			.getClassifiedAllMajorMultipleChoiceQuestions();
-		List<MajorMultipleChoiceQuestion> selectedCategoryQuestion = questions.get(
+		List<Question> selectedCategoryQuestion = questions.get(
 			majorMultipleChoiceQuestion.getQuestionCategory());
 
 		/*then
@@ -57,9 +59,9 @@ class AdminMajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest 
 		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
 
 		//when
-		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions = basicAdminMajorQuestionClassifiedGetService
+		Map<QuestionCategory, List<Question>> questions = basicAdminMajorQuestionClassifiedGetService
 			.getClassifiedAllMajorMultipleChoiceQuestions();
-		List<MajorMultipleChoiceQuestion> selectedCategoryQuestion = questions.get(
+		List<Question> selectedCategoryQuestion = questions.get(
 			majorMultipleChoiceQuestion.getQuestionCategory());
 
 		/*
@@ -67,7 +69,7 @@ class AdminMajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest 
 		허용되지 않는 문제부터 나오도록 정렬되어야함
 		 */
 		Assertions.assertThat(selectedCategoryQuestion)
-			.isSortedAccordingTo(Comparator.comparing(MajorMultipleChoiceQuestion::isIfApproved));
+			.isSortedAccordingTo(Comparator.comparing(Question::isIfApproved));
 	}
 
 }

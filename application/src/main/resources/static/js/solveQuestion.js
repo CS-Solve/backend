@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const choiceId = selectedChoice.getAttribute('data-choice-id');
 
         if (choiceId) {
-            fetch(`/question/${questionType}/choice/${choiceId}/select`, {
+            fetch(`/question/${questionType}/multiple/${choiceId}/grade`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application /json'
