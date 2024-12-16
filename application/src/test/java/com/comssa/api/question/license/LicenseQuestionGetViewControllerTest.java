@@ -6,6 +6,7 @@ import com.comssa.api.question.controller.view.LicenseQuestionGetViewController;
 import com.comssa.api.question.service.license.implement.AdminLicenseQuestionGetService;
 import com.comssa.api.question.service.license.implement.LicenseSessionService;
 import com.comssa.api.question.service.license.implement.UserLicenseQuestionGetService;
+import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
@@ -43,8 +44,8 @@ class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 	private LicenseSessionService licenseSessionService;
 	private LicenseSession licenseSession;
 	private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
-	private List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions;
-	private Map<QuestionCategory, List<LicenseMultipleChoiceQuestion>> licenseMultipleChoiceQuestionsMap;
+	private List<Question> licenseMultipleChoiceQuestions;
+	private Map<QuestionCategory, List<Question>> licenseMultipleChoiceQuestionsMap;
 	private List<ResponseClassifiedQuestionDto> responseClassifiedQuestionDtos;
 	private LicenseCategory licenseCategory;
 	private QuestionCategory questionCategory;
@@ -84,7 +85,7 @@ class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 	}
 
 	@Test
-	@DisplayName("업데이트")
+	@DisplayName("업데이트 페이지")
 	void updateLicenseQuestionPage() throws Exception {
 		final String PATH = "/admin/question/license/update/1";
 		Mockito.when(userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(any()))

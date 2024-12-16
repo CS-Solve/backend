@@ -10,15 +10,15 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public interface MajorQuestionClassifiedGetService {
+public interface MajorQuestionClassifiedGetService<T extends Question> {
 	/**
 	 * 분류별로 나누어 문제를 반환
 	 */
-	Map<QuestionCategory, List<Question>> getApprovedClassifiedMajorMultipleChoiceQuestions(
+	Map<QuestionCategory, List<T>> getApprovedClassifiedMajorMultipleChoiceQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto);
 
 
-	Map<QuestionCategory, List<Question>> getApprovedClassifiedDescriptiveQuestions(
+	Map<QuestionCategory, List<T>> getApprovedClassifiedDescriptiveQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto
 	);
 

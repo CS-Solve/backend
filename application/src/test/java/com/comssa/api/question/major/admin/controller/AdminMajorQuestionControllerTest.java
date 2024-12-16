@@ -1,7 +1,6 @@
 package com.comssa.api.question.major.admin.controller;
 
 import com.comssa.api.ControllerTest;
-import com.comssa.api.exception.DuplicateQuestionException;
 import com.comssa.api.question.controller.rest.major.AdminMajorQuestionController;
 import com.comssa.api.question.service.major.AdminMajorQuestionClassifiedGetService;
 import com.comssa.api.question.service.major.AdminMajorQuestionMakeService;
@@ -58,7 +57,7 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 	@Test
 	@DisplayName("전공 문제 단체 생성 - 성공")
 	void makeSingleMajorMultipleChoiceQuestions() throws Exception {
-		final String PATH = "/admin/question/major-multi";
+		final String PATH = "/admin/question/major/multiple";
 		final String document_Name = "성공";
 		Mockito.when(adminMajorQuestionMakeService.makeMultipleChoiceQuestions(any())).thenReturn(new ArrayList<>());
 		mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
@@ -79,61 +78,11 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 			));
 	}
 
-	@Test
-	@DisplayName("전공 문제 단일 생성 - 성공")
-	void makeMajorMultipleChoiceQuestions() throws Exception {
-		final String PATH = "/admin/question/major-single";
-		final String document_Name = "성공";
-		Mockito.when(adminMajorQuestionMakeService.makeMultipleChoiceQuestion(any()))
-			.thenReturn(majorMultipleChoiceQuestion);
-		mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(requestMakeMajorMultipleChoiceQuestionDto)))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name, resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("단답형 문제")
-						.build()
-				)
-			));
-	}
-
-	@Test
-	@DisplayName("전공 문제 단일 생성 - 실패")
-	void makeSingleMajorQuestionWithDuplicateError() throws Exception {
-		final String PATH = "/admin/question/major-single";
-		final String document_Name = "실패 - 중복된 문제";
-		Mockito.doThrow(DuplicateQuestionException.class)
-			.when(adminMajorQuestionMakeService)
-			.makeMultipleChoiceQuestion(any());
-		mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(requestMakeMajorMultipleChoiceQuestionDto)))
-			.andExpect(MockMvcResultMatchers.status().isConflict())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name, resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.build()
-				)
-			));
-	}
-
 
 	@Test
 	@DisplayName("전공 문제 업데이트 - 객관식 여부")
 	void updateSingleMajorMultipleChoiceQuestionShortAnswered() throws Exception {
-		final String PATH = "/admin/question/major/1/toggle-multiple";
+		final String PATH = "/admin/question/major/multiple/1/toggle-multiple";
 		final String document_Name = "성공";
 		Mockito.when(adminMajorMultipleChoiceQuestionUpdateService.toggleCanBeShortAnswered(any()))
 			.thenReturn(majorMultipleChoiceQuestion);

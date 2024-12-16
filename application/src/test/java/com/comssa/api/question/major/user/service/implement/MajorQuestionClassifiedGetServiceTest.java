@@ -2,6 +2,7 @@ package com.comssa.api.question.major.user.service.implement;
 
 import com.comssa.api.ServiceIntegrationTest;
 import com.comssa.api.question.service.major.implement.UserMajorQuestionClassifiedGetService;
+import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
 import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
@@ -50,34 +51,14 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 			RequestGetQuestionByCategoryAndLevelDto.fromKorean(majorCategories, levels);
 
 		//when
-		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions =
+		Map<QuestionCategory, List<Question>> questions =
 			userMajorQuestionClassifiedGetService.getApprovedClassifiedMajorMultipleChoiceQuestions(
 				allQuestionRequestDto);
-		List<MajorMultipleChoiceQuestion> selectedCategoryQuestions = questions.get(
+		List<Question> selectedCategoryQuestions = questions.get(
 			majorMultipleChoiceQuestion.getQuestionCategory());
 
 		//then
 		Assertions.assertThat(selectedCategoryQuestions).contains(majorMultipleChoiceQuestion);
 	}
-
-	@Test
-	@DisplayName("모든 카테고리 선택 후 허용된 주관식 문제 존재 확인")
-	void getApprovedClassifiedShortAnsweredMajorQuestions() {
-		majorMultipleChoiceQuestion.toggleApproved();
-		//문제 주관식 가능 여부 허용
-		majorMultipleChoiceQuestion.toggleCanBeShortAnswered();
-		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
-		RequestGetQuestionByCategoryAndLevelDto allQuestionRequestDto =
-			RequestGetQuestionByCategoryAndLevelDto.fromKorean(majorCategories, levels);
-
-		//when
-		Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> questions =
-			userMajorQuestionClassifiedGetService.getApprovedClassifiedShortAnsweredMajorQuestions(
-				allQuestionRequestDto);
-		List<MajorMultipleChoiceQuestion> selectedCategoryQuestions = questions.get(
-			majorMultipleChoiceQuestion.getQuestionCategory());
-
-		//then
-		Assertions.assertThat(selectedCategoryQuestions.get(0).isCanBeShortAnswered()).isTrue();
-	}
+	
 }

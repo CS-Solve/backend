@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-public class UserMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService {
+public class UserMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService<Question> {
 	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionRepository;

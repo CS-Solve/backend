@@ -2,8 +2,9 @@ package com.comssa.api.question.major.user.controller;
 
 
 import com.comssa.api.ViewControllerTest;
-import com.comssa.api.question.controller.view.MajorQuestionGetViewController;
+import com.comssa.api.question.controller.view.QuestionViewController;
 import com.comssa.api.question.service.major.implement.UserMajorQuestionClassifiedGetService;
+import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.common.domain.QuestionLevel;
 import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
@@ -31,10 +32,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@WebMvcTest(MajorQuestionGetViewController.class)
-@ContextConfiguration(classes = MajorQuestionGetViewController.class)
+@WebMvcTest(QuestionViewController.class)
+@ContextConfiguration(classes = QuestionViewController.class)
 @DisplayName("단위 테스트 - 전공 문제 View Controller")
-class MajorQuestionGetViewControllerTest extends ViewControllerTest {
+class QuestionViewControllerTest extends ViewControllerTest {
 	private final List<String> levels = Arrays.stream(QuestionLevel.values())
 		.map(QuestionLevel::getKorean)
 		.collect(Collectors.toList());
@@ -42,7 +43,7 @@ class MajorQuestionGetViewControllerTest extends ViewControllerTest {
 		.filter(QuestionCategory::isCanBeShownInMajor)
 		.map(QuestionCategory::getKorean)
 		.collect(Collectors.toList());
-	private final Map<QuestionCategory, List<MajorMultipleChoiceQuestion>> map = new HashMap<>();
+	private final Map<QuestionCategory, List<Question>> map = new HashMap<>();
 	boolean multipleChoice = true;
 	@MockBean
 	private UserMajorQuestionClassifiedGetService userMajorQuestionClassifiedGetService;
@@ -52,7 +53,7 @@ class MajorQuestionGetViewControllerTest extends ViewControllerTest {
 	void setUp() {
 		responseClassifiedQuestionDtos = new ArrayList<>();
 		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = Collections.singletonList(
+		List<Question> majorMultipleChoiceQuestions = Collections.singletonList(
 			majorMultipleChoiceQuestion);
 		ResponseClassifiedQuestionDto responseClassifiedQuestionDto =
 			ResponseClassifiedQuestionDto.getQuestions(majorMultipleChoiceQuestion.getQuestionCategory(),
