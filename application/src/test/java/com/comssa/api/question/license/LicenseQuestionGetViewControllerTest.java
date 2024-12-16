@@ -2,7 +2,7 @@ package com.comssa.api.question.license;
 
 
 import com.comssa.api.ViewControllerTest;
-import com.comssa.api.question.controller.view.LicenseQuestionGetViewController;
+import com.comssa.api.question.controller.view.QuestionUpdateViewController;
 import com.comssa.api.question.service.rest.license.implement.AdminLicenseQuestionGetService;
 import com.comssa.api.question.service.rest.license.implement.LicenseSessionService;
 import com.comssa.api.question.service.rest.license.implement.UserLicenseQuestionGetService;
@@ -32,8 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @DisplayName("단위 테스트 - 자격증 Get View Controller")
-@WebMvcTest(LicenseQuestionGetViewController.class)
-@ContextConfiguration(classes = LicenseQuestionGetViewController.class)
+@WebMvcTest(QuestionUpdateViewController.class)
+@ContextConfiguration(classes = QuestionUpdateViewController.class)
 class LicenseQuestionGetViewControllerTest extends ViewControllerTest {
 
 	@MockBean

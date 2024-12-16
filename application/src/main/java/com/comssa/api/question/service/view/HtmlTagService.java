@@ -5,6 +5,7 @@ import com.comssa.persistence.question.common.domain.QuestionCategory;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.domain.LicenseSession;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -14,7 +15,36 @@ import java.util.stream.Collectors;
 @Service
 public class HtmlTagService {
 
-	public HtmlTag forLicenseQuestion(LicenseSession licenseSession) {
+	public void addTagToModel(HtmlTag tag, Model model) {
+		model.addAttribute("title", tag.getTitle());
+		model.addAttribute("description", tag.getDescription());
+		model.addAttribute("questionSession", tag.getQuestionSession());
+	}
+
+
+	public void forLicenseMain(Model model) {
+		String title = getAllLicenseCategories() + "기출";
+
+		String description = getAllLicenseCategories()
+			+ " 등 컴퓨터 사이언스(CS) 자격증 기출 문제를 풀어보세요. 기출 문제 풀이를 통해 자격증 대비가 가능합니다.";
+
+		String questionSession = title;
+
+
+		addTagToModel(HtmlTag.builder()
+			.title(title)
+			.description(description)
+			.questionSession(questionSession)
+			.build(), model);
+	}
+
+	private static String getAllLicenseCategories() {
+		return Arrays.stream(LicenseCategory.values())
+			.map(LicenseCategory::getKorean)
+			.collect(Collectors.joining(", "));
+	}
+
+	public void forLicenseQuestion(LicenseSession licenseSession, Model model) {
 
 
 		LocalDateTime twoYearsAgo = LocalDateTime.now().minusYears(2); // 현재 시간에서 2년 전
@@ -25,9 +55,7 @@ public class HtmlTagService {
 		title += "기출 문제 - " + licenseSession.getContent();
 
 
-		String categories = Arrays.stream(LicenseCategory.values())
-			.map(LicenseCategory::getKorean)
-			.collect(Collectors.joining(", "));
+		String categories = getAllLicenseCategories();
 		String description = categories + " 등 컴퓨터 사이언스(CS) 자격증 기출 문제를 풀어보세요. 기출 문제 풀이를 통해 자격증 대비가 가능합니다.";
 
 		String questionSession = licenseSession.getLicenseCategory().getKorean()
@@ -35,11 +63,18 @@ public class HtmlTagService {
 			+ licenseSession.getContent()
 			+ " / 실제 시험은 더 어려울 수 있으니, 문제의 중심 개념 (정답 선택지) 위주로 학습 추천";
 
-		return HtmlTag.builder()
+		addTagToModel(HtmlTag.builder()
 			.title(title)
 			.description(description)
 			.questionSession(questionSession)
-			.build();
+			.build(), model);
+	}
+
+	public void forMajor(Set<QuestionCategory> questionCategories, boolean isMultipleChoice, Model model) {
+		if (isMultipleChoice) {
+			addTagToModel(forMajorMultiple(questionCategories), model);
+		}
+		addTagToModel(forMajorDescriptive(questionCategories), model);
 	}
 
 	public HtmlTag forMajorMultiple(Set<QuestionCategory> questionCategories) {
@@ -67,12 +102,12 @@ public class HtmlTagService {
 
 		String questionSession = title;
 
+
 		return HtmlTag.builder()
 			.title(title)
 			.description(description)
 			.questionSession(questionSession)
 			.build();
 	}
-
 
 }

@@ -2,6 +2,7 @@ package com.comssa.api.question.controller.view;
 
 import com.comssa.api.login.aspect.AddLoginStatusAttributeToView;
 import com.comssa.api.question.service.rest.common.QuestionSelectorService;
+import com.comssa.api.question.service.view.HtmlTagService;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
 import com.comssa.persistence.question.license.dto.response.ResponseLicenseSessionDto;
 import com.comssa.persistence.question.license.dto.response.ResponseLicensesDto;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +22,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MainViewController {
 	private final QuestionSelectorService questionSelectorService;
+	private final HtmlTagService tagService;
 	private final String baseUrl = "baseUrl";
+	private final HtmlTagService htmlTagService;
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
 
@@ -44,12 +46,9 @@ public class MainViewController {
 			.stream()
 			.map(ResponseLicensesDto::from)
 			.collect(Collectors.toList());
-		model.addAttribute("licenseCategories", licenseCategories);
 		model.addAttribute(baseUrl, resourceBaseUrl);
-		model.addAttribute("description", Arrays.stream(LicenseCategory.values())
-			.map(LicenseCategory::getKorean)
-			.collect(Collectors.joining(", "))
-			+ " 등 컴퓨터 사이언스(CS) 자격증 기출 문제를 풀어보세요. 기출 문제 풀이를 통해 자격증 대비가 가능합니다.");
+		model.addAttribute("licenseCategories", licenseCategories);
+		htmlTagService.forLicenseMain(model);
 
 		return "license-index";
 	}

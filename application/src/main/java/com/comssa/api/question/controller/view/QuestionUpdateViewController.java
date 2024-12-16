@@ -2,6 +2,7 @@ package com.comssa.api.question.controller.view;
 
 
 import com.comssa.api.question.domain.QuestionType;
+import com.comssa.api.question.service.rest.license.implement.AdminLicenseQuestionGetService;
 import com.comssa.api.question.service.rest.major.AdminMajorQuestionClassifiedGetService;
 import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.domain.QuestionCategory;
@@ -21,10 +22,11 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/admin")
 @RequiredArgsConstructor
-public class AdminMajorQuestionViewController {
+public class QuestionUpdateViewController {
 
 	private final String baseUrl = "baseUrl";
 	private final AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
+	private final AdminLicenseQuestionGetService adminLicenseQuestionGetService;
 
 	@Value("${resource.base-url}")
 	private String resourceBaseUrl;
@@ -54,6 +56,22 @@ public class AdminMajorQuestionViewController {
 		model.addAttribute("folderName", "index");
 		model.addAttribute("isMajorQuestion", true);
 
+		return "question-update";
+	}
+
+	@GetMapping("/question/license/{sessionId}")
+	public String updateLicenseQuestions(
+		@PathVariable Long sessionId,
+		Model model
+	) {
+		model.addAttribute(baseUrl, resourceBaseUrl);
+		model.addAttribute("folderName", "license-index");
+		model.addAttribute("isLicenseQuestion", true);
+		model.addAttribute("classifiedQuestions",
+			adminLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId)
+				.entrySet().stream()
+				.map(entry -> ResponseClassifiedQuestionDto.from(entry.getKey(), entry.getValue()))
+				.collect(Collectors.toList()));
 		return "question-update";
 	}
 }

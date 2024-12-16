@@ -1,7 +1,7 @@
 package com.comssa.api.question.major.admin.controller;
 
 import com.comssa.api.ControllerTest;
-import com.comssa.api.question.controller.view.AdminMajorQuestionViewController;
+import com.comssa.api.question.controller.view.QuestionUpdateViewController;
 import com.comssa.api.question.service.rest.major.AdminMajorQuestionClassifiedGetService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,11 +19,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest({
-	AdminMajorQuestionViewController.class
+	QuestionUpdateViewController.class
 })
-@ContextConfiguration(classes = AdminMajorQuestionViewController.class)
+@ContextConfiguration(classes = QuestionUpdateViewController.class)
 @DisplayName("단위 테스트 - 전공 개념 Admin View Controller")
-class AdminMajorQuestionViewControllerTest extends ControllerTest {
+class QuestionUpdateViewControllerTest extends ControllerTest {
 
 	@MockBean
 	private AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;

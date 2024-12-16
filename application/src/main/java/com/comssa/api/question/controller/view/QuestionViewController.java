@@ -1,7 +1,6 @@
 package com.comssa.api.question.controller.view;
 
 import com.comssa.api.login.aspect.AddLoginStatusAttributeToView;
-import com.comssa.api.question.domain.HtmlTag;
 import com.comssa.api.question.service.rest.license.implement.LicenseSessionService;
 import com.comssa.api.question.service.rest.license.implement.UserLicenseQuestionGetService;
 import com.comssa.api.question.service.rest.major.implement.UserMajorQuestionClassifiedGetService;
@@ -42,15 +41,13 @@ public class QuestionViewController {
 		@RequestParam(required = false) List<String> categories,
 		@RequestParam(required = false) Boolean multipleChoice,
 		Model model) {
-		HtmlTag htmlTag;
+
 		Map<QuestionCategory, List<Question>> questions = getQuestions(levels, categories, multipleChoice);
-		htmlTag = htmlTagService.forMajorDescriptive(questions.keySet());
+
+		htmlTagService.forMajor(questions.keySet(), multipleChoice, model);
 
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("questions", transformQuestion(questions));
-		model.addAttribute("title", htmlTag.getTitle());
-		model.addAttribute("description", htmlTag.getDescription());
-		model.addAttribute("questionSession", htmlTag.getQuestionSession());
 		model.addAttribute("multipleChoice", multipleChoice);
 		model.addAttribute("isMajorQuestion", true);
 
@@ -67,18 +64,12 @@ public class QuestionViewController {
 		@PathVariable Long sessionId,
 		Model model
 	) {
-		HtmlTag htmlTag;
 		LicenseSession licenseSession = licenseSessionService.getLicenseSessionById(sessionId);
-		htmlTag = htmlTagService.forLicenseQuestion(licenseSession);
+		htmlTagService.forLicenseQuestion(licenseSession, model);
 		Map<QuestionCategory, List<Question>> questions = userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(sessionId);
 
 		model.addAttribute(baseUrl, resourceBaseUrl);
 		model.addAttribute("questions", transformQuestion(questions));
-
-		model.addAttribute("title", htmlTag.getTitle());
-		model.addAttribute("description", htmlTag.getDescription());
-		model.addAttribute("questionSession", htmlTag.getQuestionSession());
-
 		model.addAttribute("multipleChoice", true);
 		model.addAttribute("isMajorQuestion", false);
 		return "question";
