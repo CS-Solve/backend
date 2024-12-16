@@ -5,15 +5,20 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Getter
 @SuperBuilder
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
-@MappedSuperclass
+@DiscriminatorColumn
 @ToString(exclude = "question") //재귀로 StackOverFlow 발생
 public abstract class QuestionChoice {
 	@Id

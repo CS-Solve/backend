@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToOne;
 @Getter
 @NoArgsConstructor
 @SuperBuilder
+@DiscriminatorValue("LC")
 public class LicenseQuestionChoice extends QuestionChoice {
 	@ManyToOne
 	@JoinColumn(name = "license_multiple_choice_question_id")
