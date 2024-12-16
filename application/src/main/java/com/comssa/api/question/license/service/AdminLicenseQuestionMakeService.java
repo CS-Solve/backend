@@ -1,7 +1,6 @@
 package com.comssa.api.question.license.service;
 
 
-import com.comssa.api.question.common.service.FileUploadService;
 import com.comssa.api.question.common.service.implement.QuestionChoiceService;
 import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.license.domain.LicenseCategory;
@@ -13,9 +12,7 @@ import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleC
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +23,6 @@ public class AdminLicenseQuestionMakeService {
 	private final LicenseSessionService licenseSessionService;
 	private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
 	private final QuestionChoiceService questionChoiceService;
-	private final FileUploadService fileUploadService;
 
 	public List<ResponseMultipleChoiceQuestionDto> makeLicenseNormalQuestion(
 		RequestMakeLicenseMultipleChoiceQuestionDto requestMakeLicenseMultipleChoiceQuestionDto) {
@@ -53,18 +49,5 @@ public class AdminLicenseQuestionMakeService {
 		return ResponseMultipleChoiceQuestionDto.forLicense(licenseMultipleChoiceQuestion);
 	}
 
-	public String updateLicenseQuestionWithImage(Long licenseQuestionId, MultipartFile file) {
-		try {
-			LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = licenseMultipleChoiceQuestionRepository
-				.findById(
-					licenseQuestionId).orElse(null);
-			String imageUrl = fileUploadService.uploadImage(file, "license");
-			assert licenseMultipleChoiceQuestion != null;
-			licenseMultipleChoiceQuestion.updateImage(imageUrl);
-			return imageUrl;
-		} catch (IOException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
+
 }

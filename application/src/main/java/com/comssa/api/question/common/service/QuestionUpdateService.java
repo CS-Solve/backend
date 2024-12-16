@@ -5,6 +5,7 @@ import com.comssa.persistence.question.common.domain.Question;
 import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
@@ -30,6 +31,8 @@ public interface QuestionUpdateService<T extends Question> {
 		question.toggleApproved();
 		return question;
 	}
+
+	String updateImage(Long questionId, MultipartFile image);
 
 	void deleteQuestion(Long questionId);
 

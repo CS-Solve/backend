@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -41,15 +39,6 @@ public class AdminLicenseQuestionController {
 			adminLicenseQuestionMakeService.makeLicenseNormalQuestion(requestMakeLicenseMultipleChoiceQuestionDto));
 	}
 
-	@ApiOperation("단답형 문제 이미지 업로드")
-	@PatchMapping("/{id}/image")
-	public ResponseEntity<String> updateLicenseQuestionWithImage(
-		@PathVariable("id") Long licenseQuestionId,
-		@RequestPart(value = "image") MultipartFile file) {
-		return ResponseEntity.ok(
-			adminLicenseQuestionMakeService.updateLicenseQuestionWithImage(licenseQuestionId, file));
-	}
-	
 
 	@ApiOperation("단답형 문제 상태 업데이트 - 문제 삭제")
 	@DeleteMapping(value = "/{id}")

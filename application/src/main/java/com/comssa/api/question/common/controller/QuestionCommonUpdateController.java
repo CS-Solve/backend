@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,5 +49,13 @@ public class QuestionCommonUpdateController {
 	) {
 		questionCommonUpdateService.changeDescription(questionId, requestChangeContentDto);
 		return ResponseEntity.ok().build();
+	}
+
+	@ApiOperation("이미지 업로드")
+	@PatchMapping("/question/common/{id}/image")
+	public ResponseEntity<String> updateLicenseQuestionWithImage(
+		@PathVariable("id") Long licenseQuestionId,
+		@RequestPart(value = "image") MultipartFile file) {
+		return ResponseEntity.ok(questionCommonUpdateService.updateImage(licenseQuestionId, file));
 	}
 }
