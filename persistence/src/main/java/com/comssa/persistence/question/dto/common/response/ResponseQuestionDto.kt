@@ -7,7 +7,7 @@ import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuest
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion
 
-open class ResponseQuestionDto(
+abstract class ResponseQuestionDto(
 	question: Question,
 	val ifMultipleChoice: Boolean,
 ) {
