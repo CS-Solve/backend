@@ -7,6 +7,7 @@ import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuest
 import com.comssa.persistence.question.domain.license.LicenseSession;
 import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.dto.common.response.ResponseMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.common.response.ResponseQuestionDto;
 import com.comssa.persistence.question.dto.license.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.repository.LicenseMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -46,7 +47,7 @@ public class AdminLicenseQuestionMakeService {
 			requestMakeMultipleChoiceQuestionDto, licenseSession, licenseCategory);
 		licenseMultipleChoiceQuestionRepository.save(licenseMultipleChoiceQuestion);
 		questionChoiceService.saveWith(requestMakeMultipleChoiceQuestionDto, licenseMultipleChoiceQuestion);
-		return ResponseMultipleChoiceQuestionDto.forLicense(licenseMultipleChoiceQuestion);
+		return ResponseQuestionDto.from(licenseMultipleChoiceQuestion);
 	}
 
 

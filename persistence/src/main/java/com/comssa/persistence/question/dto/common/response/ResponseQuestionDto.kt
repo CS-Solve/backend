@@ -21,17 +21,12 @@ open class ResponseQuestionDto(
 
 	companion object {
 		@JvmStatic
-		fun from(question: Question): ResponseQuestionDto {
-			if (question is LicenseMultipleChoiceQuestion) {
-				return ResponseMultipleChoiceQuestionDto.forLicense(question)
+		fun <R : ResponseQuestionDto> from(question: Question): R =
+			when (question) {
+				is LicenseMultipleChoiceQuestion -> ResponseMultipleChoiceQuestionDto.forLicense(question) as R
+				is MajorMultipleChoiceQuestion -> ResponseMultipleChoiceQuestionDto.forMajor(question) as R
+				is MajorDescriptiveQuestion -> ResponseDescriptiveQuestionDto.forMajor(question) as R
+				else -> throw IllegalArgumentException("Unsupported question type: ${question.javaClass.name}")
 			}
-			if (question is MajorMultipleChoiceQuestion) {
-				return ResponseMultipleChoiceQuestionDto.forMajor(question)
-			}
-			if (question is MajorDescriptiveQuestion) {
-				return ResponseDescriptiveQuestionDto.forMajor(question)
-			}
-			throw IllegalArgumentException("Unsupported question type: " + question.javaClass.name)
-		}
 	}
 }
