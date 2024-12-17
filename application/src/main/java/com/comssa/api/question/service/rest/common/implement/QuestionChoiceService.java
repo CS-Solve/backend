@@ -1,13 +1,13 @@
 package com.comssa.api.question.service.rest.common.implement;
 
 
-import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
-import com.comssa.persistence.question.license.domain.LicenseQuestionChoice;
-import com.comssa.persistence.question.license.repository.LicenseQuestionChoiceRepository;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.major.domain.common.MajorQuestionChoice;
-import com.comssa.persistence.question.major.repository.MajorQuestionChoiceRepository;
+import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
+import com.comssa.persistence.question.domain.license.LicenseQuestionChoice;
+import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.domain.major.MajorQuestionChoice;
+import com.comssa.persistence.question.dto.major.request.RequestMakeMajorMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.repository.LicenseQuestionChoiceRepository;
+import com.comssa.persistence.question.repository.MajorQuestionChoiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

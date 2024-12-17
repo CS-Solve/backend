@@ -3,7 +3,7 @@ package com.comssa.core.question.common.service
 import com.comssa.core.chatbot.service.implement.ChatManageService
 import com.comssa.core.question.common.dto.RequestGradeStandardDto
 import com.comssa.core.question.common.dto.RequestUserDescriptiveAnswerDto
-import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion
+import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 

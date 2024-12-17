@@ -7,7 +7,7 @@ import com.comssa.persistence.comment.domain.Comment
 import com.comssa.persistence.comment.service.CommentRepositoryService
 import com.comssa.persistence.exception.NotLoginException
 import com.comssa.persistence.member.service.MemberRepositoryService
-import com.comssa.persistence.question.common.service.QuestionRepositoryService
+import com.comssa.persistence.question.service.QuestionRepositoryService
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -44,9 +44,9 @@ class CommentService(
 		questionId: Long,
 		user: OAuth2User?,
 	): List<ResponseCommentDto> {
-		/*
-		cognitoId로 유저 조회
-		 */
+        /*
+        cognitoId로 유저 조회
+         */
 		val member =
 			authUserService.getCognitoId(user)?.let { memberRepositoryService.findByCognitoId(it) }
 

@@ -2,11 +2,11 @@ package com.comssa.api.question.controller.rest.major;
 
 import com.comssa.api.question.service.rest.major.AdminMajorQuestionMakeService;
 import com.comssa.api.question.service.rest.major.implement.AdminMajorMultipleChoiceQuestionUpdateService;
-import com.comssa.persistence.question.common.dto.response.ResponseDescriptiveQuestionDto;
-import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorDescriptiveQuestionDto;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.major.admin.dto.ResponseMajorMultipleChoiceQuestionForAdminDto;
+import com.comssa.persistence.question.dto.common.response.ResponseDescriptiveQuestionDto;
+import com.comssa.persistence.question.dto.common.response.ResponseMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.major.request.RequestMakeMajorDescriptiveQuestionDto;
+import com.comssa.persistence.question.dto.major.request.RequestMakeMajorMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.major.response.ResponseMajorMultipleChoiceQuestionForAdminDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

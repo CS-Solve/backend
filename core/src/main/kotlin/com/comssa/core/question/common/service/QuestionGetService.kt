@@ -1,11 +1,11 @@
 package com.comssa.core.question.common.service
 
 import com.comssa.persistence.exception.WrongQuestionTypeException
-import com.comssa.persistence.question.common.domain.Question
-import com.comssa.persistence.question.common.service.QuestionRepositoryService
-import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion
-import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion
-import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion
+import com.comssa.persistence.question.domain.common.Question
+import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion
+import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion
+import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion
+import com.comssa.persistence.question.service.QuestionRepositoryService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
