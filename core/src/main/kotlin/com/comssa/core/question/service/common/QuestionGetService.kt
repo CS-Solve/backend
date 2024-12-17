@@ -1,4 +1,4 @@
-package com.comssa.core.question.common.service
+package com.comssa.core.question.service.common
 
 import com.comssa.persistence.exception.WrongQuestionTypeException
 import com.comssa.persistence.question.domain.common.Question

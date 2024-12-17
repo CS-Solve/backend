@@ -5,7 +5,7 @@ import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuest
 import com.comssa.persistence.question.domain.license.LicenseQuestionChoice;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.domain.major.MajorQuestionChoice;
-import com.comssa.persistence.question.dto.major.request.RequestMakeMajorMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.repository.LicenseQuestionChoiceRepository;
 import com.comssa.persistence.question.repository.MajorQuestionChoiceRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class QuestionChoiceService {
 	private final LicenseQuestionChoiceRepository licenseQuestionChoiceRepository;
 
 	public void saveWith(
-		RequestMakeMajorMultipleChoiceQuestionDto dto,
+		RequestMakeMultipleChoiceQuestionDto dto,
 		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion) {
 		licenseQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
 			.stream()
@@ -31,7 +31,7 @@ public class QuestionChoiceService {
 	}
 
 	public void saveWith(
-		RequestMakeMajorMultipleChoiceQuestionDto dto,
+		RequestMakeMultipleChoiceQuestionDto dto,
 		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {
 		majorQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
 			.stream()

@@ -2,7 +2,8 @@ package com.comssa.api.question.controller.rest.common;
 
 
 import com.comssa.api.question.service.rest.common.implement.QuestionUpdateService;
-import com.comssa.persistence.question.dto.common.request.RequestChangeContentDto;
+import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionContentDto;
+import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionDescriptionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -36,8 +37,8 @@ public class QuestionUpdateController {
 	@PatchMapping(value = "/question/common/{id}/content")
 	public ResponseEntity<Void> changeQuestion(
 		@PathVariable("id") Long questionId,
-		@RequestBody RequestChangeContentDto requestChangeContentDto) {
-		questionUpdateService.changeContent(questionId, requestChangeContentDto);
+		@RequestBody RequestChangeQuestionContentDto requestChangeQuestionContentDto) {
+		questionUpdateService.changeContent(questionId, requestChangeQuestionContentDto);
 		return ResponseEntity.ok().build();
 	}
 
@@ -45,9 +46,9 @@ public class QuestionUpdateController {
 	@PatchMapping(value = "/question/common/{id}/description")
 	public ResponseEntity<Void> changeDescription(
 		@PathVariable("id") Long questionId,
-		@RequestBody RequestChangeContentDto requestChangeContentDto
+		@RequestBody RequestChangeQuestionDescriptionDto requestChangeQuestionDescriptionDto
 	) {
-		questionUpdateService.changeDescription(questionId, requestChangeContentDto);
+		questionUpdateService.changeDescription(questionId, requestChangeQuestionDescriptionDto);
 		return ResponseEntity.ok().build();
 	}
 

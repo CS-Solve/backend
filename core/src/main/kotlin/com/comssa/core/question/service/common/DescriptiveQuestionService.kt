@@ -1,9 +1,9 @@
-package com.comssa.core.question.common.service
+package com.comssa.core.question.service.common
 
 import com.comssa.core.chatbot.service.implement.ChatManageService
-import com.comssa.core.question.common.dto.RequestGradeStandardDto
-import com.comssa.core.question.common.dto.RequestUserDescriptiveAnswerDto
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion
+import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionGradeStandardDto
+import com.comssa.persistence.question.dto.common.request.RequestDoGradeDescriptiveAnswerDto
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -15,24 +15,24 @@ class DescriptiveQuestionService(
 ) {
 	fun gradeDescriptiveQuestion(
 		id: Long,
-		requestUserDescriptiveAnswerDto: RequestUserDescriptiveAnswerDto,
+		requestDoGradeDescriptiveAnswerDto: RequestDoGradeDescriptiveAnswerDto,
 	): String {
 		val question =
 			questionGetService.getMajorDescriptiveQuestion(id)
 		return chatManageService.talkForGradeQuestion(
 			question.gradeStandard,
 			question.content,
-			requestUserDescriptiveAnswerDto.content,
+			requestDoGradeDescriptiveAnswerDto.content,
 		)
 	}
 
 	fun changeGradeStandard(
 		id: Long,
-		requestGradeStandardDto: RequestGradeStandardDto,
+		requestChangeQuestionGradeStandardDto: RequestChangeQuestionGradeStandardDto,
 	): MajorDescriptiveQuestion {
 		val question =
 			questionGetService.getMajorDescriptiveQuestion(id)
-		question.changeGradeStandard(requestGradeStandardDto.gradeStandard)
+		question.changeGradeStandard(requestChangeQuestionGradeStandardDto.gradeStandard)
 		return question
 	}
 }

@@ -3,7 +3,7 @@ package com.comssa.persistence.question.dto.license.request;
 import com.comssa.persistence.question.domain.license.LicenseCategory;
 import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.domain.license.LicenseQuestionChoice;
-import com.comssa.persistence.question.dto.major.request.RequestMakeMajorMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,26 +18,26 @@ import java.util.stream.Collectors;
 @SuperBuilder
 @Getter
 public class RequestMakeLicenseMultipleChoiceQuestionDto {
-    private List<RequestMakeMajorMultipleChoiceQuestionDto> questions;
-    private String licenseSession;
-    private LicenseCategory licenseCategory;
+	private List<RequestMakeMultipleChoiceQuestionDto> questions;
+	private String licenseSession;
+	private LicenseCategory licenseCategory;
 
-    public static RequestMakeLicenseMultipleChoiceQuestionDto from(
-            String licenseSession,
-            LicenseCategory licenseCategory,
-            List<LicenseMultipleChoiceQuestion> questions,
-            Function<LicenseMultipleChoiceQuestion, List<LicenseQuestionChoice>> questionChoiceExtractor) {
-        return RequestMakeLicenseMultipleChoiceQuestionDto.builder()
-                .questions(
-                        questions.stream()
-                                .map(
-                                        q -> RequestMakeMajorMultipleChoiceQuestionDto.from(q, questionChoiceExtractor.apply(q))
-                                )
-                                .collect(Collectors.toList())
+	public static RequestMakeLicenseMultipleChoiceQuestionDto from(
+		String licenseSession,
+		LicenseCategory licenseCategory,
+		List<LicenseMultipleChoiceQuestion> questions,
+		Function<LicenseMultipleChoiceQuestion, List<LicenseQuestionChoice>> questionChoiceExtractor) {
+		return RequestMakeLicenseMultipleChoiceQuestionDto.builder()
+			.questions(
+				questions.stream()
+					.map(
+						q -> RequestMakeMultipleChoiceQuestionDto.from(q, questionChoiceExtractor.apply(q))
+					)
+					.collect(Collectors.toList())
 
-                )
-                .licenseSession(licenseSession)
-                .licenseCategory(licenseCategory)
-                .build();
-    }
+			)
+			.licenseSession(licenseSession)
+			.licenseCategory(licenseCategory)
+			.build();
+	}
 }

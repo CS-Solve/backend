@@ -1,7 +1,7 @@
 package com.comssa.persistence.question.domain.license;
 
 import com.comssa.persistence.question.domain.common.QuestionChoice;
-import com.comssa.persistence.question.dto.major.request.RequestMakeQuestionChoiceDto;
+import com.comssa.persistence.question.dto.common.request.RequestMakeQuestionChoiceDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -35,7 +35,7 @@ public class LicenseQuestionChoice extends QuestionChoice {
 		LicenseQuestionChoice questionChoice = LicenseQuestionChoice.builder()
 			.content(dto.getText())
 			.selectedCount(0)
-			.answerStatus(dto.isAnswerStatus())
+			.answerStatus(dto.getAnswerStatus())
 			.question(licenseMultipleChoiceQuestion)
 			.build();
 		licenseMultipleChoiceQuestion.getQuestionChoices().add(questionChoice);

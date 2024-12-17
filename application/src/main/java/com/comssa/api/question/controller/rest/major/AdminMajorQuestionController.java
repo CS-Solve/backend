@@ -2,10 +2,10 @@ package com.comssa.api.question.controller.rest.major;
 
 import com.comssa.api.question.service.rest.major.AdminMajorQuestionMakeService;
 import com.comssa.api.question.service.rest.major.implement.AdminMajorMultipleChoiceQuestionUpdateService;
+import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.dto.common.response.ResponseDescriptiveQuestionDto;
 import com.comssa.persistence.question.dto.common.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.dto.major.request.RequestMakeMajorDescriptiveQuestionDto;
-import com.comssa.persistence.question.dto.major.request.RequestMakeMajorMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.dto.major.response.ResponseMajorMultipleChoiceQuestionForAdminDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -33,9 +33,9 @@ public class AdminMajorQuestionController {
 	@ApiOperation("단답형 문제 리스트로 생성")
 	@PostMapping(value = "/question/major/multiple")
 	public ResponseEntity<List<ResponseMultipleChoiceQuestionDto>> makeMultiMajorQuestion(
-		@RequestBody List<RequestMakeMajorMultipleChoiceQuestionDto> requestMakeMajorMultipleChoiceQuestionDtos) {
+		@RequestBody List<RequestMakeMultipleChoiceQuestionDto> requestMakeMultipleChoiceQuestionDtos) {
 		return ResponseEntity.ok(
-			adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMajorMultipleChoiceQuestionDtos)
+			adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMultipleChoiceQuestionDtos)
 				.stream()
 				.map(ResponseMultipleChoiceQuestionDto::forAdmin)
 				.collect(Collectors.toList()));

@@ -1,19 +1,11 @@
-package com.comssa.persistence.question.dto.common.request;
+package com.comssa.persistence.question.dto.common.request
 
-import com.comssa.persistence.question.domain.common.QuestionCategory;
-import com.comssa.persistence.question.domain.common.QuestionLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import com.comssa.persistence.question.domain.common.QuestionCategory
+import com.comssa.persistence.question.domain.common.QuestionLevel
 
-@NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder
-@Getter
-public class RequestMakeQuestionDto {
-    private String content;
-    private QuestionCategory questionCategory;
-    private QuestionLevel questionLevel;
-    private String description;
-}
+abstract class RequestMakeQuestionDto(
+	val content: String = "",
+	val questionCategory: QuestionCategory = QuestionCategory.OOP,
+	val questionLevel: QuestionLevel = QuestionLevel.LOW,
+	val description: String = "",
+)

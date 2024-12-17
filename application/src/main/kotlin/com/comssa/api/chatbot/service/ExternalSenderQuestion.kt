@@ -23,7 +23,7 @@ class ExternalSenderQuestion(
 			questionSelectorService.getAllQuestions(
 				requestQuestionCommandDto
 					.questionCategories,
-				requestQuestionCommandDto.isMultipleChoice,
+				requestQuestionCommandDto.multipleChoice,
 			)
 		return chatManageService.talkForBatch(
 			questionToChatGptContentMapper.getContentsFromQuestion(question),

@@ -1,8 +1,8 @@
 package com.comssa.api.question.controller.rest.major
 
-import com.comssa.core.question.common.dto.RequestGradeStandardDto
-import com.comssa.core.question.common.dto.RequestUserDescriptiveAnswerDto
-import com.comssa.core.question.common.service.DescriptiveQuestionService
+import com.comssa.core.question.service.common.DescriptiveQuestionService
+import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionGradeStandardDto
+import com.comssa.persistence.question.dto.common.request.RequestDoGradeDescriptiveAnswerDto
 import com.comssa.persistence.question.dto.common.response.ResponseDescriptiveQuestionDto
 import com.comssa.persistence.question.dto.common.response.ResponseQuestionDto
 import io.swagger.annotations.Api
@@ -23,21 +23,21 @@ class DescriptiveQuestionController(
 	@PostMapping("/questions/major/descriptive/{questionId}/grade")
 	fun gradeDescriptiveQuestion(
 		@PathVariable("questionId") questionId: Long,
-		@RequestBody requestUserDescriptiveAnswerDto: RequestUserDescriptiveAnswerDto,
+		@RequestBody requestDoGradeDescriptiveAnswerDto: RequestDoGradeDescriptiveAnswerDto,
 	): ResponseEntity<String> =
 		ResponseEntity.ok(
-			descriptiveQuestionService.gradeDescriptiveQuestion(questionId, requestUserDescriptiveAnswerDto),
+			descriptiveQuestionService.gradeDescriptiveQuestion(questionId, requestDoGradeDescriptiveAnswerDto),
 		)
 
 	@ApiOperation("서술형 문제 채점 기준 수정")
 	@PatchMapping("/questions/major/descriptive/{questionId}/standard")
 	fun changeQuestionStandard(
 		@PathVariable("questionId") questionId: Long,
-		@RequestBody requestGradeStandardDto: RequestGradeStandardDto,
+		@RequestBody requestChangeQuestionGradeStandardDto: RequestChangeQuestionGradeStandardDto,
 	): ResponseEntity<ResponseQuestionDto> =
 		ResponseEntity.ok(
 			ResponseDescriptiveQuestionDto.forMajor(
-				descriptiveQuestionService.changeGradeStandard(questionId, requestGradeStandardDto),
+				descriptiveQuestionService.changeGradeStandard(questionId, requestChangeQuestionGradeStandardDto),
 			),
 		)
 }
