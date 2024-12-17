@@ -1,35 +1,21 @@
-package com.comssa.persistence.question.dto.common.response;
+package com.comssa.persistence.question.dto.common.response
 
-import com.comssa.persistence.question.domain.common.QuestionChoice;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.comssa.persistence.question.domain.common.QuestionChoice
 
-@NoArgsConstructor
-@Builder
-@Getter
-public class ResponseQuestionChoiceDto {
-
-    private Long id;
-    private String content;
-    private int selectedCount;
-    private boolean answerStatus;
-
-    @Builder
-    public ResponseQuestionChoiceDto(Long id, String content, int selectedCount, boolean answerStatus) {
-        this.id = id;
-        this.content = content;
-        this.selectedCount = selectedCount;
-        this.answerStatus = answerStatus;
-    }
-
-    public static <T extends QuestionChoice> ResponseQuestionChoiceDto of(
-            T questionChoice) {
-        return ResponseQuestionChoiceDto.builder()
-                .id(questionChoice.getId())
-                .content(questionChoice.getContent())
-                .selectedCount(questionChoice.getSelectedCount())
-                .answerStatus(questionChoice.isAnswerStatus())
-                .build();
-    }
+data class ResponseQuestionChoiceDto(
+	val id: Long,
+	val content: String,
+	val selectedCount: Int,
+	val answerStatus: Boolean,
+) {
+	companion object {
+		@JvmStatic
+		fun <T : QuestionChoice> from(questionChoice: T): ResponseQuestionChoiceDto =
+			ResponseQuestionChoiceDto(
+				id = questionChoice.id,
+				content = questionChoice.content,
+				selectedCount = questionChoice.selectedCount,
+				answerStatus = questionChoice.isAnswerStatus,
+			)
+	}
 }

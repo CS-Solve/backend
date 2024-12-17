@@ -4,7 +4,7 @@ import com.comssa.api.chatbot.service.ExternalQuestionService
 import com.comssa.core.chatbot.dto.response.ChatGptBatchResponseDto
 import com.comssa.core.chatbot.dto.response.ChatGptFileUploadResponseDto
 import com.comssa.core.chatbot.service.implement.ChatGptService
-import com.comssa.persistence.question.dto.common.request.RequestQuestionCommandDto
+import com.comssa.persistence.question.dto.common.request.RequestDoQuestionCommandDto
 import io.swagger.annotations.Api
 import lombok.RequiredArgsConstructor
 import org.springframework.http.ResponseEntity
@@ -23,9 +23,9 @@ class ExternalQuestionController(
 ) {
 	@PostMapping("/chat-gpt/file/question")
 	fun updateQuestionToChatGpt(
-		@RequestBody requestQuestionCommandDto: RequestQuestionCommandDto,
+		@RequestBody requestDoQuestionCommandDto: RequestDoQuestionCommandDto,
 	): ResponseEntity<ChatGptFileUploadResponseDto> =
-		ResponseEntity.ok(externalQuestionService.sendQuestionToExternal(requestQuestionCommandDto))
+		ResponseEntity.ok(externalQuestionService.sendQuestionToExternal(requestDoQuestionCommandDto))
 
 	@PostMapping("/chat-gpt/batch")
 	fun createBatchToChatGpt(

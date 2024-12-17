@@ -103,6 +103,4 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 				)
 			));
 	}
-
-
 }

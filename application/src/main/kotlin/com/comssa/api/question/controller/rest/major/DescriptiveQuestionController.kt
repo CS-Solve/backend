@@ -3,7 +3,6 @@ package com.comssa.api.question.controller.rest.major
 import com.comssa.core.question.service.common.DescriptiveQuestionService
 import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionGradeStandardDto
 import com.comssa.persistence.question.dto.common.request.RequestDoGradeDescriptiveAnswerDto
-import com.comssa.persistence.question.dto.common.response.ResponseDescriptiveQuestionDto
 import com.comssa.persistence.question.dto.common.response.ResponseQuestionDto
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
@@ -36,7 +35,7 @@ class DescriptiveQuestionController(
 		@RequestBody requestChangeQuestionGradeStandardDto: RequestChangeQuestionGradeStandardDto,
 	): ResponseEntity<ResponseQuestionDto> =
 		ResponseEntity.ok(
-			ResponseDescriptiveQuestionDto.forMajor(
+			ResponseQuestionDto.from(
 				descriptiveQuestionService.changeGradeStandard(questionId, requestChangeQuestionGradeStandardDto),
 			),
 		)

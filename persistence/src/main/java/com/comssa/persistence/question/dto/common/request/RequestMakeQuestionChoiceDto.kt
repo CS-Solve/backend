@@ -2,7 +2,7 @@ package com.comssa.persistence.question.dto.common.request
 
 import com.comssa.persistence.question.domain.common.QuestionChoice
 
-class RequestMakeQuestionChoiceDto(
+data class RequestMakeQuestionChoiceDto(
 	val text: String,
 	val answerStatus: Boolean,
 ) {

@@ -25,7 +25,7 @@ public class QuestionChoiceUpdateController {
 		@PathVariable("id") Long choiceId,
 		@RequestBody RequestChangeQuestionContentDto requestChangeQuestionContentDto) {
 
-		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(
+		return ResponseEntity.ok(ResponseQuestionChoiceDto.from(
 			questionChoiceUpdateService.changeContent(
 				choiceId,
 				requestChangeQuestionContentDto)));
@@ -35,7 +35,7 @@ public class QuestionChoiceUpdateController {
 	@PatchMapping(value = "/question/common/choice/{id}/toggle")
 	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
 		@PathVariable("id") Long licenseChoiceId) {
-		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(
+		return ResponseEntity.ok(ResponseQuestionChoiceDto.from(
 			questionChoiceUpdateService
 				.toggleAnswerStatus(
 					licenseChoiceId)));
