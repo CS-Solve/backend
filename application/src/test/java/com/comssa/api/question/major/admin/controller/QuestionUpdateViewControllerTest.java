@@ -30,70 +30,70 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest({
-        QuestionUpdateViewController.class
+	QuestionUpdateViewController.class
 })
 @ContextConfiguration(classes = QuestionUpdateViewController.class)
 @DisplayName("단위 테스트 - 전공 업데이트 View Controller")
 class QuestionUpdateViewControllerTest extends ControllerTest {
 
-    @MockBean
-    private AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
+	@MockBean
+	private AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
 
-    /*
-    자격증
-     */
-    @MockBean
-    private UserLicenseQuestionGetService userLicenseQuestionGetService;
-    @MockBean
-    private AdminLicenseQuestionGetService adminLicenseQuestionGetService;
-    private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
-    private List<Question> licenseMultipleChoiceQuestions;
-    private Map<QuestionCategory, List<Question>> licenseMultipleChoiceQuestionsMap;
+	/*
+	자격증
+	 */
+	@MockBean
+	private UserLicenseQuestionGetService userLicenseQuestionGetService;
+	@MockBean
+	private AdminLicenseQuestionGetService adminLicenseQuestionGetService;
+	private LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion;
+	private List<Question> licenseMultipleChoiceQuestions;
+	private Map<QuestionCategory, List<Question>> licenseMultipleChoiceQuestionsMap;
 
-    private QuestionCategory questionCategory;
+	private QuestionCategory questionCategory;
 
-    @BeforeEach
-    void setUp() {
-        licenseMultipleChoiceQuestions = new ArrayList<>();
-        licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.makeForTest("test");
-        licenseMultipleChoiceQuestions.add(licenseMultipleChoiceQuestion);
-
-
-        questionCategory = QuestionCategory.DATA_MODELING;
-
-        licenseMultipleChoiceQuestionsMap = new HashMap<>();
-        licenseMultipleChoiceQuestionsMap.put(questionCategory, licenseMultipleChoiceQuestions);
+	@BeforeEach
+	void setUp() {
+		licenseMultipleChoiceQuestions = new ArrayList<>();
+		licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.makeForTest("test");
+		licenseMultipleChoiceQuestions.add(licenseMultipleChoiceQuestion);
 
 
-    }
+		questionCategory = QuestionCategory.DATA_MODELING;
 
-    @Test
-    @DisplayName("업데이트 페이지")
-    void updateMajorQuestionPage() throws Exception {
-        // Given
-
-        when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorMultipleChoiceQuestions())
-                .thenReturn(new HashMap<>());
-
-        // When & Then
-        mockMvc.perform(MockMvcRequestBuilders.get("/admin/question/major/multiple"))
-                .andExpect(status().isOk()) // 상태 코드 200 확인
-                .andExpect(view().name("question-update")) // 뷰 이름 확인
-                .andExpect(model().attributeExists("classifiedQuestions")) // 모델 속성 확인
-                .andDo(print());
-    }
+		licenseMultipleChoiceQuestionsMap = new HashMap<>();
+		licenseMultipleChoiceQuestionsMap.put(questionCategory, licenseMultipleChoiceQuestions);
 
 
-    @Test
-    @DisplayName("업데이트 페이지")
-    void updateLicenseQuestionPage() throws Exception {
-        final String PATH = "/admin/question/license/1";
-        Mockito.when(userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(any()))
-                .thenReturn(licenseMultipleChoiceQuestionsMap);
+	}
 
-        mockMvc.perform(MockMvcRequestBuilders.get(PATH))
-                .andExpect(view().name("question-update"))
-                .andExpect(model().attributeExists("classifiedQuestions"))
-                .andDo(print());
-    }
+	@Test
+	@DisplayName("업데이트 페이지")
+	void updateMajorQuestionPage() throws Exception {
+		// Given
+
+		when(adminMajorQuestionClassifiedGetService.getClassifiedAllMajorMultipleChoiceQuestions())
+			.thenReturn(new HashMap<>());
+
+		// When & Then
+		mockMvc.perform(MockMvcRequestBuilders.get("/admin/question/major/multiple"))
+			.andExpect(status().isOk()) // 상태 코드 200 확인
+			.andExpect(view().name("question-update")) // 뷰 이름 확인
+			.andExpect(model().attributeExists("classifiedQuestions")) // 모델 속성 확인
+			.andDo(print());
+	}
+
+
+	@Test
+	@DisplayName("업데이트 페이지")
+	void updateLicenseQuestionPage() throws Exception {
+		final String PATH = "/admin/question/license/1";
+		Mockito.when(userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(any()))
+			.thenReturn(licenseMultipleChoiceQuestionsMap);
+
+		mockMvc.perform(MockMvcRequestBuilders.get(PATH))
+			.andExpect(view().name("question-update"))
+			.andExpect(model().attributeExists("classifiedQuestions"))
+			.andDo(print());
+	}
 }

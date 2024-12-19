@@ -10,8 +10,8 @@ import java.util.List;
 
 @Service
 public class JavaChoiceShuffleService implements ChoiceShuffleService {
-    @Override
-    public void shuffle(List<MajorQuestionChoice> majorQuestionChoices) {
-        Collections.shuffle(majorQuestionChoices);
-    }
+	@Override
+	public void shuffle(List<MajorQuestionChoice> majorQuestionChoices) {
+		Collections.shuffle(majorQuestionChoices);
+	}
 }

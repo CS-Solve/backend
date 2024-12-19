@@ -13,13 +13,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class BasicQuestionClassifyByCategoryService implements QuestionClassifyByCategoryService {
-    @Override
-    public Map<QuestionCategory, List<Question>> classifyQuestionByCategoryOrdered(List<? extends Question> questions) {
-        return questions.stream()
-                .collect(Collectors.groupingBy(
-                        Question::getQuestionCategory,
-                        LinkedHashMap::new, // 순서를 보장하는 LinkedHashMap 사용
-                        Collectors.toList()
-                ));
-    }
+	@Override
+	public Map<QuestionCategory, List<Question>> classifyQuestionByCategoryOrdered(List<? extends Question> questions) {
+		return questions.stream()
+			.collect(Collectors.groupingBy(
+				Question::getQuestionCategory,
+				LinkedHashMap::new, // 순서를 보장하는 LinkedHashMap 사용
+				Collectors.toList()
+			));
+	}
 }

@@ -12,31 +12,31 @@ import java.io.IOException;
 @Service
 @RequiredArgsConstructor
 public class QuestionUpdateService
-        implements com.comssa.api.question.service.rest.common.QuestionUpdateService<Question> {
-    private final QuestionRepositoryService questionRepositoryService;
-    private final FileUploadService fileUploadService;
+	implements com.comssa.api.question.service.rest.common.QuestionUpdateService<Question> {
+	private final QuestionRepositoryService questionRepositoryService;
+	private final FileUploadService fileUploadService;
 
-    @Override
-    public String updateImage(Long questionId, MultipartFile image) {
-        try {
-            Question question = findById(questionId);
-            String imageUrl = fileUploadService.uploadImage(image, "license");
-            assert question != null;
-            question.updateImage(imageUrl);
-            return imageUrl;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+	@Override
+	public String updateImage(Long questionId, MultipartFile image) {
+		try {
+			Question question = findById(questionId);
+			String imageUrl = fileUploadService.uploadImage(image, "license");
+			assert question != null;
+			question.updateImage(imageUrl);
+			return imageUrl;
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
-    @Override
-    public void deleteQuestion(Long questionId) {
-        questionRepositoryService.delete(questionId);
-    }
+	@Override
+	public void deleteQuestion(Long questionId) {
+		questionRepositoryService.delete(questionId);
+	}
 
-    @Override
-    public Question findById(Long questionId) {
-        return questionRepositoryService.findById(questionId);
-    }
+	@Override
+	public Question findById(Long questionId) {
+		return questionRepositoryService.findById(questionId);
+	}
 }

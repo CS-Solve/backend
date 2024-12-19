@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class QuestionChoiceGradeService
-        implements com.comssa.api.question.service.rest.common.QuestionChoiceGradeService {
-    private final QuestionChoiceRepository questionChoiceRepository;
+	implements com.comssa.api.question.service.rest.common.QuestionChoiceGradeService {
+	private final QuestionChoiceRepository questionChoiceRepository;
 
-    @Override
-    public QuestionChoice findById(Long id) {
-        return questionChoiceRepository.findById(id).orElse(null);
-    }
+	@Override
+	public QuestionChoice findById(Long id) {
+		return questionChoiceRepository.findById(id).orElse(null);
+	}
 }

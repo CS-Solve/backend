@@ -19,17 +19,17 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class UserLicenseQuestionGetService implements LicenseQuestionGetService {
-    private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
-    private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
+	private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
+	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 
-    public Map<QuestionCategory, List<Question>> getClassifiedLicenseMultipleChoiceQuestion(
-            Long sessionId) {
-        List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository
-                .findAllByLicenseSessionIdFetchChoicesAndIfApproved(
-                        sessionId);
-        for (LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion : licenseMultipleChoiceQuestions) {
-            Collections.shuffle(licenseMultipleChoiceQuestion.getQuestionChoices());
-        }
-        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions);
-    }
+	public Map<QuestionCategory, List<Question>> getClassifiedLicenseMultipleChoiceQuestion(
+		Long sessionId) {
+		List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository
+			.findAllByLicenseSessionIdFetchChoicesAndIfApproved(
+				sessionId);
+		for (LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion : licenseMultipleChoiceQuestions) {
+			Collections.shuffle(licenseMultipleChoiceQuestion.getQuestionChoices());
+		}
+		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions);
+	}
 }

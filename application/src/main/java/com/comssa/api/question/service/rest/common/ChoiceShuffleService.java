@@ -9,6 +9,6 @@ import java.util.List;
 @Service
 public interface ChoiceShuffleService {
 
-    void shuffle(List<MajorQuestionChoice> majorQuestionChoices);
+	void shuffle(List<MajorQuestionChoice> majorQuestionChoices);
 
 }
