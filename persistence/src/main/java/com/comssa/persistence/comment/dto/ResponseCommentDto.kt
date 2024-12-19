@@ -1,4 +1,4 @@
-package com.comssa.core.comment.dto
+package com.comssa.persistence.comment.dto
 
 import com.comssa.persistence.comment.domain.Comment
 import com.comssa.persistence.member.domain.Member

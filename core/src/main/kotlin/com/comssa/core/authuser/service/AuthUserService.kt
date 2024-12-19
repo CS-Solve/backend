@@ -1,4 +1,4 @@
-package com.comssa.core.authuser
+package com.comssa.core.authuser.service
 
 import com.comssa.core.member.service.MemberService
 import org.springframework.beans.factory.annotation.Value

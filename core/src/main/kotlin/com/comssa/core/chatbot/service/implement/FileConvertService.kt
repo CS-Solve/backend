@@ -1,6 +1,6 @@
 package com.comssa.core.chatbot.service.implement
 
-import com.comssa.core.chatbot.dto.request.ChatGptRequestFileUploadDto
+import com.comssa.persistence.chatbot.dto.request.ChatGptRequestFileUploadDto
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.core.io.ByteArrayResource
 import org.springframework.stereotype.Service

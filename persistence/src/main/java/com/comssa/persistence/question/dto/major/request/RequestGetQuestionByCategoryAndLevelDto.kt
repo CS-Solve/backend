@@ -1,66 +1,51 @@
-package com.comssa.persistence.question.dto.major.request;
+package com.comssa.persistence.question.dto.major.request
 
-import com.comssa.persistence.question.domain.common.QuestionCategory;
-import com.comssa.persistence.question.domain.common.QuestionLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.comssa.persistence.question.domain.common.QuestionCategory
+import com.comssa.persistence.question.domain.common.QuestionLevel
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
+data class RequestGetQuestionByCategoryAndLevelDto(
+	val questionLevels: List<QuestionLevel>,
+	val questionCategories: List<QuestionCategory>,
+) {
+	companion object {
+		@JvmStatic
+		fun fromKorean(
+			questionCategories: List<String>?,
+			questionLevels: List<String>?,
+		): RequestGetQuestionByCategoryAndLevelDto =
+			RequestGetQuestionByCategoryAndLevelDto(
+				questionCategories =
+					mapOrGetAllEnumValues(
+						questionCategories,
+						QuestionCategory::class.java,
+						QuestionCategory::getKorean,
+					),
+				questionLevels =
+					mapOrGetAllEnumValues(
+						questionLevels,
+						QuestionLevel::class.java,
+						QuestionLevel::getKorean,
+					),
+			)
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Getter
-public class RequestGetQuestionByCategoryAndLevelDto {
-	private List<QuestionCategory> questionCategories;
-	private List<QuestionLevel> questionLevels;
-
-	public static RequestGetQuestionByCategoryAndLevelDto from(
-		List<QuestionCategory> questionCategories,
-		List<QuestionLevel> questionLevels) {
-		return RequestGetQuestionByCategoryAndLevelDto.builder()
-			.questionCategories(questionCategories)
-			.questionLevels(questionLevels)
-			.build();
-	}
-
-	/**
-	 * @param questionCategories
-	 * @param questionLevels     한글로 된 문제 카테고리와 레벨을 받고 Enum으로 전환한 후에 반환.
-	 */
-	public static RequestGetQuestionByCategoryAndLevelDto fromKorean(
-		List<String> questionCategories,
-		List<String> questionLevels) {
-		List<QuestionCategory> categories = mapOrGetAllEnumValues(questionCategories, QuestionCategory.class,
-			QuestionCategory::getKorean);
-		List<QuestionLevel> levels = mapOrGetAllEnumValues(questionLevels, QuestionLevel.class,
-			QuestionLevel::getKorean);
-		// DTO 빌드
-		return RequestGetQuestionByCategoryAndLevelDto.builder()
-			.questionCategories(categories)
-			.questionLevels(levels)
-			.build();
-	}
-
-	/*
-	리스트에 아무 것도 포함되어있지 않다면, Enum의 모든 값을 포함하여 반환한다.
-	 */
-	private static <T extends Enum<T>> List<T> mapOrGetAllEnumValues(
-		List<String> values, Class<T> enumClass,
-		Function<T, String> getKorean) {
-		if (values == null || values.isEmpty()) {
-			return Arrays.asList(enumClass.getEnumConstants());
+		private fun <T : Enum<T>> mapOrGetAllEnumValues(
+			values: List<String>?,
+			enumClass: Class<T>,
+			getKorean: (T) -> String,
+			/*
+			Enum(T)을 입력받고,
+			->는 함수 임을 의미
+			String을 반환
+			Java의. Function<T,String> 과 동일
+			 */
+		): List<T> {
+			if (values.isNullOrEmpty()) {
+				return enumClass.enumConstants.toList()
+			}
+			return values.map { value ->
+				enumClass.enumConstants.firstOrNull { getKorean(it) == value }
+					?: throw IllegalArgumentException("Unknown enum value: $value")
+			}
 		}
-		return values.stream()
-			.map(value -> Arrays.stream(enumClass.getEnumConstants())
-				.filter(e -> getKorean.apply(e).equals(value))
-				.findFirst()
-				.orElseThrow(() -> new IllegalArgumentException("Invalid " + enumClass.getSimpleName() + ": " + value)))
-			.collect(Collectors.toList());
 	}
 }

@@ -1,4 +1,4 @@
-package com.comssa.core.chatbot.dto.request
+package com.comssa.persistence.chatbot.dto.request
 
 import com.comssa.persistence.chatbot.ChatContentType
 

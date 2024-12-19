@@ -1,4 +1,4 @@
-package com.comssa.core.chatbot.dto.response
+package com.comssa.persistence.chatbot.dto.response
 
 class ChatResponseDto(
 	val content: String? = null,

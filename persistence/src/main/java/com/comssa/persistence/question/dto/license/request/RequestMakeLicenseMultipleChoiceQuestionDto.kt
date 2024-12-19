@@ -1,43 +1,25 @@
-package com.comssa.persistence.question.dto.license.request;
+package com.comssa.persistence.question.dto.license.request
 
-import com.comssa.persistence.question.domain.license.LicenseCategory;
-import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
-import com.comssa.persistence.question.domain.license.LicenseQuestionChoice;
-import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import com.comssa.persistence.question.domain.license.LicenseCategory
+import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion
+import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto
 
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-
-@NoArgsConstructor
-@AllArgsConstructor
-@SuperBuilder
-@Getter
-public class RequestMakeLicenseMultipleChoiceQuestionDto {
-	private List<RequestMakeMultipleChoiceQuestionDto> questions;
-	private String licenseSession;
-	private LicenseCategory licenseCategory;
-
-	public static RequestMakeLicenseMultipleChoiceQuestionDto from(
-		String licenseSession,
-		LicenseCategory licenseCategory,
-		List<LicenseMultipleChoiceQuestion> questions,
-		Function<LicenseMultipleChoiceQuestion, List<LicenseQuestionChoice>> questionChoiceExtractor) {
-		return RequestMakeLicenseMultipleChoiceQuestionDto.builder()
-			.questions(
-				questions.stream()
-					.map(
-						q -> RequestMakeMultipleChoiceQuestionDto.from(q, questionChoiceExtractor.apply(q))
-					)
-					.collect(Collectors.toList())
-
+data class RequestMakeLicenseMultipleChoiceQuestionDto(
+	val questions: List<RequestMakeMultipleChoiceQuestionDto>,
+	val licenseSession: String,
+	val licenseCategory: LicenseCategory,
+) {
+	companion object {
+		@JvmStatic
+		fun forTest(
+			licenseSession: String,
+			licenseCategory: LicenseCategory,
+			questions: List<LicenseMultipleChoiceQuestion>,
+		): RequestMakeLicenseMultipleChoiceQuestionDto =
+			RequestMakeLicenseMultipleChoiceQuestionDto(
+				questions.map { q -> RequestMakeMultipleChoiceQuestionDto.from(q, q.questionChoices) },
+				licenseSession,
+				licenseCategory,
 			)
-			.licenseSession(licenseSession)
-			.licenseCategory(licenseCategory)
-			.build();
 	}
 }

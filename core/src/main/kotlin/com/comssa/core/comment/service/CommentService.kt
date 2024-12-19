@@ -1,9 +1,9 @@
 package com.comssa.core.comment.service
 
-import com.comssa.core.authuser.AuthUserService
-import com.comssa.core.comment.dto.RequestMakeCommentDto
-import com.comssa.core.comment.dto.ResponseCommentDto
+import com.comssa.core.authuser.service.AuthUserService
 import com.comssa.persistence.comment.domain.Comment
+import com.comssa.persistence.comment.dto.RequestMakeCommentDto
+import com.comssa.persistence.comment.dto.ResponseCommentDto
 import com.comssa.persistence.comment.service.CommentRepositoryService
 import com.comssa.persistence.exception.NotLoginException
 import com.comssa.persistence.member.service.MemberRepositoryService
@@ -44,9 +44,9 @@ class CommentService(
 		questionId: Long,
 		user: OAuth2User?,
 	): List<ResponseCommentDto> {
-        /*
-        cognitoId로 유저 조회
-         */
+		/*
+		cognitoId로 유저 조회
+		 */
 		val member =
 			authUserService.getCognitoId(user)?.let { memberRepositoryService.findByCognitoId(it) }
 

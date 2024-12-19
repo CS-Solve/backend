@@ -1,4 +1,4 @@
-package com.comssa.core.chatbot.dto.request
+package com.comssa.persistence.chatbot.dto.request
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.annotation.JsonNaming
@@ -15,8 +15,8 @@ data class ChatGptBatchRequestDto(
 			inputFileId: String,
 			endpoint: String,
 			completionWindow: String,
-		): com.comssa.core.chatbot.dto.request.ChatGptBatchRequestDto =
-			com.comssa.core.chatbot.dto.request.ChatGptBatchRequestDto(
+		): ChatGptBatchRequestDto =
+			ChatGptBatchRequestDto(
 				inputFileId = inputFileId,
 				endpoint = endpoint,
 				completionWindow = completionWindow,

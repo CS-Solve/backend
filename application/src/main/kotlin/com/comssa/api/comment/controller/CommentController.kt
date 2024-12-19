@@ -1,10 +1,10 @@
 package com.comssa.api.comment.controller
 
 import com.comssa.api.login.aspect.AddLoginStatusAttributeToView
-import com.comssa.core.comment.dto.RequestMakeCommentDto
-import com.comssa.core.comment.dto.ResponseCommentDto
 import com.comssa.core.comment.service.CommentService
 import com.comssa.core.question.service.common.QuestionGetService
+import com.comssa.persistence.comment.dto.RequestMakeCommentDto
+import com.comssa.persistence.comment.dto.ResponseCommentDto
 import com.comssa.persistence.question.dto.common.response.ResponseQuestionDto
 import io.swagger.annotations.Api
 import org.springframework.http.ResponseEntity

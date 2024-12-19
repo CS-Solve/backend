@@ -1,12 +1,13 @@
 package com.comssa.core.chatbot.service.implement
 
 import com.comssa.core.chatbot.config.RestTemplateService
-import com.comssa.core.chatbot.dto.request.ChatGptMessageDto
-import com.comssa.core.chatbot.dto.request.ChatGptRequestFileUploadDto
-import com.comssa.core.chatbot.dto.request.ChatGptRestRequestDto
-import com.comssa.core.chatbot.dto.response.ChatGptBatchResponseDto
-import com.comssa.core.chatbot.dto.response.ChatGptFileUploadResponseDto
-import com.comssa.core.chatbot.dto.response.ChatGptResponseDto
+import com.comssa.persistence.chatbot.dto.request.ChatGptBatchRequestDto
+import com.comssa.persistence.chatbot.dto.request.ChatGptMessageDto
+import com.comssa.persistence.chatbot.dto.request.ChatGptRequestFileUploadDto
+import com.comssa.persistence.chatbot.dto.request.ChatGptRestRequestDto
+import com.comssa.persistence.chatbot.dto.response.ChatGptBatchResponseDto
+import com.comssa.persistence.chatbot.dto.response.ChatGptFileUploadResponseDto
+import com.comssa.persistence.chatbot.dto.response.ChatGptResponseDto
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.ByteArrayResource
 import org.springframework.http.MediaType
@@ -84,9 +85,7 @@ class ChatGptService(
 		return body
 	}
 
-	fun sendBatchMessage(
-		chatGptBatchRequestDto: com.comssa.core.chatbot.dto.request.ChatGptBatchRequestDto,
-	): ChatGptBatchResponseDto =
+	fun sendBatchMessage(chatGptBatchRequestDto: ChatGptBatchRequestDto): ChatGptBatchResponseDto =
 		restTemplateService
 			.sendPostRequest(
 				baseUrl + batchCreateUrl,

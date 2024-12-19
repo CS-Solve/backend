@@ -5,6 +5,7 @@ import com.comssa.api.question.controller.rest.common.QuestionUpdateController;
 import com.comssa.api.question.service.rest.common.implement.QuestionUpdateService;
 import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionContentDto;
+import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionDescriptionDto;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import org.junit.jupiter.api.BeforeEach;
