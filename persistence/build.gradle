@@ -1,16 +1,23 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
 plugins {
     id 'java'
-    /*
-	코틀린 전용 linter
-	 */
-    id "org.jlleitschuh.gradle.ktlint" version "12.1.0"
+
+    //Querydsl
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 
 }
 
-
-repositories {
-    mavenCentral()
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
+
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -18,28 +25,47 @@ dependencies {
     /**
      QueryDsl
      */
-    implementation 'com.querydsl:querydsl-jpa:5.0.0'
-    // SpringBoot 2.* 버전에 맞는 queryDsl 설정
-    annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
-    // queryDsl과 JPA를 같이 쓰기 위해 필요한 설정
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+
+    // QueryDsl 관련 어노테이션들을 처리하고, 쿼리 타입 클래스들을 생성
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}:jpa"
+    // querydsl JPAAnnotationProcessor 사용 지정
     annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    // java.lang.NoClassDefFoundError (javax.annotation.Generated)
     annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    // java.lang.NoClassDefFoundError (javax.annotation.Entity, Id,GeneratedValue등 ) 대응 코드
+
+//    kapt "org.springframework.boot:spring-boot-configuration-processor"
+
 }
 
-test {
-    useJUnitPlatform()
-}
 
 bootJar.enabled = false;
 
-tasks.named('compileJava') {
-    options.annotationProcessorGeneratedSourcesDirectory = file("$buildDir/generated/sources/annotationProcessor/java/main")
+/*
+QueryDsl
+ */
+//gitIgnore에 자동으로 등록되기 위한 경로 설정
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs("$buildDir/generated/sources/annotationProcessor/java/main")
-        }
-    }
+configurations {
+    querydsl.extendsFrom compileClasspath
 }
+
+compileQuerydsl {
+    dependsOn("compileKotlin")
+    options.annotationProcessorPath = files(
+            configurations.querydsl,
+    )
+
+}
+
+
+
