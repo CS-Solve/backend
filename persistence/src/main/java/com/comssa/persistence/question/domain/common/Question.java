@@ -28,14 +28,6 @@ import java.util.List;
 @NoArgsConstructor
 @DiscriminatorColumn
 public abstract class Question extends BaseEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "question_id")
-    private Long id;
-
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments;
-
     public boolean ifApproved;
     protected String content;
     @Enumerated(value = EnumType.STRING)
@@ -44,6 +36,12 @@ public abstract class Question extends BaseEntity {
     protected QuestionLevel questionLevel;
     protected String description;
     protected String imageUrl;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "question_id")
+    private Long id;
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
     public Question(String content, QuestionCategory questionCategory, QuestionLevel questionLevel, String description,
                     String imageUrl) {

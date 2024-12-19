@@ -127,8 +127,7 @@ class QuestionViewControllerTest extends ViewControllerTest {
 
 	@Test
 	@DisplayName("자격증 문제 조회")
-	void
-	licenseQuestionPage() throws Exception {
+	void licenseQuestionPage() throws Exception {
 		final String PATH = "/question/license/1";
 		Mockito.when(licenseSessionService.getLicenseSessionById(any())).thenReturn(licenseSession);
 		Mockito.when(userLicenseQuestionGetService.getClassifiedLicenseMultipleChoiceQuestion(any()))

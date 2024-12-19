@@ -19,15 +19,6 @@ import javax.persistence.Entity;
 public class MajorDescriptiveQuestion extends Question {
     private String gradeStandard;
 
-    @Override
-    public void initDefaults() {
-
-    }
-
-    public void changeGradeStandard(String gradeStandard) {
-        this.gradeStandard = gradeStandard;
-    }
-
     public static MajorDescriptiveQuestion makeWithDto(
             RequestMakeMajorDescriptiveQuestionDto dto) {
         MajorDescriptiveQuestion question = MajorDescriptiveQuestion.builder()
@@ -40,5 +31,14 @@ public class MajorDescriptiveQuestion extends Question {
                 .build();
         question.initDefaults();
         return question;
+    }
+
+    @Override
+    public void initDefaults() {
+
+    }
+
+    public void changeGradeStandard(String gradeStandard) {
+        this.gradeStandard = gradeStandard;
     }
 }

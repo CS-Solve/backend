@@ -14,7 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 public interface QuestionUpdateService<T extends Question> {
 
 	// 기본 구현이 필요한 메서드에 default 사용
-	default T changeDescription(Long questionId, RequestChangeQuestionDescriptionDto requestChangeQuestionDescriptionDto) {
+	default T changeDescription(
+		Long questionId, RequestChangeQuestionDescriptionDto requestChangeQuestionDescriptionDto) {
 		T question = findById(questionId);
 		question.changeDescription(requestChangeQuestionDescriptionDto.getDescription());
 		return question;

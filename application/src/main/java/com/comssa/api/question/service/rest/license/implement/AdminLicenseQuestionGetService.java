@@ -18,19 +18,19 @@ import java.util.Map;
 @Transactional
 @RequiredArgsConstructor
 public class AdminLicenseQuestionGetService implements LicenseQuestionGetService {
-    private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
-    private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
+	private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
+	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 
-    /**
-     * 관리자 조회시 허용 여부와 관련 없이 모든 문제를 가져온다.
-     * 문제지도 섞지 않는다.
-     * 허용 여부 순대로 섞는다
-     */
-    @Override
-    public Map<QuestionCategory, List<Question>> getClassifiedLicenseMultipleChoiceQuestion(
-            Long sessionId) {
-        List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository
-                .findAllByLicenseSessionIdFetchChoicesOrderByApproved(sessionId);
-        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions);
-    }
+	/**
+	 * 관리자 조회시 허용 여부와 관련 없이 모든 문제를 가져온다.
+	 * 문제지도 섞지 않는다.
+	 * 허용 여부 순대로 섞는다
+	 */
+	@Override
+	public Map<QuestionCategory, List<Question>> getClassifiedLicenseMultipleChoiceQuestion(
+		Long sessionId) {
+		List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository
+			.findAllByLicenseSessionIdFetchChoicesOrderByApproved(sessionId);
+		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions);
+	}
 }
