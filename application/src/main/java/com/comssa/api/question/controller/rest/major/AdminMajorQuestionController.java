@@ -2,11 +2,11 @@ package com.comssa.api.question.controller.rest.major;
 
 import com.comssa.api.question.service.rest.major.AdminMajorQuestionMakeService;
 import com.comssa.api.question.service.rest.major.implement.AdminMajorMultipleChoiceQuestionUpdateService;
-import com.comssa.persistence.question.common.dto.response.ResponseDescriptiveQuestionDto;
-import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorDescriptiveQuestionDto;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.major.admin.dto.ResponseMajorMultipleChoiceQuestionForAdminDto;
+import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.common.response.ResponseDescriptiveQuestionDto;
+import com.comssa.persistence.question.dto.common.response.ResponseMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.common.response.ResponseQuestionDto;
+import com.comssa.persistence.question.dto.major.request.RequestMakeMajorDescriptiveQuestionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +33,12 @@ public class AdminMajorQuestionController {
 	@ApiOperation("단답형 문제 리스트로 생성")
 	@PostMapping(value = "/question/major/multiple")
 	public ResponseEntity<List<ResponseMultipleChoiceQuestionDto>> makeMultiMajorQuestion(
-		@RequestBody List<RequestMakeMajorMultipleChoiceQuestionDto> requestMakeMajorMultipleChoiceQuestionDtos) {
+		@RequestBody List<RequestMakeMultipleChoiceQuestionDto> requestMakeMultipleChoiceQuestionDtos) {
 		return ResponseEntity.ok(
-			adminMajorQuestionMakeService.makeMultipleChoiceQuestions(requestMakeMajorMultipleChoiceQuestionDtos)
+			adminMajorQuestionMakeService
+				.makeMultipleChoiceQuestions(requestMakeMultipleChoiceQuestionDtos)
 				.stream()
-				.map(ResponseMultipleChoiceQuestionDto::forAdmin)
+				.map(question -> (ResponseMultipleChoiceQuestionDto) ResponseQuestionDto.from(question))
 				.collect(Collectors.toList()));
 	}
 
@@ -45,7 +46,7 @@ public class AdminMajorQuestionController {
 	@PatchMapping(value = "/question/major/multiple/{id}/toggle-multiple")
 	public ResponseEntity<ResponseMultipleChoiceQuestionDto> toggleCanBeShortAnswered(
 		@PathVariable("id") Long questionId) {
-		return ResponseEntity.ok(ResponseMajorMultipleChoiceQuestionForAdminDto.forAdmin(
+		return ResponseEntity.ok(ResponseQuestionDto.from(
 			adminMajorMultipleChoiceQuestionUpdateService.toggleCanBeShortAnswered(questionId)));
 	}
 
@@ -55,13 +56,11 @@ public class AdminMajorQuestionController {
 		@RequestBody List<RequestMakeMajorDescriptiveQuestionDto> requestMakeMajorDescriptiveQuestionDtos
 	) {
 		return ResponseEntity.ok(
-			adminMajorQuestionMakeService.makeDescriptiveQuestions(
-					requestMakeMajorDescriptiveQuestionDtos
-				)
+			adminMajorQuestionMakeService
+				.makeDescriptiveQuestions(requestMakeMajorDescriptiveQuestionDtos)
 				.stream()
-				.map(ResponseDescriptiveQuestionDto::forMajor)
-				.collect(Collectors.toList())
-		);
+				.map(question -> (ResponseDescriptiveQuestionDto) ResponseQuestionDto.from(question))
+				.collect(Collectors.toList()));
 	}
 
 

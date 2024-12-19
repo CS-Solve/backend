@@ -2,10 +2,10 @@ package com.comssa.api.question.major.admin.service.implement;
 
 import com.comssa.api.ServiceIntegrationTest;
 import com.comssa.api.question.service.rest.major.implement.BasicAdminMajorQuestionClassifiedGetService;
-import com.comssa.persistence.question.common.domain.Question;
-import com.comssa.persistence.question.common.domain.QuestionCategory;
-import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.major.repository.MajorMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.domain.common.Question;
+import com.comssa.persistence.question.domain.common.QuestionCategory;
+import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,11 +27,12 @@ class AdminMajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest 
 
 	@BeforeEach
 	void setUp() {
+		majorMultipleChoiceQuestionRepository.deleteAll();
 		majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
 	}
 
 	@Test
-	@DisplayName("관리자 조회시 비허용 문제 존재 여부 조회")
+	@DisplayName("관리자 조회시 허용하지 않은 문제도 존재해야한다.")
 	void checkMajorQuestionIsApproved() {
 		//given
 		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
@@ -42,10 +43,11 @@ class AdminMajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest 
 		List<Question> selectedCategoryQuestion = questions.get(
 			majorMultipleChoiceQuestion.getQuestionCategory());
 
-		/*then
-		문제를 허용하지 않더라도 조회 되어야함
+		/*
+		then
+		문제를 허용하기 전이더라도 조회 되어야함
 		 */
-		Assertions.assertThat(selectedCategoryQuestion).contains(majorMultipleChoiceQuestion);
+		Assertions.assertThat(selectedCategoryQuestion.get(0).getId()).isEqualTo(majorMultipleChoiceQuestion.getId());
 	}
 
 	@Test

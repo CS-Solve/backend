@@ -1,8 +1,8 @@
 package com.comssa.core.chatbot.service.implement
 
-import com.comssa.core.authuser.AuthUserService
-import com.comssa.core.chatbot.dto.request.ChatRequestDto
+import com.comssa.core.authuser.service.AuthUserService
 import com.comssa.core.chatbot.service.ChatbotService
+import com.comssa.persistence.chatbot.dto.request.ChatRequestDto
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
 

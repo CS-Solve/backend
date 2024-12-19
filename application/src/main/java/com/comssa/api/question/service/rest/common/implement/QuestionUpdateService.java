@@ -1,8 +1,8 @@
 package com.comssa.api.question.service.rest.common.implement;
 
 import com.comssa.api.question.service.rest.common.FileUploadService;
-import com.comssa.persistence.question.common.domain.Question;
-import com.comssa.persistence.question.common.service.QuestionRepositoryService;
+import com.comssa.persistence.question.domain.common.Question;
+import com.comssa.persistence.question.service.QuestionRepositoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

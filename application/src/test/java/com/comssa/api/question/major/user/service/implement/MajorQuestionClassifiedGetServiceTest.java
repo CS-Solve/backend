@@ -2,12 +2,12 @@ package com.comssa.api.question.major.user.service.implement;
 
 import com.comssa.api.ServiceIntegrationTest;
 import com.comssa.api.question.service.rest.major.implement.UserMajorQuestionClassifiedGetService;
-import com.comssa.persistence.question.common.domain.Question;
-import com.comssa.persistence.question.common.domain.QuestionCategory;
-import com.comssa.persistence.question.common.domain.QuestionLevel;
-import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.major.repository.MajorMultipleChoiceQuestionRepository;
-import com.comssa.persistence.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
+import com.comssa.persistence.question.domain.common.Question;
+import com.comssa.persistence.question.domain.common.QuestionCategory;
+import com.comssa.persistence.question.domain.common.QuestionLevel;
+import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.dto.major.request.RequestGetQuestionByCategoryAndLevelDto;
+import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -58,7 +58,7 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 			majorMultipleChoiceQuestion.getQuestionCategory());
 
 		//then
-		Assertions.assertThat(selectedCategoryQuestions).contains(majorMultipleChoiceQuestion);
+		Assertions.assertThat(selectedCategoryQuestions.get(0).getId()).isEqualTo(majorMultipleChoiceQuestion.getId());
 	}
 
 }

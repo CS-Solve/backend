@@ -1,8 +1,8 @@
 package com.comssa.api.question.controller.rest.common;
 
 import com.comssa.api.question.service.rest.common.implement.QuestionChoiceUpdateService;
-import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
-import com.comssa.persistence.question.common.dto.response.ResponseQuestionChoiceDto;
+import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionContentDto;
+import com.comssa.persistence.question.dto.common.response.ResponseQuestionChoiceDto;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,19 +23,19 @@ public class QuestionChoiceUpdateController {
 	@PatchMapping(value = "/question/common/choice/{id}")
 	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
 		@PathVariable("id") Long choiceId,
-		@RequestBody RequestChangeContentDto requestChangeContentDto) {
+		@RequestBody RequestChangeQuestionContentDto requestChangeQuestionContentDto) {
 
-		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(
+		return ResponseEntity.ok(ResponseQuestionChoiceDto.from(
 			questionChoiceUpdateService.changeContent(
 				choiceId,
-				requestChangeContentDto)));
+				requestChangeQuestionContentDto)));
 	}
 
 	@ApiOperation("단답형 선택지 업데이트 - 정답 여부 변경")
 	@PatchMapping(value = "/question/common/choice/{id}/toggle")
 	public ResponseEntity<ResponseQuestionChoiceDto> changeChoiceContent(
 		@PathVariable("id") Long licenseChoiceId) {
-		return ResponseEntity.ok(ResponseQuestionChoiceDto.of(
+		return ResponseEntity.ok(ResponseQuestionChoiceDto.from(
 			questionChoiceUpdateService
 				.toggleAnswerStatus(
 					licenseChoiceId)));

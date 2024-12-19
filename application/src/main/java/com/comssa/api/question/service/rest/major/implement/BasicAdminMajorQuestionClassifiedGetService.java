@@ -3,19 +3,21 @@ package com.comssa.api.question.service.rest.major.implement;
 
 import com.comssa.api.question.service.rest.common.QuestionClassifyByCategoryService;
 import com.comssa.api.question.service.rest.major.AdminMajorQuestionClassifiedGetService;
-import com.comssa.persistence.question.common.domain.Question;
-import com.comssa.persistence.question.common.domain.QuestionCategory;
-import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
-import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.major.repository.MajorDescriptiveQuestionRepository;
+import com.comssa.persistence.question.domain.common.Question;
+import com.comssa.persistence.question.domain.common.QuestionCategory;
+import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
+import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.repository.MajorDescriptiveQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQuestionClassifiedGetService {
 	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
 	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionRepository;

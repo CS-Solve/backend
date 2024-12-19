@@ -1,7 +1,7 @@
 package com.comssa.api.question.service.rest.common;
 
 
-import com.comssa.persistence.question.major.domain.common.MajorQuestionChoice;
+import com.comssa.persistence.question.domain.major.MajorQuestionChoice;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

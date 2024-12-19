@@ -2,10 +2,10 @@ package com.comssa.api.question.service.rest.major;
 
 
 import com.comssa.api.exception.DuplicateQuestionException;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorDescriptiveQuestionDto;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
-import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
+import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.major.request.RequestMakeMajorDescriptiveQuestionDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,10 +14,10 @@ import java.util.List;
 public interface AdminMajorQuestionMakeService {
 
 	List<MajorMultipleChoiceQuestion> makeMultipleChoiceQuestions(
-		List<RequestMakeMajorMultipleChoiceQuestionDto> requestNormalQuestionDto);
+		List<RequestMakeMultipleChoiceQuestionDto> requestNormalQuestionDto);
 
 	MajorMultipleChoiceQuestion makeMultipleChoiceQuestion(
-		RequestMakeMajorMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException;
+		RequestMakeMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException;
 
 	List<MajorDescriptiveQuestion> makeDescriptiveQuestions(
 		List<RequestMakeMajorDescriptiveQuestionDto> requestNormalQuestionDto

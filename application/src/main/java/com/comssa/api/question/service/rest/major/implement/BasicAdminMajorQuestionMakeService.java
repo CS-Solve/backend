@@ -4,12 +4,12 @@ import com.comssa.api.exception.DuplicateQuestionException;
 import com.comssa.api.question.service.rest.common.DuplicateQuestionDetector;
 import com.comssa.api.question.service.rest.common.implement.QuestionChoiceService;
 import com.comssa.api.question.service.rest.major.AdminMajorQuestionMakeService;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorDescriptiveQuestionDto;
-import com.comssa.persistence.question.major.admin.dto.RequestMakeMajorMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.major.domain.common.MajorDescriptiveQuestion;
-import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.major.repository.MajorDescriptiveQuestionRepository;
-import com.comssa.persistence.question.major.repository.MajorMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
+import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.major.request.RequestMakeMajorDescriptiveQuestionDto;
+import com.comssa.persistence.question.repository.MajorDescriptiveQuestionRepository;
+import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	 */
 	@Override
 	public List<MajorMultipleChoiceQuestion> makeMultipleChoiceQuestions(
-		List<RequestMakeMajorMultipleChoiceQuestionDto> requestDtos) {
+		List<RequestMakeMultipleChoiceQuestionDto> requestDtos) {
 		// 중복되지 않은 질문을 필터링하여 저장
 		return requestDtos.stream()
 			.filter(this::isNotDuplicateQuestion)
@@ -45,7 +45,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	 */
 	@Override
 	public MajorMultipleChoiceQuestion makeMultipleChoiceQuestion(
-		RequestMakeMajorMultipleChoiceQuestionDto requestDto) throws DuplicateQuestionException {
+		RequestMakeMultipleChoiceQuestionDto requestDto) throws DuplicateQuestionException {
 		if (!isNotDuplicateQuestion(requestDto)) {
 			throw new DuplicateQuestionException();
 		}
@@ -65,7 +65,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	 * 중복되지 않은 질문인지 확인하는 메서드
 	 * 매번 DB에서 새롭게 조회 후 검증한다.(DTO 자체의 중복된 데이터)
 	 */
-	private boolean isNotDuplicateQuestion(RequestMakeMajorMultipleChoiceQuestionDto requestDto) {
+	private boolean isNotDuplicateQuestion(RequestMakeMultipleChoiceQuestionDto requestDto) {
 		return majorMultipleChoiceQuestionRepository.findAll().stream()
 			.noneMatch(existingQuestion -> duplicateQuestionDetector.isQuestionDuplicate(
 				existingQuestion.getContent(), requestDto.getContent()));
@@ -75,7 +75,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	 * 새로운 질문을 저장하고 선택지를 저장하는 메서드
 	 */
 	private MajorMultipleChoiceQuestion saveMajorMultipleChoiceQuestion(
-		RequestMakeMajorMultipleChoiceQuestionDto requestDto) {
+		RequestMakeMultipleChoiceQuestionDto requestDto) {
 		MajorMultipleChoiceQuestion question = MajorMultipleChoiceQuestion.makeWithDto(requestDto);
 		majorMultipleChoiceQuestionRepository.save(question);
 		questionChoiceService.saveWith(requestDto, question);

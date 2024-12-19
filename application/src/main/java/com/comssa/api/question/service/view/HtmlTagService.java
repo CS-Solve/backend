@@ -1,9 +1,9 @@
 package com.comssa.api.question.service.view;
 
 import com.comssa.api.question.domain.HtmlTag;
-import com.comssa.persistence.question.common.domain.QuestionCategory;
-import com.comssa.persistence.question.license.domain.LicenseCategory;
-import com.comssa.persistence.question.license.domain.LicenseSession;
+import com.comssa.persistence.question.domain.common.QuestionCategory;
+import com.comssa.persistence.question.domain.license.LicenseCategory;
+import com.comssa.persistence.question.domain.license.LicenseSession;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 

@@ -5,11 +5,11 @@ import com.comssa.api.question.service.rest.license.implement.LicenseSessionServ
 import com.comssa.api.question.service.rest.license.implement.UserLicenseQuestionGetService;
 import com.comssa.api.question.service.rest.major.implement.UserMajorQuestionClassifiedGetService;
 import com.comssa.api.question.service.view.HtmlTagService;
-import com.comssa.persistence.question.common.domain.Question;
-import com.comssa.persistence.question.common.domain.QuestionCategory;
-import com.comssa.persistence.question.common.dto.response.ResponseClassifiedQuestionDto;
-import com.comssa.persistence.question.license.domain.LicenseSession;
-import com.comssa.persistence.question.major.user.dto.request.RequestGetQuestionByCategoryAndLevelDto;
+import com.comssa.persistence.question.domain.common.Question;
+import com.comssa.persistence.question.domain.common.QuestionCategory;
+import com.comssa.persistence.question.domain.license.LicenseSession;
+import com.comssa.persistence.question.dto.common.response.ResponseClassifiedQuestionDto;
+import com.comssa.persistence.question.dto.major.request.RequestGetQuestionByCategoryAndLevelDto;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;

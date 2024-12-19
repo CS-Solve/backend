@@ -1,7 +1,7 @@
 package com.comssa.api.question.service.rest.common;
 
 
-import com.comssa.persistence.question.common.domain.QuestionChoice;
+import com.comssa.persistence.question.domain.common.QuestionChoice;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

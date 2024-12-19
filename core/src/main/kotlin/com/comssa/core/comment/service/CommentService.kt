@@ -1,13 +1,13 @@
 package com.comssa.core.comment.service
 
-import com.comssa.core.authuser.AuthUserService
-import com.comssa.core.comment.dto.RequestMakeCommentDto
-import com.comssa.core.comment.dto.ResponseCommentDto
+import com.comssa.core.authuser.service.AuthUserService
 import com.comssa.persistence.comment.domain.Comment
+import com.comssa.persistence.comment.dto.RequestMakeCommentDto
+import com.comssa.persistence.comment.dto.ResponseCommentDto
 import com.comssa.persistence.comment.service.CommentRepositoryService
 import com.comssa.persistence.exception.NotLoginException
 import com.comssa.persistence.member.service.MemberRepositoryService
-import com.comssa.persistence.question.common.service.QuestionRepositoryService
+import com.comssa.persistence.question.service.QuestionRepositoryService
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

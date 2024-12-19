@@ -1,6 +1,6 @@
 package com.comssa.api.question.service.rest.major.implement;
 
-import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

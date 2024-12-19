@@ -3,9 +3,9 @@ package com.comssa.api.question.common.controller;
 import com.comssa.api.ControllerTest;
 import com.comssa.api.question.controller.rest.common.QuestionUpdateController;
 import com.comssa.api.question.service.rest.common.implement.QuestionUpdateService;
-import com.comssa.persistence.question.common.domain.Question;
-import com.comssa.persistence.question.common.dto.request.RequestChangeContentDto;
-import com.comssa.persistence.question.common.dto.request.RequestChangeDescriptionDto;
+import com.comssa.persistence.question.domain.common.Question;
+import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionContentDto;
+import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionDescriptionDto;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import org.junit.jupiter.api.BeforeEach;
@@ -50,7 +50,7 @@ class QuestionCommonUpdateControllerTest extends ControllerTest {
 
 		mockMvc.perform(RestDocumentationRequestBuilders.patch(path)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(RequestChangeContentDto.forTest())))
+				.content(objectMapper.writeValueAsString(RequestChangeQuestionContentDto.forTest())))
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andDo(print())
 			.andDo(MockMvcRestDocumentation.document(
@@ -77,7 +77,7 @@ class QuestionCommonUpdateControllerTest extends ControllerTest {
 
 		mockMvc.perform(RestDocumentationRequestBuilders.patch(path)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(RequestChangeDescriptionDto.forTest())))
+				.content(objectMapper.writeValueAsString(RequestChangeQuestionDescriptionDto.forTest())))
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andDo(print())
 			.andDo(MockMvcRestDocumentation.document(

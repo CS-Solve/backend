@@ -1,6 +1,6 @@
 package com.comssa.core.chatbot.service.implement
 
-import com.comssa.core.chatbot.dto.request.ChatGptMessageDto
+import com.comssa.persistence.chatbot.dto.request.ChatGptMessageDto
 import org.springframework.cache.CacheManager
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.CachePut

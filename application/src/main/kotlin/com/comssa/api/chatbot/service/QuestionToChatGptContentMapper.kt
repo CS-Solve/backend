@@ -1,11 +1,11 @@
 package com.comssa.api.chatbot.service
 
-import com.comssa.core.chatbot.dto.request.ChatContentDto
-import com.comssa.core.chatbot.dto.request.ChatContentDto.Companion.from
 import com.comssa.persistence.chatbot.ChatContentType
-import com.comssa.persistence.question.common.domain.Question
-import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion
-import com.comssa.persistence.question.major.domain.common.MajorMultipleChoiceQuestion
+import com.comssa.persistence.chatbot.dto.request.ChatContentDto
+import com.comssa.persistence.chatbot.dto.request.ChatContentDto.Companion.from
+import com.comssa.persistence.question.domain.common.Question
+import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion
+import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion
 import org.springframework.stereotype.Service
 
 @Service

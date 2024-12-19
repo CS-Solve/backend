@@ -1,8 +1,8 @@
 package com.comssa.api.question.controller.rest.license;
 
 import com.comssa.api.question.service.rest.license.implement.AdminLicenseQuestionMakeService;
-import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.common.response.ResponseMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.license.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;

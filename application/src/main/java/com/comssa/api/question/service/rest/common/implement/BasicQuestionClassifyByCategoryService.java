@@ -2,8 +2,8 @@ package com.comssa.api.question.service.rest.common.implement;
 
 
 import com.comssa.api.question.service.rest.common.QuestionClassifyByCategoryService;
-import com.comssa.persistence.question.common.domain.Question;
-import com.comssa.persistence.question.common.domain.QuestionCategory;
+import com.comssa.persistence.question.domain.common.Question;
+import com.comssa.persistence.question.domain.common.QuestionCategory;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;

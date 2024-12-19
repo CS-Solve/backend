@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
             loadingSpinner.style.display = 'block';
             aiResponseContent.textContent = ''; // 이전 응답 초기화
 
-            fetch(`/questions/descriptive/${this.getAttribute('data-question-id')}/grade`, {
+            fetch(`/questions/major/descriptive/${this.getAttribute('data-question-id')}/grade`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

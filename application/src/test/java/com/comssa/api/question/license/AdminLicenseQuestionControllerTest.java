@@ -4,10 +4,10 @@ import com.comssa.api.ControllerTest;
 import com.comssa.api.question.controller.rest.license.AdminLicenseQuestionController;
 import com.comssa.api.question.service.rest.common.implement.QuestionChoiceUpdateService;
 import com.comssa.api.question.service.rest.license.implement.AdminLicenseQuestionMakeService;
-import com.comssa.persistence.question.common.dto.response.ResponseMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.license.domain.LicenseCategory;
-import com.comssa.persistence.question.license.domain.LicenseMultipleChoiceQuestion;
-import com.comssa.persistence.question.license.dto.request.RequestMakeLicenseMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.domain.license.LicenseCategory;
+import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
+import com.comssa.persistence.question.dto.common.response.ResponseMultipleChoiceQuestionDto;
+import com.comssa.persistence.question.dto.license.request.RequestMakeLicenseMultipleChoiceQuestionDto;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import org.junit.jupiter.api.BeforeEach;
@@ -67,11 +67,10 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 
 		mockMvc.perform(RestDocumentationRequestBuilders.post(path)
 				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(RequestMakeLicenseMultipleChoiceQuestionDto.from(
+				.content(objectMapper.writeValueAsString(RequestMakeLicenseMultipleChoiceQuestionDto.forTest(
 					"test",
 					LicenseCategory.SQLD,
-					licenseMultipleChoiceQuestions,
-					LicenseMultipleChoiceQuestion::getQuestionChoices))))
+					licenseMultipleChoiceQuestions))))
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andExpect(MockMvcResultMatchers
 				.content()

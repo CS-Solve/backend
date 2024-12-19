@@ -2,14 +2,14 @@ package com.comssa.api.question.service.rest.common.implement;
 
 
 import com.comssa.api.question.service.rest.common.QuestionSelectorService;
-import com.comssa.persistence.question.common.domain.Question;
-import com.comssa.persistence.question.common.domain.QuestionCategory;
-import com.comssa.persistence.question.common.domain.QuestionLevel;
-import com.comssa.persistence.question.license.domain.LicenseCategory;
-import com.comssa.persistence.question.license.domain.LicenseSession;
-import com.comssa.persistence.question.license.repository.LicenseMultipleChoiceQuestionRepository;
-import com.comssa.persistence.question.license.repository.LicenseSessionRepository;
-import com.comssa.persistence.question.major.repository.MajorMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.domain.common.Question;
+import com.comssa.persistence.question.domain.common.QuestionCategory;
+import com.comssa.persistence.question.domain.common.QuestionLevel;
+import com.comssa.persistence.question.domain.license.LicenseCategory;
+import com.comssa.persistence.question.domain.license.LicenseSession;
+import com.comssa.persistence.question.repository.LicenseMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.repository.LicenseSessionRepository;
+import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

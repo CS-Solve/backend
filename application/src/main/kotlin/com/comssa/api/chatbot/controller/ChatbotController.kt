@@ -1,9 +1,9 @@
 package com.comssa.api.chatbot.controller
 
-import com.comssa.core.chatbot.dto.request.ChatRequestDto
-import com.comssa.core.chatbot.dto.response.ChatResponseDto
-import com.comssa.core.chatbot.dto.response.ChatResponseDto.Companion.from
 import com.comssa.core.chatbot.service.ChatbotService
+import com.comssa.persistence.chatbot.dto.request.ChatRequestDto
+import com.comssa.persistence.chatbot.dto.response.ChatResponseDto
+import com.comssa.persistence.chatbot.dto.response.ChatResponseDto.Companion.from
 import io.swagger.annotations.Api
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.annotation.AuthenticationPrincipal
