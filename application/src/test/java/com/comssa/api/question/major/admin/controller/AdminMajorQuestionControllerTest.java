@@ -6,7 +6,6 @@ import com.comssa.api.question.service.rest.major.AdminMajorQuestionClassifiedGe
 import com.comssa.api.question.service.rest.major.AdminMajorQuestionMakeService;
 import com.comssa.api.question.service.rest.major.implement.AdminMajorMultipleChoiceQuestionUpdateService;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,14 +38,11 @@ class AdminMajorQuestionControllerTest extends ControllerTest {
 	private AdminMajorMultipleChoiceQuestionUpdateService adminMajorMultipleChoiceQuestionUpdateService;
 	@MockBean
 	private AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
-
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
-	private RequestMakeMultipleChoiceQuestionDto requestMakeMultipleChoiceQuestionDto;
 
 	@BeforeEach
 	void setUp() {
 		majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
-		requestMakeMultipleChoiceQuestionDto = new RequestMakeMultipleChoiceQuestionDto();
 	}
 
 	@Test

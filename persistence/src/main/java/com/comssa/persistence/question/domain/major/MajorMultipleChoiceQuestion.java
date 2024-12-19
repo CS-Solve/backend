@@ -43,6 +43,7 @@ public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvi
 
 	public static MajorMultipleChoiceQuestion makeForTest() {
 		return MajorMultipleChoiceQuestion.builder()
+			.id(1L)
 			.content("testQuest")
 			.questionCategory(QuestionCategory.COMPUTER_ARCHITECTURE)
 			.questionLevel(QuestionLevel.LOW)

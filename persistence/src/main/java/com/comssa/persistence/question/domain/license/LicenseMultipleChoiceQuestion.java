@@ -56,6 +56,7 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoicePro
 
 	public static LicenseMultipleChoiceQuestion makeForTest(String test) {
 		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.builder()
+			.id(1L)
 			.content(test)
 			.questionCategory(QuestionCategory.ALGORITHM)
 			.questionLevel(QuestionLevel.LOW)

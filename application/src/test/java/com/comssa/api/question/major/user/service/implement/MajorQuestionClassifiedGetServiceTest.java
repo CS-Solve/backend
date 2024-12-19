@@ -6,6 +6,7 @@ import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.dto.major.request.RequestGetQuestionByCategoryAndLevelDto;
 import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -57,7 +58,7 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 			majorMultipleChoiceQuestion.getQuestionCategory());
 
 		//then
-		Assertions.assertThat(selectedCategoryQuestions).contains(majorMultipleChoiceQuestion);
+		Assertions.assertThat(selectedCategoryQuestions.get(0).getId()).isEqualTo(majorMultipleChoiceQuestion.getId());
 	}
 
 }
