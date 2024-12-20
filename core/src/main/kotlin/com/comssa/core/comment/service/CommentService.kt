@@ -57,8 +57,7 @@ class CommentService(
 			questionRepositoryService.findByIdFetchCommentsOrderByCreatedAtDesc(questionId)
 				?: throw NoSuchElementException("Question $questionId not found")
 
-		val comments = question.comments
-		return comments.map { comment -> ResponseCommentDto.from(comment, member) }
+		return question.comments.map { comment -> ResponseCommentDto.from(comment, member) }
 	}
 
 	fun deleteComment(commentId: Long) {
