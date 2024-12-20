@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 @RequiredArgsConstructor
-public class QuestionCustomRepositoryImpl implements QuestionCustomRepository {
+public class QuestionCustomRepositoryImpl implements QuestionCustomRepository<Question> {
 	private final JPAQueryFactory queryFactory;
 
 	@Override

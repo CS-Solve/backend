@@ -5,6 +5,6 @@ import com.comssa.persistence.question.domain.common.Question;
 
 import java.util.Optional;
 
-public interface QuestionCustomRepository {
-	Optional<Question> findByIdFetchCommentsOrderByCreatedAtDesc(Long questionId);
+public interface QuestionCustomRepository<T extends Question> {
+	Optional<T> findByIdFetchCommentsOrderByCreatedAtDesc(Long questionId);
 }

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional
 @Service
 @Transactional
 class QuestionGetService(
-	private val questionRepositoryService: QuestionRepositoryService,
+	private val questionRepositoryService: QuestionRepositoryService<Question>,
 ) {
 	fun getQuestionByIdFetchChoiceIfShould(questionId: Long): Question {
 		val question =
