@@ -9,7 +9,7 @@ import com.comssa.persistence.question.domain.license.LicenseCategory;
 import com.comssa.persistence.question.domain.license.LicenseSession;
 import com.comssa.persistence.question.repository.LicenseMultipleChoiceQuestionRepository;
 import com.comssa.persistence.question.repository.LicenseSessionRepository;
-import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionJpaRepository;
+import com.comssa.persistence.question.repository.queryDslImpl.MajorMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BasicQuestionSelectorService implements QuestionSelectorService {
 	private final LicenseSessionRepository licenseSessionRepository;
-	private final MajorMultipleChoiceQuestionJpaRepository majorMultipleChoiceQuestionJpaRepository;
+	private final MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 	private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
 
 	@Override
@@ -58,8 +58,9 @@ public class BasicQuestionSelectorService implements QuestionSelectorService {
 		if (multipleChoice) {
 			questions.addAll(licenseMultipleChoiceQuestionRepository.findAllByQuestionCategoriesFetchChoices(
 				questionCategories));
-			questions.addAll(majorMultipleChoiceQuestionJpaRepository.findAllByQuestionCategoriesFetchChoices(
-				questionCategories));
+			questions.addAll(majorMultipleChoiceQuestionRepository
+				.findAllByQuestionCategories(
+					questionCategories));
 		}
 		return questions;
 	}

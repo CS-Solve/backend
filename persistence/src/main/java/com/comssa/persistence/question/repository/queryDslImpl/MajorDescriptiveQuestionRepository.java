@@ -40,4 +40,5 @@ public class MajorDescriptiveQuestionRepository
 			.orderBy(question.ifApproved.asc())
 			.fetch();
 	}
+
 }

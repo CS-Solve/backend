@@ -38,10 +38,24 @@ public class MajorMultipleChoiceQuestionRepository
 			.fetch();
 	}
 
+	public List<MajorMultipleChoiceQuestion> findAllByQuestionCategories(
+		List<QuestionCategory> questionCategories
+	) {
+		return getQuery(
+			question,
+			whereCategories(question._super, questionCategories))
+			.distinct()
+			.leftJoin(question.questionChoices).fetchJoin()
+			.fetch();
+	}
+
 	public List<MajorMultipleChoiceQuestion> findAllOrderByIfApprovedAsc() {
 		return getQuery(question)
+			.distinct()
+			.leftJoin(question.questionChoices).fetchJoin()
 			.orderBy(question.ifApproved.asc())
 			.fetch();
-
 	}
+
+
 }
