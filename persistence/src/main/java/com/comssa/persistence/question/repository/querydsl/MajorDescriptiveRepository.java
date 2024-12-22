@@ -1,23 +1,22 @@
-package com.comssa.persistence.question.repository.queryDslImpl;
+package com.comssa.persistence.question.repository.querydsl;
 
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.QMajorDescriptiveQuestion;
-import com.comssa.persistence.question.repository.QueryDslJpaQueryMaker;
-import com.comssa.persistence.question.repository.booleanBuilder.LevelsAndCategoryBooleanBuilder;
+import com.comssa.persistence.question.repository.querydsl.booleanBuilder.LevelsAndCategoryBooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class MajorDescriptiveRepositoryJpaQuery
+public class MajorDescriptiveRepository
 	extends QueryDslJpaQueryMaker<MajorDescriptiveQuestion>
 	implements LevelsAndCategoryBooleanBuilder {
 	private final QMajorDescriptiveQuestion question = QMajorDescriptiveQuestion.majorDescriptiveQuestion;
 
-	public MajorDescriptiveRepositoryJpaQuery(JPAQueryFactory jpaQueryFactory) {
+	public MajorDescriptiveRepository(JPAQueryFactory jpaQueryFactory) {
 		super(jpaQueryFactory);
 	}
 

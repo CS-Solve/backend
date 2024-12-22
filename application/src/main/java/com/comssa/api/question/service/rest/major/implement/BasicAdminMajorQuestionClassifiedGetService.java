@@ -7,8 +7,8 @@ import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.repository.queryDslImpl.MajorDescriptiveRepositoryJpaQuery;
-import com.comssa.persistence.question.repository.queryDslImpl.MajorMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.repository.querydsl.MajorDescriptiveRepository;
+import com.comssa.persistence.question.repository.querydsl.MajorMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import java.util.Map;
 @Transactional
 public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQuestionClassifiedGetService {
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
-	private final MajorDescriptiveRepositoryJpaQuery majorDescriptiveQuestionChooseRepository;
+	private final MajorDescriptiveRepository majorDescriptiveQuestionChooseRepository;
 	private final MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 
 	/**

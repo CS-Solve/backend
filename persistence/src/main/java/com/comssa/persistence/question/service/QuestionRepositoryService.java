@@ -1,7 +1,7 @@
 package com.comssa.persistence.question.service;
 
 import com.comssa.persistence.question.domain.common.Question;
-import com.comssa.persistence.question.repository.QuestionRepository;
+import com.comssa.persistence.question.repository.querydsl.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Service;

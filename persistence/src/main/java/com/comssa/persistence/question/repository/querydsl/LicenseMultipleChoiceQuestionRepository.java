@@ -1,11 +1,10 @@
-package com.comssa.persistence.question.repository.queryDslImpl;
+package com.comssa.persistence.question.repository.querydsl;
 
 
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.domain.license.QLicenseMultipleChoiceQuestion;
-import com.comssa.persistence.question.repository.QueryDslJpaQueryMaker;
-import com.comssa.persistence.question.repository.booleanBuilder.LevelsAndCategoryBooleanBuilder;
+import com.comssa.persistence.question.repository.querydsl.booleanBuilder.LevelsAndCategoryBooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 

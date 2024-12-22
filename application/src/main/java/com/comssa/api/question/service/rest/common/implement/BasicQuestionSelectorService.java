@@ -7,9 +7,9 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.license.LicenseCategory;
 import com.comssa.persistence.question.domain.license.LicenseSession;
-import com.comssa.persistence.question.repository.LicenseSessionRepository;
-import com.comssa.persistence.question.repository.queryDslImpl.LicenseMultipleChoiceQuestionRepository;
-import com.comssa.persistence.question.repository.queryDslImpl.MajorMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.repository.jpa.LicenseSessionRepository;
+import com.comssa.persistence.question.repository.querydsl.LicenseMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.repository.querydsl.MajorMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

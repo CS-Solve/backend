@@ -10,7 +10,7 @@ import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleCho
 import com.comssa.persistence.question.dto.common.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.dto.common.response.ResponseQuestionDto;
 import com.comssa.persistence.question.dto.license.request.RequestMakeLicenseMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.repository.QuestionRepository;
+import com.comssa.persistence.question.repository.querydsl.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +26,7 @@ public class AdminLicenseQuestionMakeService {
 	private final QuestionRepository<Question> questionRepository;
 	private final QuestionChoiceService questionChoiceService;
 
-	public List<ResponseMultipleChoiceQuestionDto> makeLicenseNormalQuestion(
+	public List<ResponseMultipleChoiceQuestionDto> makeLicenseMultipleChoiceQuestion(
 		RequestMakeLicenseMultipleChoiceQuestionDto requestMakeLicenseMultipleChoiceQuestionDto) {
 		LicenseSession licenseSession = licenseSessionService.getLicenseSession(
 			requestMakeLicenseMultipleChoiceQuestionDto.getLicenseSession(),

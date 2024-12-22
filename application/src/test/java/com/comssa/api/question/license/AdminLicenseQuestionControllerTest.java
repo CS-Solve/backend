@@ -63,7 +63,7 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 		final String path = baseApiUrl;
 		final String document_Name = "성공";
 		Mockito.when(adminLicenseQuestionMakeService
-			.makeLicenseNormalQuestion(any())).thenReturn(responseMultipleChoiceQuestionDtos);
+			.makeLicenseMultipleChoiceQuestion(any())).thenReturn(responseMultipleChoiceQuestionDtos);
 
 		mockMvc.perform(RestDocumentationRequestBuilders.post(path)
 				.contentType(MediaType.APPLICATION_JSON)

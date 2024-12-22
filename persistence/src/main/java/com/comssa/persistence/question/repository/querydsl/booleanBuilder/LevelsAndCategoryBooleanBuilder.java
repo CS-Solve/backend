@@ -1,4 +1,4 @@
-package com.comssa.persistence.question.repository.booleanBuilder;
+package com.comssa.persistence.question.repository.querydsl.booleanBuilder;
 
 import com.comssa.persistence.question.domain.common.QQuestion;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
