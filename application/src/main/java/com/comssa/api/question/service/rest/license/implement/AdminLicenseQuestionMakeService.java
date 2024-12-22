@@ -10,7 +10,7 @@ import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleCho
 import com.comssa.persistence.question.dto.common.response.ResponseMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.dto.common.response.ResponseQuestionDto;
 import com.comssa.persistence.question.dto.license.request.RequestMakeLicenseMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.repository.querydsl.QuestionRepository;
+import com.comssa.persistence.question.repository.jpa.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

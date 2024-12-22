@@ -4,13 +4,14 @@ package com.comssa.persistence.question.repository.querydsl;
 import com.comssa.persistence.comment.domain.QComment;
 import com.comssa.persistence.question.domain.common.QQuestion;
 import com.comssa.persistence.question.domain.common.Question;
-import com.comssa.persistence.question.repository.jpa.QuestionCustomRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import java.util.Optional;
 
-
-public class QuestionCustomRepositoryImpl implements QuestionCustomRepository<Question> {
+/**
+ * Impl을 자동으로 주입해주기 위해선 QuestionCustomRepository와 같은 패키지내에 있어야함
+ */
+public class QuestionCustomRepositoryImpl implements QuestionCustomRepository {
 	private final JPAQueryFactory queryFactory;
 	private final QComment comment;
 

@@ -4,12 +4,13 @@ import com.comssa.api.exception.DuplicateQuestionException;
 import com.comssa.api.question.service.rest.common.DuplicateQuestionDetector;
 import com.comssa.api.question.service.rest.common.implement.QuestionChoiceService;
 import com.comssa.api.question.service.rest.major.AdminMajorQuestionMakeService;
+import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.dto.major.request.RequestMakeMajorDescriptiveQuestionDto;
-import com.comssa.persistence.question.repository.MajorDescriptiveQuestionJpaRepository;
 import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionJpaRepository;
+import com.comssa.persistence.question.repository.jpa.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +23,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMakeService {
 
+	private final QuestionRepository<Question> questionRepository;
 	private final MajorMultipleChoiceQuestionJpaRepository majorMultipleChoiceQuestionJpaRepository;
-	private final MajorDescriptiveQuestionJpaRepository majorDescriptiveQuestionJpaRepository;
 	private final QuestionChoiceService questionChoiceService;
 	private final DuplicateQuestionDetector duplicateQuestionDetector;
 
@@ -77,7 +78,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	private MajorMultipleChoiceQuestion saveMajorMultipleChoiceQuestion(
 		RequestMakeMultipleChoiceQuestionDto requestDto) {
 		MajorMultipleChoiceQuestion question = MajorMultipleChoiceQuestion.makeWithDto(requestDto);
-		majorMultipleChoiceQuestionJpaRepository.save(question);
+		questionRepository.save(question);
 		questionChoiceService.saveWith(requestDto, question);
 		return question;
 	}
@@ -88,7 +89,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 		MajorDescriptiveQuestion question = MajorDescriptiveQuestion.makeWithDto(
 			requestDto
 		);
-		majorDescriptiveQuestionJpaRepository.save(question);
+		questionRepository.save(question);
 		return question;
 	}
 }
