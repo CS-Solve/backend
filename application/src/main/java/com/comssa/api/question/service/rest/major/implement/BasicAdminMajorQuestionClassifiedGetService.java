@@ -8,6 +8,7 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.repository.queryDslImpl.MajorDescriptiveQuestionRepository;
+import com.comssa.persistence.question.repository.queryDslImpl.MajorMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +20,9 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Transactional
 public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQuestionClassifiedGetService {
-	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionChooseRepository;
+	private final MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 
 	/**
 	 * 관리자가 조회시 Approve됐는지 기준으로 정렬되며(false인 것부터),
@@ -31,15 +32,15 @@ public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQu
 	 */
 	@Override
 	public Map<QuestionCategory, List<Question>> getClassifiedAllMajorMultipleChoiceQuestions() {
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
-			.findAllFetchChoicesSortedByApproveAndShortAnswered();
+		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionRepository.
+			findAllOrderByIfApprovedAsc();
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
 	}
 
 	@Override
 	public Map<QuestionCategory, List<Question>> getClassifiedAllMajorDescriptiveQuestions() {
 		List<MajorDescriptiveQuestion> majorDescriptiveQuestions =
-			majorDescriptiveQuestionChooseRepository.findAllSortedByIfApproved();
+			majorDescriptiveQuestionChooseRepository.findAllOrderByIfApprovedAsc();
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorDescriptiveQuestions);
 	}
 }

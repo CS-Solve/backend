@@ -6,7 +6,6 @@ import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.QMajorDescriptiveQuestion;
 import com.comssa.persistence.question.repository.QuestionQueryDslMaker;
 import com.comssa.persistence.question.repository.booleanBuilder.LevelsAndCategoryBooleanBuilder;
-import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +34,8 @@ public class MajorDescriptiveQuestionRepository
 			.fetch();
 	}
 
-	public List<MajorDescriptiveQuestion> findAllSortedByIfApproved() {
-		return getQuery(question, new BooleanBuilder())
+	public List<MajorDescriptiveQuestion> findAllOrderByIfApprovedAsc() {
+		return getQuery(question)
 			// 정렬 기준
 			.orderBy(question.ifApproved.asc())
 			.fetch();

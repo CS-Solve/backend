@@ -2,7 +2,6 @@ package com.comssa.persistence.question.repository;
 
 
 import com.comssa.persistence.question.domain.common.QuestionCategory;
-import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,8 +15,8 @@ public interface MajorMultipleChoiceQuestionJpaRepository extends JpaRepository<
 
 	@Query("SELECT DISTINCT nq FROM MajorMultipleChoiceQuestion nq "
 		+ "LEFT JOIN FETCH nq.questionChoices "
-		+ "ORDER BY nq.ifApproved, nq.canBeShortAnswered")
-	List<MajorMultipleChoiceQuestion> findFetchChoicesSortedByIfApprovedAndCanBeShortAnswered();
+		+ "ORDER BY nq.ifApproved")
+	List<MajorMultipleChoiceQuestion> findFetchChoicesSortedByIfApproved();
 
 
 	@Query("SELECT DISTINCT nq FROM MajorMultipleChoiceQuestion nq "
@@ -26,17 +25,4 @@ public interface MajorMultipleChoiceQuestionJpaRepository extends JpaRepository<
 	List<MajorMultipleChoiceQuestion> findAllByQuestionCategoriesFetchChoices(
 		@Param("questionCategories") List<QuestionCategory> questionCategories
 	);
-
-	/**
-	 * 허용된 문제들만 조회 (ifApproved가 true인 경우)
-	 */
-	@Query("SELECT DISTINCT nq FROM MajorMultipleChoiceQuestion nq "
-		+ "LEFT JOIN FETCH nq.questionChoices "
-		+ "WHERE nq.questionCategory IN :questionCategories "
-		+ "AND nq.questionLevel IN :questionLevels "
-		+ "AND nq.ifApproved = true")
-	List<MajorMultipleChoiceQuestion> findFetchChoicesWithCategoriesAndLevelsAndIfApproved(
-		@Param("questionCategories") List<QuestionCategory> questionCategories,
-		@Param("questionLevels") List<QuestionLevel> questionLevels);
-
 }

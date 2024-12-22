@@ -19,4 +19,8 @@ public abstract class QuestionQueryDslMaker<T extends Question> {
 		return jpaQueryFactory.selectFrom(entityPathBase)
 			.where(condition);
 	}
+
+	public JPAQuery<T> getQuery(EntityPathBase<T> entityPathBase) {
+		return jpaQueryFactory.selectFrom(entityPathBase);
+	}
 }

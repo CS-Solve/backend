@@ -37,4 +37,11 @@ public class MajorMultipleChoiceQuestionRepository
 			.leftJoin(question.questionChoices).fetchJoin()
 			.fetch();
 	}
+
+	public List<MajorMultipleChoiceQuestion> findAllOrderByIfApprovedAsc() {
+		return getQuery(question)
+			.orderBy(question.ifApproved.asc())
+			.fetch();
+
+	}
 }
