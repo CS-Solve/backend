@@ -9,11 +9,14 @@ import java.util.List;
 
 
 public interface LevelsAndCategoryBooleanBuilder {
-	default BooleanBuilder withCategoriesAndLevels(
+	/**
+	 * @param question 호출부에선 QQuestion 그대로 삽입하거나
+	 *                 실제 상속받는 관계일 떄는 Q*Question._super를 인자로 넣어 호출한다
+	 */
+	default BooleanBuilder whereCategoriesAndLevels(
 		QQuestion question,
 		List<QuestionCategory> questionCategories,
-		List<QuestionLevel> questionLevels,
-		boolean approved
+		List<QuestionLevel> questionLevels
 	) {
 		BooleanBuilder condition = new BooleanBuilder();
 		// 카테고리 조건
@@ -24,8 +27,6 @@ public interface LevelsAndCategoryBooleanBuilder {
 		if (questionLevels != null && !questionLevels.isEmpty()) {
 			condition.and(question.questionLevel.in(questionLevels));
 		}
-		// 승인 여부 조건
-		condition.and(question.ifApproved.eq(approved));
 
 		return condition;
 	}

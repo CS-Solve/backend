@@ -18,5 +18,4 @@ public class AdminMajorMultipleChoiceQuestionUpdateService {
 		majorMultipleChoiceQuestion.toggleCanBeShortAnswered();
 		return majorMultipleChoiceQuestion;
 	}
-
 }

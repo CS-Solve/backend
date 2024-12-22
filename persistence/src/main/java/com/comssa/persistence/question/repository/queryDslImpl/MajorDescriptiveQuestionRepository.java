@@ -16,7 +16,7 @@ import java.util.List;
 public class MajorDescriptiveQuestionRepository
 	extends QuestionQueryDslMaker<MajorDescriptiveQuestion>
 	implements LevelsAndCategoryBooleanBuilder {
-	private final QMajorDescriptiveQuestion q = QMajorDescriptiveQuestion.majorDescriptiveQuestion;
+	private final QMajorDescriptiveQuestion question = QMajorDescriptiveQuestion.majorDescriptiveQuestion;
 
 	public MajorDescriptiveQuestionRepository(JPAQueryFactory jpaQueryFactory) {
 		super(jpaQueryFactory);
@@ -27,19 +27,18 @@ public class MajorDescriptiveQuestionRepository
 		List<QuestionLevel> questionLevels,
 		boolean approved) {
 
-		return getQuery(q, withCategoriesAndLevels(
-			q._super,
+		return getQuery(question, whereCategoriesAndLevels(
+			question._super,
 			questionCategories,
-			questionLevels,
-			approved
-		))
+			questionLevels)
+			.and(question.ifApproved.eq(approved)))
 			.fetch();
 	}
 
 	public List<MajorDescriptiveQuestion> findAllSortedByIfApproved() {
-		return getQuery(q, new BooleanBuilder())
+		return getQuery(question, new BooleanBuilder())
 			// 정렬 기준
-			.orderBy(q.ifApproved.asc())
+			.orderBy(question.ifApproved.asc())
 			.fetch();
 	}
 }

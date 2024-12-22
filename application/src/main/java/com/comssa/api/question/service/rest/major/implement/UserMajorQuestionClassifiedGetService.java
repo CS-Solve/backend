@@ -9,7 +9,7 @@ import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.major.request.RequestGetQuestionByCategoryAndLevelDto;
 import com.comssa.persistence.question.repository.queryDslImpl.MajorDescriptiveQuestionRepository;
-import com.comssa.persistence.question.service.QuestionRepositoryService;
+import com.comssa.persistence.question.repository.queryDslImpl.MajorMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +20,9 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class UserMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService<Question> {
-	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
+	private final MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionChooseRepository;
-	private final QuestionRepositoryService<MajorDescriptiveQuestion> questionRepositoryService;
 
 	/**
 	 * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 객관식.
@@ -32,10 +31,11 @@ public class UserMajorQuestionClassifiedGetService implements MajorQuestionClass
 	@Override
 	public Map<QuestionCategory, List<Question>> getApprovedClassifiedMajorMultipleChoiceQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDbService
-			.findAllFetchChoicesByCategoriesAndLevelsApproved(
+		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionRepository
+			.findAllWithCategoriesAndLevelsAndIfApproved(
 				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
-				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels());
+				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels(),
+				true);
 		for (MajorMultipleChoiceQuestion question : majorMultipleChoiceQuestions) {
 			Collections.shuffle(question.getQuestionChoices());
 		}
