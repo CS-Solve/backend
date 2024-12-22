@@ -23,4 +23,42 @@ public class JpaConfig {
 	public JPAQueryFactory jpaQueryFactory() {
 		return new JPAQueryFactory(entityManager);
 	}
+
+
+//	@Bean
+//	public QuestionCustomRepositoryImpl<MajorDescriptiveQuestion> majorDescriptiveQuestionCustomRepository(
+//		JPAQueryFactory queryFactory) {
+//		return new QuestionCustomRepositoryImpl<>(queryFactory, majorDescriptiveChoiceEntityPath());
+//	}
+//
+//	@Bean
+//	public QuestionCustomRepositoryImpl<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestionCustomRepository(
+//		JPAQueryFactory queryFactory) {
+//		return new QuestionCustomRepositoryImpl<>(queryFactory, majorMultipleChoiceEntityPath());
+//	}
+//
+//	@Bean
+//	public QuestionCustomRepositoryImpl<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestionCustomRepository(
+//		JPAQueryFactory queryFactory) {
+//		return new QuestionCustomRepositoryImpl<>(queryFactory, licenseMultipleChoiceEntityPath());
+//	}
+//
+//
+//	@Bean
+//	public EntityPathBase<MajorDescriptiveQuestion> majorDescriptiveChoiceEntityPath() {
+//		return QMajorDescriptiveQuestion.majorDescriptiveQuestion;
+//	}
+//
+//	@Bean
+//	public EntityPathBase<MajorMultipleChoiceQuestion> majorMultipleChoiceEntityPath() {
+//		return QMajorMultipleChoiceQuestion.majorMultipleChoiceQuestion;
+//	}
+//
+//	@Bean
+//	public EntityPathBase<LicenseMultipleChoiceQuestion> licenseMultipleChoiceEntityPath() {
+//		return QLicenseMultipleChoiceQuestion.licenseMultipleChoiceQuestion;
+//	}
+
+
 }
+
