@@ -7,7 +7,7 @@ import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.repository.queryDslImpl.MajorDescriptiveQuestionQueryDslMaker;
+import com.comssa.persistence.question.repository.queryDslImpl.MajorDescriptiveQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import java.util.Map;
 public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQuestionClassifiedGetService {
 	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
-	private final MajorDescriptiveQuestionQueryDslMaker majorDescriptiveQuestionChooseRepository;
+	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionChooseRepository;
 
 	/**
 	 * 관리자가 조회시 Approve됐는지 기준으로 정렬되며(false인 것부터),

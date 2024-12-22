@@ -1,4 +1,4 @@
-package com.comssa.persistence.question.repository;
+package com.comssa.persistence.question.repository.questionChoice;
 
 
 import com.comssa.persistence.question.domain.license.LicenseQuestionChoice;

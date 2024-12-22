@@ -8,8 +8,8 @@ import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.dto.major.request.RequestMakeMajorDescriptiveQuestionDto;
-import com.comssa.persistence.question.repository.MajorDescriptiveQuestionRepository;
-import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.repository.MajorDescriptiveQuestionJpaRepository;
+import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMakeService {
 
-	private final MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
-	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionRepository;
+	private final MajorMultipleChoiceQuestionJpaRepository majorMultipleChoiceQuestionJpaRepository;
+	private final MajorDescriptiveQuestionJpaRepository majorDescriptiveQuestionJpaRepository;
 	private final QuestionChoiceService questionChoiceService;
 	private final DuplicateQuestionDetector duplicateQuestionDetector;
 
@@ -66,7 +66,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	 * 매번 DB에서 새롭게 조회 후 검증한다.(DTO 자체의 중복된 데이터)
 	 */
 	private boolean isNotDuplicateQuestion(RequestMakeMultipleChoiceQuestionDto requestDto) {
-		return majorMultipleChoiceQuestionRepository.findAll().stream()
+		return majorMultipleChoiceQuestionJpaRepository.findAll().stream()
 			.noneMatch(existingQuestion -> duplicateQuestionDetector.isQuestionDuplicate(
 				existingQuestion.getContent(), requestDto.getContent()));
 	}
@@ -77,7 +77,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	private MajorMultipleChoiceQuestion saveMajorMultipleChoiceQuestion(
 		RequestMakeMultipleChoiceQuestionDto requestDto) {
 		MajorMultipleChoiceQuestion question = MajorMultipleChoiceQuestion.makeWithDto(requestDto);
-		majorMultipleChoiceQuestionRepository.save(question);
+		majorMultipleChoiceQuestionJpaRepository.save(question);
 		questionChoiceService.saveWith(requestDto, question);
 		return question;
 	}
@@ -88,7 +88,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 		MajorDescriptiveQuestion question = MajorDescriptiveQuestion.makeWithDto(
 			requestDto
 		);
-		majorDescriptiveQuestionRepository.save(question);
+		majorDescriptiveQuestionJpaRepository.save(question);
 		return question;
 	}
 }

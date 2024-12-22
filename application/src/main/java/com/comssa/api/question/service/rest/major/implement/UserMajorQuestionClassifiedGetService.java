@@ -8,7 +8,7 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.major.request.RequestGetQuestionByCategoryAndLevelDto;
-import com.comssa.persistence.question.repository.queryDslImpl.MajorDescriptiveQuestionQueryDslMaker;
+import com.comssa.persistence.question.repository.queryDslImpl.MajorDescriptiveQuestionRepository;
 import com.comssa.persistence.question.service.QuestionRepositoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.util.Map;
 public class UserMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService<Question> {
 	private final MajorMultipleChoiceQuestionDbService majorMultipleChoiceQuestionDbService;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
-	private final MajorDescriptiveQuestionQueryDslMaker majorDescriptiveQuestionChooseRepository;
+	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionChooseRepository;
 	private final QuestionRepositoryService<MajorDescriptiveQuestion> questionRepositoryService;
 
 	/**
