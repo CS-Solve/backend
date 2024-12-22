@@ -8,7 +8,7 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.major.request.RequestGetQuestionByCategoryAndLevelDto;
-import com.comssa.persistence.question.repository.queryDslImpl.MajorDescriptiveQuestionRepository;
+import com.comssa.persistence.question.repository.queryDslImpl.MajorDescriptiveRepositoryJpaQuery;
 import com.comssa.persistence.question.repository.queryDslImpl.MajorMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.util.Map;
 public class UserMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService<Question> {
 	private final MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
-	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionChooseRepository;
+	private final MajorDescriptiveRepositoryJpaQuery majorDescriptiveQuestionChooseRepository;
 
 	/**
 	 * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 객관식.
@@ -32,7 +32,7 @@ public class UserMajorQuestionClassifiedGetService implements MajorQuestionClass
 	public Map<QuestionCategory, List<Question>> getApprovedClassifiedMajorMultipleChoiceQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionRepository
-			.findAllWithCategoriesAndLevelsAndIfApproved(
+			.findAllWhereCategoriesAndLevelsAndIfApproved(
 				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
 				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels(),
 				true);

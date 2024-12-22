@@ -4,7 +4,7 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.QMajorDescriptiveQuestion;
-import com.comssa.persistence.question.repository.QuestionQueryDslMaker;
+import com.comssa.persistence.question.repository.QueryDslJpaQueryMaker;
 import com.comssa.persistence.question.repository.booleanBuilder.LevelsAndCategoryBooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Service;
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MajorDescriptiveQuestionRepository
-	extends QuestionQueryDslMaker<MajorDescriptiveQuestion>
+public class MajorDescriptiveRepositoryJpaQuery
+	extends QueryDslJpaQueryMaker<MajorDescriptiveQuestion>
 	implements LevelsAndCategoryBooleanBuilder {
 	private final QMajorDescriptiveQuestion question = QMajorDescriptiveQuestion.majorDescriptiveQuestion;
 
-	public MajorDescriptiveQuestionRepository(JPAQueryFactory jpaQueryFactory) {
+	public MajorDescriptiveRepositoryJpaQuery(JPAQueryFactory jpaQueryFactory) {
 		super(jpaQueryFactory);
 	}
 

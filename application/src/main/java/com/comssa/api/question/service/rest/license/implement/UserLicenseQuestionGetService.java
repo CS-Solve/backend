@@ -6,7 +6,7 @@ import com.comssa.api.question.service.rest.license.LicenseQuestionGetService;
 import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
-import com.comssa.persistence.question.repository.LicenseMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.repository.queryDslImpl.LicenseMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,8 +25,8 @@ public class UserLicenseQuestionGetService implements LicenseQuestionGetService 
 	public Map<QuestionCategory, List<Question>> getClassifiedLicenseMultipleChoiceQuestion(
 		Long sessionId) {
 		List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository
-			.findAllByLicenseSessionIdFetchChoicesAndIfApproved(
-				sessionId);
+			.findAllWhereLicenseSessionIdAndIfApproved(
+				sessionId, true);
 		for (LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion : licenseMultipleChoiceQuestions) {
 			Collections.shuffle(licenseMultipleChoiceQuestion.getQuestionChoices());
 		}

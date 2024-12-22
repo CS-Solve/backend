@@ -7,8 +7,8 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.license.LicenseCategory;
 import com.comssa.persistence.question.domain.license.LicenseSession;
-import com.comssa.persistence.question.repository.LicenseMultipleChoiceQuestionRepository;
 import com.comssa.persistence.question.repository.LicenseSessionRepository;
+import com.comssa.persistence.question.repository.queryDslImpl.LicenseMultipleChoiceQuestionRepository;
 import com.comssa.persistence.question.repository.queryDslImpl.MajorMultipleChoiceQuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,10 +56,10 @@ public class BasicQuestionSelectorService implements QuestionSelectorService {
 	public List<? extends Question> getAllQuestions(List<QuestionCategory> questionCategories, boolean multipleChoice) {
 		List<Question> questions = new ArrayList<>();
 		if (multipleChoice) {
-			questions.addAll(licenseMultipleChoiceQuestionRepository.findAllByQuestionCategoriesFetchChoices(
+			questions.addAll(licenseMultipleChoiceQuestionRepository.findAllWhereQuestionCategories(
 				questionCategories));
 			questions.addAll(majorMultipleChoiceQuestionRepository
-				.findAllByQuestionCategories(
+				.findAllWhereQuestionCategories(
 					questionCategories));
 		}
 		return questions;
