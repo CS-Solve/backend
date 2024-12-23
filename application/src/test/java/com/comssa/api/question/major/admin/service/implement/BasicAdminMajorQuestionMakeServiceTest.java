@@ -5,7 +5,7 @@ import com.comssa.api.ServiceIntegrationTest;
 import com.comssa.api.question.service.rest.major.implement.BasicAdminMajorQuestionMakeService;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.repository.jpa.MajorMultipleChoiceQuestionJpaRepository;
+import com.comssa.persistence.question.repository.jpa.MajorMultipleChoiceQuestionRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +20,7 @@ class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
 	@Autowired
 	private BasicAdminMajorQuestionMakeService basicAdminMajorQuestionMakeService;
 	@Autowired
-	private MajorMultipleChoiceQuestionJpaRepository majorMultipleChoiceQuestionJpaRepository;
+	private MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
 	@BeforeEach
@@ -45,7 +45,7 @@ class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
 		/*
 		DB 저장 확인
 		 */
-		Assertions.assertThat(majorMultipleChoiceQuestionJpaRepository.findById(newMultipleChoiceQuestion.getId()))
+		Assertions.assertThat(majorMultipleChoiceQuestionRepository.findById(newMultipleChoiceQuestion.getId()))
 			.isNotNull();
 	}
 
@@ -66,6 +66,6 @@ class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
 		then
         DB에 저장되어야하는 엔티티는 하나
 		 */
-		Assertions.assertThat(majorMultipleChoiceQuestionJpaRepository.findAll().size()).isEqualTo(1);
+		Assertions.assertThat(majorMultipleChoiceQuestionRepository.findAll().size()).isEqualTo(1);
 	}
 }

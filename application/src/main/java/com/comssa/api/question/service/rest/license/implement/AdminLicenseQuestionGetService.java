@@ -6,7 +6,7 @@ import com.comssa.api.question.service.rest.license.LicenseQuestionGetService;
 import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
-import com.comssa.persistence.question.repository.querydsl.LicenseMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.repository.querydsl.LicenseMultipleChoiceQuestionDslRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AdminLicenseQuestionGetService implements LicenseQuestionGetService {
 
-	private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
+	private final LicenseMultipleChoiceQuestionDslRepository licenseMultipleChoiceQuestionDslRepository;
 	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
 
 	/**
@@ -30,7 +30,7 @@ public class AdminLicenseQuestionGetService implements LicenseQuestionGetService
 	@Override
 	public Map<QuestionCategory, List<Question>> getClassifiedLicenseMultipleChoiceQuestion(
 		Long sessionId) {
-		List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionRepository
+		List<LicenseMultipleChoiceQuestion> licenseMultipleChoiceQuestions = licenseMultipleChoiceQuestionDslRepository
 			.findAllWhereLicenseSessionId(sessionId);
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(licenseMultipleChoiceQuestions);
 	}

@@ -12,11 +12,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class MajorMultipleChoiceQuestionRepository
+public class MajorMultipleChoiceQuestionDslRepository
 	extends QueryDslJpaQueryMaker<MajorMultipleChoiceQuestion>
 	implements LevelsAndCategoryBooleanBuilder {
 
-	public MajorMultipleChoiceQuestionRepository(JPAQueryFactory jpaQueryFactory) {
+	public MajorMultipleChoiceQuestionDslRepository(JPAQueryFactory jpaQueryFactory) {
 		super(jpaQueryFactory);
 	}
 

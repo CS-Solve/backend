@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class LicenseMultipleChoiceQuestionRepository
+public class LicenseMultipleChoiceQuestionDslRepository
 	extends QueryDslJpaQueryMaker<LicenseMultipleChoiceQuestion>
 	implements LevelsAndCategoryBooleanBuilder {
 
-	public LicenseMultipleChoiceQuestionRepository(JPAQueryFactory jpaQueryFactory) {
+	public LicenseMultipleChoiceQuestionDslRepository(JPAQueryFactory jpaQueryFactory) {
 		super(jpaQueryFactory);
 	}
 

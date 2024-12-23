@@ -8,8 +8,8 @@ import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.license.LicenseCategory;
 import com.comssa.persistence.question.domain.license.LicenseSession;
 import com.comssa.persistence.question.repository.jpa.LicenseSessionRepository;
-import com.comssa.persistence.question.repository.querydsl.LicenseMultipleChoiceQuestionRepository;
-import com.comssa.persistence.question.repository.querydsl.MajorMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.repository.querydsl.LicenseMultipleChoiceQuestionDslRepository;
+import com.comssa.persistence.question.repository.querydsl.MajorMultipleChoiceQuestionDslRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class BasicQuestionSelectorService implements QuestionSelectorService {
 	private final LicenseSessionRepository licenseSessionRepository;
-	private final MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
-	private final LicenseMultipleChoiceQuestionRepository licenseMultipleChoiceQuestionRepository;
+	private final MajorMultipleChoiceQuestionDslRepository majorMultipleChoiceQuestionDslRepository;
+	private final LicenseMultipleChoiceQuestionDslRepository licenseMultipleChoiceQuestionDslRepository;
 
 	@Override
 	public List<String> getCategories() {
@@ -56,9 +56,9 @@ public class BasicQuestionSelectorService implements QuestionSelectorService {
 	public List<? extends Question> getAllQuestions(List<QuestionCategory> questionCategories, boolean multipleChoice) {
 		List<Question> questions = new ArrayList<>();
 		if (multipleChoice) {
-			questions.addAll(licenseMultipleChoiceQuestionRepository.findAllWhereQuestionCategories(
+			questions.addAll(licenseMultipleChoiceQuestionDslRepository.findAllWhereQuestionCategories(
 				questionCategories));
-			questions.addAll(majorMultipleChoiceQuestionRepository
+			questions.addAll(majorMultipleChoiceQuestionDslRepository
 				.findAllWhereQuestionCategories(
 					questionCategories));
 		}

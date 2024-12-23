@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class MajorDescriptiveRepository
+public class MajorDescriptiveDslRepository
 	extends QueryDslJpaQueryMaker<MajorDescriptiveQuestion>
 	implements LevelsAndCategoryBooleanBuilder {
 	private final QMajorDescriptiveQuestion question = QMajorDescriptiveQuestion.majorDescriptiveQuestion;
 
-	public MajorDescriptiveRepository(JPAQueryFactory jpaQueryFactory) {
+	public MajorDescriptiveDslRepository(JPAQueryFactory jpaQueryFactory) {
 		super(jpaQueryFactory);
 	}
 

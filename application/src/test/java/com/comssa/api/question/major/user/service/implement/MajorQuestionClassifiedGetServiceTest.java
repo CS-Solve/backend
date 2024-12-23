@@ -7,7 +7,7 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.major.request.RequestGetQuestionByCategoryAndLevelDto;
-import com.comssa.persistence.question.repository.jpa.MajorMultipleChoiceQuestionJpaRepository;
+import com.comssa.persistence.question.repository.jpa.MajorMultipleChoiceQuestionRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +32,7 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 	@Autowired
 	private UserMajorQuestionClassifiedGetService userMajorQuestionClassifiedGetService;
 	@Autowired
-	private MajorMultipleChoiceQuestionJpaRepository majorMultipleChoiceQuestionJpaRepository;
+	private MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
 	@BeforeEach
@@ -46,7 +46,7 @@ class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 	void getApprovedClassifiedMajorMultipleChoiceQuestions() {
 		//given
 		majorMultipleChoiceQuestion.toggleApproved();
-		majorMultipleChoiceQuestionJpaRepository.save(majorMultipleChoiceQuestion);
+		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
 		RequestGetQuestionByCategoryAndLevelDto allQuestionRequestDto =
 			RequestGetQuestionByCategoryAndLevelDto.fromKorean(majorCategories, levels);
 

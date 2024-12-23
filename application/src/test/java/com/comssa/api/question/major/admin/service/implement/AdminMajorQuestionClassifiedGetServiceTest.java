@@ -5,7 +5,7 @@ import com.comssa.api.question.service.rest.major.implement.BasicAdminMajorQuest
 import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.repository.jpa.MajorMultipleChoiceQuestionJpaRepository;
+import com.comssa.persistence.question.repository.jpa.MajorMultipleChoiceQuestionRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,13 +21,13 @@ class AdminMajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest 
 	@Autowired
 	private BasicAdminMajorQuestionClassifiedGetService basicAdminMajorQuestionClassifiedGetService;
 	@Autowired
-	private MajorMultipleChoiceQuestionJpaRepository majorMultipleChoiceQuestionJpaRepository;
+	private MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
 	@BeforeEach
 	void setUp() {
-		majorMultipleChoiceQuestionJpaRepository.deleteAll();
+		majorMultipleChoiceQuestionRepository.deleteAll();
 		majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
 	}
 
@@ -35,7 +35,7 @@ class AdminMajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest 
 	@DisplayName("관리자 조회시 허용하지 않은 문제도 존재해야한다.")
 	void checkMajorQuestionIsApproved() {
 		//given
-		majorMultipleChoiceQuestionJpaRepository.save(majorMultipleChoiceQuestion);
+		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
 
 		//when
 		Map<QuestionCategory, List<Question>> questions = basicAdminMajorQuestionClassifiedGetService
@@ -56,9 +56,9 @@ class AdminMajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest 
 
 		MajorMultipleChoiceQuestion approvedMajorQuestion = MajorMultipleChoiceQuestion.makeForTest();
 		approvedMajorQuestion.toggleApproved();
-		majorMultipleChoiceQuestionJpaRepository.save(approvedMajorQuestion);
+		majorMultipleChoiceQuestionRepository.save(approvedMajorQuestion);
 
-		majorMultipleChoiceQuestionJpaRepository.save(majorMultipleChoiceQuestion);
+		majorMultipleChoiceQuestionRepository.save(majorMultipleChoiceQuestion);
 
 		//when
 		Map<QuestionCategory, List<Question>> questions = basicAdminMajorQuestionClassifiedGetService

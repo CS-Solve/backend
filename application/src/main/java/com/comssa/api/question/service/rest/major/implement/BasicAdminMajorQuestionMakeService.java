@@ -8,7 +8,7 @@ import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.dto.major.request.RequestMakeMajorDescriptiveQuestionDto;
-import com.comssa.persistence.question.repository.jpa.MajorMultipleChoiceQuestionJpaRepository;
+import com.comssa.persistence.question.repository.jpa.MajorMultipleChoiceQuestionRepository;
 import com.comssa.persistence.question.repository.jpa.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMakeService {
 
 	private final QuestionRepository questionRepository;
-	private final MajorMultipleChoiceQuestionJpaRepository majorMultipleChoiceQuestionJpaRepository;
+	private final MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
 	private final QuestionChoiceService questionChoiceService;
 	private final DuplicateQuestionDetector duplicateQuestionDetector;
 
@@ -66,7 +66,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	 * 매번 DB에서 새롭게 조회 후 검증한다.(DTO 자체의 중복된 데이터)
 	 */
 	private boolean isNotDuplicateQuestion(RequestMakeMultipleChoiceQuestionDto requestDto) {
-		return majorMultipleChoiceQuestionJpaRepository.findAll().stream()
+		return majorMultipleChoiceQuestionRepository.findAll().stream()
 			.noneMatch(existingQuestion -> duplicateQuestionDetector.isQuestionDuplicate(
 				existingQuestion.getContent(), requestDto.getContent()));
 	}
