@@ -26,6 +26,7 @@ public class AdminLicenseQuestionController {
 	public ResponseEntity<List<ResponseMultipleChoiceQuestionDto>> makeLicenseQuestionOfSession(
 		@RequestBody RequestMakeLicenseMultipleChoiceQuestionDto requestMakeLicenseMultipleChoiceQuestionDto) {
 		return ResponseEntity.ok(
-			adminLicenseQuestionMakeService.makeLicenseMultipleChoiceQuestion(requestMakeLicenseMultipleChoiceQuestionDto));
+			adminLicenseQuestionMakeService
+				.makeLicenseMultipleChoiceQuestion(requestMakeLicenseMultipleChoiceQuestionDto));
 	}
 }

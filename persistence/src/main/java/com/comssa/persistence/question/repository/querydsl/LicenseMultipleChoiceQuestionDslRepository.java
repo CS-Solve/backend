@@ -4,7 +4,7 @@ package com.comssa.persistence.question.repository.querydsl;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.domain.license.QLicenseMultipleChoiceQuestion;
-import com.comssa.persistence.question.repository.querydsl.booleanBuilder.LevelsAndCategoryBooleanBuilder;
+import com.comssa.persistence.question.repository.querydsl.booleanbuilder.LevelsAndCategoryBooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +19,8 @@ public class LicenseMultipleChoiceQuestionDslRepository
 		super(jpaQueryFactory);
 	}
 
-	private final QLicenseMultipleChoiceQuestion question = QLicenseMultipleChoiceQuestion.licenseMultipleChoiceQuestion;
+	private final QLicenseMultipleChoiceQuestion question = QLicenseMultipleChoiceQuestion
+		.licenseMultipleChoiceQuestion;
 
 	public List<LicenseMultipleChoiceQuestion> findAllWhereLicenseSessionId(
 		Long licenseId

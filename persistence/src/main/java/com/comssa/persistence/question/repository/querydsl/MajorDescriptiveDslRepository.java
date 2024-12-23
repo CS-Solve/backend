@@ -4,7 +4,7 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.QMajorDescriptiveQuestion;
-import com.comssa.persistence.question.repository.querydsl.booleanBuilder.LevelsAndCategoryBooleanBuilder;
+import com.comssa.persistence.question.repository.querydsl.booleanbuilder.LevelsAndCategoryBooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Service;
 

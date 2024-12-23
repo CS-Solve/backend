@@ -49,8 +49,8 @@ public class UserMajorQuestionClassifiedGetService implements MajorQuestionClass
 	@Override
 	public Map<QuestionCategory, List<Question>> getApprovedClassifiedDescriptiveQuestions(
 		RequestGetQuestionByCategoryAndLevelDto dto) {
-		List<MajorDescriptiveQuestion> majorDescriptiveQuestions = majorDescriptiveQuestionDslRepository.
-			findWithCategoriesAndLevelsAndIfApproved(
+		List<MajorDescriptiveQuestion> majorDescriptiveQuestions = majorDescriptiveQuestionDslRepository
+			.findWithCategoriesAndLevelsAndIfApproved(
 				dto.getQuestionCategories(),
 				dto.getQuestionLevels(),
 				true

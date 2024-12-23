@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class QuestionChoiceService {
-	private QuestionChoiceRepository questionChoiceRepository;
+	private final QuestionChoiceRepository questionChoiceRepository;
 
 	public void saveWith(
 		RequestMakeMultipleChoiceQuestionDto dto,

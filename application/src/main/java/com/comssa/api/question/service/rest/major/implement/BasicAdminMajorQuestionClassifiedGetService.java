@@ -32,8 +32,8 @@ public class BasicAdminMajorQuestionClassifiedGetService implements AdminMajorQu
 	 */
 	@Override
 	public Map<QuestionCategory, List<Question>> getClassifiedAllMajorMultipleChoiceQuestions() {
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDslRepository.
-			findAllOrderByIfApprovedAsc();
+		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDslRepository
+			.findAllOrderByIfApprovedAsc();
 		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
 	}
 
