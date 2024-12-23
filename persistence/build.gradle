@@ -16,8 +16,6 @@ configurations {
 
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-
     /**
      QueryDsl
      QueryDsl 관련 플러그인을 실행한다면, compileQueryDsl이 두 번 실행되며 오류 발생
