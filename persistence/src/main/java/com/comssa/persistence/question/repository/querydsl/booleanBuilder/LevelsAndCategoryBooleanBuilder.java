@@ -30,17 +30,4 @@ public interface LevelsAndCategoryBooleanBuilder {
 
 		return condition;
 	}
-
-	default BooleanBuilder whereCategories(
-		QQuestion question,
-		List<QuestionCategory> questionCategories
-	) {
-		BooleanBuilder condition = new BooleanBuilder();
-		// 카테고리 조건
-		if (questionCategories != null && !questionCategories.isEmpty()) {
-			condition.and(question.questionCategory.in(questionCategories));
-		}
-
-		return condition;
-	}
 }

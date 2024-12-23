@@ -15,11 +15,12 @@ import java.util.List;
 public class MajorMultipleChoiceQuestionRepository
 	extends QueryDslJpaQueryMaker<MajorMultipleChoiceQuestion>
 	implements LevelsAndCategoryBooleanBuilder {
-	private final QMajorMultipleChoiceQuestion question = QMajorMultipleChoiceQuestion.majorMultipleChoiceQuestion;
 
 	public MajorMultipleChoiceQuestionRepository(JPAQueryFactory jpaQueryFactory) {
 		super(jpaQueryFactory);
 	}
+
+	private final QMajorMultipleChoiceQuestion question = QMajorMultipleChoiceQuestion.majorMultipleChoiceQuestion;
 
 	public List<MajorMultipleChoiceQuestion> findAllWhereCategoriesAndLevelsAndIfApproved(
 		List<QuestionCategory> questionCategories,

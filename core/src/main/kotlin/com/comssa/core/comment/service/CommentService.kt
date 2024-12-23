@@ -7,7 +7,7 @@ import com.comssa.persistence.comment.dto.ResponseCommentDto
 import com.comssa.persistence.comment.service.CommentRepositoryService
 import com.comssa.persistence.exception.NotLoginException
 import com.comssa.persistence.member.service.MemberRepositoryService
-import com.comssa.persistence.question.service.QuestionRepositoryService
+import com.comssa.persistence.question.repository.jpa.QuestionRepository
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -18,7 +18,7 @@ class CommentService(
 	private val authUserService: AuthUserService,
 	private val commentRepositoryService: CommentRepositoryService,
 	private val memberRepositoryService: MemberRepositoryService,
-	private val questionRepositoryService: QuestionRepositoryService,
+	private val questionRepository: QuestionRepository,
 ) {
 	fun makeComment(
 		requestMakeCommentDto: RequestMakeCommentDto,
@@ -29,7 +29,7 @@ class CommentService(
 			authUserService.getCognitoId(user)?.let { memberRepositoryService.findByCognitoId(it) }
 				?: throw NotLoginException()
 		val question =
-			questionRepositoryService.findById(questionId) ?: throw NoSuchElementException()
+			questionRepository.findById(questionId).get() ?: throw NoSuchElementException()
 		val newComment =
 			Comment.from(
 				requestMakeCommentDto.content,
@@ -54,10 +54,10 @@ class CommentService(
 		 * 없는 문제라면 에러 발생
 		 */
 		val question =
-			questionRepositoryService.findByIdFetchCommentsOrderByCreatedAtDesc(questionId)
+			questionRepository.findByIdFetchCommentsOrderByCreatedAtDesc(questionId)
 				?: throw NoSuchElementException("Question $questionId not found")
 
-		return question.comments.map { comment -> ResponseCommentDto.from(comment, member) }
+		return question.get().comments.map { comment -> ResponseCommentDto.from(comment, member) }
 	}
 
 	fun deleteComment(commentId: Long) {
