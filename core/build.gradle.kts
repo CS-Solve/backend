@@ -2,6 +2,7 @@ plugins {
 	kotlin("jvm") version "1.8.0"
 	kotlin("kapt") version "1.8.0"
 	kotlin("plugin.spring") version "1.8.0"
+	kotlin("plugin.jpa") version "1.8.0"
 	/*
 	코틀린 전용 linter
 	 */
@@ -14,7 +15,6 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.jetbrains.kotlin:kotlin-reflect:1.8.0")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-
 	// Jpa를 제외한 @Transactional만 사용
 	implementation("org.springframework:spring-tx")
 }
