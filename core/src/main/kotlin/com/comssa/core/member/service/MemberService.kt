@@ -1,19 +1,20 @@
 package com.comssa.core.member.service
 
 import com.comssa.persistence.member.domain.Member
-import com.comssa.persistence.member.service.MemberRepositoryService
+import com.comssa.persistence.member.repository.MemberRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 @Transactional
 class MemberService(
-	private val memberRepositoryService: MemberRepositoryService,
+	private val memberRepository: MemberRepository,
 ) {
 	fun findAndSaveMember(cognitoId: String): Member {
-		val existingMember = memberRepositoryService.findByCognitoId(cognitoId)
-		return existingMember ?: memberRepositoryService.save(
-			Member.from(cognitoId),
-		)
+		val existingMember = memberRepository.findByCognitoId(cognitoId)
+		if (!existingMember.isPresent) {
+			return memberRepository.save(Member.from(cognitoId))
+		}
+		return existingMember.get()
 	}
 }
