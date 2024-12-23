@@ -8,8 +8,8 @@ import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
 import com.comssa.persistence.question.dto.major.request.RequestMakeMajorDescriptiveQuestionDto;
-import com.comssa.persistence.question.repository.MajorDescriptiveQuestionRepository;
-import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.repository.jpa.MajorMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.repository.jpa.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMakeService {
 
+	private final QuestionRepository questionRepository;
 	private final MajorMultipleChoiceQuestionRepository majorMultipleChoiceQuestionRepository;
-	private final MajorDescriptiveQuestionRepository majorDescriptiveQuestionRepository;
 	private final QuestionChoiceService questionChoiceService;
 	private final DuplicateQuestionDetector duplicateQuestionDetector;
 
@@ -77,7 +77,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	private MajorMultipleChoiceQuestion saveMajorMultipleChoiceQuestion(
 		RequestMakeMultipleChoiceQuestionDto requestDto) {
 		MajorMultipleChoiceQuestion question = MajorMultipleChoiceQuestion.makeWithDto(requestDto);
-		majorMultipleChoiceQuestionRepository.save(question);
+		questionRepository.save(question);
 		questionChoiceService.saveWith(requestDto, question);
 		return question;
 	}
@@ -88,7 +88,7 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 		MajorDescriptiveQuestion question = MajorDescriptiveQuestion.makeWithDto(
 			requestDto
 		);
-		majorDescriptiveQuestionRepository.save(question);
+		questionRepository.save(question);
 		return question;
 	}
 }

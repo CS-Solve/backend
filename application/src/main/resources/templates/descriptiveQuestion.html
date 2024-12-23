@@ -79,7 +79,7 @@
             <div class="question-box"
                  th:data-question-id="${question.id}"
                  th:data-question-index="${iterStat.index}"
-                 th:each="question, iterStat : ${category.responseQuestionDtos}"
+                 th:each="question, iterStat : ${category.responseQuestions}"
             >
                 <div class="each-question" th:data-description="${question.description}">
                     <div class="question-meta-data">

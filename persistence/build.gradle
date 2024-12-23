@@ -1,22 +1,65 @@
+buildscript {
+    ext {
+        queryDslVersion = "5.0.0"
+    }
+}
+
 plugins {
     id 'java'
-    /*
-	코틀린 전용 linter
-	 */
-    id "org.jlleitschuh.gradle.ktlint" version "12.1.0"
 }
 
-
-repositories {
-    mavenCentral()
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
+
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    /**
+     QueryDsl
+     QueryDsl 관련 플러그인을 실행한다면, compileQueryDsl이 두 번 실행되며 오류 발생
+     */
+    implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+    implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+
+    // QueryDsl 관련 어노테이션들을 처리하고, 쿼리 타입 클래스들을 생성
+    annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}:jpa"
+    // querydsl JPAAnnotationProcessor 사용 지정
+    annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+    // java.lang.NoClassDefFoundError (javax.annotation.Generated)
+    annotationProcessor "jakarta.persistence:jakarta.persistence-api"
+    // java.lang.NoClassDefFoundError (javax.annotation.Entity, Id,GeneratedValue등 ) 대응 코드
+
+//    kapt "org.springframework.boot:spring-boot-configuration-processor"
+
 }
 
-test {
-    useJUnitPlatform()
-}
 
 bootJar.enabled = false;
+
+/*
+QueryDsl
+ */
+//gitIgnore에 자동으로 등록되기 위한 경로 설정
+/*
+QueryDsl
+ */
+//gitIgnore에 자동으로 등록되기 위한 경로 설정
+//querydsl 추가 시작
+def querydslDir = "$buildDir/generated/querydsl"
+
+// java source set 에 querydsl QClass 위치 추가
+sourceSets {
+    main.java.srcDirs += [querydslDir]
+}
+
+// gradle clean 시에 QClass 디렉토리 삭제
+clean {
+    delete file(querydslDir)
+}
+//querydsl 추가 끝
+
+
+

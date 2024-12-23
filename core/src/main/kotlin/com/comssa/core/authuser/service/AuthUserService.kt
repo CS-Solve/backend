@@ -22,6 +22,9 @@ class AuthUserService(
 		if (user == null) {
 			return null
 		}
+		/*
+		로그인 되어있지 않은 상태라면 NULL
+		 */
 		val userId = user.attributes[userIdentifier] as? String ?: return null
 		// DB에 저장되었는지 확인
 		memberService.findAndSaveMember(userId)

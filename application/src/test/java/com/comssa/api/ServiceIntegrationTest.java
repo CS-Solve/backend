@@ -1,6 +1,6 @@
 package com.comssa.api;
 
-import com.comssa.api.config.JpaConfig;
+import com.comssa.persistence.config.JpaConfig;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.transaction.annotation.Transactional;

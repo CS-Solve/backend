@@ -1,7 +1,7 @@
 package com.comssa.api.question.service.rest.common.implement;
 
 import com.comssa.persistence.question.domain.common.QuestionChoice;
-import com.comssa.persistence.question.repository.QuestionChoiceRepository;
+import com.comssa.persistence.question.repository.jpa.QuestionChoiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -6,8 +6,7 @@ import com.comssa.persistence.question.domain.license.LicenseQuestionChoice;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.domain.major.MajorQuestionChoice;
 import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.repository.LicenseQuestionChoiceRepository;
-import com.comssa.persistence.question.repository.MajorQuestionChoiceRepository;
+import com.comssa.persistence.question.repository.jpa.QuestionChoiceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,13 +17,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional
 public class QuestionChoiceService {
-	private final MajorQuestionChoiceRepository majorQuestionChoiceRepository;
-	private final LicenseQuestionChoiceRepository licenseQuestionChoiceRepository;
+	private final QuestionChoiceRepository questionChoiceRepository;
 
 	public void saveWith(
 		RequestMakeMultipleChoiceQuestionDto dto,
 		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion) {
-		licenseQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
+		questionChoiceRepository.saveAll(dto.getQuestionChoices()
 			.stream()
 			.map(qc -> LicenseQuestionChoice.from(qc, licenseMultipleChoiceQuestion))
 			.collect(Collectors.toList()));
@@ -33,7 +31,7 @@ public class QuestionChoiceService {
 	public void saveWith(
 		RequestMakeMultipleChoiceQuestionDto dto,
 		MajorMultipleChoiceQuestion majorMultipleChoiceQuestion) {
-		majorQuestionChoiceRepository.saveAll(dto.getQuestionChoices()
+		questionChoiceRepository.saveAll(dto.getQuestionChoices()
 			.stream()
 			.map(qc -> MajorQuestionChoice.fromMajorQuestion(qc, majorMultipleChoiceQuestion))
 			.collect(Collectors.toList()));

@@ -5,7 +5,7 @@ import com.comssa.api.ServiceIntegrationTest;
 import com.comssa.api.question.service.rest.major.implement.BasicAdminMajorQuestionMakeService;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
-import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionRepository;
+import com.comssa.persistence.question.repository.jpa.MajorMultipleChoiceQuestionRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
