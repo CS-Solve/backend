@@ -42,7 +42,7 @@ public class MajorMultipleChoiceQuestionRepository
 	) {
 		return getQuery(
 			question,
-			whereCategories(question._super, questionCategories))
+			whereCategoriesAndLevels(question._super, questionCategories, null))
 			.distinct()
 			.leftJoin(question.questionChoices).fetchJoin()
 			.fetch();

@@ -2,7 +2,6 @@ package com.comssa.api.question.service.rest.license.implement;
 
 
 import com.comssa.api.question.service.rest.common.implement.QuestionChoiceService;
-import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.domain.license.LicenseCategory;
 import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.domain.license.LicenseSession;
@@ -23,7 +22,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AdminLicenseQuestionMakeService {
 	private final LicenseSessionService licenseSessionService;
-	private final QuestionRepository<Question> questionRepository;
+	private final QuestionRepository questionRepository;
 	private final QuestionChoiceService questionChoiceService;
 
 	public List<ResponseMultipleChoiceQuestionDto> makeLicenseMultipleChoiceQuestion(

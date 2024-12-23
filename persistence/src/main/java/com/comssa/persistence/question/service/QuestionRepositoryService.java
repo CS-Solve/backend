@@ -8,21 +8,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class QuestionRepositoryService<T extends Question> {
-	private final QuestionRepository<T> questionRepository;
+public class QuestionRepositoryService {
+	private final QuestionRepository questionRepository;
 
 	@Nullable
-	public T findById(Long id) {
+	public Question findById(Long id) {
 		return questionRepository.findById(id).orElse(null);
 	}
 
 
 	@Nullable
-	public T findByIdFetchCommentsOrderByCreatedAtDesc(Long id) {
+	public Question findByIdFetchCommentsOrderByCreatedAtDesc(Long id) {
 		return questionRepository.findByIdFetchCommentsOrderByCreatedAtDesc(id).orElse(null);
-	}
-
-	public void delete(Long id) {
-		questionRepository.deleteById(id);
 	}
 }

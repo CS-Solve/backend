@@ -7,7 +7,6 @@ import com.comssa.persistence.comment.dto.ResponseCommentDto
 import com.comssa.persistence.comment.service.CommentRepositoryService
 import com.comssa.persistence.exception.NotLoginException
 import com.comssa.persistence.member.service.MemberRepositoryService
-import com.comssa.persistence.question.domain.common.Question
 import com.comssa.persistence.question.service.QuestionRepositoryService
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
@@ -19,7 +18,7 @@ class CommentService(
 	private val authUserService: AuthUserService,
 	private val commentRepositoryService: CommentRepositoryService,
 	private val memberRepositoryService: MemberRepositoryService,
-	private val questionRepositoryService: QuestionRepositoryService<Question>,
+	private val questionRepositoryService: QuestionRepositoryService,
 ) {
 	fun makeComment(
 		requestMakeCommentDto: RequestMakeCommentDto,

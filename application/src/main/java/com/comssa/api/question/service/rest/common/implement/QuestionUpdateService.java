@@ -2,7 +2,7 @@ package com.comssa.api.question.service.rest.common.implement;
 
 import com.comssa.api.question.service.rest.common.FileUploadService;
 import com.comssa.persistence.question.domain.common.Question;
-import com.comssa.persistence.question.service.QuestionRepositoryService;
+import com.comssa.persistence.question.repository.jpa.QuestionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +13,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class QuestionUpdateService
 	implements com.comssa.api.question.service.rest.common.QuestionUpdateService<Question> {
-	private final QuestionRepositoryService<Question> questionRepositoryService;
+	private final QuestionRepository questionRepository;
 	private final FileUploadService fileUploadService;
 
 	@Override
@@ -32,11 +32,11 @@ public class QuestionUpdateService
 
 	@Override
 	public void deleteQuestion(Long questionId) {
-		questionRepositoryService.delete(questionId);
+		questionRepository.deleteById(questionId);
 	}
 
 	@Override
 	public Question findById(Long questionId) {
-		return questionRepositoryService.findById(questionId);
+		return questionRepository.findById(questionId).get();
 	}
 }

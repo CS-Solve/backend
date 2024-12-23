@@ -7,7 +7,7 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.major.request.RequestGetQuestionByCategoryAndLevelDto;
-import com.comssa.persistence.question.repository.MajorMultipleChoiceQuestionJpaRepository;
+import com.comssa.persistence.question.repository.jpa.MajorMultipleChoiceQuestionJpaRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

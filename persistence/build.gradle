@@ -6,8 +6,6 @@ buildscript {
 
 plugins {
     id 'java'
-
-
 }
 
 configurations {
@@ -22,6 +20,7 @@ dependencies {
 
     /**
      QueryDsl
+     QueryDsl 관련 플러그인을 실행한다면, compileQueryDsl이 두 번 실행되며 오류 발생
      */
     implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
     implementation "com.querydsl:querydsl-apt:${queryDslVersion}"
