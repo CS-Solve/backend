@@ -1,8 +1,7 @@
 package com.comssa.api.question.license;
 
 import com.comssa.api.ControllerTest;
-import com.comssa.api.question.controller.rest.license.AdminLicenseQuestionController;
-import com.comssa.api.question.service.rest.common.implement.QuestionChoiceUpdateService;
+import com.comssa.api.question.controller.rest.license.LicenseQuestionMakeController;
 import com.comssa.api.question.service.rest.license.implement.AdminLicenseQuestionMakeService;
 import com.comssa.persistence.question.domain.license.LicenseCategory;
 import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
@@ -29,15 +28,13 @@ import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@WebMvcTest(AdminLicenseQuestionController.class)
-@ContextConfiguration(classes = AdminLicenseQuestionController.class)
-@DisplayName("단위 테스트 - 자격증 Admin Controller")
+@WebMvcTest(LicenseQuestionMakeController.class)
+@ContextConfiguration(classes = LicenseQuestionMakeController.class)
+@DisplayName("단위 테스트 - 자격증 문제 생성")
 class AdminLicenseQuestionControllerTest extends ControllerTest {
 	private final String tag = "자격증 문제";
-	private final String baseApiUrl = "/admin/question/license";
-	private final String idUrl = "/1";
-	@MockBean
-	private QuestionChoiceUpdateService questionChoiceUpdateService;
+	private final String baseApiUrl = "/admin/question/license/multiple";
+
 	@MockBean
 	private AdminLicenseQuestionMakeService adminLicenseQuestionMakeService;
 

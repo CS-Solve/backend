@@ -1,10 +1,8 @@
-package com.comssa.api.question.controller.rest.major
+package com.comssa.api.question.controller.rest.common
 
+import com.comssa.api.question.service.rest.common.QuestionChoiceGradeService
 import com.comssa.core.question.service.common.DescriptiveQuestionService
-import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionGradeStandardDto
 import com.comssa.persistence.question.dto.common.request.RequestDoGradeDescriptiveAnswerDto
-import com.comssa.persistence.question.dto.common.response.ResponseDescriptiveQuestionDto
-import com.comssa.persistence.question.dto.common.response.ResponseQuestionDto
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 import org.springframework.http.ResponseEntity
@@ -14,11 +12,25 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
+@Api(tags = ["문제 채점"])
 @RestController
-@Api(tags = ["서술형 문제"])
-class DescriptiveQuestionController(
-	private val descriptiveQuestionService: DescriptiveQuestionService,
+class QuestionGradeController(
+	val questionChoiceGradeService: QuestionChoiceGradeService,
+	val descriptiveQuestionService: DescriptiveQuestionService,
 ) {
+	/**
+	 * @param questionField (major 또는 License)
+	 * @param questionType  (descriptive 또는 MultipleChoice)
+	 * 각 구현체에 따라 채점 방식이 다름름
+	 */
+	@ApiOperation("객관식 문제 채점")
+	@PatchMapping("/question/{questionField}/{questionType}/choice/{choiceId}/grade")
+	fun gradeMultipleChoiceQuestion(
+		@PathVariable("questionField") questionField: String,
+		@PathVariable("questionType") questionType: String,
+		@PathVariable("choiceId") choiceId: Long,
+	): ResponseEntity<Boolean> = ResponseEntity.ok(questionChoiceGradeService.isChoiceAnswer(choiceId))
+
 	@ApiOperation("서술형 문제 채점")
 	@PostMapping("/questions/major/descriptive/{questionId}/grade")
 	fun gradeDescriptiveQuestion(
@@ -27,17 +39,5 @@ class DescriptiveQuestionController(
 	): ResponseEntity<String> =
 		ResponseEntity.ok(
 			descriptiveQuestionService.gradeDescriptiveQuestion(questionId, requestDoGradeDescriptiveAnswerDto),
-		)
-
-	@ApiOperation("서술형 문제 채점 기준 수정")
-	@PatchMapping("/questions/major/descriptive/{questionId}/standard")
-	fun changeQuestionStandard(
-		@PathVariable("questionId") questionId: Long,
-		@RequestBody requestChangeQuestionGradeStandardDto: RequestChangeQuestionGradeStandardDto,
-	): ResponseEntity<ResponseDescriptiveQuestionDto> =
-		ResponseEntity.ok(
-			ResponseQuestionDto.from(
-				descriptiveQuestionService.changeGradeStandard(questionId, requestChangeQuestionGradeStandardDto),
-			),
 		)
 }

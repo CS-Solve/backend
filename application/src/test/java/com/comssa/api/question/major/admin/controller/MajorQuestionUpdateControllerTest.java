@@ -1,10 +1,9 @@
 package com.comssa.api.question.major.admin.controller;
 
 import com.comssa.api.ControllerTest;
-import com.comssa.api.question.controller.rest.major.AdminMajorQuestionController;
-import com.comssa.api.question.service.rest.major.AdminMajorQuestionClassifiedGetService;
-import com.comssa.api.question.service.rest.major.AdminMajorQuestionMakeService;
+import com.comssa.api.question.controller.rest.major.MajorQuestionUpdateController;
 import com.comssa.api.question.service.rest.major.implement.AdminMajorMultipleChoiceQuestionUpdateService;
+import com.comssa.core.question.service.common.DescriptiveQuestionService;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.epages.restdocs.apispec.MockMvcRestDocumentationWrapper;
 import com.epages.restdocs.apispec.ResourceSnippetParameters;
@@ -20,60 +19,27 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import java.util.ArrayList;
-
 import static com.epages.restdocs.apispec.ResourceDocumentation.resource;
 import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
-@WebMvcTest(AdminMajorQuestionController.class)
-@ContextConfiguration(classes = {AdminMajorQuestionController.class})
-@DisplayName("단위 테스트 - 전공 개념 Admin Controller")
-class AdminMajorQuestionControllerTest extends ControllerTest {
-
+@WebMvcTest(MajorQuestionUpdateController.class)
+@ContextConfiguration(classes = {MajorQuestionUpdateController.class})
+@DisplayName("단위 테스트 - 전공 개념 업데이트")
+public class MajorQuestionUpdateControllerTest extends ControllerTest {
 	private final String tag = "전공 문제";
-	@MockBean
-	private AdminMajorQuestionMakeService adminMajorQuestionMakeService;
+
 	@MockBean
 	private AdminMajorMultipleChoiceQuestionUpdateService adminMajorMultipleChoiceQuestionUpdateService;
 	@MockBean
-	private AdminMajorQuestionClassifiedGetService adminMajorQuestionClassifiedGetService;
+	private DescriptiveQuestionService descriptiveQuestionService;
+
 	private MajorMultipleChoiceQuestion majorMultipleChoiceQuestion;
 
 	@BeforeEach
 	void setUp() {
 		majorMultipleChoiceQuestion = MajorMultipleChoiceQuestion.makeForTest();
 	}
-
-	@Test
-	void makeMultiMajorQuestion() {
-	}
-
-
-	@Test
-	@DisplayName("전공 문제 단체 생성 - 성공")
-	void makeSingleMajorMultipleChoiceQuestions() throws Exception {
-		final String PATH = "/admin/question/major/multiple";
-		final String document_Name = "성공";
-		Mockito.when(adminMajorQuestionMakeService.makeMultipleChoiceQuestions(any())).thenReturn(new ArrayList<>());
-		mockMvc.perform(RestDocumentationRequestBuilders.post(PATH)
-				.contentType(MediaType.APPLICATION_JSON)
-				.content(objectMapper.writeValueAsString(new ArrayList<>())))
-			.andExpect(MockMvcResultMatchers.status().isOk())
-			.andDo(print())
-			.andDo(MockMvcRestDocumentation.document(
-				document_Name
-			))
-			.andDo(MockMvcRestDocumentationWrapper.document(
-				document_Name, resource(
-					ResourceSnippetParameters.builder()
-						.tag(tag)
-						.description("단답형")
-						.build()
-				)
-			));
-	}
-
 
 	@Test
 	@DisplayName("전공 문제 업데이트 - 객관식 여부")

@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-@DisplayName("전공 문제 - Admin Get Service 계층 이하 통합 테스트")
+@DisplayName("통합 테스트 - 전공 문제 Admin Get Service 계층 이하 ")
 class BasicAdminMajorQuestionMakeServiceTest extends ServiceIntegrationTest {
 
 	@Autowired
