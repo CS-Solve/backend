@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@DisplayName("전공 문제 - Service 계층 이하 통합 테스트")
+@DisplayName("통합 테스트 - 전공 문제 Service 계층 이하 ")
 class MajorQuestionClassifiedGetServiceTest extends ServiceIntegrationTest {
 
 	private final List<String> levels = Arrays.stream(QuestionLevel.values())

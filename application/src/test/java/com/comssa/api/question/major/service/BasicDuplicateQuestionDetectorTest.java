@@ -8,7 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-@DisplayName("[단위] 기본 문장 유사도 검사")
+@DisplayName("단위 테스트 - 기본 문장 유사도 검사")
 @ExtendWith(MockitoExtension.class)
 class BasicDuplicateQuestionDetectorTest {
 	@InjectMocks

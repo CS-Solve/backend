@@ -26,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 @WebMvcTest(QuestionUpdateController.class)
 @ContextConfiguration(classes = QuestionUpdateController.class)
+@DisplayName("단위 테스트 - 문제 공통 업데이트")
 class QuestionCommonUpdateControllerTest extends ControllerTest {
 	private final String tag = "문제 수정";
 	private final String baseApiUrl = "/admin/question/common";
