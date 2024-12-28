@@ -1,7 +1,7 @@
 package com.comssa.api.question.major.admin.controller;
 
 import com.comssa.api.ControllerTest;
-import com.comssa.api.question.controller.view.QuestionUpdateViewController;
+import com.comssa.api.question.controller.view.QuestionUpdatePageViewController;
 import com.comssa.api.question.service.rest.license.implement.AdminLicenseQuestionGetService;
 import com.comssa.api.question.service.rest.license.implement.UserLicenseQuestionGetService;
 import com.comssa.api.question.service.rest.major.AdminMajorQuestionClassifiedGetService;
@@ -30,9 +30,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest({
-	QuestionUpdateViewController.class
+	QuestionUpdatePageViewController.class
 })
-@ContextConfiguration(classes = QuestionUpdateViewController.class)
+@ContextConfiguration(classes = QuestionUpdatePageViewController.class)
 @DisplayName("단위 테스트 - 전공 업데이트 View Controller")
 class QuestionUpdateViewControllerTest extends ControllerTest {
 

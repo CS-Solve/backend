@@ -1,14 +1,15 @@
 package com.comssa.api.question.domain;
 
-import lombok.Getter;
-
-@Getter
 public enum QuestionType {
 	MULTIPLE_CHOICE("multiple"),
 	DESCRIPTIVE("descriptive");
-	private final String name;
+	private final String urlPath;
 
-	QuestionType(String name) {
-		this.name = name;
+	public String getUrlPath() {
+		return urlPath;
+	}
+
+	QuestionType(String urlPath) {
+		this.urlPath = urlPath;
 	}
 }

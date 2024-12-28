@@ -2,7 +2,7 @@ package com.comssa.api.question.major.user.controller;
 
 
 import com.comssa.api.ViewControllerTest;
-import com.comssa.api.question.controller.view.QuestionViewController;
+import com.comssa.api.question.controller.view.QuestionPageViewController;
 import com.comssa.api.question.service.rest.license.implement.LicenseSessionService;
 import com.comssa.api.question.service.rest.license.implement.UserLicenseQuestionGetService;
 import com.comssa.api.question.service.rest.major.implement.UserMajorQuestionClassifiedGetService;
@@ -38,8 +38,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
-@WebMvcTest(QuestionViewController.class)
-@ContextConfiguration(classes = QuestionViewController.class)
+@WebMvcTest(QuestionPageViewController.class)
+@ContextConfiguration(classes = QuestionPageViewController.class)
 @DisplayName("단위 테스트 - 문제 View Controller")
 class QuestionViewControllerTest extends ViewControllerTest {
 	private final List<String> levels = Arrays.stream(QuestionLevel.values())
