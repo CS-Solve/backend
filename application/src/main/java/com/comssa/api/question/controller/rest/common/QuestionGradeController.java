@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class QuestionGradeController {
 	private final QuestionServiceFactory questionServiceFactory;
 
+	/**
+	 * @param questionField (major 또는 License)
+	 * @param questionType  (descriptive 또는 MultipleChoice)
+	 * @param questionAct   (grade)
+	 *                      각 구현체에 따라 채점 방식이 다름름
+	 */
 	@ApiOperation("객관식 문제 채점")
 	@PatchMapping("/question/{questionField}/{questionType}/choice/{choiceId}/{questionAct}")
 	public ResponseEntity<Boolean> isMajorChoiceAnswer(

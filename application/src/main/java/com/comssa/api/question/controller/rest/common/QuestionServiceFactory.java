@@ -33,15 +33,6 @@ public class QuestionServiceFactory {
 		return findServiceByClassName(questionField, questionType, questionAct, classType, false);
 	}
 
-	public <T> T getAdminQuestionService(
-		String questionField,
-		String questionType,
-		String questionAct,
-		Class<T> classType
-	) {
-		return findServiceByClassName(questionField, questionType, questionAct, classType, true);
-	}
-
 	private <T> T findServiceByClassName(
 		String questionField,
 		String questionType,
