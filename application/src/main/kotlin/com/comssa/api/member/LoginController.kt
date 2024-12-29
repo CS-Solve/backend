@@ -1,6 +1,6 @@
 package com.comssa.api.member
 
-import com.comssa.api.login.dto.ResponseAccessTokenDto
+import com.comssa.api.member.dto.ResponseAccessTokenDto
 import io.swagger.annotations.Api
 import org.springframework.http.ResponseEntity
 import org.springframework.security.core.Authentication

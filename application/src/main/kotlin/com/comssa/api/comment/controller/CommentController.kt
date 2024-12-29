@@ -1,6 +1,6 @@
 package com.comssa.api.comment.controller
 
-import com.comssa.api.login.aspect.AddLoginStatusAttributeToView
+import com.comssa.api.member.aspect.AddLoginStatusAttributeToView
 import com.comssa.core.comment.service.CommentService
 import com.comssa.core.question.service.common.QuestionGetService
 import com.comssa.persistence.comment.dto.RequestMakeCommentDto

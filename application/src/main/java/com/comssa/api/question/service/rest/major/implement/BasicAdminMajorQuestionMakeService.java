@@ -1,6 +1,6 @@
 package com.comssa.api.question.service.rest.major.implement;
 
-import com.comssa.api.exception.DuplicateQuestionException;
+import com.comssa.api.exception.DuplicateQuestionContentException;
 import com.comssa.api.question.service.rest.common.DuplicateQuestionDetector;
 import com.comssa.api.question.service.rest.common.implement.QuestionChoiceService;
 import com.comssa.api.question.service.rest.major.AdminMajorQuestionMakeService;
@@ -45,9 +45,9 @@ public class BasicAdminMajorQuestionMakeService implements AdminMajorQuestionMak
 	 */
 	@Override
 	public MajorMultipleChoiceQuestion makeMultipleChoiceQuestion(
-		RequestMakeMultipleChoiceQuestionDto requestDto) throws DuplicateQuestionException {
+		RequestMakeMultipleChoiceQuestionDto requestDto) throws DuplicateQuestionContentException {
 		if (!isNotDuplicateQuestion(requestDto)) {
-			throw new DuplicateQuestionException();
+			throw new DuplicateQuestionContentException();
 		}
 		return saveMajorMultipleChoiceQuestion(requestDto);
 	}

@@ -1,6 +1,6 @@
 package com.comssa.api.question.controller.view
 
-import com.comssa.api.login.aspect.AddLoginStatusAttributeToView
+import com.comssa.api.member.aspect.AddLoginStatusAttributeToView
 import com.comssa.api.question.service.rest.common.QuestionSelectorService
 import com.comssa.api.question.service.view.HtmlTagService
 import com.comssa.persistence.question.domain.license.LicenseCategory

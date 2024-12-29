@@ -1,6 +1,6 @@
 package com.comssa.api.exceptionHandler
 
-import com.comssa.api.exception.DuplicateQuestionException
+import com.comssa.api.exception.DuplicateQuestionContentException
 import com.comssa.persistence.exception.NotLoginException
 import com.comssa.persistence.exception.WrongQuestionTypeException
 import org.springframework.http.HttpStatus
@@ -22,7 +22,7 @@ class GlobalExceptionHandler {
 	fun handleWrongQuestionTypeException(e: WrongQuestionTypeException): ResponseEntity<String> =
 		ResponseEntity(e.message, HttpStatus.BAD_REQUEST)
 
-	@ExceptionHandler(DuplicateQuestionException::class)
-	fun handleException(exception: DuplicateQuestionException): ResponseEntity<String> =
+	@ExceptionHandler(DuplicateQuestionContentException::class)
+	fun handleException(exception: DuplicateQuestionContentException): ResponseEntity<String> =
 		ResponseEntity.status(HttpStatus.CONFLICT).body(exception.message)
 }
