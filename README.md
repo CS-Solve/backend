@@ -1,7 +1,12 @@
+# 프로젝트 간단 소개
+
+컴퓨터 공학 전공 자체 생성 문제 또는 자격증 기출 문제를 풀 수 있는 [사이트](https://comssa.site/)   
+
+<img width="1099" alt="image" src="https://github.com/user-attachments/assets/8cb5f257-69af-474f-945c-74ae1d9a9597" />
+
 # 프로젝트 설계 중점
 
-늘어나는 문제의 성격과 분야를 염두한 확장성, 유지보수성 높은 설계
-
+다양한 문제 유형의 확장성과 유지보수를 고려한 유연한 설계
 # 설계 방법
 
 ### 1. Entity간의 상속 관계를 DB에서 구현시 Join 전략을 사용
@@ -51,7 +56,7 @@ public interface SelectWhereCategoriesAndLevels<T extends Question> {
 			);
 	}
 
-	//구현체에서 Select할 실제 문제 테이블을 따로 구현
+	//구현체에서 Select할 문제 테이블을 설정
 	JPAQuery<T> getQuestions();
 
 ```
@@ -63,7 +68,7 @@ public interface SelectWhereCategoriesAndLevels<T extends Question> {
 QLicenseMultipleChoiceQuestion.licenseMultipleChoiceQuestion);
 	}
 ```
-- Repository에서 검색 조건을 정의하는 인터페이스를 상속하여 문제의 종류마다 어떤 조건으로 검색될 수 있는지도 쉽게 알 수 있음
+- Repository에서 검색 조건을 정의하는 인터페이스를 상속하여 <br>문제의 종류마다 어떤 조건으로 검색될 수 있는지도 쉽게 알 수 있음
 ```java
 @Repository
 public class LicenseMultipleChoiceQuestionDslRepository
@@ -85,7 +90,7 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoiceBeh
 
 @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
 private List<LicenseQuestionChoice> questionChoices;
-//LicenseQuestionChoice, MajorQuestionChoice를 반환하도록 구현
+//구현체에서 각각 LicenseQuestionChoice, MajorQuestionChoice를 반환하도록 구현
 @Override
 	public List<LicenseQuestionChoice> getQuestionChoices() {
 		return questionChoices;
@@ -101,3 +106,10 @@ ResponseMultipleChoiceQuestionDto from(Q question) {
              ...
     }
 ```
+
+# 성과
+
+확장성 높은 설계로 인하여 빠르게 다양한 유형의 문제를 추가 할 수 있었으며<br>
+배포 한 달만에 5000회 이상의 API 요청 수신
+
+<img width="765" alt="image" src="https://github.com/user-attachments/assets/66427819-a16a-44e4-b1bd-e5667b2e5b8e" />
