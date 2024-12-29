@@ -23,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @DiscriminatorValue("MM")
-public class MajorMultipleChoiceQuestion extends Question implements ChoiceBehavior<MajorQuestionChoice> {
+public class MajorMultipleChoiceQuestion extends Question implements ChoiceBehavior {
 	public boolean canBeShortAnswered;
 
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)

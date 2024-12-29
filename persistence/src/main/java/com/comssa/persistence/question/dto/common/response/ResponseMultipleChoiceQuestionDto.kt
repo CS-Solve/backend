@@ -1,8 +1,7 @@
 package com.comssa.persistence.question.dto.common.response
 
+import com.comssa.persistence.question.domain.common.ChoiceBehavior
 import com.comssa.persistence.question.domain.common.Question
-import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion
-import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion
 
 open class ResponseMultipleChoiceQuestionDto(
 	val questionChoices: List<ResponseQuestionChoiceDto>,
@@ -13,14 +12,8 @@ open class ResponseMultipleChoiceQuestionDto(
 	) {
 	companion object {
 		@JvmStatic
-		fun forLicense(question: LicenseMultipleChoiceQuestion): ResponseMultipleChoiceQuestionDto =
-			ResponseMultipleChoiceQuestionDto(
-				question = question,
-				questionChoices = question.questionChoices.map { ResponseQuestionChoiceDto.from(it) },
-			)
-
-		@JvmStatic
-		fun forMajor(question: MajorMultipleChoiceQuestion): ResponseMultipleChoiceQuestionDto =
+		fun <Q> from(question: Q): ResponseMultipleChoiceQuestionDto
+		 where Q : Question, Q : ChoiceBehavior =
 			ResponseMultipleChoiceQuestionDto(
 				question = question,
 				questionChoices = question.questionChoices.map { ResponseQuestionChoiceDto.from(it) },

@@ -27,7 +27,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @DiscriminatorValue("LM")
-public class LicenseMultipleChoiceQuestion extends Question implements ChoiceBehavior<LicenseQuestionChoice> {
+public class LicenseMultipleChoiceQuestion extends Question implements ChoiceBehavior {
 
 	@Enumerated(value = EnumType.STRING)
 	protected LicenseCategory licenseCategory;
