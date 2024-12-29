@@ -1,6 +1,6 @@
 package com.comssa.api.question.controller.view
 
-import com.comssa.api.login.aspect.AddLoginStatusAttributeToView
+import com.comssa.api.member.aspect.AddLoginStatusAttributeToView
 import com.comssa.api.question.service.rest.license.implement.LicenseSessionService
 import com.comssa.api.question.service.rest.license.implement.UserLicenseQuestionGetService
 import com.comssa.api.question.service.rest.major.implement.UserMajorQuestionClassifiedGetService

@@ -1,7 +1,7 @@
 package com.comssa.api.question.service.rest.major;
 
 
-import com.comssa.api.exception.DuplicateQuestionException;
+import com.comssa.api.exception.DuplicateQuestionContentException;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.common.request.RequestMakeMultipleChoiceQuestionDto;
@@ -17,7 +17,7 @@ public interface AdminMajorQuestionMakeService {
 		List<RequestMakeMultipleChoiceQuestionDto> requestNormalQuestionDto);
 
 	MajorMultipleChoiceQuestion makeMultipleChoiceQuestion(
-		RequestMakeMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionException;
+		RequestMakeMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionContentException, DuplicateQuestionContentException;
 
 	List<MajorDescriptiveQuestion> makeDescriptiveQuestions(
 		List<RequestMakeMajorDescriptiveQuestionDto> requestNormalQuestionDto
