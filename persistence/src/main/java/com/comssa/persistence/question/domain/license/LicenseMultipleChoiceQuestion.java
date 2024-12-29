@@ -1,6 +1,6 @@
 package com.comssa.persistence.question.domain.license;
 
-import com.comssa.persistence.question.domain.common.ChoiceProvider;
+import com.comssa.persistence.question.domain.common.ChoiceBehavior;
 import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
@@ -27,7 +27,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @DiscriminatorValue("LM")
-public class LicenseMultipleChoiceQuestion extends Question implements ChoiceProvider {
+public class LicenseMultipleChoiceQuestion extends Question implements ChoiceBehavior<LicenseQuestionChoice> {
 
 	@Enumerated(value = EnumType.STRING)
 	protected LicenseCategory licenseCategory;
@@ -53,6 +53,7 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoicePro
 		licenseMultipleChoiceQuestion.initDefaults();
 		return licenseMultipleChoiceQuestion;
 	}
+
 
 	public static LicenseMultipleChoiceQuestion makeForTest(String test) {
 		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.builder()

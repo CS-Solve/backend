@@ -1,6 +1,6 @@
 package com.comssa.persistence.question.domain.major;
 
-import com.comssa.persistence.question.domain.common.ChoiceProvider;
+import com.comssa.persistence.question.domain.common.ChoiceBehavior;
 import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
@@ -23,7 +23,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @DiscriminatorValue("MM")
-public class MajorMultipleChoiceQuestion extends Question implements ChoiceProvider {
+public class MajorMultipleChoiceQuestion extends Question implements ChoiceBehavior<MajorQuestionChoice> {
 	public boolean canBeShortAnswered;
 
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)

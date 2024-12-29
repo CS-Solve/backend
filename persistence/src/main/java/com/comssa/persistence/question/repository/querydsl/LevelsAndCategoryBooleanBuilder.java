@@ -27,7 +27,6 @@ public interface LevelsAndCategoryBooleanBuilder {
 		if (questionLevels != null && !questionLevels.isEmpty()) {
 			condition.and(question.questionLevel.in(questionLevels));
 		}
-
 		return condition;
 	}
 }
