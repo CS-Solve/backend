@@ -36,11 +36,12 @@ public class HtmlTagService {
 		String questionSession = title;
 
 
-		addTagToModel(HtmlTag.builder()
-			.title(title)
-			.description(description)
-			.questionSession(questionSession)
-			.build(), model);
+		addTagToModel(HtmlTag.from(
+				title,
+				questionSession,
+				description
+			),
+			model);
 	}
 
 	public void forLicenseQuestion(LicenseSession licenseSession, Model model) {
@@ -64,11 +65,12 @@ public class HtmlTagService {
 			+ licenseSession.getContent()
 			+ " / 실제 시험은 더 어려울 수 있으니, 문제의 중심 개념 (정답 선택지) 위주로 학습 추천";
 
-		addTagToModel(HtmlTag.builder()
-			.title(title)
-			.description(description)
-			.questionSession(questionSession)
-			.build(), model);
+		addTagToModel(HtmlTag.from(
+				title,
+				questionSession,
+				description
+			),
+			model);
 	}
 
 	public void forMajor(Set<QuestionCategory> questionCategories, boolean isMultipleChoice, Model model) {
@@ -87,11 +89,11 @@ public class HtmlTagService {
 
 		String questionSession = title;
 
-		return HtmlTag.builder()
-			.title(title)
-			.description(description)
-			.questionSession(questionSession)
-			.build();
+		return HtmlTag.from(
+			title,
+			questionSession,
+			description
+		);
 	}
 
 	public HtmlTag forMajorDescriptive(Set<QuestionCategory> questionCategories) {
@@ -104,11 +106,11 @@ public class HtmlTagService {
 		String questionSession = title;
 
 
-		return HtmlTag.builder()
-			.title(title)
-			.description(description)
-			.questionSession(questionSession)
-			.build();
+		return HtmlTag.from(
+			title,
+			questionSession,
+			description
+		);
 	}
 
 }
