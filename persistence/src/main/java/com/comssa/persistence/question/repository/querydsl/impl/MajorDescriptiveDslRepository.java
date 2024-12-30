@@ -5,8 +5,8 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.QMajorDescriptiveQuestion;
-import com.comssa.persistence.question.repository.querydsl.MajorQuestionSearchFilter;
 import com.comssa.persistence.question.repository.querydsl.QueryDslJpaQueryMaker;
+import com.comssa.persistence.question.repository.querydsl.query.MajorQuestionSearchQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class MajorDescriptiveDslRepository
 	extends QueryDslJpaQueryMaker<MajorDescriptiveQuestion>
-	implements MajorQuestionSearchFilter<MajorDescriptiveQuestion> {
+	implements MajorQuestionSearchQuery<MajorDescriptiveQuestion> {
 	private final QMajorDescriptiveQuestion question = QMajorDescriptiveQuestion.majorDescriptiveQuestion;
 
 	public MajorDescriptiveDslRepository(JPAQueryFactory jpaQueryFactory) {
@@ -43,10 +43,9 @@ public class MajorDescriptiveDslRepository
 		return null;
 	}
 
+	@Override
 	public List<MajorDescriptiveQuestion> findAllOrderByIfApprovedAsc() {
-		return getQuery(question)
-			// 정렬 기준
-			.orderBy(question.ifApproved.asc())
+		return selectOrderByIfApprovedAsc()
 			.fetch();
 	}
 }

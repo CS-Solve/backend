@@ -5,8 +5,8 @@ import com.comssa.persistence.question.domain.common.QQuestion;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
 import com.comssa.persistence.question.domain.license.QLicenseMultipleChoiceQuestion;
-import com.comssa.persistence.question.repository.querydsl.ExternalQuestionFilter;
 import com.comssa.persistence.question.repository.querydsl.QueryDslJpaQueryMaker;
+import com.comssa.persistence.question.repository.querydsl.query.QuestionApiTransmissionQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public class LicenseMultipleChoiceQuestionDslRepository
 	extends QueryDslJpaQueryMaker<LicenseMultipleChoiceQuestion>
-	implements ExternalQuestionFilter<LicenseMultipleChoiceQuestion> {
+	implements QuestionApiTransmissionQuery<LicenseMultipleChoiceQuestion> {
 
 	public LicenseMultipleChoiceQuestionDslRepository(JPAQueryFactory jpaQueryFactory) {
 		super(jpaQueryFactory);

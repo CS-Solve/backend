@@ -6,9 +6,9 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.domain.major.QMajorMultipleChoiceQuestion;
-import com.comssa.persistence.question.repository.querydsl.ExternalQuestionFilter;
-import com.comssa.persistence.question.repository.querydsl.MajorQuestionSearchFilter;
 import com.comssa.persistence.question.repository.querydsl.QueryDslJpaQueryMaker;
+import com.comssa.persistence.question.repository.querydsl.query.MajorQuestionSearchQuery;
+import com.comssa.persistence.question.repository.querydsl.query.QuestionApiTransmissionQuery;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
@@ -18,8 +18,8 @@ import java.util.List;
 @Repository
 public class MajorMultipleChoiceQuestionDslRepository
 	extends QueryDslJpaQueryMaker<MajorMultipleChoiceQuestion>
-	implements ExternalQuestionFilter<MajorMultipleChoiceQuestion>,
-	MajorQuestionSearchFilter<MajorMultipleChoiceQuestion> {
+	implements QuestionApiTransmissionQuery<MajorMultipleChoiceQuestion>,
+	MajorQuestionSearchQuery<MajorMultipleChoiceQuestion> {
 
 	public MajorMultipleChoiceQuestionDslRepository(JPAQueryFactory jpaQueryFactory) {
 		super(jpaQueryFactory);
@@ -63,11 +63,11 @@ public class MajorMultipleChoiceQuestionDslRepository
 		return question._super;
 	}
 
+	@Override
 	public List<MajorMultipleChoiceQuestion> findAllOrderByIfApprovedAsc() {
-		return getQuery(question)
+		return selectOrderByIfApprovedAsc()
 			.distinct()
 			.leftJoin(question.questionChoices).fetchJoin()
-			.orderBy(question.ifApproved.asc())
 			.fetch();
 	}
 
