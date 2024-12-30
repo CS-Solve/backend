@@ -15,60 +15,60 @@ import java.util.List;
 
 @Repository
 public class LicenseMultipleChoiceQuestionDslRepository
-	extends QueryDslJpaQueryMaker<LicenseMultipleChoiceQuestion>
-	implements QuestionApiTransmissionQuery<LicenseMultipleChoiceQuestion> {
+        extends QueryDslJpaQueryMaker<LicenseMultipleChoiceQuestion>
+        implements QuestionApiTransmissionQuery<LicenseMultipleChoiceQuestion> {
 
-	public LicenseMultipleChoiceQuestionDslRepository(JPAQueryFactory jpaQueryFactory) {
-		super(jpaQueryFactory);
-	}
+    private final QLicenseMultipleChoiceQuestion question = QLicenseMultipleChoiceQuestion
+            .licenseMultipleChoiceQuestion;
 
-	private final QLicenseMultipleChoiceQuestion question = QLicenseMultipleChoiceQuestion
-		.licenseMultipleChoiceQuestion;
+    public LicenseMultipleChoiceQuestionDslRepository(JPAQueryFactory jpaQueryFactory) {
+        super(jpaQueryFactory);
+    }
 
-	public List<LicenseMultipleChoiceQuestion> findAllWhereLicenseSessionId(
-		Long licenseId
-	) {
-		return getQuery(question)
-			.where(
-				question.licenseSession.id.eq(licenseId)
-			)
-			.distinct()
-			.leftJoin(question.questionChoices).fetchJoin()
-			.orderBy(question.ifApproved.asc())
-			.fetch();
-	}
+    public List<LicenseMultipleChoiceQuestion> findAllWhereLicenseSessionId(
+            Long licenseId
+    ) {
+        return getQuery(question)
+                .where(
+                        question.licenseSession.id.eq(licenseId)
+                )
+                .distinct()
+                .leftJoin(question.questionChoices).fetchJoin()
+                .orderBy(question.ifApproved.asc())
+                .fetch();
+    }
 
-	public List<LicenseMultipleChoiceQuestion> findAllWhereLicenseSessionIdAndIfApproved(
-		Long licenseId,
-		boolean ifApproved
-	) {
-		return getQuery(question)
-			.where(
-				question.licenseSession.id.eq(licenseId)
-					.and(question.ifApproved.eq(ifApproved))
-			)
-			.distinct()
-			.leftJoin(question.questionChoices).fetchJoin()
-			.fetch();
-	}
+    public List<LicenseMultipleChoiceQuestion> findAllWhereLicenseSessionIdAndIfApproved(
+            Long licenseId,
+            boolean ifApproved
+    ) {
+        return getQuery(question)
+                .where(
+                        question.licenseSession.id.eq(licenseId)
+                                .and(question.ifApproved.eq(ifApproved))
+                )
+                .distinct()
+                .leftJoin(question.questionChoices).fetchJoin()
+                .fetch();
+    }
 
-	@Override
-	public List<LicenseMultipleChoiceQuestion> findAllWhereCategories(
-		List<QuestionCategory> questionCategories
-	) {
-		return selectWhereCategories(questionCategories)
-			.leftJoin(question.questionChoices).fetchJoin()
-			.fetch();
-	}
+    @Override
+    public List<LicenseMultipleChoiceQuestion> findAllWhereCategories(
+            List<QuestionCategory> questionCategories
+    ) {
+        return selectWhereCategories(questionCategories)
+                .leftJoin(question.questionChoices).fetchJoin()
+                .fetch();
+    }
 
 
-	@Override
-	public QQuestion getQuestionQClass() {
-		return question._super;
-	}
+    @Override
+    public QQuestion getQuestionQClass() {
+        return question._super;
+    }
 
-	@Override
-	public JPAQuery<LicenseMultipleChoiceQuestion> getQuestion() {
-		return getQuery(question);
-	}
+    @Override
+    public JPAQuery<LicenseMultipleChoiceQuestion> getQuestion() {
+        return getQuery(question);
+    }
 }

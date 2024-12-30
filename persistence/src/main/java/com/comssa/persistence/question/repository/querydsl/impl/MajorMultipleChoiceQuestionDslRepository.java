@@ -17,59 +17,58 @@ import java.util.List;
 
 @Repository
 public class MajorMultipleChoiceQuestionDslRepository
-	extends QueryDslJpaQueryMaker<MajorMultipleChoiceQuestion>
-	implements QuestionApiTransmissionQuery<MajorMultipleChoiceQuestion>,
-	MajorQuestionSearchQuery<MajorMultipleChoiceQuestion> {
+        extends QueryDslJpaQueryMaker<MajorMultipleChoiceQuestion>
+        implements QuestionApiTransmissionQuery<MajorMultipleChoiceQuestion>,
+        MajorQuestionSearchQuery<MajorMultipleChoiceQuestion> {
 
-	public MajorMultipleChoiceQuestionDslRepository(JPAQueryFactory jpaQueryFactory) {
-		super(jpaQueryFactory);
-	}
+    private final QMajorMultipleChoiceQuestion question = QMajorMultipleChoiceQuestion.majorMultipleChoiceQuestion;
 
-	private final QMajorMultipleChoiceQuestion question = QMajorMultipleChoiceQuestion.majorMultipleChoiceQuestion;
+    public MajorMultipleChoiceQuestionDslRepository(JPAQueryFactory jpaQueryFactory) {
+        super(jpaQueryFactory);
+    }
 
+    @Override
+    public List<MajorMultipleChoiceQuestion> findAllCategoriesAndLevelsAndIfApproved(
+            List<QuestionCategory> questionCategories,
+            List<QuestionLevel> questionLevels,
+            boolean approved) {
+        return selectWhereCategoriesAndLevelsAndIfApproved(
+                questionCategories,
+                questionLevels,
+                approved
+        )
+                .distinct()
+                .leftJoin(question.questionChoices).fetchJoin()
+                .fetch();
+    }
 
-	@Override
-	public List<MajorMultipleChoiceQuestion> findAllCategoriesAndLevelsAndIfApproved(
-		List<QuestionCategory> questionCategories,
-		List<QuestionLevel> questionLevels,
-		boolean approved) {
-		return selectWhereCategoriesAndLevelsAndIfApproved(
-			questionCategories,
-			questionLevels,
-			approved
-		)
-			.distinct()
-			.leftJoin(question.questionChoices).fetchJoin()
-			.fetch();
-	}
+    @Override
+    public List<MajorMultipleChoiceQuestion> findAllWhereCategories(
+            List<QuestionCategory> questionCategories
+    ) {
+        return selectWhereCategories(questionCategories)
+                .distinct()
+                .leftJoin(question.questionChoices).fetchJoin()
+                .fetch();
+    }
 
-	@Override
-	public List<MajorMultipleChoiceQuestion> findAllWhereCategories(
-		List<QuestionCategory> questionCategories
-	) {
-		return selectWhereCategories(questionCategories)
-			.distinct()
-			.leftJoin(question.questionChoices).fetchJoin()
-			.fetch();
-	}
+    @Override
+    public JPAQuery<MajorMultipleChoiceQuestion> getQuestion() {
+        return getQuery(question);
+    }
 
-	@Override
-	public JPAQuery<MajorMultipleChoiceQuestion> getQuestion() {
-		return getQuery(question);
-	}
+    @Override
+    public QQuestion getQuestionQClass() {
+        return question._super;
+    }
 
-	@Override
-	public QQuestion getQuestionQClass() {
-		return question._super;
-	}
-
-	@Override
-	public List<MajorMultipleChoiceQuestion> findAllOrderByIfApprovedAsc() {
-		return selectOrderByIfApprovedAsc()
-			.distinct()
-			.leftJoin(question.questionChoices).fetchJoin()
-			.fetch();
-	}
+    @Override
+    public List<MajorMultipleChoiceQuestion> findAllOrderByIfApprovedAsc() {
+        return selectOrderByIfApprovedAsc()
+                .distinct()
+                .leftJoin(question.questionChoices).fetchJoin()
+                .fetch();
+    }
 
 
 }

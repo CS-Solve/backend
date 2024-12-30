@@ -29,54 +29,54 @@ import java.util.List;
 @DiscriminatorValue("LM")
 public class LicenseMultipleChoiceQuestion extends Question implements ChoiceBehavior {
 
-	@Enumerated(value = EnumType.STRING)
-	protected LicenseCategory licenseCategory;
-	@ManyToOne
-	@JoinColumn(name = "license_session_id")
-	private LicenseSession licenseSession;
-	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<LicenseQuestionChoice> questionChoices;
-	
-
-	public static LicenseMultipleChoiceQuestion makeWithDto(
-		RequestMakeMultipleChoiceQuestionDto dto,
-		LicenseSession licenseSession,
-		LicenseCategory licenseCategory) {
-		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.builder()
-			.content(dto.getContent())
-			.questionCategory(dto.getQuestionCategory())
-			.questionLevel(dto.getQuestionLevel())
-			.description(dto.getDescription())
-			.imageUrl(null)
-			.licenseSession(licenseSession)
-			.licenseCategory(licenseCategory)
-			.build();
-		licenseMultipleChoiceQuestion.initDefaults();
-		return licenseMultipleChoiceQuestion;
-	}
+    @Enumerated(value = EnumType.STRING)
+    protected LicenseCategory licenseCategory;
+    @ManyToOne
+    @JoinColumn(name = "license_session_id")
+    private LicenseSession licenseSession;
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<LicenseQuestionChoice> questionChoices;
 
 
-	public static LicenseMultipleChoiceQuestion makeForTest(String test) {
-		LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.builder()
-			.id(1L)
-			.content(test)
-			.questionCategory(QuestionCategory.ALGORITHM)
-			.questionLevel(QuestionLevel.LOW)
-			.description(test)
-			.imageUrl(null)
-			.licenseSession(LicenseSession.builder()
-				.licenseCategory(LicenseCategory.SQLD)
-				.content(test)
-				.build())
-			.licenseCategory(LicenseCategory.SQLD)
-			.build();
-		licenseMultipleChoiceQuestion.initDefaults();
-		return licenseMultipleChoiceQuestion;
-	}
+    public static LicenseMultipleChoiceQuestion makeWithDto(
+            RequestMakeMultipleChoiceQuestionDto dto,
+            LicenseSession licenseSession,
+            LicenseCategory licenseCategory) {
+        LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.builder()
+                .content(dto.getContent())
+                .questionCategory(dto.getQuestionCategory())
+                .questionLevel(dto.getQuestionLevel())
+                .description(dto.getDescription())
+                .imageUrl(null)
+                .licenseSession(licenseSession)
+                .licenseCategory(licenseCategory)
+                .build();
+        licenseMultipleChoiceQuestion.initDefaults();
+        return licenseMultipleChoiceQuestion;
+    }
 
-	@Override
-	public void initDefaults() {
-		this.questionChoices = new ArrayList<>();
-	}
+
+    public static LicenseMultipleChoiceQuestion makeForTest(String test) {
+        LicenseMultipleChoiceQuestion licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.builder()
+                .id(1L)
+                .content(test)
+                .questionCategory(QuestionCategory.ALGORITHM)
+                .questionLevel(QuestionLevel.LOW)
+                .description(test)
+                .imageUrl(null)
+                .licenseSession(LicenseSession.builder()
+                        .licenseCategory(LicenseCategory.SQLD)
+                        .content(test)
+                        .build())
+                .licenseCategory(LicenseCategory.SQLD)
+                .build();
+        licenseMultipleChoiceQuestion.initDefaults();
+        return licenseMultipleChoiceQuestion;
+    }
+
+    @Override
+    public void initDefaults() {
+        this.questionChoices = new ArrayList<>();
+    }
 
 }

@@ -25,8 +25,6 @@ public interface MajorQuestionSearchQuery<T extends Question>
 			.fetch();
 	}
 
-	;
-
 	default JPAQuery<T> selectOrderByIfApprovedAsc() {
 		return getQuestion()
 			.orderBy(getQuestionQClass().ifApproved.asc());
