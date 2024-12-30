@@ -1,10 +1,15 @@
-package com.comssa.persistence.question.repository.querydsl;
+package com.comssa.persistence.question.repository.querydsl.impl;
 
 
+import com.comssa.persistence.question.domain.common.QQuestion;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.common.QuestionLevel;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.domain.major.QMajorMultipleChoiceQuestion;
+import com.comssa.persistence.question.repository.querydsl.ExternalQuestionFilter;
+import com.comssa.persistence.question.repository.querydsl.MajorQuestionSearchFilter;
+import com.comssa.persistence.question.repository.querydsl.QueryDslJpaQueryMaker;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +18,8 @@ import java.util.List;
 @Repository
 public class MajorMultipleChoiceQuestionDslRepository
 	extends QueryDslJpaQueryMaker<MajorMultipleChoiceQuestion>
-	implements LevelsAndCategoryBooleanBuilder {
+	implements ExternalQuestionFilter<MajorMultipleChoiceQuestion>,
+	MajorQuestionSearchFilter<MajorMultipleChoiceQuestion> {
 
 	public MajorMultipleChoiceQuestionDslRepository(JPAQueryFactory jpaQueryFactory) {
 		super(jpaQueryFactory);
@@ -21,31 +27,40 @@ public class MajorMultipleChoiceQuestionDslRepository
 
 	private final QMajorMultipleChoiceQuestion question = QMajorMultipleChoiceQuestion.majorMultipleChoiceQuestion;
 
-	public List<MajorMultipleChoiceQuestion> findAllWhereCategoriesAndLevelsAndIfApproved(
+
+	@Override
+	public List<MajorMultipleChoiceQuestion> findAllCategoriesAndLevelsAndIfApproved(
 		List<QuestionCategory> questionCategories,
 		List<QuestionLevel> questionLevels,
-		boolean approved
-	) {
-
-		return getQuery(question, whereCategoriesAndLevels(
-			question._super,
+		boolean approved) {
+		return selectWhereCategoriesAndLevelsAndIfApproved(
 			questionCategories,
-			questionLevels
-		).and(question.ifApproved.eq(approved)))
+			questionLevels,
+			approved
+		)
 			.distinct()
 			.leftJoin(question.questionChoices).fetchJoin()
 			.fetch();
 	}
 
-	public List<MajorMultipleChoiceQuestion> findAllWhereQuestionCategories(
+	@Override
+	public List<MajorMultipleChoiceQuestion> findAllWhereCategories(
 		List<QuestionCategory> questionCategories
 	) {
-		return getQuery(
-			question,
-			whereCategoriesAndLevels(question._super, questionCategories, null))
+		return selectWhereCategories(questionCategories)
 			.distinct()
 			.leftJoin(question.questionChoices).fetchJoin()
 			.fetch();
+	}
+
+	@Override
+	public JPAQuery<MajorMultipleChoiceQuestion> getQuestion() {
+		return getQuery(question);
+	}
+
+	@Override
+	public QQuestion getQuestionQClass() {
+		return question._super;
 	}
 
 	public List<MajorMultipleChoiceQuestion> findAllOrderByIfApprovedAsc() {

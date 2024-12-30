@@ -8,8 +8,8 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.major.request.RequestGetQuestionByCategoryAndLevelDto;
-import com.comssa.persistence.question.repository.querydsl.MajorDescriptiveDslRepository;
-import com.comssa.persistence.question.repository.querydsl.MajorMultipleChoiceQuestionDslRepository;
+import com.comssa.persistence.question.repository.querydsl.impl.MajorDescriptiveDslRepository;
+import com.comssa.persistence.question.repository.querydsl.impl.MajorMultipleChoiceQuestionDslRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +32,7 @@ public class UserMajorQuestionClassifiedGetService implements MajorQuestionClass
 	public Map<QuestionCategory, List<Question>> getApprovedClassifiedMajorMultipleChoiceQuestions(
 		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
 		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDslRepository
-			.findAllWhereCategoriesAndLevelsAndIfApproved(
+			.findAllCategoriesAndLevelsAndIfApproved(
 				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
 				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels(),
 				true);
@@ -50,7 +50,7 @@ public class UserMajorQuestionClassifiedGetService implements MajorQuestionClass
 	public Map<QuestionCategory, List<Question>> getApprovedClassifiedDescriptiveQuestions(
 		RequestGetQuestionByCategoryAndLevelDto dto) {
 		List<MajorDescriptiveQuestion> majorDescriptiveQuestions = majorDescriptiveQuestionDslRepository
-			.findWithCategoriesAndLevelsAndIfApproved(
+			.findAllCategoriesAndLevelsAndIfApproved(
 				dto.getQuestionCategories(),
 				dto.getQuestionLevels(),
 				true

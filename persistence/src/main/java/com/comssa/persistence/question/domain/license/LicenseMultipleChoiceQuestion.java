@@ -36,6 +36,7 @@ public class LicenseMultipleChoiceQuestion extends Question implements ChoiceBeh
 	private LicenseSession licenseSession;
 	@OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<LicenseQuestionChoice> questionChoices;
+	
 
 	public static LicenseMultipleChoiceQuestion makeWithDto(
 		RequestMakeMultipleChoiceQuestionDto dto,
