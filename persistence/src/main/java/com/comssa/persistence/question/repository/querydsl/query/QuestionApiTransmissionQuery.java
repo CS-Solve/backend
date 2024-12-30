@@ -10,7 +10,11 @@ import java.util.List;
 public interface QuestionApiTransmissionQuery<T extends Question>
 	extends LevelsAndCategoryBooleanBuilder, QuestionQuerySupport<T> {
 	// 구현체에서 구현해야하는 통일된 메소드 이름
-	List<T> findAllWhereCategories(List<QuestionCategory> questionCategory);
+
+	default List<T> findAllWhereCategories(List<QuestionCategory> questionCategories) {
+		return selectWhereCategories(questionCategories)
+			.fetch();
+	}
 
 	default JPAQuery<T> selectWhereCategories(List<QuestionCategory> questionCategories) {
 		return getQuestion()
@@ -21,5 +25,4 @@ public interface QuestionApiTransmissionQuery<T extends Question>
 					null)
 			);
 	}
-
 }

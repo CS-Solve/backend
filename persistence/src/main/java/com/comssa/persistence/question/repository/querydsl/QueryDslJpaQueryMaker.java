@@ -24,4 +24,5 @@ public abstract class QueryDslJpaQueryMaker<T> {
 	public JPAQuery<T> getQuery(EntityPathBase<T> entityPathBase) {
 		return jpaQueryFactory.selectFrom(entityPathBase);
 	}
+
 }
