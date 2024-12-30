@@ -12,8 +12,7 @@ open class ResponseMultipleChoiceQuestionDto(
 	) {
 	companion object {
 		@JvmStatic
-		fun <Q> from(question: Q): ResponseMultipleChoiceQuestionDto
-		 where Q : Question, Q : ChoiceBehavior =
+		fun <Q> from(question: Q): ResponseMultipleChoiceQuestionDto where Q : Question, Q : ChoiceBehavior =
 			ResponseMultipleChoiceQuestionDto(
 				question = question,
 				questionChoices = question.questionChoices.map { ResponseQuestionChoiceDto.from(it) },
