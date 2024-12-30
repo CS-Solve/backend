@@ -1,11 +1,10 @@
 package com.comssa.persistence.question.dto.common.response
 
+import com.comssa.persistence.question.domain.common.ChoiceBehavior
 import com.comssa.persistence.question.domain.common.Question
 import com.comssa.persistence.question.domain.common.QuestionCategory
 import com.comssa.persistence.question.domain.common.QuestionLevel
-import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion
-import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion
 
 abstract class ResponseQuestionDto(
 	question: Question,
@@ -23,8 +22,7 @@ abstract class ResponseQuestionDto(
 		@JvmStatic
 		fun <R : ResponseQuestionDto> from(question: Question): R =
 			when (question) {
-				is LicenseMultipleChoiceQuestion -> ResponseMultipleChoiceQuestionDto.forLicense(question) as R
-				is MajorMultipleChoiceQuestion -> ResponseMultipleChoiceQuestionDto.forMajor(question) as R
+				is ChoiceBehavior -> ResponseMultipleChoiceQuestionDto.from(question) as R
 				is MajorDescriptiveQuestion -> ResponseDescriptiveQuestionDto.forMajor(question) as R
 				else -> throw IllegalArgumentException("Unsupported question type: ${question.javaClass.name}")
 			}

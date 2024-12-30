@@ -50,7 +50,7 @@ class AdminLicenseQuestionControllerTest extends ControllerTest {
 		responseMultipleChoiceQuestionDtos = new ArrayList<>();
 		licenseMultipleChoiceQuestion = LicenseMultipleChoiceQuestion.makeForTest("test");
 		licenseMultipleChoiceQuestions.add(licenseMultipleChoiceQuestion);
-		responseMultipleChoiceQuestionDto = ResponseMultipleChoiceQuestionDto.forLicense(licenseMultipleChoiceQuestion);
+		responseMultipleChoiceQuestionDto = ResponseMultipleChoiceQuestionDto.from(licenseMultipleChoiceQuestion);
 		responseMultipleChoiceQuestionDtos.add(responseMultipleChoiceQuestionDto);
 	}
 

@@ -1,9 +1,10 @@
-package com.comssa.persistence.question.repository.querydsl;
+package com.comssa.persistence.question.repository.querydsl.impl;
 
 
 import com.comssa.persistence.comment.domain.QComment;
 import com.comssa.persistence.question.domain.common.QQuestion;
 import com.comssa.persistence.question.domain.common.Question;
+import com.comssa.persistence.question.repository.querydsl.QuestionCustomRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import java.util.Optional;

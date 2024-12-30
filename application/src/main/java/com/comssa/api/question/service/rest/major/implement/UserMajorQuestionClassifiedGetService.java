@@ -8,8 +8,8 @@ import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion;
 import com.comssa.persistence.question.domain.major.MajorMultipleChoiceQuestion;
 import com.comssa.persistence.question.dto.major.request.RequestGetQuestionByCategoryAndLevelDto;
-import com.comssa.persistence.question.repository.querydsl.MajorDescriptiveDslRepository;
-import com.comssa.persistence.question.repository.querydsl.MajorMultipleChoiceQuestionDslRepository;
+import com.comssa.persistence.question.repository.querydsl.impl.MajorDescriptiveDslRepository;
+import com.comssa.persistence.question.repository.querydsl.impl.MajorMultipleChoiceQuestionDslRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,41 +20,41 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class UserMajorQuestionClassifiedGetService implements MajorQuestionClassifiedGetService<Question> {
-	private final MajorMultipleChoiceQuestionDslRepository majorMultipleChoiceQuestionDslRepository;
-	private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
-	private final MajorDescriptiveDslRepository majorDescriptiveQuestionDslRepository;
+    private final MajorMultipleChoiceQuestionDslRepository majorMultipleChoiceQuestionDslRepository;
+    private final QuestionClassifyByCategoryService questionClassifyByCategoryService;
+    private final MajorDescriptiveDslRepository majorDescriptiveQuestionDslRepository;
 
-	/**
-	 * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 객관식.
-	 * 문제 선택지들을 섞어준다.
-	 */
-	@Override
-	public Map<QuestionCategory, List<Question>> getApprovedClassifiedMajorMultipleChoiceQuestions(
-		RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
-		List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDslRepository
-			.findAllWhereCategoriesAndLevelsAndIfApproved(
-				requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
-				requestGetQuestionByCategoryAndLevelDto.getQuestionLevels(),
-				true);
-		for (MajorMultipleChoiceQuestion question : majorMultipleChoiceQuestions) {
-			Collections.shuffle(question.getQuestionChoices());
-		}
-		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
-	}
+    /**
+     * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 객관식.
+     * 문제 선택지들을 섞어준다.
+     */
+    @Override
+    public Map<QuestionCategory, List<Question>> getApprovedClassifiedMajorMultipleChoiceQuestions(
+            RequestGetQuestionByCategoryAndLevelDto requestGetQuestionByCategoryAndLevelDto) {
+        List<MajorMultipleChoiceQuestion> majorMultipleChoiceQuestions = majorMultipleChoiceQuestionDslRepository
+                .findAllCategoriesAndLevelsAndIfApproved(
+                        requestGetQuestionByCategoryAndLevelDto.getQuestionCategories(),
+                        requestGetQuestionByCategoryAndLevelDto.getQuestionLevels(),
+                        true);
+        for (MajorMultipleChoiceQuestion question : majorMultipleChoiceQuestions) {
+            Collections.shuffle(question.getQuestionChoices());
+        }
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorMultipleChoiceQuestions);
+    }
 
 
-	/**
-	 * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 서술형
-	 */
-	@Override
-	public Map<QuestionCategory, List<Question>> getApprovedClassifiedDescriptiveQuestions(
-		RequestGetQuestionByCategoryAndLevelDto dto) {
-		List<MajorDescriptiveQuestion> majorDescriptiveQuestions = majorDescriptiveQuestionDslRepository
-			.findWithCategoriesAndLevelsAndIfApproved(
-				dto.getQuestionCategories(),
-				dto.getQuestionLevels(),
-				true
-			);
-		return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorDescriptiveQuestions);
-	}
+    /**
+     * 분야, 난이도 파라미터로 문제를 조회하는 경우 - 서술형
+     */
+    @Override
+    public Map<QuestionCategory, List<Question>> getApprovedClassifiedDescriptiveQuestions(
+            RequestGetQuestionByCategoryAndLevelDto dto) {
+        List<MajorDescriptiveQuestion> majorDescriptiveQuestions = majorDescriptiveQuestionDslRepository
+                .findAllCategoriesAndLevelsAndIfApproved(
+                        dto.getQuestionCategories(),
+                        dto.getQuestionLevels(),
+                        true
+                );
+        return questionClassifyByCategoryService.classifyQuestionByCategoryOrdered(majorDescriptiveQuestions);
+    }
 }
