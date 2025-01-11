@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiOperation
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
@@ -20,20 +19,19 @@ class QuestionGradeController(
 ) {
 	/**
 	 * @param questionField (major 또는 License)
-	 * @param questionType  (descriptive 또는 MultipleChoice)
 	 * 각 구현체에 따라 채점 방식이 다름름
 	 */
 	@ApiOperation("객관식 문제 채점")
-	@PatchMapping("/question/{questionField}/{questionType}/choice/{choiceId}/grade")
+	@PatchMapping("/question/{questionField}/multiple/choice/{choiceId}/grade")
 	fun gradeMultipleChoiceQuestion(
 		@PathVariable("questionField") questionField: String,
-		@PathVariable("questionType") questionType: String,
 		@PathVariable("choiceId") choiceId: Long,
 	): ResponseEntity<Boolean> = ResponseEntity.ok(questionChoiceGradeService.isChoiceAnswer(choiceId))
 
 	@ApiOperation("서술형 문제 채점")
-	@PostMapping("/questions/major/descriptive/{questionId}/grade")
+	@PatchMapping("/questions/{questionField}/descriptive/{questionId}/grade")
 	fun gradeDescriptiveQuestion(
+		@PathVariable("questionField") questionField: String,
 		@PathVariable("questionId") questionId: Long,
 		@RequestBody requestDoGradeDescriptiveAnswerDto: RequestDoGradeDescriptiveAnswerDto,
 	): ResponseEntity<String> =

@@ -59,7 +59,7 @@ class ChatManageService(
 		return chatGptService.sendFileUploadMessage(listOf(commandMessage, chatMessage))
 	}
 
-	fun talkForGradeQuestion(
+	fun talkForGradeDescriptiveQuestion(
 		command: String,
 		questionContent: String,
 		userDescriptiveAnswer: String,

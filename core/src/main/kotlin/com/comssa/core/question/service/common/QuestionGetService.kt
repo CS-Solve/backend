@@ -27,6 +27,8 @@ class QuestionGetService(
 			is LicenseMultipleChoiceQuestion -> {
 				question.questionChoices.size // 지연 로딩 강제 초기화
 			}
+
+			else -> throw WrongQuestionTypeException()
 		}
 		return question
 	}

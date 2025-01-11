@@ -61,6 +61,7 @@ public class AmazonS3FileUploadService implements FileUploadService {
 			}
 			return Optional.of(convertFile);
 		}
+
 		return Optional.empty();
 	}
 }
