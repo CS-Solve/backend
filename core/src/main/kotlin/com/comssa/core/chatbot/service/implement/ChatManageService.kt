@@ -6,6 +6,7 @@ import com.comssa.persistence.chatbot.dto.request.ChatGptMessageDto
 import com.comssa.persistence.chatbot.dto.request.ChatRequestDto
 import com.comssa.persistence.chatbot.dto.response.ChatGptFileUploadResponseDto
 import org.springframework.stereotype.Service
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
 
 @Service
 class ChatManageService(
@@ -63,11 +64,11 @@ class ChatManageService(
 		command: String,
 		questionContent: String,
 		userDescriptiveAnswer: String,
-	): String {
+	): SseEmitter {
 		val commandMessage = ChatGptMessageDto.from(command, ChatRole.SYSTEM)
 		val questionContentMessage = ChatGptMessageDto.from(questionContent, ChatRole.ASSISTANT)
 		val chatMessage = ChatGptMessageDto.from(userDescriptiveAnswer, ChatRole.USER)
-		return chatGptService.sendChatMessage(listOf(commandMessage, questionContentMessage, chatMessage))
+		return chatGptService.getMessageBySse(listOf(commandMessage, questionContentMessage, chatMessage))
 	}
 
 	companion object {

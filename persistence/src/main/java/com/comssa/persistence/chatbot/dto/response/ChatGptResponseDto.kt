@@ -18,7 +18,12 @@ data class ChatGptResponseDto(
 	data class Choice(
 		val message: Message? = null,
 		val finishReason: String? = null,
+		val delta: Delta? = null,
 		val index: Int = 0,
+	)
+
+	data class Delta(
+		val content: String,
 	)
 
 	data class Message(

@@ -5,11 +5,13 @@ import com.comssa.core.question.service.common.DescriptiveQuestionService
 import com.comssa.persistence.question.dto.common.request.RequestDoGradeDescriptiveAnswerDto
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
 
 @Api(tags = ["문제 채점"])
 @RestController
@@ -29,12 +31,15 @@ class QuestionGradeController(
 	): ResponseEntity<Boolean> = ResponseEntity.ok(questionChoiceGradeService.isChoiceAnswer(choiceId))
 
 	@ApiOperation("서술형 문제 채점")
-	@PatchMapping("/questions/{questionField}/descriptive/{questionId}/grade")
+	@PatchMapping(
+		value = ["/questions/{questionField}/descriptive/{questionId}/grade"],
+		produces = [MediaType.TEXT_EVENT_STREAM_VALUE],
+	)
 	fun gradeDescriptiveQuestion(
 		@PathVariable("questionField") questionField: String,
 		@PathVariable("questionId") questionId: Long,
 		@RequestBody requestDoGradeDescriptiveAnswerDto: RequestDoGradeDescriptiveAnswerDto,
-	): ResponseEntity<String> =
+	): ResponseEntity<SseEmitter> =
 		ResponseEntity.ok(
 			descriptiveQuestionService.gradeDescriptiveQuestion(questionId, requestDoGradeDescriptiveAnswerDto),
 		)
