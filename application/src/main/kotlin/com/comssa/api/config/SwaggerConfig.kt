@@ -83,13 +83,13 @@ class SwaggerConfig {
 
 		// WebMvcEndpointHandlerMapping 객체를 생성하여 반환합니다.
 		return WebMvcEndpointHandlerMapping(
-			endpointMapping, // 엔드포인트 매핑
-			webEndpoints, // 웹 엔드포인트 컬렉션
-			endpointMediaTypes, // 엔드포인트 미디어 타입
-			corsProperties.toCorsConfiguration(), // CORS 설정
-			EndpointLinksResolver(allEndpoints, basePath), // 엔드포인트 링크 리졸버
-			shouldRegisterLinksMapping, // 링크 매핑 등록 여부
-			null, // 추가적인 설정 (여기서는 null로 설정)
+			endpointMapping,
+			webEndpoints,
+			endpointMediaTypes,
+			corsProperties.toCorsConfiguration(),
+			EndpointLinksResolver(allEndpoints, basePath),
+			shouldRegisterLinksMapping,
+			null,
 		)
 	}
 

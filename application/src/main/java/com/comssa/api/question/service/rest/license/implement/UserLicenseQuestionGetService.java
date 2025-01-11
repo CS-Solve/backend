@@ -6,7 +6,7 @@ import com.comssa.api.question.service.rest.license.LicenseQuestionGetService;
 import com.comssa.persistence.question.domain.common.Question;
 import com.comssa.persistence.question.domain.common.QuestionCategory;
 import com.comssa.persistence.question.domain.license.LicenseMultipleChoiceQuestion;
-import com.comssa.persistence.question.repository.querydsl.LicenseMultipleChoiceQuestionDslRepository;
+import com.comssa.persistence.question.repository.querydsl.impl.LicenseMultipleChoiceQuestionDslRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -17,7 +17,7 @@ public interface AdminMajorQuestionMakeService {
 		List<RequestMakeMultipleChoiceQuestionDto> requestNormalQuestionDto);
 
 	MajorMultipleChoiceQuestion makeMultipleChoiceQuestion(
-		RequestMakeMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionContentException, DuplicateQuestionContentException;
+		RequestMakeMultipleChoiceQuestionDto requestNormalQuestionDto) throws DuplicateQuestionContentException;
 
 	List<MajorDescriptiveQuestion> makeDescriptiveQuestions(
 		List<RequestMakeMajorDescriptiveQuestionDto> requestNormalQuestionDto
