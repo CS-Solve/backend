@@ -12,7 +12,7 @@ import java.util.LinkedList
 class ChatCacheService(
 	private val cacheManager: CacheManager,
 ) {
-	private fun getChatMessages(key: String): List<ChatGptMessageDto>? {
+	fun getChatMessages(key: String): List<ChatGptMessageDto>? {
 		// filterIsInstance는 "List" 내에서 특정타입의 요소들만 필터링 하여, 새로운 List를 만들어 반환한다.
 		return cacheManager
 			.getCache(CHAT_MESSAGE)

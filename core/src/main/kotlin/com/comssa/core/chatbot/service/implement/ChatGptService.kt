@@ -37,7 +37,7 @@ class ChatGptService(
 	 * 메시지는 채팅용일 수도, 정답 채점을 위한 데이터일 수있고 이를 신경 쓰지 않는다.
 	 * 오로지 메시지와 역할만 보낸다.
 	 */
-	fun sendChatMessage(chatMessages: List<ChatGptMessageDto?>): String {
+	fun sendChatMessage(chatMessages: List<ChatGptMessageDto>): String {
 		val chatGptRestRequestDto: ChatGptRestRequestDto =
 			ChatGptRestRequestDto.from(
 				model,
@@ -59,7 +59,7 @@ class ChatGptService(
 		return responseText
 	}
 
-	fun getMessageBySse(chatMessages: List<ChatGptMessageDto?>): SseEmitter {
+	fun getMessageBySse(chatMessages: List<ChatGptMessageDto>): SseEmitter {
 		val emitter = SseEmitter()
 		val chatGptRestRequestDto: ChatGptRestRequestDto =
 			ChatGptRestRequestDto.from(
@@ -83,7 +83,7 @@ class ChatGptService(
 		return emitter
 	}
 
-	fun sendFileUploadMessage(chatMessages: List<ChatGptMessageDto?>): ChatGptFileUploadResponseDto {
+	fun sendFileUploadMessage(chatMessages: List<ChatGptMessageDto>): ChatGptFileUploadResponseDto {
 		val dataForFIle = makeFileUploadDto(chatMessages)
 		// 메모리 내 ByteArrayResource로 변환
 		val resource = fileConvertService.dataToChatGptJson(dataForFIle)

@@ -5,7 +5,6 @@ import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion
 import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionGradeStandardDto
 import com.comssa.persistence.question.dto.common.request.RequestDoGradeDescriptiveAnswerDto
 import org.springframework.stereotype.Service
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
 
 @Service
 class DescriptiveQuestionService(
@@ -15,7 +14,7 @@ class DescriptiveQuestionService(
 	fun gradeDescriptiveQuestion(
 		id: Long,
 		requestDoGradeDescriptiveAnswerDto: RequestDoGradeDescriptiveAnswerDto,
-	): SseEmitter {
+	): String {
 		val question =
 			questionGetService.getMajorDescriptiveQuestion(id)
 

@@ -7,6 +7,7 @@ import com.comssa.persistence.chatbot.dto.request.ChatRequestDto
 import com.comssa.persistence.chatbot.dto.response.ChatGptFileUploadResponseDto
 import org.springframework.stereotype.Service
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
+import java.util.UUID
 
 @Service
 class ChatManageService(
@@ -62,11 +63,23 @@ class ChatManageService(
 		command: String,
 		questionContent: String,
 		userDescriptiveAnswer: String,
-	): SseEmitter {
+	): String {
 		val commandMessage = ChatGptMessageDto.from(command, ChatRole.SYSTEM)
 		val questionContentMessage = ChatGptMessageDto.from(questionContent, ChatRole.ASSISTANT)
 		val chatMessage = ChatGptMessageDto.from(userDescriptiveAnswer, ChatRole.USER)
-		return chatGptService.getMessageBySse(listOf(commandMessage, questionContentMessage, chatMessage))
+
+		val key = UUID.randomUUID().toString()
+		chatCacheService.saveChatMessage(
+			key,
+			listOf(commandMessage, questionContentMessage, chatMessage),
+			MAX_MESSAGES_SIZE,
+		)
+		return key
+	}
+
+	fun getAnswerBySse(key: String): SseEmitter {
+		val storedChatMessage = chatCacheService.getChatMessages(key) ?: throw NoSuchElementException()
+		return chatGptService.getMessageBySse(storedChatMessage)
 	}
 
 	companion object {
