@@ -5,6 +5,7 @@ import com.comssa.persistence.question.domain.major.MajorDescriptiveQuestion
 import com.comssa.persistence.question.dto.common.request.RequestChangeQuestionGradeStandardDto
 import com.comssa.persistence.question.dto.common.request.RequestDoGradeDescriptiveAnswerDto
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class DescriptiveQuestionService(
@@ -25,6 +26,7 @@ class DescriptiveQuestionService(
 		)
 	}
 
+	@Transactional
 	fun changeGradeStandard(
 		id: Long,
 		requestChangeQuestionGradeStandardDto: RequestChangeQuestionGradeStandardDto,
@@ -45,6 +47,7 @@ class DescriptiveQuestionService(
 			"그러니 지적할 때, ~이렇게 대답하셔야합니다. 보단 ~ 이런 내용을 보충하시면 더 좋을 거같습니다. 이런 식으로 지적해주세요." +
 			"다만 당신의 답변도 Too Much Information을 담아선 안 됩니다. 예를 들어 JVM의 컴파일 과정에 대해 물어보았는데, " +
 			"당신의 답변에 JIT 컴파일러 내용이 들어가있으면 좋지 않습니다. 관련성은 있지만, 물어본 질문에 대해서만 답변을 해주세요." +
+			"사용자가 모른다고 하거나, 알려달라고 요청하면 친절하게 내용에 대해 알려주세요." +
 			"문제 채점 기준은 다음과 같습니다. 주어진 채점 기준이 없다면 당신이 임의로 판단해서 채점해주세요. " +
 			""
 }
