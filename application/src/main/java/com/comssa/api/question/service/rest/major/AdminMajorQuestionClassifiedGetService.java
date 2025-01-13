@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface AdminMajorQuestionClassifiedGetService {
-    Map<QuestionCategory, List<Question>> getClassifiedAllMajorMultipleChoiceQuestions();
+	Map<QuestionCategory, List<Question>> getClassifiedAllMajorMultipleChoiceQuestions();
 
-    Map<QuestionCategory, List<Question>> getClassifiedAllMajorDescriptiveQuestions();
+	Map<QuestionCategory, List<Question>> getClassifiedAllMajorDescriptiveQuestions();
 }

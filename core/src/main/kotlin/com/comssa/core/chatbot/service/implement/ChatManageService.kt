@@ -6,6 +6,8 @@ import com.comssa.persistence.chatbot.dto.request.ChatGptMessageDto
 import com.comssa.persistence.chatbot.dto.request.ChatRequestDto
 import com.comssa.persistence.chatbot.dto.response.ChatGptFileUploadResponseDto
 import org.springframework.stereotype.Service
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
+import java.util.UUID
 
 @Service
 class ChatManageService(
@@ -19,9 +21,7 @@ class ChatManageService(
 		if (chatCacheService.getUsedChance(userId) >= MAX_CHAT_CHANCE) {
 			return NO_MORE_CHANCE
 		}
-
 		val chatMessages = beforeRespond(userId, chatRequestDto)
-
 		val answer = chatGptService.sendChatMessage(chatMessages)
 		afterRespond(userId, answer)
 		return answer
@@ -35,7 +35,7 @@ class ChatManageService(
 		chatRequestDto: ChatRequestDto,
 	): List<ChatGptMessageDto> {
 		val chatMessageFromUser = ChatGptMessageDto.from(chatRequestDto.prompt, ChatRole.USER)
-		return chatCacheService.saveChatMessage(userId, chatMessageFromUser, MAX_MESSAGES_SIZE)
+		return chatCacheService.saveChatMessage(userId, listOf(chatMessageFromUser), MAX_MESSAGES_SIZE)
 	}
 
 	/**
@@ -46,7 +46,7 @@ class ChatManageService(
 		answer: String,
 	) {
 		val chatMessageFromAssistant = ChatGptMessageDto.from(answer, ChatRole.ASSISTANT)
-		chatCacheService.saveChatMessage(userId, chatMessageFromAssistant, MAX_MESSAGES_SIZE)
+		chatCacheService.saveChatMessage(userId, listOf(chatMessageFromAssistant), MAX_MESSAGES_SIZE)
 		chatCacheService.increaseUsedChance(userId)
 	}
 
@@ -59,7 +59,7 @@ class ChatManageService(
 		return chatGptService.sendFileUploadMessage(listOf(commandMessage, chatMessage))
 	}
 
-	fun talkForGradeQuestion(
+	fun talkForGradeDescriptiveQuestion(
 		command: String,
 		questionContent: String,
 		userDescriptiveAnswer: String,
@@ -67,7 +67,19 @@ class ChatManageService(
 		val commandMessage = ChatGptMessageDto.from(command, ChatRole.SYSTEM)
 		val questionContentMessage = ChatGptMessageDto.from(questionContent, ChatRole.ASSISTANT)
 		val chatMessage = ChatGptMessageDto.from(userDescriptiveAnswer, ChatRole.USER)
-		return chatGptService.sendChatMessage(listOf(commandMessage, questionContentMessage, chatMessage))
+
+		val key = UUID.randomUUID().toString()
+		chatCacheService.saveChatMessage(
+			key,
+			listOf(commandMessage, questionContentMessage, chatMessage),
+			MAX_MESSAGES_SIZE,
+		)
+		return key
+	}
+
+	fun getChatMessageBySse(key: String): SseEmitter {
+		val storedChatMessage = chatCacheService.getChatMessages(key) ?: throw NoSuchElementException()
+		return chatGptService.getMessageBySse(storedChatMessage)
 	}
 
 	companion object {

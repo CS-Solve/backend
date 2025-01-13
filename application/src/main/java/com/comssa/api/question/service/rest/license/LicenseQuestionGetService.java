@@ -10,6 +10,6 @@ import java.util.Map;
 
 @Service
 public interface LicenseQuestionGetService {
-    Map<QuestionCategory, List<Question>> getClassifiedLicenseMultipleChoiceQuestion(
-            Long sessionId);
+	Map<QuestionCategory, List<Question>> getClassifiedLicenseMultipleChoiceQuestion(
+		Long sessionId);
 }

@@ -14,11 +14,10 @@ import org.springframework.transaction.annotation.Transactional
 class QuestionGetService(
 	private val questionRepository: QuestionRepository,
 ) {
-	fun getQuestionByIdFetchChoiceIfShould(questionId: Long): Question {
+	fun getQuestionById(questionId: Long): Question {
 		val question =
 			questionRepository.findById(questionId).orElseThrow { NoSuchElementException() }
 				?: throw NoSuchElementException("Question with ID $questionId not found")
-		// MajorMultipleChoiceQuestion 타입이면 choices를 지연 로딩
 		when (question) {
 			is MajorMultipleChoiceQuestion -> {
 				question.questionChoices.size // 지연 로딩 강제 초기화

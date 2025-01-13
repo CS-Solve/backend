@@ -1,66 +1,51 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.descriptive-answer-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            const answerInputContainer = this.closest('.answer-input-container');
-            const userAnswer = answerInputContainer.querySelector('.user-answer').value.trim(); // textarea 값 가져오기
-            const aiResponseBox = this.closest('.each-question').querySelector('.ai-answer-container');
-            const loadingSpinner = aiResponseBox.querySelector('.loading-spinner'); // 로딩 스피너
-            const aiResponseContent = aiResponseBox.querySelector('.ai-response-content'); // AI 답변 컨텐츠
+        button.addEventListener('click', async () => {
+            const container = button.closest('.answer-input-container');
+            const userAnswer = container.querySelector('.user-answer').value.trim();
+            const aiResponseBox = button.closest('.each-question').querySelector('.ai-answer-container');
+            const spinner = aiResponseBox.querySelector('.loading-spinner');
+            const responseContent = aiResponseBox.querySelector('.ai-response-content');
 
-            if (!userAnswer || userAnswer.length === 0) {
-                alert("답안을 입력하세요.");
-                return;
-            }
+            if (!userAnswer) return alert("답안을 입력하세요.");
 
-            // 로딩 시작
-            loadingSpinner.style.display = 'block';
-            aiResponseContent.textContent = ''; // 이전 응답 초기화
+            spinner.style.display = 'block';
+            responseContent.textContent = '';
 
-            fetch(`/questions/major/descriptive/${this.getAttribute('data-question-id')}/grade`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({content: userAnswer}),
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('AI 답변 생성 실패');
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    aiResponseContent.textContent = data;
-                    formatSpecificQuestion(aiResponseContent);
-                })
-                .catch(error => {
-                    alert(`오류 발생: ${error.message}`);
-                })
-                .finally(() => {
-                    // 로딩 끝
-                    loadingSpinner.style.display = 'none';
+            try {
+                const postResponse = await fetch(`/questions/major/descriptive/${button.dataset.questionId}/grade`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({content: userAnswer}),
                 });
+
+                if (!postResponse.ok) throw new Error('답변 등록 실패');
+                const key = await postResponse.text();
+
+                const eventSource = new EventSource(`/chat/subscribe/${key}`);
+                eventSource.onmessage = (event) => {
+                    // JSON 문자열을 JavaScript 객체로 파싱
+                    const parsedData = JSON.parse(event.data);
+
+                    const deltaContent = parsedData.firstChoiceDelta;
+
+                    // 출력 및 포맷팅
+                    console.log("firstChoiceDelta:", deltaContent);
+                    formatAnswer(responseContent, deltaContent);
+                };
+                eventSource.onerror = (event) => {
+                    eventSource.close();
+                };
+            } catch (error) {
+                alert(`오류: ${error.message}`);
+            } finally {
+                spinner.style.display = 'none';
+            }
         });
     });
 });
 
-function formatSpecificQuestion(element) {
-    let lines = element.textContent.split('\n');
-
-    let formattedLines = lines.map(line => {
-        let formattedLine = line;
-
-        if (formattedLine.startsWith('# ')) {
-            formattedLine = formattedLine.replace(/^# (.*)/, '<span style="font-weight: bold; font-size: 1.6em;">$1</span>');
-        } else if (formattedLine.startsWith('## ')) {
-            formattedLine = formattedLine.replace(/^## (.*)/, '<span style="font-weight: bold; font-size: 1.4em;">$1</span>');
-        } else if (formattedLine.startsWith('### ')) {
-            formattedLine = formattedLine.replace(/^### (.*)/, '<span style="font-weight: bold; font-size: 1.2em;">$1</span>');
-        }
-
-        formattedLine = formattedLine.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; font-size: 1em;">$1</span>');
-        return formattedLine;
-    });
-
-    element.innerHTML = formattedLines.join('<br/>');
+function formatAnswer(element, newText) {
+    // \n을 <br/>로 변환하여 기존 내용에 추가
+    element.innerHTML += newText.replace(/\n/g, '<br/>');
 }

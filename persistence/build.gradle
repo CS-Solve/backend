@@ -33,6 +33,7 @@ dependencies {
     // java.lang.NoClassDefFoundError (javax.annotation.Entity, Id,GeneratedValue등 ) 대응 코드
 
 //    kapt "org.springframework.boot:spring-boot-configuration-processor"
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
 }
 

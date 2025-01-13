@@ -8,18 +8,21 @@ import com.comssa.persistence.chatbot.dto.request.ChatGptRestRequestDto
 import com.comssa.persistence.chatbot.dto.response.ChatGptBatchResponseDto
 import com.comssa.persistence.chatbot.dto.response.ChatGptFileUploadResponseDto
 import com.comssa.persistence.chatbot.dto.response.ChatGptResponseDto
+import com.comssa.persistence.webclient.WebClientService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.core.io.ByteArrayResource
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
 import java.time.LocalDateTime
 
 @Service
 class ChatGptService(
 	private val restTemplateService: RestTemplateService,
 	private val fileConvertService: FileConvertService,
+	private val webclientService: WebClientService,
 ) {
 	@Value("\${openai.secret-key}")
 	private lateinit var secretKey: String
@@ -34,21 +37,53 @@ class ChatGptService(
 	 * 메시지는 채팅용일 수도, 정답 채점을 위한 데이터일 수있고 이를 신경 쓰지 않는다.
 	 * 오로지 메시지와 역할만 보낸다.
 	 */
-	fun sendChatMessage(chatMessages: List<ChatGptMessageDto?>): String {
-		val chatGptRestRequestDto: ChatGptRestRequestDto = ChatGptRestRequestDto.from(model, chatMessages)
+	fun sendChatMessage(chatMessages: List<ChatGptMessageDto>): String {
+		val chatGptRestRequestDto: ChatGptRestRequestDto =
+			ChatGptRestRequestDto.from(
+				model,
+				chatMessages,
+				false,
+			)
 		val response =
-			restTemplateService
+			webclientService
 				.sendPostRequest(
-					baseUrl + advancedChatApiUrl,
+					baseUrl,
+					advancedChatApiUrl,
 					secretKey,
 					MediaType.APPLICATION_JSON,
 					chatGptRestRequestDto,
 					ChatGptResponseDto::class.java,
-				).body
-		return response?.firstChoiceContent ?: "응답을 생성할 수 없습니다."
+				)
+		val responseText = response?.firstChoiceMessage ?: "응답을 생성할 수 없습니다."
+		println(responseText)
+		return responseText
 	}
 
-	fun sendFileUploadMessage(chatMessages: List<ChatGptMessageDto?>): ChatGptFileUploadResponseDto {
+	fun getMessageBySse(chatMessages: List<ChatGptMessageDto>): SseEmitter {
+		val emitter = SseEmitter()
+		val chatGptRestRequestDto: ChatGptRestRequestDto =
+			ChatGptRestRequestDto.from(
+				model,
+				chatMessages,
+				true,
+			)
+		val response =
+			webclientService.sendPostRequestBySse(
+				baseUrl = baseUrl,
+				uri = advancedChatApiUrl,
+				bearerToken = secretKey,
+				contentType = MediaType.APPLICATION_JSON,
+				body = chatGptRestRequestDto,
+				responseType = ChatGptResponseDto::class.java,
+				emitter = emitter,
+				contentExtractor = { it.firstChoiceDelta },
+			)
+		val responseText = response?.firstChoiceDelta ?: "응답을 생성할 수 없습니다."
+		println("result = $responseText")
+		return emitter
+	}
+
+	fun sendFileUploadMessage(chatMessages: List<ChatGptMessageDto>): ChatGptFileUploadResponseDto {
 		val dataForFIle = makeFileUploadDto(chatMessages)
 		// 메모리 내 ByteArrayResource로 변환
 		val resource = fileConvertService.dataToChatGptJson(dataForFIle)
@@ -68,7 +103,11 @@ class ChatGptService(
 	private fun makeFileUploadDto(chatMessages: List<ChatGptMessageDto?>): List<ChatGptRequestFileUploadDto> {
 		val chatGptRequestFileUploadDto =
 			ChatGptRequestFileUploadDto.from(
-				ChatGptRestRequestDto.from(model, chatMessages),
+				ChatGptRestRequestDto.from(
+					model,
+					chatMessages,
+					false,
+				),
 				LocalDateTime.now().toString(),
 				"POST",
 				advancedChatApiUrl,
