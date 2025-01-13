@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 eventSource.onmessage = (event) => {
                     // JSON 문자열을 JavaScript 객체로 파싱
                     const parsedData = JSON.parse(event.data);
-                    
+
                     const deltaContent = parsedData.firstChoiceDelta;
 
                     // 출력 및 포맷팅

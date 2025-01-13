@@ -10,6 +10,6 @@ import java.util.Map;
 
 @Service
 public interface QuestionClassifyByCategoryService {
-    Map<QuestionCategory, List<Question>> classifyQuestionByCategoryOrdered(List<? extends Question> questions);
+	Map<QuestionCategory, List<Question>> classifyQuestionByCategoryOrdered(List<? extends Question> questions);
 }
 
