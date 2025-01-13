@@ -23,7 +23,7 @@ data class ChatGptResponseDto(
 	)
 
 	data class Delta(
-		val content: String,
+		val content: String? = null,
 	)
 
 	data class Message(

@@ -1,5 +1,8 @@
 package com.comssa.persistence.webclient
 
+import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
@@ -27,12 +30,23 @@ class WebClientService {
 			.contentType(contentType)
 			.body(BodyInserters.fromValue(body))
 			.exchangeToFlux { response ->
-				response.bodyToFlux(responseType)
+				response
+					.bodyToFlux(String::class.java)
 			}.doOnNext { data ->
 				println(data)
-				emitter.send(data)
-			}.doOnError(emitter::completeWithError)
-			.doOnComplete(emitter::complete)
+				try {
+					val objectMapper =
+						ObjectMapper().apply {
+							configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+							// 정의되지 않은 필드 무시
+						}
+					val parsedData: T = objectMapper.readValue(data, responseType)
+					emitter.send(data)
+					result.add(parsedData)
+				} catch (e: MismatchedInputException) {
+					emitter.complete()
+				}
+			}.doOnComplete(emitter::complete)
 			.subscribe()
 		return result.lastOrNull()
 	}

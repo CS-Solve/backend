@@ -20,9 +20,7 @@ class ChatManageService(
 		if (chatCacheService.getUsedChance(userId) >= MAX_CHAT_CHANCE) {
 			return NO_MORE_CHANCE
 		}
-
 		val chatMessages = beforeRespond(userId, chatRequestDto)
-
 		val answer = chatGptService.sendChatMessage(chatMessages)
 		afterRespond(userId, answer)
 		return answer
@@ -36,7 +34,7 @@ class ChatManageService(
 		chatRequestDto: ChatRequestDto,
 	): List<ChatGptMessageDto> {
 		val chatMessageFromUser = ChatGptMessageDto.from(chatRequestDto.prompt, ChatRole.USER)
-		return chatCacheService.saveChatMessage(userId, chatMessageFromUser, MAX_MESSAGES_SIZE)
+		return chatCacheService.saveChatMessage(userId, listOf(chatMessageFromUser), MAX_MESSAGES_SIZE)
 	}
 
 	/**
@@ -47,7 +45,7 @@ class ChatManageService(
 		answer: String,
 	) {
 		val chatMessageFromAssistant = ChatGptMessageDto.from(answer, ChatRole.ASSISTANT)
-		chatCacheService.saveChatMessage(userId, chatMessageFromAssistant, MAX_MESSAGES_SIZE)
+		chatCacheService.saveChatMessage(userId, listOf(chatMessageFromAssistant), MAX_MESSAGES_SIZE)
 		chatCacheService.increaseUsedChance(userId)
 	}
 
