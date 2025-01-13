@@ -77,7 +77,7 @@ class ChatManageService(
 		return key
 	}
 
-	fun getAnswerBySse(key: String): SseEmitter {
+	fun getChatMessageBySse(key: String): SseEmitter {
 		val storedChatMessage = chatCacheService.getChatMessages(key) ?: throw NoSuchElementException()
 		return chatGptService.getMessageBySse(storedChatMessage)
 	}

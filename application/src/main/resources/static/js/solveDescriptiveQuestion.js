@@ -1,45 +1,41 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.descriptive-answer-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            const answerInputContainer = this.closest('.answer-input-container');
-            const userAnswer = answerInputContainer.querySelector('.user-answer').value.trim(); // textarea 값 가져오기
-            const aiResponseBox = this.closest('.each-question').querySelector('.ai-answer-container');
-            const loadingSpinner = aiResponseBox.querySelector('.loading-spinner'); // 로딩 스피너
-            const aiResponseContent = aiResponseBox.querySelector('.ai-response-content'); // AI 답변 컨텐츠
+        button.addEventListener('click', async () => {
+            const container = button.closest('.answer-input-container');
+            const userAnswer = container.querySelector('.user-answer').value.trim();
+            const aiResponseBox = button.closest('.each-question').querySelector('.ai-answer-container');
+            const spinner = aiResponseBox.querySelector('.loading-spinner');
+            const responseContent = aiResponseBox.querySelector('.ai-response-content');
 
-            if (!userAnswer || userAnswer.length === 0) {
-                alert("답안을 입력하세요.");
-                return;
-            }
+            if (!userAnswer) return alert("답안을 입력하세요.");
 
-            // 로딩 시작
-            loadingSpinner.style.display = 'block';
-            aiResponseContent.textContent = ''; // 이전 응답 초기화
+            spinner.style.display = 'block';
+            responseContent.textContent = '';
 
-            fetch(`/questions/major/descriptive/${this.getAttribute('data-question-id')}/grade`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({content: userAnswer}),
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('AI 답변 생성 실패');
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                    aiResponseContent.textContent = data;
-                    formatSpecificQuestion(aiResponseContent);
-                })
-                .catch(error => {
-                    alert(`오류 발생: ${error.message}`);
-                })
-                .finally(() => {
-                    // 로딩 끝
-                    loadingSpinner.style.display = 'none';
+            try {
+                const postResponse = await fetch(`/questions/major/descriptive/${button.dataset.questionId}/grade`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({content: userAnswer}),
                 });
+
+                if (!postResponse.ok) throw new Error('답변 등록 실패');
+                const key = await postResponse.text();
+
+                const eventSource = new EventSource(`/chat/subscribe/${key}`);
+                eventSource.onmessage = (event) => {
+                    responseContent.textContent += event.data
+                    formatSpecificQuestion(responseContent);
+                };
+                eventSource.onerror = () => {
+                    alert('등록되지 않은 답변입니다.');
+                    eventSource.close();
+                };
+            } catch (error) {
+                alert(`오류: ${error.message}`);
+            } finally {
+                spinner.style.display = 'none';
+            }
         });
     });
 });

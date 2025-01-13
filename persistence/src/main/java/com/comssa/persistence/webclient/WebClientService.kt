@@ -20,6 +20,8 @@ class WebClientService {
 		body: Any,
 		responseType: Class<T>,
 		emitter: SseEmitter,
+		// 필요한 데이터만 추출하는 메소드( ex. ChatGpt Response Dto에서 content)
+		contentExtractor: (T) -> String?,
 	): T? {
 		val webClient = WebClient.create(baseUrl)
 		val result = mutableListOf<T>()
@@ -41,8 +43,10 @@ class WebClientService {
 							// 정의되지 않은 필드 무시
 						}
 					val parsedData: T = objectMapper.readValue(data, responseType)
-					emitter.send(data)
 					result.add(parsedData)
+					contentExtractor(parsedData)?.let {
+						emitter.send(it)
+					}
 				} catch (e: MismatchedInputException) {
 					emitter.complete()
 				}

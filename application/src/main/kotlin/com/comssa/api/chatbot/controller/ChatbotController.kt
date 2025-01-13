@@ -35,5 +35,5 @@ class ChatbotController(
 	)
 	fun getChatMessageBySse(
 		@PathVariable key: String,
-	): ResponseEntity<SseEmitter> = ResponseEntity.ok(chatManageService.getAnswerBySse(key))
+	): ResponseEntity<SseEmitter> = ResponseEntity.ok(chatManageService.getChatMessageBySse(key))
 }

@@ -54,7 +54,7 @@ class ChatGptService(
 					chatGptRestRequestDto,
 					ChatGptResponseDto::class.java,
 				)
-		val responseText = response?.firstChoiceContent ?: "응답을 생성할 수 없습니다."
+		val responseText = response?.firstChoiceMessage ?: "응답을 생성할 수 없습니다."
 		println(responseText)
 		return responseText
 	}
@@ -68,17 +68,17 @@ class ChatGptService(
 				true,
 			)
 		val response =
-			webclientService
-				.sendPostRequestBySse(
-					baseUrl,
-					advancedChatApiUrl,
-					secretKey,
-					MediaType.APPLICATION_JSON,
-					chatGptRestRequestDto,
-					ChatGptResponseDto::class.java,
-					emitter,
-				)
-		val responseText = response?.firstChoiceContent ?: "응답을 생성할 수 없습니다."
+			webclientService.sendPostRequestBySse(
+				baseUrl = baseUrl,
+				uri = advancedChatApiUrl,
+				bearerToken = secretKey,
+				contentType = MediaType.APPLICATION_JSON,
+				body = chatGptRestRequestDto,
+				responseType = ChatGptResponseDto::class.java,
+				emitter = emitter,
+				contentExtractor = { it.firstChoiceDelta },
+			)
+		val responseText = response?.firstChoiceDelta ?: "응답을 생성할 수 없습니다."
 		println("result = $responseText")
 		return emitter
 	}
