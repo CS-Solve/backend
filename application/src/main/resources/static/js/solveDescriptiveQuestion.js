@@ -24,11 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const eventSource = new EventSource(`/chat/subscribe/${key}`);
                 eventSource.onmessage = (event) => {
-                    responseContent.textContent += event.data
-                    formatSpecificQuestion(responseContent);
+                    // JSON 문자열을 JavaScript 객체로 파싱
+                    const parsedData = JSON.parse(event.data);
+                    
+                    const deltaContent = parsedData.firstChoiceDelta;
+
+                    // 출력 및 포맷팅
+                    console.log("firstChoiceDelta:", deltaContent);
+                    formatAnswer(responseContent, deltaContent);
                 };
-                eventSource.onerror = () => {
-                    alert('등록되지 않은 답변입니다.');
+                eventSource.onerror = (event) => {
                     eventSource.close();
                 };
             } catch (error) {
@@ -40,23 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-function formatSpecificQuestion(element) {
-    let lines = element.textContent.split('\n');
-
-    let formattedLines = lines.map(line => {
-        let formattedLine = line;
-
-        if (formattedLine.startsWith('# ')) {
-            formattedLine = formattedLine.replace(/^# (.*)/, '<span style="font-weight: bold; font-size: 1.6em;">$1</span>');
-        } else if (formattedLine.startsWith('## ')) {
-            formattedLine = formattedLine.replace(/^## (.*)/, '<span style="font-weight: bold; font-size: 1.4em;">$1</span>');
-        } else if (formattedLine.startsWith('### ')) {
-            formattedLine = formattedLine.replace(/^### (.*)/, '<span style="font-weight: bold; font-size: 1.2em;">$1</span>');
-        }
-
-        formattedLine = formattedLine.replace(/\*\*(.*?)\*\*/g, '<span style="font-weight: bold; font-size: 1em;">$1</span>');
-        return formattedLine;
-    });
-
-    element.innerHTML = formattedLines.join('<br/>');
+function formatAnswer(element, newText) {
+    // \n을 <br/>로 변환하여 기존 내용에 추가
+    element.innerHTML += newText.replace(/\n/g, '<br/>');
 }
