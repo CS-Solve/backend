@@ -12,32 +12,25 @@ import java.util.LinkedList
 class ChatCacheService(
 	private val cacheManager: CacheManager,
 ) {
-	/**
-	 * 이미 저장되어있는 대화 목록이 있을 경우 기존 목록 반환, 아니라면 비어있는 목록을 반환
-	 */
-	private fun getChatMessages(userId: String): List<ChatGptMessageDto?> {
-		val cache =
-			cacheManager.getCache(com.comssa.core.chatbot.service.implement.ChatCacheService.Companion.CHAT_MESSAGE)
-		if (cache != null) {
-			val chatMessages = cache.get(userId, List::class.java)
-			// filterIsInstance는 리스트내에서 특정타입의 요소들만 필터링 한다 -> as 보다 타입 안전성을 확보하면서 제네릭 타입을 활용 가능하다.
-			// reified를 사용하면 필터링없이 바로 반환 가능하지만, cache.get는 스프링 내장함수고 일반의 T를 반환하다.
-			return chatMessages?.filterIsInstance<ChatGptMessageDto>() ?: LinkedList()
-		}
-		return LinkedList()
+	fun getChatMessages(key: String): List<ChatGptMessageDto>? {
+		// filterIsInstance는 "List" 내에서 특정타입의 요소들만 필터링 하여, 새로운 List를 만들어 반환한다.
+		return cacheManager
+			.getCache(CHAT_MESSAGE)
+			?.get(key, List::class.java)
+			?.filterIsInstance<ChatGptMessageDto>()
 	}
 
 	@CachePut(
-		value = [com.comssa.core.chatbot.service.implement.ChatCacheService.Companion.CHAT_MESSAGE],
-		key = "#userId",
+		value = [CHAT_MESSAGE],
+		key = "#key",
 	)
 	fun saveChatMessage(
-		userId: String,
-		chatGptMessageDto: ChatGptMessageDto,
+		key: String,
+		chatGptMessageDto: List<ChatGptMessageDto>,
 		maxMessageSize: Int,
 	): List<ChatGptMessageDto> {
-		val chatMessages: MutableList<ChatGptMessageDto> = getChatMessages(userId).filterNotNull().toMutableList()
-		chatMessages.add(chatGptMessageDto)
+		val chatMessages = getChatMessages(key)?.toMutableList() ?: LinkedList()
+		chatMessages.addAll(chatGptMessageDto)
 		if (chatMessages.size > maxMessageSize) {
 			chatMessages.removeAt(0)
 		}
@@ -47,14 +40,14 @@ class ChatCacheService(
 	// 남은 이용 횟수를 가져오는 메소드
 	fun getUsedChance(userId: String): Int {
 		val cache =
-			cacheManager.getCache(com.comssa.core.chatbot.service.implement.ChatCacheService.Companion.CHAT_USED_CHANCE)
+			cacheManager.getCache(CHAT_USED_CHANCE)
 		return cache?.get(userId)?.get() as? Int
-			?: com.comssa.core.chatbot.service.implement.ChatCacheService.Companion.DEFAULT_USED_COUNT
+			?: DEFAULT_USED_COUNT
 	}
 
 	// 사용 횟수 증가 메소드
 	@CachePut(
-		value = [com.comssa.core.chatbot.service.implement.ChatCacheService.Companion.CHAT_USED_CHANCE],
+		value = [CHAT_USED_CHANCE],
 		key = "#userId",
 	)
 	fun increaseUsedChance(userId: String): Int {
@@ -68,7 +61,7 @@ class ChatCacheService(
 	 */
 	@Scheduled(cron = "0 0 * * * *") // 매 시간 정각에 실행
 	@CacheEvict(
-		value = [com.comssa.core.chatbot.service.implement.ChatCacheService.Companion.CHAT_USED_CHANCE],
+		value = [CHAT_USED_CHANCE],
 		allEntries = true,
 	)
 	fun clearAllUsedChance() {

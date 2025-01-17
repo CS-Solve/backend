@@ -1,5 +1,7 @@
 package com.comssa.persistence.chatbot.dto.response
 
+import java.awt.Choice
+
 data class ChatGptResponseDto(
 	val id: String? = null,
 	val `object`: String? = null,
@@ -8,17 +10,29 @@ data class ChatGptResponseDto(
 	val usage: Usage? = null,
 	val choices: List<Choice>? = null,
 ) {
-	val firstChoiceContent: String
+	val firstChoiceMessage: String
 		get() =
 			this.choices
 				?.get(0)
 				?.message
 				?.content ?: ""
 
+	val firstChoiceDelta: String
+		get() =
+			this.choices
+				?.get(0)
+				?.delta
+				?.content ?: ""
+
 	data class Choice(
 		val message: Message? = null,
 		val finishReason: String? = null,
+		val delta: Delta? = null,
 		val index: Int = 0,
+	)
+
+	data class Delta(
+		val content: String? = null,
 	)
 
 	data class Message(

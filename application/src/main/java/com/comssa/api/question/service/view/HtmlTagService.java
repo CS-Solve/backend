@@ -76,6 +76,7 @@ public class HtmlTagService {
 	public void forMajor(Set<QuestionCategory> questionCategories, boolean isMultipleChoice, Model model) {
 		if (isMultipleChoice) {
 			addTagToModel(forMajorMultiple(questionCategories), model);
+			return;
 		}
 		addTagToModel(forMajorDescriptive(questionCategories), model);
 	}

@@ -205,7 +205,7 @@ function saveOverlayChanges() {
 function updateNormalTextField(questionId, field, newValue) {
     // 경로를 동적으로 설정
     const apiUrl = field === 'gradeStandard'
-        ? `/questions/descriptive/${questionId}/standard`
+        ? `/admin/questions/major/descriptive/${questionId}/standard`
         : `/admin/question/common/${questionId}/${field}`;
 
     return fetch(apiUrl, {
