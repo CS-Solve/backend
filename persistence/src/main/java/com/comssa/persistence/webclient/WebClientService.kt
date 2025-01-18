@@ -33,7 +33,8 @@ class WebClientService {
 			.exchangeToFlux { response ->
 				response
 					.bodyToFlux(String::class.java)
-			}.doOnNext { data ->
+			}.log()
+			.doOnNext { data ->
 				val parsedData =
 					try {
 						val objectMapper =
