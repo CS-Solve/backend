@@ -110,6 +110,7 @@ ResponseMultipleChoiceQuestionDto from(Q question) {
 # 성과
 
 확장성 높은 설계로 인하여 빠르게 다양한 유형의 문제를 추가 할 수 있었으며<br>
-배포 한 달만에 20000회 이상의 API 요청 수신
+배포 한 달만에 약 18000회 API 요청 수신
 
-<img width="765" alt="image" src="https://github.com/user-attachments/assets/66427819-a16a-44e4-b1bd-e5667b2e5b8e" />
+![image](https://github.com/user-attachments/assets/4f98edbd-e4ac-4152-af23-447039e80d97)
+
